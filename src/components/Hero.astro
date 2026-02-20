@@ -39,14 +39,37 @@
 				</div>
 			</div>
 
+			<div class="trust-section">
+				<div class="trust-badge">
+					<div class="trust-stars">
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
+						</svg>
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
+						</svg>
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
+						</svg>
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
+						</svg>
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
+						</svg>
+					</div>
+					<span class="trust-text">Trusted by 1000s of learners</span>
+				</div>
+			</div>
+
 			<div class="stats">
 				<div class="stat-item">
-					<div class="stat-number">10,000+</div>
+					<div class="stat-number">100s</div>
 					<div class="stat-label">Online Courses</div>
 				</div>
 				<div class="stat-divider"></div>
 				<div class="stat-item">
-					<div class="stat-number">500+</div>
+					<div class="stat-number">100s</div>
 					<div class="stat-label">Accredited Colleges</div>
 				</div>
 				<div class="stat-divider"></div>
@@ -218,6 +241,34 @@
 	.popular-tag:hover {
 		background: rgba(255, 255, 255, 0.25);
 		transform: translateY(-2px);
+	}
+
+	.trust-section {
+		display: flex;
+		justify-content: center;
+		margin-bottom: calc(var(--spacing) * 4);
+	}
+
+	.trust-badge {
+		display: flex;
+		align-items: center;
+		gap: calc(var(--spacing) * 2);
+		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+		background: rgba(255, 255, 255, 0.15);
+		border-radius: calc(var(--border-radius) * 1.5);
+		backdrop-filter: blur(10px);
+	}
+
+	.trust-stars {
+		display: flex;
+		gap: calc(var(--spacing) * 0.5);
+		color: #fbbf24;
+	}
+
+	.trust-text {
+		color: white;
+		font-size: 1rem;
+		font-weight: 600;
 	}
 
 	.stats {
