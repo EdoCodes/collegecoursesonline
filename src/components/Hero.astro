@@ -1,0 +1,310 @@
+---
+---
+
+<section class="hero">
+	<div class="container">
+		<div class="hero-content">
+			<h1 class="hero-title">
+				Discover Your Perfect<br />
+				<span class="gradient-text">Online Course</span>
+			</h1>
+			<p class="hero-description">
+				Explore thousands of accredited online courses, degrees, and certificates from top universities and colleges worldwide.
+			</p>
+
+			<div class="search-wrapper">
+				<form class="search-form" id="searchForm">
+					<div class="search-input-group">
+						<svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						<input
+							type="search"
+							id="searchInput"
+							name="q"
+							placeholder="Search for courses, degrees, or subjects..."
+							class="search-input"
+							autocomplete="off"
+						/>
+						<button type="submit" class="search-button">Search</button>
+					</div>
+				</form>
+
+				<div class="popular-searches">
+					<span class="popular-label">Popular:</span>
+					<a href="#" class="popular-tag" data-search="Computer Science">Computer Science</a>
+					<a href="#" class="popular-tag" data-search="Business">Business</a>
+					<a href="#" class="popular-tag" data-search="Data Science">Data Science</a>
+					<a href="#" class="popular-tag" data-search="Nursing">Nursing</a>
+				</div>
+			</div>
+
+			<div class="stats">
+				<div class="stat-item">
+					<div class="stat-number">10,000+</div>
+					<div class="stat-label">Online Courses</div>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat-item">
+					<div class="stat-number">500+</div>
+					<div class="stat-label">Accredited Colleges</div>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat-item">
+					<div class="stat-number">100%</div>
+					<div class="stat-label">Verified Programs</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-background"></div>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		padding: calc(var(--spacing) * 15) 0 calc(var(--spacing) * 10);
+		overflow: hidden;
+		background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+	}
+
+	.hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0.1;
+		background-image:
+			radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+			radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+		pointer-events: none;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 calc(var(--spacing) * 3);
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-content {
+		max-width: 900px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.hero-title {
+		font-size: 3.5rem;
+		font-weight: 800;
+		color: white;
+		margin-bottom: calc(var(--spacing) * 3);
+		line-height: 1.1;
+	}
+
+	.gradient-text {
+		background: linear-gradient(135deg, #00b4d8 0%, #90e0ef 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.hero-description {
+		font-size: 1.25rem;
+		color: rgba(255, 255, 255, 0.9);
+		margin-bottom: calc(var(--spacing) * 5);
+		line-height: 1.6;
+	}
+
+	.search-wrapper {
+		margin-bottom: calc(var(--spacing) * 6);
+	}
+
+	.search-form {
+		margin-bottom: calc(var(--spacing) * 2);
+	}
+
+	.search-input-group {
+		position: relative;
+		display: flex;
+		align-items: center;
+		background: white;
+		border-radius: calc(var(--border-radius) * 1.5);
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		padding: calc(var(--spacing) * 1);
+		transition: var(--transition);
+	}
+
+	.search-input-group:focus-within {
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(0, 180, 216, 0.3);
+	}
+
+	.search-icon {
+		position: absolute;
+		left: calc(var(--spacing) * 3);
+		color: var(--neutral-400);
+		pointer-events: none;
+	}
+
+	.search-input {
+		flex: 1;
+		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3) calc(var(--spacing) * 2) calc(var(--spacing) * 6);
+		border: none;
+		font-size: 1.125rem;
+		color: var(--neutral-800);
+		background: transparent;
+		outline: none;
+	}
+
+	.search-input::placeholder {
+		color: var(--neutral-400);
+	}
+
+	.search-button {
+		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+		color: white;
+		font-weight: 600;
+		font-size: 1rem;
+		border-radius: var(--border-radius);
+		transition: var(--transition);
+	}
+
+	.search-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+	}
+
+	.popular-searches {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: calc(var(--spacing) * 1.5);
+	}
+
+	.popular-label {
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 0.875rem;
+		font-weight: 500;
+	}
+
+	.popular-tag {
+		padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+		background: rgba(255, 255, 255, 0.15);
+		color: white;
+		font-size: 0.875rem;
+		border-radius: calc(var(--border-radius) / 2);
+		transition: var(--transition);
+		backdrop-filter: blur(10px);
+	}
+
+	.popular-tag:hover {
+		background: rgba(255, 255, 255, 0.25);
+		transform: translateY(-2px);
+	}
+
+	.stats {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: calc(var(--spacing) * 4);
+		flex-wrap: wrap;
+	}
+
+	.stat-item {
+		text-align: center;
+	}
+
+	.stat-number {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: white;
+		margin-bottom: calc(var(--spacing) * 0.5);
+	}
+
+	.stat-label {
+		font-size: 0.875rem;
+		color: rgba(255, 255, 255, 0.8);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.stat-divider {
+		width: 1px;
+		height: 60px;
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			padding: calc(var(--spacing) * 10) 0 calc(var(--spacing) * 8);
+		}
+
+		.hero-title {
+			font-size: 2.5rem;
+		}
+
+		.hero-description {
+			font-size: 1.125rem;
+		}
+
+		.search-input {
+			font-size: 1rem;
+			padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2) calc(var(--spacing) * 1.5) calc(var(--spacing) * 5);
+		}
+
+		.search-button {
+			padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 3);
+			font-size: 0.875rem;
+		}
+
+		.search-icon {
+			left: calc(var(--spacing) * 2);
+			width: 20px;
+			height: 20px;
+		}
+
+		.stat-number {
+			font-size: 2rem;
+		}
+
+		.stat-divider {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const searchForm = document.getElementById('searchForm');
+	const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+	const popularTags = document.querySelectorAll('.popular-tag');
+
+	popularTags.forEach(tag => {
+		tag.addEventListener('click', (e) => {
+			e.preventDefault();
+			const searchTerm = (e.target as HTMLElement).dataset.search;
+			if (searchTerm && searchInput) {
+				searchInput.value = searchTerm;
+				searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+				searchInput.focus();
+			}
+		});
+	});
+
+	if (searchForm) {
+		searchForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const query = searchInput?.value.trim();
+			if (query) {
+				window.dispatchEvent(new CustomEvent('search', { detail: { query } }));
+			}
+		});
+	}
+
+	searchInput?.addEventListener('input', () => {
+		const query = searchInput.value.trim();
+		window.dispatchEvent(new CustomEvent('search', { detail: { query } }));
+	});
+</script>
