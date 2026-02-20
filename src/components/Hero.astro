@@ -63,9 +63,9 @@
 <style>
 	.hero {
 		position: relative;
-		padding: calc(var(--spacing) * 15) 0 calc(var(--spacing) * 10);
+		padding: calc(var(--spacing) * 18) 0 calc(var(--spacing) * 12);
 		overflow: hidden;
-		background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+		background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 50%, #06b6d4 100%);
 	}
 
 	.hero-background {
@@ -74,11 +74,18 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		opacity: 0.1;
+		opacity: 0.15;
 		background-image:
-			radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
-			radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+			radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+			radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+			radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
 		pointer-events: none;
+		animation: float 20s ease-in-out infinite;
+	}
+
+	@keyframes float {
+		0%, 100% { transform: translateY(0px) scale(1); }
+		50% { transform: translateY(-20px) scale(1.05); }
 	}
 
 	.container {
@@ -104,10 +111,16 @@
 	}
 
 	.gradient-text {
-		background: linear-gradient(135deg, #00b4d8 0%, #90e0ef 100%);
+		background: linear-gradient(135deg, #bfdbfe 0%, #ffffff 50%, #dbeafe 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
+		animation: shimmer 3s ease-in-out infinite;
+	}
+
+	@keyframes shimmer {
+		0%, 100% { filter: brightness(1); }
+		50% { filter: brightness(1.2); }
 	}
 
 	.hero-description {
@@ -162,18 +175,20 @@
 	}
 
 	.search-button {
-		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
-		background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 5);
+		background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
 		color: white;
-		font-weight: 600;
+		font-weight: 700;
 		font-size: 1rem;
-		border-radius: var(--border-radius);
+		border-radius: calc(var(--border-radius) * 0.75);
 		transition: var(--transition);
+		box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
 	}
 
 	.search-button:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+		box-shadow: 0 8px 24px rgba(30, 64, 175, 0.5);
+		background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
 	}
 
 	.popular-searches {
