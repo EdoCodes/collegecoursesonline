@@ -57,6 +57,32 @@ const category = course.course_categories;
 			{course.short_description || course.description.slice(0, 120) + '...'}
 		</p>
 
+		{college && (
+			<div class="ratings-section">
+				<div class="rating-item">
+					<span class="rating-label">Popularity</span>
+					<div class="rating-bar">
+						<div class="rating-fill" style={`width: ${Math.min((college.popularity_score || 0) / 10, 100)}%`}></div>
+					</div>
+					<span class="rating-score">{college.popularity_score || 0}/100</span>
+				</div>
+				<div class="rating-item">
+					<span class="rating-label">Ease of Access</span>
+					<div class="rating-stars">
+						{Array.from({ length: 5 }, (_, i) => (
+							<svg width="14" height="14" viewBox="0 0 14 14" fill={i < (college.ease_of_access_score || 0) ? "currentColor" : "none"} class={i < (college.ease_of_access_score || 0) ? "star-filled" : "star-empty"}>
+								<path d="M7 1L8.545 5.13L13 5.545L9.727 8.455L10.636 13L7 10.545L3.364 13L4.273 8.455L1 5.545L5.455 5.13L7 1Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						))}
+					</div>
+				</div>
+				<div class="rating-item">
+					<span class="rating-label">Accreditation</span>
+					<span class="accreditation-badge">{college.accreditation_level || 'Regional'}</span>
+				</div>
+			</div>
+		)}
+
 		<div class="card-meta">
 			<div class="meta-item">
 				<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -85,6 +111,13 @@ const category = course.course_categories;
 				</div>
 			)}
 		</div>
+
+		<a href={college?.website_url || course.course_url || '#'} target="_blank" rel="noopener noreferrer" class="view-program-btn">
+			View Program
+			<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+				<path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</a>
 	</div>
 </article>
 
@@ -247,6 +280,106 @@ const category = course.course_categories;
 
 	.meta-item svg {
 		color: var(--neutral-400);
+	}
+
+	.ratings-section {
+		background: var(--neutral-50);
+		padding: calc(var(--spacing) * 2);
+		border-radius: calc(var(--border-radius) / 2);
+		margin-bottom: calc(var(--spacing) * 2);
+	}
+
+	.rating-item {
+		display: flex;
+		align-items: center;
+		gap: calc(var(--spacing) * 1.5);
+		margin-bottom: calc(var(--spacing) * 1.5);
+	}
+
+	.rating-item:last-child {
+		margin-bottom: 0;
+	}
+
+	.rating-label {
+		font-size: 0.8125rem;
+		color: var(--neutral-600);
+		font-weight: 500;
+		min-width: 90px;
+	}
+
+	.rating-bar {
+		flex: 1;
+		height: 6px;
+		background: var(--neutral-200);
+		border-radius: 3px;
+		overflow: hidden;
+	}
+
+	.rating-fill {
+		height: 100%;
+		background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+		transition: width 0.3s ease;
+	}
+
+	.rating-score {
+		font-size: 0.8125rem;
+		color: var(--neutral-700);
+		font-weight: 600;
+		min-width: 50px;
+		text-align: right;
+	}
+
+	.rating-stars {
+		display: flex;
+		gap: calc(var(--spacing) * 0.5);
+	}
+
+	.star-filled {
+		color: #f59e0b;
+	}
+
+	.star-empty {
+		color: var(--neutral-300);
+	}
+
+	.accreditation-badge {
+		padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
+		background: white;
+		color: var(--color-primary);
+		font-size: 0.75rem;
+		font-weight: 600;
+		border-radius: calc(var(--border-radius) / 2);
+		border: 1.5px solid var(--color-primary);
+	}
+
+	.view-program-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: calc(var(--spacing) * 1);
+		width: 100%;
+		padding: calc(var(--spacing) * 1.5);
+		background: var(--color-primary);
+		color: white;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		border-radius: calc(var(--border-radius) / 2);
+		text-decoration: none;
+		transition: var(--transition);
+		margin-top: calc(var(--spacing) * 2);
+	}
+
+	.view-program-btn:hover {
+		background: var(--color-secondary);
+		transform: translateX(2px);
+	}
+
+	.view-program-btn svg {
+		transition: var(--transition);
+	}
+
+	.view-program-btn:hover svg {
+		transform: translateX(4px);
 	}
 
 	@media (max-width: 768px) {

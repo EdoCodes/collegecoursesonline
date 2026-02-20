@@ -37,14 +37,39 @@ const { data: categories } = await supabase
 					</div>
 				</div>
 
+				<div class="search-box">
+					<svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+						<circle cx="9" cy="9" r="5" stroke="currentColor" stroke-width="2"/>
+						<path d="M13 13L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+					</svg>
+					<input
+						type="text"
+						id="searchInput"
+						placeholder="Search for courses (e.g., Algebra, Computer Science)..."
+						class="search-input"
+					/>
+				</div>
+
 				<div class="filters">
 					<div class="filter-group">
-						<label for="categoryFilter">Category</label>
+						<label for="categoryFilter">Subject</label>
 						<select id="categoryFilter" class="filter-select">
-							<option value="">All Categories</option>
+							<option value="">All Subjects</option>
 							{categories?.map(cat => (
 								<option value={cat.slug}>{cat.icon} {cat.name}</option>
 							))}
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="sortFilter">Sort By</label>
+						<select id="sortFilter" class="filter-select">
+							<option value="featured">Featured</option>
+							<option value="popularity">Popularity</option>
+							<option value="price-low">Price: Low to High</option>
+							<option value="price-high">Price: High to Low</option>
+							<option value="ease">Ease of Access</option>
+							<option value="accreditation">Accreditation</option>
 						</select>
 					</div>
 
@@ -72,6 +97,16 @@ const { data: categories } = await supabase
 						<select id="certificateFilter" class="filter-select">
 							<option value="">All</option>
 							<option value="true">Certificate Available</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="accreditationFilter">Accreditation</label>
+						<select id="accreditationFilter" class="filter-select">
+							<option value="">All Types</option>
+							<option value="Regional">Regional</option>
+							<option value="National">National</option>
+							<option value="International">International</option>
 						</select>
 					</div>
 				</div>
@@ -131,6 +166,46 @@ const { data: categories } = await supabase
 
 	.filters-section {
 		margin-bottom: calc(var(--spacing) * 5);
+	}
+
+	.search-box {
+		position: relative;
+		margin-bottom: calc(var(--spacing) * 3);
+	}
+
+	.search-icon {
+		position: absolute;
+		left: calc(var(--spacing) * 2);
+		top: 50%;
+		transform: translateY(-50%);
+		color: var(--neutral-400);
+		pointer-events: none;
+	}
+
+	.search-input {
+		width: 100%;
+		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2) calc(var(--spacing) * 2) calc(var(--spacing) * 6);
+		border: 2px solid var(--neutral-200);
+		border-radius: var(--border-radius);
+		font-size: 1.125rem;
+		color: var(--neutral-800);
+		background: white;
+		transition: var(--transition);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.search-input:hover {
+		border-color: var(--neutral-300);
+	}
+
+	.search-input:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+	}
+
+	.search-input::placeholder {
+		color: var(--neutral-400);
 	}
 
 	.filters-header {
@@ -255,19 +330,23 @@ const { data: categories } = await supabase
 	const noResults = document.getElementById('noResults');
 	const courseCount = document.getElementById('courseCount');
 
+	const searchInput = document.getElementById('searchInput') as HTMLInputElement;
 	const categoryFilter = document.getElementById('categoryFilter') as HTMLSelectElement;
+	const sortFilter = document.getElementById('sortFilter') as HTMLSelectElement;
 	const levelFilter = document.getElementById('levelFilter') as HTMLSelectElement;
 	const priceFilter = document.getElementById('priceFilter') as HTMLSelectElement;
 	const certificateFilter = document.getElementById('certificateFilter') as HTMLSelectElement;
+	const accreditationFilter = document.getElementById('accreditationFilter') as HTMLSelectElement;
 
 	let searchQuery = '';
 
-	function filterCourses() {
+	function filterAndSortCourses() {
 		filteredCourses = coursesData.filter((course: any) => {
 			const matchesSearch = searchQuery === '' ||
 				course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
 				course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				course.colleges?.name.toLowerCase().includes(searchQuery.toLowerCase());
+				course.colleges?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				course.course_categories?.name.toLowerCase().includes(searchQuery.toLowerCase());
 
 			const matchesCategory = !categoryFilter?.value ||
 				course.course_categories?.slug === categoryFilter.value;
@@ -282,7 +361,34 @@ const { data: categories } = await supabase
 			const matchesCertificate = !certificateFilter?.value ||
 				course.certificate_available === true;
 
-			return matchesSearch && matchesCategory && matchesLevel && matchesPrice && matchesCertificate;
+			const matchesAccreditation = !accreditationFilter?.value ||
+				course.colleges?.accreditation_level === accreditationFilter.value;
+
+			return matchesSearch && matchesCategory && matchesLevel && matchesPrice && matchesCertificate && matchesAccreditation;
+		});
+
+		const sortValue = sortFilter?.value || 'featured';
+		filteredCourses.sort((a: any, b: any) => {
+			switch (sortValue) {
+				case 'popularity':
+					return (b.colleges?.popularity_score || 0) - (a.colleges?.popularity_score || 0);
+				case 'price-low':
+					return (a.price_numeric || 0) - (b.price_numeric || 0);
+				case 'price-high':
+					return (b.price_numeric || 0) - (a.price_numeric || 0);
+				case 'ease':
+					return (b.colleges?.ease_of_access_score || 0) - (a.colleges?.ease_of_access_score || 0);
+				case 'accreditation':
+					const accreditationOrder: any = { 'Regional': 3, 'National': 2, 'International': 1 };
+					return (accreditationOrder[b.colleges?.accreditation_level] || 0) -
+					       (accreditationOrder[a.colleges?.accreditation_level] || 0);
+				case 'featured':
+				default:
+					if (b.featured !== a.featured) {
+						return b.featured ? 1 : -1;
+					}
+					return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+			}
 		});
 
 		updateDisplay();
@@ -309,15 +415,17 @@ const { data: categories } = await supabase
 		}
 	}
 
-	categoryFilter?.addEventListener('change', filterCourses);
-	levelFilter?.addEventListener('change', filterCourses);
-	priceFilter?.addEventListener('change', filterCourses);
-	certificateFilter?.addEventListener('change', filterCourses);
+	searchInput?.addEventListener('input', (e) => {
+		searchQuery = (e.target as HTMLInputElement).value;
+		filterAndSortCourses();
+	});
 
-	window.addEventListener('search', ((e: CustomEvent) => {
-		searchQuery = e.detail.query;
-		filterCourses();
-	}) as EventListener);
+	categoryFilter?.addEventListener('change', filterAndSortCourses);
+	sortFilter?.addEventListener('change', filterAndSortCourses);
+	levelFilter?.addEventListener('change', filterAndSortCourses);
+	priceFilter?.addEventListener('change', filterAndSortCourses);
+	certificateFilter?.addEventListener('change', filterAndSortCourses);
+	accreditationFilter?.addEventListener('change', filterAndSortCourses);
 </script>
 
 <script id="coursesData" type="application/json" set:html={JSON.stringify(coursesData)} />
