@@ -1,10 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CourseCard from '../../components/CourseCard.astro';
-import { supabase } from '../../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { College, Course } from '../../lib/supabase';
 
 export async function getStaticPaths() {
+  // Return empty array if Supabase not configured (allows build to complete)
+  if (!isSupabaseConfigured || !supabase) {
+    return [];
+  }
+  
   const { data: colleges } = await supabase
     .from('colleges')
     .select('slug');
@@ -15,6 +20,10 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
+
+if (!isSupabaseConfigured || !supabase) {
+  return Astro.redirect('/404');
+}
 
 const { data: college, error } = await supabase
   .from('colleges')

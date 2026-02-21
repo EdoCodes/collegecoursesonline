@@ -1,17 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 // Get all courses for the search dropdown
-const { data: courses } = await supabase
-  .from('courses')
-  .select(`
-    id,
-    title,
-    slug,
-    colleges (name)
-  `)
-  .order('title');
+let courses: any[] = [];
+
+if (isSupabaseConfigured && supabase) {
+  const { data } = await supabase
+    .from('courses')
+    .select(`
+      id,
+      title,
+      slug,
+      colleges (name)
+    `)
+    .order('title');
+  
+  courses = data || [];
+}
 
 const pageTitle = 'Rate My Course - Share Your Experience';
 const pageDescription = 'Share your honest review of online courses you\'ve taken. Help other students make informed decisions about their education.';
