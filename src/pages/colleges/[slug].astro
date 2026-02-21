@@ -1,0 +1,798 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import { supabase } from '../../lib/supabase';
+import type { College, Course } from '../../lib/supabase';
+
+export async function getStaticPaths() {
+  const { data: colleges } = await supabase
+    .from('colleges')
+    .select('slug');
+  
+  return colleges?.map((college) => ({
+    params: { slug: college.slug },
+  })) || [];
+}
+
+const { slug } = Astro.params;
+
+const { data: college, error } = await supabase
+  .from('colleges')
+  .select('*')
+  .eq('slug', slug)
+  .single();
+
+if (error || !college) {
+  return Astro.redirect('/404');
+}
+
+const typedCollege = college as College;
+
+// Get all courses from this college
+const { data: courses } = await supabase
+  .from('courses')
+  .select(`
+    *,
+    colleges (*),
+    course_categories (*)
+  `)
+  .eq('college_id', college.id)
+  .order('featured', { ascending: false })
+  .order('created_at', { ascending: false});
+
+const coursesData = courses as Course[] || [];
+
+// Calculate stats
+const totalCourses = coursesData.length;
+const freeCourses = coursesData.filter(c => c.price === 'Free').length;
+const certificateCourses = coursesData.filter(c => c.certificate_available).length;
+
+// Group by categories
+const categoryCounts: Record<string, number> = {};
+coursesData.forEach(course => {
+  if (course.course_categories) {
+    const catName = course.course_categories.name;
+    categoryCounts[catName] = (categoryCounts[catName] || 0) + 1;
+  }
+});
+
+// Schema.org Organization structured data
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": college.name,
+  "description": college.description || `Online courses from ${college.name}`,
+  "url": college.website_url || "",
+  "logo": college.logo_url || "",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": college.country || "USA"
+  }
+};
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": Astro.site?.href || "/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Colleges",
+      "item": new URL("/", Astro.site).href
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": college.name,
+      "item": Astro.url.href
+    }
+  ]
+};
+
+const pageTitle = `${college.name} - Online Courses & Degrees`;
+const pageDescription = college.description || `Explore ${totalCourses} online courses from ${college.name}. Find accredited programs, certificates, and degrees offered through this institution.`;
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  image={college.logo_url || '/og-image.jpg'}
+>
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <main class="college-profile">
+    <!-- Breadcrumb Navigation -->
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/">Colleges</a>
+        <span class="separator">/</span>
+        <span class="current">{college.name}</span>
+      </nav>
+    </div>
+
+    <!-- College Hero Section -->
+    <div class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-left">
+            {college.logo_url && (
+              <div class="college-logo-container">
+                <img src={college.logo_url} alt={`${college.name} logo`} class="college-logo" />
+              </div>
+            )}
+            
+            <div class="college-header">
+              {college.featured && (
+                <span class="featured-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                  Featured Institution
+                </span>
+              )}
+              
+              <h1 class="college-name">{college.name}</h1>
+              
+              <div class="college-location">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>{college.country}</span>
+              </div>
+            </div>
+          </div>
+
+          {college.website_url && (
+            <div class="hero-cta">
+              <a href={college.website_url} target="_blank" rel="noopener" class="visit-button">
+                Visit Official Website
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-layout">
+        <!-- Main Content -->
+        <div class="main-content">
+          <!-- College Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">{totalCourses}</div>
+                <div class="stat-label">Total Courses</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon success">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">{freeCourses}</div>
+                <div class="stat-label">Free Courses</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon warning">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value">{certificateCourses}</div>
+                <div class="stat-label">With Certificates</div>
+              </div>
+            </div>
+
+            {college.accreditation_level && (
+              <div class="stat-card">
+                <div class="stat-icon primary">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="stat-content">
+                  <div class="stat-value">{college.accreditation_level}</div>
+                  <div class="stat-label">Accreditation</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- About Section -->
+          {college.description && (
+            <section class="content-section">
+              <h2>About {college.name}</h2>
+              <div class="about-content">
+                <p>{college.description}</p>
+              </div>
+            </section>
+          )}
+
+          <!-- Categories Offered -->
+          {Object.keys(categoryCounts).length > 0 && (
+            <section class="content-section">
+              <h2>Subjects Offered</h2>
+              <div class="categories-grid">
+                {Object.entries(categoryCounts).map(([category, count]) => (
+                  <div class="category-chip">
+                    <span class="category-name">{category}</span>
+                    <span class="category-count">{count} courses</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Courses Section -->
+          <section class="content-section">
+            <h2>All Courses from {college.name}</h2>
+            
+            {coursesData.length > 0 ? (
+              <div class="courses-grid">
+                {coursesData.map((course) => (
+                  <CourseCard course={course} />
+                ))}
+              </div>
+            ) : (
+              <div class="no-courses">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                <h3>No courses available yet</h3>
+                <p>Check back later for course offerings from this institution.</p>
+              </div>
+            )}
+          </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Quick Info Card -->
+          <div class="info-card">
+            <h3>Institution Details</h3>
+            <div class="info-list">
+              {college.country && (
+                <div class="info-item">
+                  <span class="label">Location</span>
+                  <span class="value">{college.country}</span>
+                </div>
+              )}
+              
+              {college.accreditation && (
+                <div class="info-item">
+                  <span class="label">Accreditation</span>
+                  <span class="value">{college.accreditation}</span>
+                </div>
+              )}
+              
+              {college.accreditation_level && (
+                <div class="info-item">
+                  <span class="label">Level</span>
+                  <span class="value">{college.accreditation_level}</span>
+                </div>
+              )}
+              
+              <div class="info-item">
+                <span class="label">Total Courses</span>
+                <span class="value">{totalCourses}</span>
+              </div>
+              
+              {college.popularity_score !== undefined && college.popularity_score > 0 && (
+                <div class="info-item">
+                  <span class="label">Popularity</span>
+                  <span class="value">{college.popularity_score}/100</span>
+                </div>
+              )}
+              
+              {college.ease_of_access_score !== undefined && college.ease_of_access_score > 0 && (
+                <div class="info-item">
+                  <span class="label">Ease of Access</span>
+                  <span class="value">
+                    {'⭐'.repeat(college.ease_of_access_score)}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <!-- Links Card -->
+          <div class="info-card">
+            <h3>Quick Links</h3>
+            <div class="links-list">
+              {college.website_url && (
+                <a href={college.website_url} target="_blank" rel="noopener" class="info-link">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                  <span>Official Website</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              )}
+              
+              <a href="/" class="info-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                <span>Browse All Courses</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- FTC Disclosure -->
+          <div class="info-card disclosure-card">
+            <p class="disclosure-text">
+              <strong>Disclosure:</strong> This site contains affiliate links. We may earn a commission if you enroll through our links, at no additional cost to you.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .college-profile {
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 calc(var(--spacing) * 3);
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: calc(var(--spacing) * 3) 0;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+  }
+
+  .breadcrumb a {
+    color: var(--neutral-600);
+    transition: var(--transition);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb .separator {
+    color: var(--neutral-400);
+  }
+
+  .breadcrumb .current {
+    color: var(--neutral-900);
+    font-weight: 500;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+    padding: calc(var(--spacing) * 6) 0;
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+
+  .hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--spacing) * 4);
+  }
+
+  .hero-left {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 4);
+    flex: 1;
+  }
+
+  .college-logo-container {
+    background: white;
+    padding: calc(var(--spacing) * 3);
+    border-radius: calc(var(--border-radius) * 1.25);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .college-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+  }
+
+  .college-header {
+    flex: 1;
+    color: white;
+  }
+
+  .featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: calc(var(--border-radius) / 2);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .college-name {
+    font-size: 3rem;
+    margin-bottom: calc(var(--spacing) * 2);
+    color: white;
+  }
+
+  .college-location {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    font-size: 1.125rem;
+    opacity: 0.95;
+  }
+
+  .hero-cta {
+    flex-shrink: 0;
+  }
+
+  .visit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 4);
+    background: white;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: calc(var(--border-radius) / 2);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .visit-button:hover {
+    background: var(--neutral-100);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Content Layout */
+  .content-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: calc(var(--spacing) * 6);
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+
+  .main-content {
+    min-width: 0;
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: calc(var(--spacing) * 3);
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.25);
+    padding: calc(var(--spacing) * 3);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+    border: 1px solid var(--neutral-200);
+    transition: var(--transition);
+  }
+
+  .stat-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: calc(var(--border-radius) / 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-icon.success {
+    background: var(--color-success);
+  }
+
+  .stat-icon.warning {
+    background: var(--color-warning);
+  }
+
+  .stat-icon.primary {
+    background: var(--color-primary);
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--neutral-900);
+    line-height: 1;
+    margin-bottom: calc(var(--spacing) * 0.5);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+    font-weight: 500;
+  }
+
+  /* Content Sections */
+  .content-section {
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+
+  .content-section h2 {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 3);
+    color: var(--neutral-900);
+  }
+
+  .about-content p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--neutral-700);
+  }
+
+  /* Categories Grid */
+  .categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .category-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    background: white;
+    border-radius: calc(var(--border-radius) * 0.75);
+    border: 2px solid var(--neutral-200);
+    transition: var(--transition);
+  }
+
+  .category-chip:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .category-name {
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: calc(var(--spacing) * 0.5);
+  }
+
+  .category-count {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+  }
+
+  /* Courses Grid */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: calc(var(--spacing) * 3);
+  }
+
+  .no-courses {
+    text-align: center;
+    padding: calc(var(--spacing) * 8) 0;
+  }
+
+  .no-courses svg {
+    margin: 0 auto calc(var(--spacing) * 3);
+    color: var(--neutral-300);
+  }
+
+  .no-courses h3 {
+    font-size: 1.5rem;
+    color: var(--neutral-700);
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+
+  .no-courses p {
+    font-size: 1rem;
+    color: var(--neutral-500);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: calc(var(--spacing) * 3);
+    align-self: flex-start;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.25);
+    padding: calc(var(--spacing) * 3);
+    box-shadow: var(--shadow-md);
+    margin-bottom: calc(var(--spacing) * 3);
+    border: 1px solid var(--neutral-200);
+  }
+
+  .info-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: calc(var(--spacing) * 3);
+    color: var(--neutral-900);
+  }
+
+  .info-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: calc(var(--spacing) * 2);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .info-item .label {
+    font-weight: 600;
+    color: var(--neutral-700);
+  }
+
+  .info-item .value {
+    color: var(--neutral-900);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .links-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .info-link {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2);
+    background: var(--neutral-50);
+    border-radius: calc(var(--border-radius) / 2);
+    color: var(--neutral-700);
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .info-link:hover {
+    background: var(--neutral-100);
+    color: var(--color-primary);
+  }
+
+  .info-link svg:last-child {
+    margin-left: auto;
+  }
+
+  .disclosure-card {
+    background: var(--neutral-50);
+    border: 1px solid var(--neutral-200);
+  }
+
+  .disclosure-text {
+    font-size: 0.8125rem;
+    color: var(--neutral-600);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .disclosure-text strong {
+    color: var(--neutral-800);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .content-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-left {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .college-logo {
+      width: 80px;
+      height: 80px;
+    }
+
+    .college-name {
+      font-size: 2rem;
+    }
+
+    .visit-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .courses-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,766 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { supabase } from '../lib/supabase';
+
+// Get all courses for the search dropdown
+const { data: courses } = await supabase
+  .from('courses')
+  .select(`
+    id,
+    title,
+    slug,
+    colleges (name)
+  `)
+  .order('title');
+
+const pageTitle = 'Rate My Course - Share Your Experience';
+const pageDescription = 'Share your honest review of online courses you\'ve taken. Help other students make informed decisions about their education.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <main class="rate-page">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="container">
+        <h1 class="page-title">Rate My Course</h1>
+        <p class="page-subtitle">
+          Share your honest experience and help others make informed decisions about their online education journey.
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-grid">
+        <!-- Main Form Area -->
+        <div class="form-section">
+          <div class="form-card">
+            <h2>Submit Your Review</h2>
+            <p class="form-intro">
+              Your feedback helps thousands of students choose the right course. Please be honest and constructive.
+            </p>
+
+            <form id="reviewForm" class="review-form">
+              <!-- Course Selection -->
+              <div class="form-group">
+                <label for="courseSelect" class="form-label">
+                  Select Course <span class="required">*</span>
+                </label>
+                <select id="courseSelect" name="course_id" required class="form-select">
+                  <option value="">-- Choose a course --</option>
+                  {courses?.map((course) => (
+                    <option value={course.id}>
+                      {course.title} - {course.colleges?.name}
+                    </option>
+                  ))}
+                </select>
+                <p class="field-help">Search for the course you want to review</p>
+              </div>
+
+              <!-- Rating -->
+              <div class="form-group">
+                <label class="form-label">
+                  Overall Rating <span class="required">*</span>
+                </label>
+                <div class="star-rating" id="starRating">
+                  <input type="radio" id="star5" name="rating" value="5" required />
+                  <label for="star5" title="5 stars">★</label>
+                  
+                  <input type="radio" id="star4" name="rating" value="4" />
+                  <label for="star4" title="4 stars">★</label>
+                  
+                  <input type="radio" id="star3" name="rating" value="3" />
+                  <label for="star3" title="3 stars">★</label>
+                  
+                  <input type="radio" id="star2" name="rating" value="2" />
+                  <label for="star2" title="2 stars">★</label>
+                  
+                  <input type="radio" id="star1" name="rating" value="1" />
+                  <label for="star1" title="1 star">★</label>
+                </div>
+                <p class="selected-rating" id="selectedRating">Select a rating</p>
+              </div>
+
+              <!-- Review Title -->
+              <div class="form-group">
+                <label for="reviewTitle" class="form-label">
+                  Review Title <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="reviewTitle"
+                  name="review_title"
+                  placeholder="Sum up your experience in one sentence"
+                  required
+                  maxlength="100"
+                  class="form-input"
+                />
+                <p class="field-help">Keep it concise and descriptive</p>
+              </div>
+
+              <!-- Review Text -->
+              <div class="form-group">
+                <label for="reviewText" class="form-label">
+                  Your Review <span class="required">*</span>
+                </label>
+                <textarea
+                  id="reviewText"
+                  name="review_text"
+                  placeholder="Share your detailed experience with this course. What did you like? What could be improved? Would you recommend it to others?"
+                  required
+                  minlength="100"
+                  rows="8"
+                  class="form-textarea"
+                ></textarea>
+                <p class="field-help char-count">
+                  <span id="charCount">0</span> / 100 characters minimum
+                </p>
+              </div>
+
+              <!-- Your Name -->
+              <div class="form-group">
+                <label for="userName" class="form-label">
+                  Your Name <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="userName"
+                  name="user_name"
+                  placeholder="John Doe"
+                  required
+                  class="form-input"
+                />
+                <p class="field-help">This will be displayed publicly</p>
+              </div>
+
+              <!-- Your Email -->
+              <div class="form-group">
+                <label for="userEmail" class="form-label">
+                  Your Email <span class="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="userEmail"
+                  name="user_email"
+                  placeholder="john@example.com"
+                  required
+                  class="form-input"
+                />
+                <p class="field-help">Private - never displayed publicly</p>
+              </div>
+
+              <!-- Enrollment Date -->
+              <div class="form-group">
+                <label for="enrollmentDate" class="form-label">
+                  When did you take this course?
+                </label>
+                <input
+                  type="month"
+                  id="enrollmentDate"
+                  name="enrollment_date"
+                  class="form-input"
+                />
+                <p class="field-help">Optional - helps others see if the review is recent</p>
+              </div>
+
+              <!-- Verified Enrollment Checkbox -->
+              <div class="form-group checkbox-group">
+                <input
+                  type="checkbox"
+                  id="verifiedEnrollment"
+                  name="verified_enrollment"
+                  class="form-checkbox"
+                />
+                <label for="verifiedEnrollment" class="checkbox-label">
+                  I was enrolled in this course and can verify my experience
+                </label>
+              </div>
+
+              <!-- Terms Agreement -->
+              <div class="form-group checkbox-group">
+                <input
+                  type="checkbox"
+                  id="termsAgree"
+                  required
+                  class="form-checkbox"
+                />
+                <label for="termsAgree" class="checkbox-label">
+                  I agree that my review is honest and based on my personal experience <span class="required">*</span>
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-actions">
+                <button type="submit" class="submit-button" id="submitButton">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  Submit Review
+                </button>
+              </div>
+
+              <!-- Status Messages -->
+              <div id="successMessage" class="message success-message" style="display: none;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <div>
+                  <strong>Thank you for your review!</strong>
+                  <p>Your review has been submitted and will be published after moderation.</p>
+                </div>
+              </div>
+
+              <div id="errorMessage" class="message error-message" style="display: none;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <div>
+                  <strong>Oops! Something went wrong.</strong>
+                  <p id="errorText">Please try again later.</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Guidelines Card -->
+          <div class="info-card">
+            <h3>Review Guidelines</h3>
+            <ul class="guidelines-list">
+              <li>✅ Be honest and constructive</li>
+              <li>✅ Share specific details about your experience</li>
+              <li>✅ Mention both pros and cons</li>
+              <li>✅ Focus on the course content and value</li>
+              <li>❌ Don't include personal information</li>
+              <li>❌ No profanity or offensive language</li>
+              <li>❌ Avoid spam or promotional content</li>
+            </ul>
+          </div>
+
+          <!-- Tips Card -->
+          <div class="info-card tips-card">
+            <h3>💡 Writing Tips</h3>
+            <p>Include information about:</p>
+            <ul class="tips-list">
+              <li>Course difficulty and workload</li>
+              <li>Quality of instruction</li>
+              <li>Value for money</li>
+              <li>Support and resources provided</li>
+              <li>Career impact or benefits gained</li>
+            </ul>
+          </div>
+
+          <!-- Privacy Card -->
+          <div class="info-card privacy-card">
+            <h3>🔒 Your Privacy</h3>
+            <p>
+              Your email address is only used for verification and will never be displayed publicly or shared with third parties.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Recent Reviews Section -->
+      <section class="recent-reviews-section">
+        <h2>Recent Reviews</h2>
+        <p class="section-subtitle">See what other students are saying about their courses</p>
+        
+        <div class="recent-reviews-placeholder">
+          <p>Reviews will appear here once submitted and approved</p>
+          <a href="/" class="browse-button">Browse All Courses</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .rate-page {
+    min-height: 100vh;
+    background: var(--neutral-50);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 calc(var(--spacing) * 3);
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+    padding: calc(var(--spacing) * 8) 0;
+    margin-bottom: calc(var(--spacing) * 6);
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 3.5rem;
+    color: white;
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .page-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Content Grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: calc(var(--spacing) * 6);
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+
+  /* Form Section */
+  .form-card {
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.5);
+    padding: calc(var(--spacing) * 5);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--neutral-200);
+  }
+
+  .form-card h2 {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 2);
+    color: var(--neutral-900);
+  }
+
+  .form-intro {
+    font-size: 1rem;
+    color: var(--neutral-600);
+    margin-bottom: calc(var(--spacing) * 4);
+    line-height: 1.6;
+  }
+
+  /* Form Styles */
+  .review-form {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 4);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: calc(var(--spacing) * 1.5);
+    font-size: 1rem;
+  }
+
+  .required {
+    color: var(--color-error);
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: calc(var(--spacing) * 2);
+    border: 2px solid var(--neutral-200);
+    border-radius: calc(var(--border-radius) / 2);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    transition: var(--transition);
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+  }
+
+  .field-help {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+    margin-top: calc(var(--spacing) * 1);
+  }
+
+  .char-count {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Star Rating */
+  .star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: calc(var(--spacing) * 1);
+    font-size: 3rem;
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+
+  .star-rating input[type="radio"] {
+    display: none;
+  }
+
+  .star-rating label {
+    cursor: pointer;
+    color: var(--neutral-300);
+    transition: var(--transition);
+  }
+
+  .star-rating label:hover,
+  .star-rating label:hover ~ label,
+  .star-rating input[type="radio"]:checked ~ label {
+    color: #f59e0b;
+  }
+
+  .selected-rating {
+    font-size: 1rem;
+    color: var(--neutral-700);
+    font-weight: 600;
+    margin-top: calc(var(--spacing) * 1);
+  }
+
+  /* Checkbox Group */
+  .checkbox-group {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .form-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-top: 2px;
+  }
+
+  .checkbox-label {
+    flex: 1;
+    font-size: 0.9375rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  /* Submit Button */
+  .form-actions {
+    padding-top: calc(var(--spacing) * 2);
+  }
+
+  .submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 2);
+    width: 100%;
+    padding: calc(var(--spacing) * 3);
+    background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    border: none;
+    border-radius: calc(var(--border-radius) / 2);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .submit-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.3);
+  }
+
+  .submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Messages */
+  .message {
+    display: flex;
+    gap: calc(var(--spacing) * 2);
+    padding: calc(var(--spacing) * 3);
+    border-radius: calc(var(--border-radius) / 2);
+    margin-top: calc(var(--spacing) * 3);
+  }
+
+  .success-message {
+    background: #d1fae5;
+    color: #065f46;
+    border: 2px solid #10b981;
+  }
+
+  .error-message {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #ef4444;
+  }
+
+  .message strong {
+    display: block;
+    margin-bottom: calc(var(--spacing) * 0.5);
+  }
+
+  .message p {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: calc(var(--spacing) * 3);
+    align-self: flex-start;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.25);
+    padding: calc(var(--spacing) * 3);
+    box-shadow: var(--shadow-md);
+    margin-bottom: calc(var(--spacing) * 3);
+    border: 1px solid var(--neutral-200);
+  }
+
+  .info-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: calc(var(--spacing) * 2);
+    color: var(--neutral-900);
+  }
+
+  .guidelines-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1.5);
+  }
+
+  .guidelines-list li {
+    font-size: 0.9375rem;
+    color: var(--neutral-700);
+    line-height: 1.5;
+  }
+
+  .tips-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  }
+
+  .tips-list {
+    list-style: disc;
+    padding-left: calc(var(--spacing) * 3);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+  }
+
+  .tips-list li {
+    font-size: 0.9375rem;
+    color: var(--neutral-700);
+  }
+
+  .privacy-card {
+    background: var(--neutral-50);
+  }
+
+  .privacy-card p {
+    font-size: 0.9375rem;
+    color: var(--neutral-700);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Recent Reviews Section */
+  .recent-reviews-section {
+    padding: calc(var(--spacing) * 8) 0;
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.5);
+    margin-bottom: calc(var(--spacing) * 6);
+    padding: calc(var(--spacing) * 6);
+  }
+
+  .recent-reviews-section h2 {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 2);
+    color: var(--neutral-900);
+    text-align: center;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--neutral-600);
+    font-size: 1.125rem;
+    margin-bottom: calc(var(--spacing) * 5);
+  }
+
+  .recent-reviews-placeholder {
+    text-align: center;
+    padding: calc(var(--spacing) * 8) 0;
+  }
+
+  .recent-reviews-placeholder p {
+    font-size: 1.125rem;
+    color: var(--neutral-600);
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+
+  .browse-button {
+    display: inline-flex;
+    align-items: center;
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    border-radius: calc(var(--border-radius) / 2);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .browse-button:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: calc(var(--spacing) * 3);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2.5rem;
+    }
+
+    .sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .star-rating {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+
+<script>
+  import { supabase } from '../lib/supabase';
+
+  const form = document.getElementById('reviewForm') as HTMLFormElement;
+  const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
+  const successMessage = document.getElementById('successMessage') as HTMLDivElement;
+  const errorMessage = document.getElementById('errorMessage') as HTMLDivElement;
+  const errorText = document.getElementById('errorText') as HTMLParagraphElement;
+  const charCount = document.getElementById('charCount') as HTMLSpanElement;
+  const reviewText = document.getElementById('reviewText') as HTMLTextAreaElement;
+  const starRating = document.getElementById('starRating');
+  const selectedRating = document.getElementById('selectedRating') as HTMLParagraphElement;
+
+  // Character count
+  reviewText?.addEventListener('input', () => {
+    const count = reviewText.value.length;
+    charCount.textContent = count.toString();
+    
+    if (count >= 100) {
+      charCount.style.color = 'var(--color-success)';
+    } else {
+      charCount.style.color = 'var(--color-error)';
+    }
+  });
+
+  // Star rating visual feedback
+  const ratingInputs = starRating?.querySelectorAll('input[type="radio"]');
+  ratingInputs?.forEach(input => {
+    input.addEventListener('change', (e) => {
+      const value = (e.target as HTMLInputElement).value;
+      selectedRating.textContent = `${value} star${value === '1' ? '' : 's'} selected`;
+      selectedRating.style.color = 'var(--color-success)';
+    });
+  });
+
+  // Form submission
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Hide previous messages
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    // Disable submit button
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+
+    try {
+      const formData = new FormData(form);
+      
+      const reviewData = {
+        course_id: formData.get('course_id'),
+        rating: parseInt(formData.get('rating') as string),
+        review_title: formData.get('review_title'),
+        review_text: formData.get('review_text'),
+        user_name: formData.get('user_name'),
+        user_email: formData.get('user_email'),
+        enrollment_date: formData.get('enrollment_date') || null,
+        verified_enrollment: formData.get('verified_enrollment') === 'on',
+        status: 'pending'
+      };
+
+      const { data, error } = await supabase
+        .from('course_reviews')
+        .insert([reviewData])
+        .select();
+
+      if (error) throw error;
+
+      // Show success message
+      successMessage.style.display = 'flex';
+      form.reset();
+      selectedRating.textContent = 'Select a rating';
+      selectedRating.style.color = 'var(--neutral-700)';
+      charCount.textContent = '0';
+      
+      // Scroll to success message
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      errorText.textContent = error instanceof Error ? error.message : 'Please try again later.';
+      errorMessage.style.display = 'flex';
+      
+      // Scroll to error message
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } finally {
+      // Re-enable submit button
+      submitButton.disabled = false;
+      submitButton.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Submit Review
+      `;
+    }
+  });
+</script>

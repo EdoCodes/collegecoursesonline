@@ -1,16 +1,34 @@
 {
-  "name": "@example/basics",
+  "name": "collegecoursesonline",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "A comprehensive, SEO-optimized affiliate directory for online college courses",
   "private": true,
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "clean": "rm -rf dist node_modules/.astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "^3.7.0",
     "@supabase/supabase-js": "^2.97.0",
     "astro": "^5.2.5"
+  },
+  "keywords": [
+    "online courses",
+    "college courses",
+    "education directory",
+    "astro",
+    "supabase"
+  ],
+  "author": "EdoCodes",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EdoCodes/collegecoursesonline.git"
   }
 }

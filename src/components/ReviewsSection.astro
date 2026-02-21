@@ -1,0 +1,608 @@
+---
+interface Props {
+  courseId: string;
+  courseSlug: string;
+}
+
+const { courseId, courseSlug } = Astro.props;
+
+import { supabase } from '../lib/supabase';
+
+// Get approved reviews for this course
+const { data: reviews, error } = await supabase
+  .from('course_reviews')
+  .select('*')
+  .eq('course_id', courseId)
+  .eq('status', 'approved')
+  .order('helpful_count', { ascending: false })
+  .order('created_at', { ascending: false })
+  .limit(10);
+
+// Calculate average rating and stats
+const reviewCount = reviews?.length || 0;
+const averageRating = reviewCount > 0 
+  ? (reviews!.reduce((sum, r) => sum + r.rating, 0) / reviewCount).toFixed(1)
+  : 0;
+
+// Calculate rating distribution
+const ratingDist = [0, 0, 0, 0, 0];
+reviews?.forEach(r => {
+  ratingDist[r.rating - 1]++;
+});
+
+// Generate stars display
+function generateStars(rating: number) {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating % 1 >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+  
+  return {
+    full: fullStars,
+    half: hasHalf ? 1 : 0,
+    empty: emptyStars
+  };
+}
+
+const stars = generateStars(Number(averageRating));
+
+// Format date
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+// Format enrollment date
+function formatEnrollmentDate(dateString: string | null) {
+  if (!dateString) return null;
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long'
+  });
+}
+---
+
+<section class="reviews-section">
+  <div class="reviews-header">
+    <h2>Student Reviews & Ratings</h2>
+    <a href="/rate-my-course" class="write-review-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      Write a Review
+    </a>
+  </div>
+
+  {reviewCount > 0 ? (
+    <div class="reviews-content">
+      <!-- Rating Summary -->
+      <div class="rating-summary">
+        <div class="average-rating">
+          <div class="rating-number">{averageRating}</div>
+          <div class="stars-display">
+            {[...Array(stars.full)].map(() => (
+              <span class="star filled">★</span>
+            ))}
+            {stars.half === 1 && <span class="star half">★</span>}
+            {[...Array(stars.empty)].map(() => (
+              <span class="star empty">★</span>
+            ))}
+          </div>
+          <div class="rating-count">Based on {reviewCount} review{reviewCount !== 1 ? 's' : ''}</div>
+        </div>
+
+        <div class="rating-breakdown">
+          {[5, 4, 3, 2, 1].map((star) => {
+            const count = ratingDist[star - 1];
+            const percentage = reviewCount > 0 ? (count / reviewCount) * 100 : 0;
+            return (
+              <div class="rating-bar-row">
+                <span class="star-label">{star} ★</span>
+                <div class="rating-bar">
+                  <div class="rating-bar-fill" style={`width: ${percentage}%`}></div>
+                </div>
+                <span class="rating-count-small">{count}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Reviews List -->
+      <div class="reviews-list">
+        <h3>Recent Reviews</h3>
+        {reviews!.map((review) => (
+          <article class="review-card">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="reviewer-avatar">
+                  {review.user_name.charAt(0).toUpperCase()}
+                </div>
+                <div class="reviewer-details">
+                  <div class="reviewer-name">{review.user_name}</div>
+                  {review.verified_enrollment && (
+                    <span class="verified-badge">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                      </svg>
+                      Verified Enrollment
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div class="review-meta">
+                <div class="review-stars">
+                  {[...Array(5)].map((_, i) => (
+                    <span class={`star ${i < review.rating ? 'filled' : 'empty'}`}>★</span>
+                  ))}
+                </div>
+                <time class="review-date">{formatDate(review.created_at)}</time>
+              </div>
+            </div>
+
+            {review.review_title && (
+              <h4 class="review-title">{review.review_title}</h4>
+            )}
+
+            <p class="review-text">{review.review_text}</p>
+
+            {review.enrollment_date && (
+              <p class="enrollment-info">
+                Took this course in {formatEnrollmentDate(review.enrollment_date)}
+              </p>
+            )}
+
+            <div class="review-footer">
+              <button class="helpful-btn" data-review-id={review.id} data-vote="helpful">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+                </svg>
+                Helpful ({review.helpful_count})
+              </button>
+              <button class="helpful-btn" data-review-id={review.id} data-vote="not_helpful">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/>
+                </svg>
+                Not Helpful ({review.not_helpful_count})
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {reviewCount > 10 && (
+        <div class="load-more-section">
+          <button class="load-more-btn">Load More Reviews</button>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div class="no-reviews">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <h3>No reviews yet</h3>
+      <p>Be the first to share your experience with this course!</p>
+      <a href="/rate-my-course" class="write-first-review-btn">Write the First Review</a>
+    </div>
+  )}
+</section>
+
+<style>
+  .reviews-section {
+    background: white;
+    padding: calc(var(--spacing) * 5);
+    border-radius: calc(var(--border-radius) * 1.25);
+    border: 1px solid var(--neutral-200);
+  }
+
+  .reviews-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: calc(var(--spacing) * 4);
+    padding-bottom: calc(var(--spacing) * 3);
+    border-bottom: 2px solid var(--neutral-200);
+  }
+
+  .reviews-header h2 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--neutral-900);
+  }
+
+  .write-review-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    border-radius: calc(var(--border-radius) / 2);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .write-review-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Rating Summary */
+  .rating-summary {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: calc(var(--spacing) * 6);
+    padding: calc(var(--spacing) * 4);
+    background: var(--neutral-50);
+    border-radius: calc(var(--border-radius));
+    margin-bottom: calc(var(--spacing) * 5);
+  }
+
+  .average-rating {
+    text-align: center;
+    padding: calc(var(--spacing) * 3);
+  }
+
+  .rating-number {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--neutral-900);
+    line-height: 1;
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .stars-display {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 1.5);
+    letter-spacing: 4px;
+  }
+
+  .stars-display .star.filled {
+    color: #f59e0b;
+  }
+
+  .stars-display .star.empty {
+    color: var(--neutral-300);
+  }
+
+  .rating-count {
+    font-size: 0.9375rem;
+    color: var(--neutral-600);
+  }
+
+  .rating-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1.5);
+    justify-content: center;
+  }
+
+  .rating-bar-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 40px;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .star-label {
+    font-size: 0.9375rem;
+    color: var(--neutral-700);
+    font-weight: 600;
+  }
+
+  .rating-bar {
+    height: 8px;
+    background: var(--neutral-200);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .rating-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f59e0b 0%, #ea580c 100%);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .rating-count-small {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+    text-align: right;
+  }
+
+  /* Reviews List */
+  .reviews-list h3 {
+    font-size: 1.5rem;
+    margin-bottom: calc(var(--spacing) * 4);
+    color: var(--neutral-900);
+  }
+
+  .review-card {
+    padding: calc(var(--spacing) * 4);
+    border: 1px solid var(--neutral-200);
+    border-radius: calc(var(--border-radius));
+    margin-bottom: calc(var(--spacing) * 3);
+    transition: var(--transition);
+  }
+
+  .review-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .review-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: calc(var(--spacing) * 2.5);
+    gap: calc(var(--spacing) * 3);
+  }
+
+  .reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .reviewer-avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .reviewer-name {
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: calc(var(--spacing) * 0.5);
+  }
+
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 0.5);
+    padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
+    background: var(--color-success);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: calc(var(--border-radius) / 4);
+  }
+
+  .review-meta {
+    text-align: right;
+  }
+
+  .review-stars {
+    font-size: 1.25rem;
+    margin-bottom: calc(var(--spacing) * 0.5);
+    letter-spacing: 2px;
+  }
+
+  .review-stars .star.filled {
+    color: #f59e0b;
+  }
+
+  .review-stars .star.empty {
+    color: var(--neutral-300);
+  }
+
+  .review-date {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+  }
+
+  .review-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .review-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--neutral-700);
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .enrollment-info {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+    font-style: italic;
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .review-footer {
+    display: flex;
+    gap: calc(var(--spacing) * 2);
+    padding-top: calc(var(--spacing) * 2);
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .helpful-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2);
+    background: var(--neutral-100);
+    border: 1px solid var(--neutral-200);
+    border-radius: calc(var(--border-radius) / 4);
+    color: var(--neutral-700);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .helpful-btn:hover {
+    background: var(--neutral-200);
+    border-color: var(--neutral-300);
+  }
+
+  .helpful-btn.voted {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+  }
+
+  /* No Reviews State */
+  .no-reviews {
+    text-align: center;
+    padding: calc(var(--spacing) * 8) 0;
+  }
+
+  .no-reviews svg {
+    margin: 0 auto calc(var(--spacing) * 3);
+    color: var(--neutral-300);
+  }
+
+  .no-reviews h3 {
+    font-size: 1.5rem;
+    color: var(--neutral-700);
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+
+  .no-reviews p {
+    font-size: 1.125rem;
+    color: var(--neutral-600);
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+
+  .write-first-review-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 4);
+    background: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    border-radius: calc(var(--border-radius) / 2);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .write-first-review-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Load More */
+  .load-more-section {
+    text-align: center;
+    margin-top: calc(var(--spacing) * 4);
+  }
+
+  .load-more-btn {
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+    background: white;
+    border: 2px solid var(--neutral-300);
+    border-radius: calc(var(--border-radius) / 2);
+    color: var(--neutral-700);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .load-more-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--neutral-50);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .reviews-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: calc(var(--spacing) * 2);
+    }
+
+    .write-review-btn {
+      justify-content: center;
+    }
+
+    .rating-summary {
+      grid-template-columns: 1fr;
+      gap: calc(var(--spacing) * 4);
+    }
+
+    .review-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .review-meta {
+      text-align: left;
+    }
+  }
+</style>
+
+<script>
+  import { supabase } from '../lib/supabase';
+
+  // Helpful voting functionality
+  const helpfulButtons = document.querySelectorAll('.helpful-btn');
+  
+  helpfulButtons.forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      const reviewId = btn.dataset.reviewId;
+      const voteType = btn.dataset.vote;
+      
+      // Use a simple identifier (could be improved with proper user sessions)
+      const userIdentifier = localStorage.getItem('user_id') || 
+        'user_' + Math.random().toString(36).substr(2, 9);
+      
+      if (!localStorage.getItem('user_id')) {
+        localStorage.setItem('user_id', userIdentifier);
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from('review_helpful_votes')
+          .insert([{
+            review_id: reviewId,
+            user_identifier: userIdentifier,
+            vote_type: voteType
+          }]);
+
+        if (error) {
+          if (error.message.includes('duplicate')) {
+            alert('You\'ve already voted on this review');
+          } else {
+            throw error;
+          }
+        } else {
+          // Update button state
+          btn.classList.add('voted');
+          btn.disabled = true;
+          
+          // Increment count
+          const match = btn.textContent?.match(/\((\d+)\)/);
+          if (match) {
+            const currentCount = parseInt(match[1]);
+            btn.textContent = btn.textContent!.replace(/\(\d+\)/, `(${currentCount + 1})`);
+          }
+        }
+      } catch (error) {
+        console.error('Error voting:', error);
+        alert('Error recording vote. Please try again.');
+      }
+    });
+  });
+</script>

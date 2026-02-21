@@ -54,3 +54,30 @@ export type Course = {
   colleges?: College;
   course_categories?: CourseCategory;
 };
+
+export type CourseReview = {
+  id: string;
+  course_id: string;
+  user_name: string;
+  user_email: string;
+  rating: number;
+  review_title: string;
+  review_text: string;
+  verified_enrollment: boolean;
+  enrollment_date: string | null;
+  helpful_count: number;
+  not_helpful_count: number;
+  status: 'pending' | 'approved' | 'rejected' | 'spam';
+  moderated_by: string | null;
+  moderated_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ReviewHelpfulVote = {
+  id: string;
+  review_id: string;
+  user_identifier: string;
+  vote_type: 'helpful' | 'not_helpful';
+  created_at: string;
+};

@@ -1,9 +1,14 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
 interface Props {
 	title?: string;
 	description?: string;
 	image?: string;
 	canonical?: string;
+	type?: 'website' | 'article';
+	noindex?: boolean;
 }
 
 const {
@@ -11,11 +16,30 @@ const {
 	description = 'Discover thousands of online college courses from accredited institutions worldwide. Search for online degrees, certificates, and classes from top universities and colleges.',
 	image = '/og-image.jpg',
 	canonical = Astro.url.pathname,
+	type = 'website',
+	noindex = false,
 } = Astro.props;
 
-const siteUrl = Astro.site || 'https://onlinecourses.edu';
+const siteUrl = Astro.site || 'https://yoursite.com';
 const fullUrl = new URL(canonical, siteUrl).href;
 const imageUrl = new URL(image, siteUrl).href;
+
+// WebSite Schema.org (on all pages)
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Online College Courses",
+  "description": "Directory of accredited online college courses and degrees",
+  "url": siteUrl,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteUrl}?search={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
 ---
 
 <!doctype html>
@@ -23,35 +47,59 @@ const imageUrl = new URL(image, siteUrl).href;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#1e40af" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
+		<!-- Primary Meta Tags -->
 		<title>{title}</title>
+		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<link rel="canonical" href={fullUrl} />
 
-		<meta property="og:type" content="website" />
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
 		<meta property="og:url" content={fullUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:site_name" content="Online College Courses" />
+		<meta property="og:locale" content="en_US" />
 
+		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:url" content={fullUrl} />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={imageUrl} />
 
-		<meta name="robots" content="index, follow" />
-		<meta name="googlebot" content="index, follow" />
+		<!-- Robots -->
+		{noindex ? (
+			<meta name="robots" content="noindex, nofollow" />
+		) : (
+			<>
+				<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+				<meta name="googlebot" content="index, follow" />
+			</>
+		)}
 
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+		<!-- WebSite Schema.org -->
+		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+		<!-- Preload critical assets -->
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
 	</head>
 	<body>
+		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>
 

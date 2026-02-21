@@ -1,0 +1,29 @@
+# robots.txt for Online College Courses Directory
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://yoursite.com/sitemap.xml
+
+# Crawl-delay (optional - uncomment if needed)
+# Crawl-delay: 1
+
+# Specific rules for common bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block bad bots (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

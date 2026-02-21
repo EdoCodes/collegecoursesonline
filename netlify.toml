@@ -1,0 +1,85 @@
+# Netlify configuration for Online College Courses Directory
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Build command
+  command = "npm run build"
+  
+  # Directory with the static site files
+  publish = "dist"
+  
+  # Environment variables available during build
+  [build.environment]
+    NODE_VERSION = "18"
+
+# Redirects and rewrites
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Custom headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Custom 404 page
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Development context (for deploy previews)
+[context.deploy-preview]
+  command = "npm run build"
+
+# Branch-specific settings (optional)
+[context.production]
+  command = "npm run build"
+  
+[context.branch-deploy]
+  command = "npm run build"
+
+# Plugin configuration (optional but recommended)
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+# Forms (if you add contact forms later)
+# [build.processing.html]
+#   pretty_urls = true
+
+# Image optimization (optional)
+# [build.processing]
+#   skip_processing = false
+# [build.processing.images]
+#   compress = true
