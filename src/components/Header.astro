@@ -1,38 +1,52 @@
 ---
-// Navigation header component
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="site-header">
   <div class="container">
     <nav class="nav-bar">
+
       <!-- Logo -->
       <a href="/" class="logo">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" fill="url(#cco-grad1)" opacity="0.15"/>
+          <path d="M8 16L20 8L32 16V30C32 31.1 31.1 32 30 32H10C8.9 32 8 31.1 8 30V16Z" fill="url(#cco-grad2)"/>
+          <path d="M15 32V23H25V32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M14 18H26M17 22H23" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+          <defs>
+            <linearGradient id="cco-grad1" x1="2" y1="2" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#0FA9A8"/>
+              <stop offset="1" stop-color="#318ba2"/>
+            </linearGradient>
+            <linearGradient id="cco-grad2" x1="8" y1="8" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#0FA9A8"/>
+              <stop offset="1" stop-color="#318ba2"/>
+            </linearGradient>
+          </defs>
         </svg>
-        <span class="logo-text">College Courses</span>
+        <div class="logo-text">
+          <span class="logo-name">College Courses</span>
+          <span class="logo-slogan">Find your program™</span>
+        </div>
       </a>
 
       <!-- Desktop Navigation -->
       <ul class="nav-links">
-        <li><a href="/" class="nav-link">Browse Courses</a></li>
-        <li><a href="/blog" class="nav-link">Blog</a></li>
-        <li><a href="/rate-my-course" class="nav-link">Rate My Course</a></li>
-        <li><a href="/#about" class="nav-link">About</a></li>
+        <li><a href="/" class={`nav-link${currentPath === '/' ? ' active' : ''}`}>Home</a></li>
+        <li><a href="/blog" class={`nav-link${currentPath.startsWith('/blog') ? ' active' : ''}`}>News</a></li>
+        <li><a href="/colleges" class={`nav-link${currentPath.startsWith('/colleges') ? ' active' : ''}`}>Colleges</a></li>
+        <li><a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>Courses</a></li>
+        <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
+        <li><a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>Resources</a></li>
+        <li>
+          <a href="/submit-course" class="btn-submit">Submit a Course</a>
+        </li>
       </ul>
-
-      <!-- CTA Button -->
-      <a href="/rate-my-course" class="cta-nav-button">
-        Write a Review
-      </a>
 
       <!-- Mobile Menu Button -->
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
         <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
+          <path d="M3 12h18M3 6h18M3 18h18"/>
         </svg>
         <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
           <line x1="18" y1="6" x2="6" y2="18"/>
@@ -40,176 +54,297 @@
         </svg>
       </button>
     </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-      <ul class="mobile-nav-links">
-        <li><a href="/" class="mobile-nav-link">Browse Courses</a></li>
-        <li><a href="/blog" class="mobile-nav-link">Blog</a></li>
-        <li><a href="/rate-my-course" class="mobile-nav-link">Rate My Course</a></li>
-        <li><a href="/#about" class="mobile-nav-link">About</a></li>
-      </ul>
-      <a href="/rate-my-course" class="mobile-cta-button">
-        Write a Review
-      </a>
-    </div>
   </div>
 </header>
 
+<!-- Mobile Menu Overlay -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Mobile Menu (slide-in panel) -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-content">
+    <ul class="mobile-nav-list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">News</a></li>
+      <li><a href="/colleges">Colleges</a></li>
+      <li><a href="/courses">Courses</a></li>
+      <li><a href="/categories/certificate-programs">Certificate Programs</a></li>
+      <li><a href="/resources">Resources</a></li>
+    </ul>
+    <a href="/submit-course" class="mobile-cta-button">Submit a Course</a>
+  </div>
+</div>
+
+<!-- Scroll to Top -->
+<button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
+
 <style>
   .site-header {
-    background: white;
-    border-bottom: 1px solid var(--neutral-200);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #E2E8F0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08);
   }
 
   .container {
-    max-width: 1400px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 calc(var(--spacing) * 3);
+    padding: 0 1.5rem;
   }
 
   .nav-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: calc(var(--spacing) * 2.5) 0;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 0.875rem 0;
   }
 
-  /* Logo */
+  /* ── Logo ── */
   .logo {
     display: flex;
     align-items: center;
-    gap: calc(var(--spacing) * 1.5);
+    gap: 0.625rem;
     text-decoration: none;
-    color: var(--neutral-900);
-    font-weight: 800;
-    font-size: 1.25rem;
-    transition: var(--transition);
-  }
-
-  .logo svg {
-    color: var(--color-primary);
+    flex-shrink: 0;
+    transition: opacity 0.2s;
   }
 
   .logo:hover {
-    color: var(--color-primary);
+    opacity: 0.8;
   }
 
   .logo-text {
-    font-family: var(--font-display);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
   }
 
-  /* Desktop Navigation */
+  .logo-name {
+    font-family: 'Sora', 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #0FA9A8 0%, #318ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-slogan {
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: #64748B;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  /* ── Desktop Nav ── */
   .nav-links {
     display: flex;
     align-items: center;
-    gap: calc(var(--spacing) * 4);
+    gap: 0.25rem;
     list-style: none;
-    margin: 0;
+    flex: 1;
+  }
+
+  .nav-links > li:last-child {
+    margin-left: auto;
   }
 
   .nav-link {
-    color: var(--neutral-700);
+    display: block;
+    color: #0F172A;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: var(--transition);
-    padding: calc(var(--spacing) * 1) 0;
-    border-bottom: 2px solid transparent;
-  }
-
-  .nav-link:hover {
-    color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
-  }
-
-  /* CTA Button */
-  .cta-nav-button {
-    display: inline-flex;
-    align-items: center;
-    padding: calc(var(--spacing) * 1.75) calc(var(--spacing) * 3);
-    background: var(--color-primary);
-    color: white;
     font-weight: 600;
-    border-radius: calc(var(--border-radius) / 2);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: #0FA9A8;
+  }
+
+  .btn-submit {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    background: #0FA9A8;
+    color: white !important;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0.875rem;
     text-decoration: none;
-    transition: var(--transition);
+    white-space: nowrap;
+    box-shadow: 0 2px 8px -2px rgb(15 169 168 / 0.45);
+    transition: all 0.3s ease;
   }
 
-  .cta-nav-button:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+  .btn-submit:hover {
+    background: #0D8685;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -2px rgb(15 169 168 / 0.55);
   }
 
-  /* Mobile Menu Button */
+  /* ── Mobile toggle ── */
   .mobile-menu-btn {
     display: none;
     background: none;
     border: none;
-    color: var(--neutral-700);
+    color: #0F172A;
     cursor: pointer;
-    padding: calc(var(--spacing) * 1);
+    padding: 0.5rem;
+    margin-left: auto;
   }
 
-  /* Mobile Menu */
+  /* ── Mobile overlay ── */
+  .mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 998;
+  }
+
+  .mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ── Mobile slide-in panel ── */
   .mobile-menu {
-    display: none;
-    padding: calc(var(--spacing) * 3) 0;
-    border-top: 1px solid var(--neutral-200);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 85%;
+    max-width: 360px;
+    background: white;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    overflow-y: auto;
   }
 
   .mobile-menu.active {
-    display: block;
+    transform: translateX(0);
   }
 
-  .mobile-nav-links {
+  .mobile-menu-content {
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .mobile-nav-list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--spacing) * 1);
-    margin-bottom: calc(var(--spacing) * 3);
+    margin-bottom: 2rem;
   }
 
-  .mobile-nav-link {
+  .mobile-nav-list > li {
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  .mobile-nav-list > li > a {
     display: block;
-    padding: calc(var(--spacing) * 2);
-    color: var(--neutral-700);
+    padding: 1rem 0;
+    color: #0F172A;
+    font-weight: 600;
+    font-size: 1rem;
     text-decoration: none;
-    font-weight: 500;
-    border-radius: calc(var(--border-radius) / 2);
-    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
   }
 
-  .mobile-nav-link:hover {
-    background: var(--neutral-100);
-    color: var(--color-primary);
+  .mobile-nav-list > li > a:hover {
+    color: #0FA9A8;
   }
 
   .mobile-cta-button {
     display: block;
     text-align: center;
-    padding: calc(var(--spacing) * 2.5);
-    background: var(--color-primary);
+    padding: 0.875rem 1.5rem;
+    background: #0FA9A8;
     color: white;
     font-weight: 600;
-    border-radius: calc(var(--border-radius) / 2);
+    font-size: 0.9375rem;
+    border-radius: 0.875rem;
     text-decoration: none;
+    transition: background 0.2s ease;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .nav-links,
-    .cta-nav-button {
+  .mobile-cta-button:hover {
+    background: #0D8685;
+    color: white;
+  }
+
+  /* ── Scroll to top ── */
+  .scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background: #0FA9A8;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(15, 169, 168, 0.35);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 997;
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .scroll-to-top:hover {
+    background: #0D8685;
+    transform: translateY(-4px);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 968px) {
+    .nav-links {
       display: none;
     }
-
     .mobile-menu-btn {
       display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-name {
+      font-size: 1.0625rem;
     }
   }
 </style>
@@ -217,18 +352,39 @@
 <script>
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
+  const mobileOverlay = document.getElementById('mobileOverlay');
   const menuIcon = mobileMenuBtn?.querySelector('.menu-icon') as SVGElement;
   const closeIcon = mobileMenuBtn?.querySelector('.close-icon') as SVGElement;
 
-  mobileMenuBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('active');
-    
-    if (mobileMenu?.classList.contains('active')) {
-      menuIcon.style.display = 'none';
-      closeIcon.style.display = 'block';
-    } else {
-      menuIcon.style.display = 'block';
-      closeIcon.style.display = 'none';
+  function toggleMenu() {
+    const isActive = mobileMenu?.classList.toggle('active');
+    mobileOverlay?.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+    if (menuIcon && closeIcon) {
+      menuIcon.style.display = isActive ? 'none' : 'block';
+      closeIcon.style.display = isActive ? 'block' : 'none';
     }
+  }
+
+  mobileMenuBtn?.addEventListener('click', toggleMenu);
+  mobileOverlay?.addEventListener('click', toggleMenu);
+
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileMenu?.classList.contains('active')) toggleMenu();
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) toggleMenu();
+  });
+
+  // Scroll to top
+  const scrollBtn = document.getElementById('scrollToTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn?.classList.toggle('visible', window.scrollY > 300);
+  });
+  scrollBtn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
