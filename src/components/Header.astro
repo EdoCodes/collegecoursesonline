@@ -8,25 +8,13 @@ const currentPath = Astro.url.pathname;
 
       <!-- Logo -->
       <a href="/" class="logo">
-        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="20" cy="20" r="18" fill="url(#cco-grad1)" opacity="0.15"/>
-          <path d="M8 16L20 8L32 16V30C32 31.1 31.1 32 30 32H10C8.9 32 8 31.1 8 30V16Z" fill="url(#cco-grad2)"/>
-          <path d="M15 32V23H25V32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M14 18H26M17 22H23" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
-          <defs>
-            <linearGradient id="cco-grad1" x1="2" y1="2" x2="38" y2="38" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#0FA9A8"/>
-              <stop offset="1" stop-color="#318ba2"/>
-            </linearGradient>
-            <linearGradient id="cco-grad2" x1="8" y1="8" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#0FA9A8"/>
-              <stop offset="1" stop-color="#318ba2"/>
-            </linearGradient>
-          </defs>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
         </svg>
         <div class="logo-text">
           <span class="logo-name">College Courses</span>
-          <span class="logo-slogan">Find your program™</span>
+          <span class="logo-slogan">O N L I N E</span>
         </div>
       </a>
 
@@ -84,14 +72,12 @@ const currentPath = Astro.url.pathname;
 
 <style>
   .site-header {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid #E2E8F0;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .container {
@@ -112,14 +98,21 @@ const currentPath = Astro.url.pathname;
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
+    gap: 0.75rem;
     text-decoration: none;
     flex-shrink: 0;
-    transition: opacity 0.2s;
+    color: #1e40af;
+    font-weight: 800;
+    font-size: 1.25rem;
+    transition: color 0.2s;
   }
 
   .logo:hover {
-    opacity: 0.8;
+    color: #1e3a8a;
+  }
+
+  .logo svg {
+    color: #1e40af;
   }
 
   .logo-text {
@@ -129,23 +122,21 @@ const currentPath = Astro.url.pathname;
   }
 
   .logo-name {
-    font-family: 'Sora', 'Inter', sans-serif;
+    font-family: var(--font-display, 'Inter', sans-serif);
     font-size: 1.25rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #0FA9A8 0%, #318ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-weight: 800;
+    color: #0f172a;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
   .logo-slogan {
-    font-size: 0.625rem;
-    font-weight: 500;
-    color: #64748B;
-    letter-spacing: 0.02em;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #1e40af;
+    letter-spacing: 0.35em;
     line-height: 1;
+    text-transform: uppercase;
   }
 
   /* ── Desktop Nav ── */
@@ -163,7 +154,7 @@ const currentPath = Astro.url.pathname;
 
   .nav-link {
     display: block;
-    color: #0F172A;
+    color: #334155;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.8125rem;
@@ -177,30 +168,30 @@ const currentPath = Astro.url.pathname;
 
   .nav-link:hover,
   .nav-link.active {
-    color: #0FA9A8;
+    color: #1e40af;
   }
 
   .btn-submit {
     display: inline-block;
     padding: 0.625rem 1.25rem;
-    background: #0FA9A8;
+    background: #1e40af;
     color: white !important;
     font-weight: 600;
     font-size: 0.8125rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-radius: 0.875rem;
+    border-radius: 8px;
     text-decoration: none;
     white-space: nowrap;
-    box-shadow: 0 2px 8px -2px rgb(15 169 168 / 0.45);
+    box-shadow: 0 2px 8px -2px rgb(30 64 175 / 0.4);
     transition: all 0.3s ease;
   }
 
   .btn-submit:hover {
-    background: #0D8685;
+    background: #1e3a8a;
     color: white !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px -2px rgb(15 169 168 / 0.55);
+    box-shadow: 0 4px 12px -2px rgb(30 64 175 / 0.5);
   }
 
   /* ── Mobile toggle ── */
@@ -277,24 +268,24 @@ const currentPath = Astro.url.pathname;
   }
 
   .mobile-nav-list > li > a:hover {
-    color: #0FA9A8;
+    color: #1e40af;
   }
 
   .mobile-cta-button {
     display: block;
     text-align: center;
     padding: 0.875rem 1.5rem;
-    background: #0FA9A8;
+    background: #1e40af;
     color: white;
     font-weight: 600;
     font-size: 0.9375rem;
-    border-radius: 0.875rem;
+    border-radius: 8px;
     text-decoration: none;
     transition: background 0.2s ease;
   }
 
   .mobile-cta-button:hover {
-    background: #0D8685;
+    background: #1e3a8a;
     color: white;
   }
 
@@ -305,11 +296,11 @@ const currentPath = Astro.url.pathname;
     right: 2rem;
     width: 48px;
     height: 48px;
-    background: #0FA9A8;
+    background: #1e40af;
     color: white;
     border: none;
     border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(15, 169, 168, 0.35);
+    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.35);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -328,7 +319,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .scroll-to-top:hover {
-    background: #0D8685;
+    background: #1e3a8a;
     transform: translateY(-4px);
   }
 
