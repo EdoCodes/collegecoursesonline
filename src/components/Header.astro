@@ -26,15 +26,17 @@ const currentPath = Astro.url.pathname;
         <li><a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>Courses</a></li>
         <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
         <li><a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>Resources</a></li>
-        <li>
-          <a href="/submit-course" class="btn-submit">Submit a Course</a>
-        </li>
       </ul>
+
+      <!-- CTA Button -->
+      <a href="/submit-course" class="cta-nav-button">Submit a Course</a>
 
       <!-- Mobile Menu Button -->
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
         <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 12h18M3 6h18M3 18h18"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
         <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
           <line x1="18" y1="6" x2="6" y2="18"/>
@@ -42,38 +44,26 @@ const currentPath = Astro.url.pathname;
         </svg>
       </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul class="mobile-nav-links">
+        <li><a href="/" class="mobile-nav-link">Home</a></li>
+        <li><a href="/blog" class="mobile-nav-link">News</a></li>
+        <li><a href="/colleges" class="mobile-nav-link">Colleges</a></li>
+        <li><a href="/courses" class="mobile-nav-link">Courses</a></li>
+        <li><a href="/categories/certificate-programs" class="mobile-nav-link">Certificate Programs</a></li>
+        <li><a href="/resources" class="mobile-nav-link">Resources</a></li>
+      </ul>
+      <a href="/submit-course" class="mobile-cta-button">Submit a Course</a>
+    </div>
   </div>
 </header>
-
-<!-- Mobile Menu Overlay -->
-<div class="mobile-overlay" id="mobileOverlay"></div>
-
-<!-- Mobile Menu (slide-in panel) -->
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-content">
-    <ul class="mobile-nav-list">
-      <li><a href="/">Home</a></li>
-      <li><a href="/blog">News</a></li>
-      <li><a href="/colleges">Colleges</a></li>
-      <li><a href="/courses">Courses</a></li>
-      <li><a href="/categories/certificate-programs">Certificate Programs</a></li>
-      <li><a href="/resources">Resources</a></li>
-    </ul>
-    <a href="/submit-course" class="mobile-cta-button">Submit a Course</a>
-  </div>
-</div>
-
-<!-- Scroll to Top -->
-<button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M18 15l-6-6-6 6"/>
-  </svg>
-</button>
 
 <style>
   .site-header {
     background: white;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--neutral-200);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -81,117 +71,117 @@ const currentPath = Astro.url.pathname;
   }
 
   .container {
-    max-width: 1280px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 calc(var(--spacing) * 3);
   }
 
   .nav-bar {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
-    padding: 0.875rem 0;
+    justify-content: space-between;
+    padding: calc(var(--spacing) * 2.5) 0;
+    gap: calc(var(--spacing) * 2);
   }
 
   /* ── Logo ── */
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: calc(var(--spacing) * 1.5);
     text-decoration: none;
     flex-shrink: 0;
-    color: #1e40af;
-    font-weight: 800;
-    font-size: 1.25rem;
-    transition: color 0.2s;
-  }
-
-  .logo:hover {
-    color: #1e3a8a;
+    transition: var(--transition);
   }
 
   .logo svg {
-    color: #1e40af;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .logo:hover svg {
+    color: var(--color-primary-dark);
   }
 
   .logo-text {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 2px;
   }
 
   .logo-name {
-    font-family: var(--font-display, 'Inter', sans-serif);
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 800;
-    color: #0f172a;
+    color: var(--neutral-900);
     line-height: 1.2;
     letter-spacing: -0.02em;
+    transition: var(--transition);
+  }
+
+  .logo:hover .logo-name {
+    color: var(--color-primary);
   }
 
   .logo-slogan {
     font-size: 0.6rem;
     font-weight: 700;
-    color: #1e40af;
-    letter-spacing: 0.35em;
+    color: var(--color-primary);
+    letter-spacing: 0.3em;
     line-height: 1;
-    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
   }
 
   /* ── Desktop Nav ── */
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: calc(var(--spacing) * 2.5);
     list-style: none;
+    margin: 0;
     flex: 1;
-  }
-
-  .nav-links > li:last-child {
-    margin-left: auto;
+    justify-content: center;
   }
 
   .nav-link {
-    display: block;
-    color: #334155;
+    color: var(--neutral-700);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.8125rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    transition: color 0.2s ease;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: var(--transition);
+    padding: calc(var(--spacing) * 1) 0;
+    border-bottom: 2px solid transparent;
     white-space: nowrap;
   }
 
   .nav-link:hover,
   .nav-link.active {
-    color: #1e40af;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
   }
 
-  .btn-submit {
-    display: inline-block;
-    padding: 0.625rem 1.25rem;
-    background: #1e40af;
-    color: white !important;
+  /* ── CTA Button ── */
+  .cta-nav-button {
+    display: inline-flex;
+    align-items: center;
+    padding: calc(var(--spacing) * 1.75) calc(var(--spacing) * 3);
+    background: var(--color-primary);
+    color: white;
     font-weight: 600;
-    font-size: 0.8125rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: 8px;
+    font-size: 0.9375rem;
+    border-radius: calc(var(--border-radius) / 2);
     text-decoration: none;
+    transition: var(--transition);
+    flex-shrink: 0;
     white-space: nowrap;
-    box-shadow: 0 2px 8px -2px rgb(30 64 175 / 0.4);
-    transition: all 0.3s ease;
   }
 
-  .btn-submit:hover {
-    background: #1e3a8a;
-    color: white !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px -2px rgb(30 64 175 / 0.5);
+  .cta-nav-button:hover {
+    background: var(--color-primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
   }
 
   /* ── Mobile toggle ── */
@@ -199,143 +189,80 @@ const currentPath = Astro.url.pathname;
     display: none;
     background: none;
     border: none;
-    color: #0F172A;
+    color: var(--neutral-700);
     cursor: pointer;
-    padding: 0.5rem;
-    margin-left: auto;
+    padding: calc(var(--spacing) * 1);
   }
 
-  /* ── Mobile overlay ── */
-  .mobile-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 998;
-  }
-
-  .mobile-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* ── Mobile slide-in panel ── */
+  /* ── Mobile Menu ── */
   .mobile-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 85%;
-    max-width: 360px;
-    background: white;
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 999;
-    overflow-y: auto;
+    display: none;
+    padding: calc(var(--spacing) * 3) 0;
+    border-top: 1px solid var(--neutral-200);
   }
 
   .mobile-menu.active {
-    transform: translateX(0);
-  }
-
-  .mobile-menu-content {
-    padding: 3rem 1.5rem 2rem;
-  }
-
-  .mobile-nav-list {
-    list-style: none;
-    margin-bottom: 2rem;
-  }
-
-  .mobile-nav-list > li {
-    border-bottom: 1px solid #E2E8F0;
-  }
-
-  .mobile-nav-list > li > a {
     display: block;
-    padding: 1rem 0;
-    color: #0F172A;
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: color 0.2s;
   }
 
-  .mobile-nav-list > li > a:hover {
-    color: #1e40af;
+  .mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 0.5);
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: calc(var(--spacing) * 2);
+    color: var(--neutral-700);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: calc(var(--border-radius) / 2);
+    transition: var(--transition);
+  }
+
+  .mobile-nav-link:hover {
+    background: var(--neutral-100);
+    color: var(--color-primary);
   }
 
   .mobile-cta-button {
     display: block;
     text-align: center;
-    padding: 0.875rem 1.5rem;
-    background: #1e40af;
+    padding: calc(var(--spacing) * 2.5);
+    background: var(--color-primary);
     color: white;
     font-weight: 600;
-    font-size: 0.9375rem;
-    border-radius: 8px;
+    border-radius: calc(var(--border-radius) / 2);
     text-decoration: none;
-    transition: background 0.2s ease;
+    transition: var(--transition);
   }
 
   .mobile-cta-button:hover {
-    background: #1e3a8a;
+    background: var(--color-primary-dark);
     color: white;
-  }
-
-  /* ── Scroll to top ── */
-  .scroll-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 48px;
-    height: 48px;
-    background: #1e40af;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.35);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 997;
-  }
-
-  .scroll-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .scroll-to-top:hover {
-    background: #1e3a8a;
-    transform: translateY(-4px);
   }
 
   /* ── Responsive ── */
-  @media (max-width: 968px) {
+  @media (max-width: 1024px) {
     .nav-links {
+      gap: calc(var(--spacing) * 1.5);
+    }
+    .nav-link {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links,
+    .cta-nav-button {
       display: none;
     }
     .mobile-menu-btn {
       display: block;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .logo-name {
-      font-size: 1.0625rem;
     }
   }
 </style>
@@ -343,39 +270,17 @@ const currentPath = Astro.url.pathname;
 <script>
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
-  const mobileOverlay = document.getElementById('mobileOverlay');
   const menuIcon = mobileMenuBtn?.querySelector('.menu-icon') as SVGElement;
   const closeIcon = mobileMenuBtn?.querySelector('.close-icon') as SVGElement;
 
-  function toggleMenu() {
-    const isActive = mobileMenu?.classList.toggle('active');
-    mobileOverlay?.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-    if (menuIcon && closeIcon) {
-      menuIcon.style.display = isActive ? 'none' : 'block';
-      closeIcon.style.display = isActive ? 'block' : 'none';
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('active');
+    if (mobileMenu?.classList.contains('active')) {
+      menuIcon.style.display = 'none';
+      closeIcon.style.display = 'block';
+    } else {
+      menuIcon.style.display = 'block';
+      closeIcon.style.display = 'none';
     }
-  }
-
-  mobileMenuBtn?.addEventListener('click', toggleMenu);
-  mobileOverlay?.addEventListener('click', toggleMenu);
-
-  document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileMenu?.classList.contains('active')) toggleMenu();
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) toggleMenu();
-  });
-
-  // Scroll to top
-  const scrollBtn = document.getElementById('scrollToTop');
-  window.addEventListener('scroll', () => {
-    scrollBtn?.classList.toggle('visible', window.scrollY > 300);
-  });
-  scrollBtn?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 </script>
