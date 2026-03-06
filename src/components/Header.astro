@@ -25,7 +25,20 @@ const currentPath = Astro.url.pathname;
         <li><a href="/colleges" class={`nav-link${currentPath.startsWith('/colleges') ? ' active' : ''}`}>Colleges</a></li>
         <li><a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>Courses</a></li>
         <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
-        <li><a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>Resources</a></li>
+        <li class="nav-item-dropdown">
+          <a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>
+            Resources
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline-block;margin-left:3px;vertical-align:middle;">
+              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="nav-dropdown">
+            <a href="/resources/blog" class="dropdown-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Blog
+            </a>
+          </div>
+        </li>
       </ul>
 
       <!-- CTA Button -->
@@ -159,6 +172,55 @@ const currentPath = Astro.url.pathname;
   .nav-link.active {
     color: var(--color-primary);
     border-bottom-color: var(--color-primary);
+  }
+
+  /* ── Dropdown ── */
+  .nav-item-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    min-width: 160px;
+    padding: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    transform: translateX(-50%) translateY(-4px);
+    z-index: 200;
+  }
+
+  .nav-item-dropdown:hover .nav-dropdown,
+  .nav-item-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #334155;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .dropdown-link:hover {
+    background: #f1f5f9;
+    color: #1e40af;
   }
 
   /* ── CTA Button ── */
