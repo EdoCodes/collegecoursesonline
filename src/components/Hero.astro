@@ -1,376 +1,211 @@
 ---
 ---
 
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
+
 <section class="hero">
-	<div class="container">
-		<div class="hero-content">
-			<h1 class="hero-title">
-				Discover Your Perfect<br />
-				<span class="gradient-text">Online College Course</span>
-			</h1>
-			<p class="hero-description">
-				Explore hundreds of accredited and transferable online college courses, degrees and certificates from top universities and colleges worldwide.
-			</p>
 
-			<div class="search-wrapper">
-				<form class="search-form" id="searchForm">
-					<div class="search-input-group">
-						<svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						<input
-							type="search"
-							id="searchInput"
-							name="q"
-							placeholder="Search for courses, degrees, or subjects..."
-							class="search-input"
-							autocomplete="off"
-						/>
-						<button type="submit" class="search-button">Search</button>
-					</div>
-				</form>
+  <!-- Chalkboard decorative writings -->
+  <div class="chalk-layer" aria-hidden="true">
 
-				<div class="popular-searches">
-					<span class="popular-label">Popular:</span>
-					<a href="#" class="popular-tag" data-search="Computer Science">Computer Science</a>
-					<a href="#" class="popular-tag" data-search="Business">Business</a>
-					<a href="#" class="popular-tag" data-search="Data Science">Data Science</a>
-					<a href="#" class="popular-tag" data-search="Nursing">Nursing</a>
-				</div>
-			</div>
+    <!-- Physics equations -->
+    <span class="chalk" style="top:8%;left:3%;font-size:1.4rem;opacity:0.18;transform:rotate(-6deg)">E = mc²</span>
+    <span class="chalk" style="top:22%;left:1%;font-size:1.1rem;opacity:0.13;transform:rotate(3deg)">F = ma</span>
+    <span class="chalk" style="top:55%;left:2%;font-size:1.25rem;opacity:0.16;transform:rotate(-4deg)">PV = nRT</span>
+    <span class="chalk" style="top:72%;left:4%;font-size:1.0rem;opacity:0.12;transform:rotate(5deg)">v = u + at</span>
+    <span class="chalk" style="top:38%;left:0.5%;font-size:1.3rem;opacity:0.14;transform:rotate(-2deg)">ΔE = hf</span>
+    <span class="chalk" style="top:85%;left:3%;font-size:1.15rem;opacity:0.13;transform:rotate(4deg)">p = mv</span>
 
-			<div class="trust-section">
-				<div class="trust-badge">
-					<div class="trust-stars">
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
-						</svg>
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
-						</svg>
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
-						</svg>
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
-						</svg>
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M10 1L12.326 7.034L18.75 7.034L13.712 10.966L16.038 17L10 13.068L3.962 17L6.288 10.966L1.25 7.034L7.674 7.034L10 1Z"/>
-						</svg>
-					</div>
-					<span class="trust-text">Trusted by 1000s of learners</span>
-				</div>
-			</div>
+    <span class="chalk" style="top:10%;right:4%;font-size:1.35rem;opacity:0.17;transform:rotate(5deg)">F = GMm/r²</span>
+    <span class="chalk" style="top:28%;right:2%;font-size:1.1rem;opacity:0.13;transform:rotate(-3deg)">λ = h/mv</span>
+    <span class="chalk" style="top:50%;right:3%;font-size:1.2rem;opacity:0.15;transform:rotate(6deg)">∇·E = ρ/ε₀</span>
+    <span class="chalk" style="top:68%;right:1.5%;font-size:1.0rem;opacity:0.12;transform:rotate(-5deg)">W = F·d</span>
+    <span class="chalk" style="top:82%;right:4%;font-size:1.25rem;opacity:0.14;transform:rotate(3deg)">KE = ½mv²</span>
 
-			<div class="stats">
-				<div class="stat-item">
-					<div class="stat-number">100s</div>
-					<div class="stat-label">Online Courses</div>
-				</div>
-				<div class="stat-divider"></div>
-				<div class="stat-item">
-					<div class="stat-number">100s</div>
-					<div class="stat-label">Accredited Colleges</div>
-				</div>
-				<div class="stat-divider"></div>
-				<div class="stat-item">
-					<div class="stat-number">100%</div>
-					<div class="stat-label">Verified Programs</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="hero-background"></div>
+    <!-- Math equations -->
+    <span class="chalk" style="top:15%;left:8%;font-size:1.3rem;opacity:0.14;transform:rotate(4deg)">a² + b² = c²</span>
+    <span class="chalk" style="top:62%;left:7%;font-size:1.2rem;opacity:0.13;transform:rotate(-5deg)">∫f(x)dx</span>
+    <span class="chalk" style="top:42%;left:9%;font-size:1.4rem;opacity:0.12;transform:rotate(2deg)">π ≈ 3.14159</span>
+    <span class="chalk" style="top:78%;left:6%;font-size:1.15rem;opacity:0.15;transform:rotate(-3deg)">lim(x→∞)</span>
+    <span class="chalk" style="top:30%;left:10%;font-size:1.1rem;opacity:0.11;transform:rotate(6deg)">d/dx(xⁿ) = nxⁿ⁻¹</span>
+    <span class="chalk" style="top:90%;left:8%;font-size:1.2rem;opacity:0.13;transform:rotate(-2deg)">∑ₙ₌₁∞ 1/n²</span>
+
+    <span class="chalk" style="top:18%;right:9%;font-size:1.3rem;opacity:0.14;transform:rotate(-4deg)">y = mx + b</span>
+    <span class="chalk" style="top:45%;right:8%;font-size:1.15rem;opacity:0.13;transform:rotate(5deg)">√x² + y²</span>
+    <span class="chalk" style="top:60%;right:7%;font-size:1.2rem;opacity:0.12;transform:rotate(-6deg)">∂f/∂x</span>
+    <span class="chalk" style="top:75%;right:9%;font-size:1.1rem;opacity:0.14;transform:rotate(3deg)">e^(iπ) + 1 = 0</span>
+    <span class="chalk" style="top:88%;right:6%;font-size:1.25rem;opacity:0.13;transform:rotate(-3deg)">∇²ψ = 0</span>
+
+    <!-- English literary / academic sentences -->
+    <span class="chalk chalk-italic" style="top:5%;left:18%;font-size:1.05rem;opacity:0.11;transform:rotate(-2deg)">"To be, or not to be — that is the question."</span>
+    <span class="chalk chalk-italic" style="top:93%;left:20%;font-size:1.0rem;opacity:0.10;transform:rotate(2deg)">"Knowledge is the wing wherewith we fly to heaven."</span>
+    <span class="chalk chalk-italic" style="top:48%;left:16%;font-size:1.0rem;opacity:0.10;transform:rotate(-3deg)">"The more that you read, the more things you will know."</span>
+    <span class="chalk chalk-italic" style="top:35%;right:15%;font-size:1.05rem;opacity:0.10;transform:rotate(4deg)">"An investment in knowledge pays the best interest."</span>
+    <span class="chalk chalk-italic" style="top:80%;right:14%;font-size:1.0rem;opacity:0.11;transform:rotate(-2deg)">"Education is not the filling of a pail, but the lighting of a fire."</span>
+
+    <!-- Small decorative chalk marks -->
+    <span class="chalk" style="top:25%;left:5%;font-size:2rem;opacity:0.08;transform:rotate(10deg)">✕</span>
+    <span class="chalk" style="top:65%;right:5%;font-size:2rem;opacity:0.08;transform:rotate(-10deg)">○</span>
+    <span class="chalk" style="top:50%;left:14%;font-size:1.6rem;opacity:0.09;transform:rotate(5deg)">△</span>
+    <span class="chalk" style="top:20%;right:13%;font-size:1.8rem;opacity:0.08;transform:rotate(-8deg)">◻</span>
+
+    <!-- Faint underlines / chalk marks -->
+    <svg class="chalk-line" style="top:14%;left:6%;width:80px;opacity:0.10;transform:rotate(-3deg)" viewBox="0 0 80 8" fill="none"><path d="M0 4 Q20 1 40 5 Q60 8 80 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="chalk-line" style="top:72%;right:6%;width:70px;opacity:0.09;transform:rotate(4deg)" viewBox="0 0 70 8" fill="none"><path d="M0 4 Q18 2 35 5 Q52 7 70 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="chalk-line" style="top:38%;left:7%;width:60px;opacity:0.10;transform:rotate(2deg)" viewBox="0 0 60 8" fill="none"><path d="M0 4 Q15 2 30 5 Q45 7 60 3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+
+  </div>
+
+  <!-- Hero Content -->
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">Find Your Program</div>
+      <h1>Discover Accredited<br/>Online College Courses</h1>
+      <p class="hero-sub">Search thousands of online degrees, certificates, and courses from top accredited institutions. Built for working adults, transfer students, and lifelong learners.</p>
+      <div class="hero-cta">
+        <a href="#coursesGrid" class="btn-primary">Browse Courses</a>
+        <a href="/submit-course" class="btn-outline">Submit a Course</a>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <style>
-	.hero {
-		position: relative;
-		padding: calc(var(--spacing) * 18) 0 calc(var(--spacing) * 12);
-		overflow: hidden;
-		background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 50%, #06b6d4 100%);
-	}
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 55%, #0284c7 100%);
+    overflow: hidden;
+    padding: 5rem 0 4.5rem;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+  }
 
-	.hero-background {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		opacity: 0.15;
-		background-image:
-			radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-			radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-			radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.3) 0%, transparent 70%);
-		pointer-events: none;
-		animation: float 20s ease-in-out infinite;
-	}
+  /* ── Chalk layer ── */
+  .chalk-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 
-	@keyframes float {
-		0%, 100% { transform: translateY(0px) scale(1); }
-		50% { transform: translateY(-20px) scale(1.05); }
-	}
+  .chalk {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    color: #ffffff;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
 
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 calc(var(--spacing) * 3);
-		position: relative;
-		z-index: 1;
-	}
+  .chalk-italic {
+    font-style: italic;
+    font-size: 0.95rem !important;
+    white-space: normal;
+    max-width: 320px;
+  }
 
-	.hero-content {
-		max-width: 900px;
-		margin: 0 auto;
-		text-align: center;
-	}
+  .chalk-line {
+    position: absolute;
+  }
 
-	.hero-title {
-		font-size: 3.5rem;
-		font-weight: 800;
-		color: white;
-		margin-bottom: calc(var(--spacing) * 3);
-		line-height: 1.1;
-	}
+  /* ── Container ── */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    width: 100%;
+  }
 
-	.gradient-text {
-		background: linear-gradient(135deg, #bfdbfe 0%, #ffffff 50%, #dbeafe 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		animation: shimmer 3s ease-in-out infinite;
-	}
+  /* ── Hero Content ── */
+  .hero-content {
+    max-width: 680px;
+    text-align: center;
+    margin: 0 auto;
+  }
 
-	@keyframes shimmer {
-		0%, 100% { filter: brightness(1); }
-		50% { filter: brightness(1.2); }
-	}
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.375rem 1rem;
+    border-radius: 20px;
+    margin-bottom: 1.375rem;
+  }
 
-	.hero-description {
-		font-size: 1.25rem;
-		color: rgba(255, 255, 255, 0.9);
-		margin-bottom: calc(var(--spacing) * 5);
-		line-height: 1.6;
-	}
+  .hero-content h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    margin-bottom: 1.125rem;
+  }
 
-	.search-wrapper {
-		margin-bottom: calc(var(--spacing) * 6);
-	}
+  .hero-sub {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-	.search-form {
-		margin-bottom: calc(var(--spacing) * 2);
-	}
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-	.search-input-group {
-		position: relative;
-		display: flex;
-		align-items: center;
-		background: white;
-		border-radius: calc(var(--border-radius) * 1.5);
-		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-		padding: calc(var(--spacing) * 1);
-		transition: var(--transition);
-	}
+  .btn-primary {
+    padding: 0.875rem 2rem;
+    background: white;
+    color: #1e40af;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
 
-	.search-input-group:focus-within {
-		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(0, 180, 216, 0.3);
-	}
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    color: #1e3a8a;
+  }
 
-	.search-icon {
-		position: absolute;
-		left: calc(var(--spacing) * 3);
-		color: var(--neutral-400);
-		pointer-events: none;
-	}
+  .btn-outline {
+    padding: 0.875rem 2rem;
+    background: transparent;
+    color: rgba(255,255,255,0.92);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
 
-	.search-input {
-		flex: 1;
-		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3) calc(var(--spacing) * 2) calc(var(--spacing) * 6);
-		border: none;
-		font-size: 1.125rem;
-		color: var(--neutral-800);
-		background: transparent;
-		outline: none;
-	}
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.7);
+    color: white;
+  }
 
-	.search-input::placeholder {
-		color: var(--neutral-400);
-	}
-
-	.search-button {
-		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 5);
-		background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
-		color: white;
-		font-weight: 700;
-		font-size: 1rem;
-		border-radius: calc(var(--border-radius) * 0.75);
-		transition: var(--transition);
-		box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
-	}
-
-	.search-button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 24px rgba(30, 64, 175, 0.5);
-		background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
-	}
-
-	.popular-searches {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-wrap: wrap;
-		gap: calc(var(--spacing) * 1.5);
-	}
-
-	.popular-label {
-		color: rgba(255, 255, 255, 0.7);
-		font-size: 0.875rem;
-		font-weight: 500;
-	}
-
-	.popular-tag {
-		padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
-		background: rgba(255, 255, 255, 0.15);
-		color: white;
-		font-size: 0.875rem;
-		border-radius: calc(var(--border-radius) / 2);
-		transition: var(--transition);
-		backdrop-filter: blur(10px);
-	}
-
-	.popular-tag:hover {
-		background: rgba(255, 255, 255, 0.25);
-		transform: translateY(-2px);
-	}
-
-	.trust-section {
-		display: flex;
-		justify-content: center;
-		margin-bottom: calc(var(--spacing) * 4);
-	}
-
-	.trust-badge {
-		display: flex;
-		align-items: center;
-		gap: calc(var(--spacing) * 2);
-		padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-		background: rgba(255, 255, 255, 0.15);
-		border-radius: calc(var(--border-radius) * 1.5);
-		backdrop-filter: blur(10px);
-	}
-
-	.trust-stars {
-		display: flex;
-		gap: calc(var(--spacing) * 0.5);
-		color: #fbbf24;
-	}
-
-	.trust-text {
-		color: white;
-		font-size: 1rem;
-		font-weight: 600;
-	}
-
-	.stats {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: calc(var(--spacing) * 4);
-		flex-wrap: wrap;
-	}
-
-	.stat-item {
-		text-align: center;
-	}
-
-	.stat-number {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: white;
-		margin-bottom: calc(var(--spacing) * 0.5);
-	}
-
-	.stat-label {
-		font-size: 0.875rem;
-		color: rgba(255, 255, 255, 0.8);
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.stat-divider {
-		width: 1px;
-		height: 60px;
-		background: rgba(255, 255, 255, 0.2);
-	}
-
-	@media (max-width: 768px) {
-		.hero {
-			padding: calc(var(--spacing) * 10) 0 calc(var(--spacing) * 8);
-		}
-
-		.hero-title {
-			font-size: 2.5rem;
-		}
-
-		.hero-description {
-			font-size: 1.125rem;
-		}
-
-		.search-input {
-			font-size: 1rem;
-			padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2) calc(var(--spacing) * 1.5) calc(var(--spacing) * 5);
-		}
-
-		.search-button {
-			padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 3);
-			font-size: 0.875rem;
-		}
-
-		.search-icon {
-			left: calc(var(--spacing) * 2);
-			width: 20px;
-			height: 20px;
-		}
-
-		.stat-number {
-			font-size: 2rem;
-		}
-
-		.stat-divider {
-			display: none;
-		}
-	}
+  @media (max-width: 768px) {
+    .hero { padding: 3.5rem 0 3rem; }
+    .chalk { display: none; }
+    .chalk-italic { display: none; }
+    .chalk-line { display: none; }
+  }
 </style>
-
-<script>
-	const searchForm = document.getElementById('searchForm');
-	const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-	const popularTags = document.querySelectorAll('.popular-tag');
-
-	popularTags.forEach(tag => {
-		tag.addEventListener('click', (e) => {
-			e.preventDefault();
-			const searchTerm = (e.target as HTMLElement).dataset.search;
-			if (searchTerm && searchInput) {
-				searchInput.value = searchTerm;
-				searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-				searchInput.focus();
-			}
-		});
-	});
-
-	if (searchForm) {
-		searchForm.addEventListener('submit', (e) => {
-			e.preventDefault();
-			const query = searchInput?.value.trim();
-			if (query) {
-				window.dispatchEvent(new CustomEvent('search', { detail: { query } }));
-			}
-		});
-	}
-
-	searchInput?.addEventListener('input', () => {
-		const query = searchInput.value.trim();
-		window.dispatchEvent(new CustomEvent('search', { detail: { query } }));
-	});
-</script>
