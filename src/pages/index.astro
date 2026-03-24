@@ -1,19 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { getCollection } from 'astro:content';
 import type { Course } from '../lib/supabase';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const latestPosts = allPosts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-function formatDate(date: Date) {
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-}
-
 let coursesData: Course[] = [];
+let featuredCourses: Course[] = [];
 let categories: any[] = [];
 
 if (isSupabaseConfigured && supabase) {
@@ -25,6 +17,7 @@ if (isSupabaseConfigured && supabase) {
 		.limit(50);
 
 	coursesData = courses || [];
+	featuredCourses = coursesData.filter(c => c.featured).slice(0, 3);
 
 	const { data: cats } = await supabase
 		.from('course_categories')
@@ -35,175 +28,175 @@ if (isSupabaseConfigured && supabase) {
 }
 ---
 
-<Layout
-  title="Online College Courses | Find Accredited Programs"
-  description="Search thousands of accredited online college courses, degrees, and certificate programs from top institutions."
->
+<Layout>
+	<Hero />
 
-	<!-- Teal Page Header -->
-	<div class="page-header">
+	<!-- Featured Courses Row -->
+	{featuredCourses.length > 0 && (
+	<section class="featured-section">
 		<div class="container">
-			<h1>Online College Courses</h1>
-			<p class="motto">Find your program. Advance your career.™</p>
-			<div class="search-wrapper">
-				<div class="search-box">
-					<svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<circle cx="11" cy="11" r="8"/>
-						<path d="M21 21l-4.35-4.35"/>
-					</svg>
-					<input
-						type="text"
-						id="searchInput"
-						placeholder="Search for courses, subjects, or colleges..."
-						autocomplete="off"
-					/>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Main Content -->
-	<div class="container">
-		<div class="unified-section">
-
 			<div class="section-heading">
-				<h2>Course Directory</h2>
-				<p>Accredited degrees, certificates, and courses from top institutions</p>
+				<h2>Featured Courses</h2>
+				<p>In-depth guides to help you find the right program, earn credits faster, and advance your career</p>
 			</div>
-
-			<!-- Filters -->
-			<div class="filters-bar">
-				<div class="filter-group">
-					<label for="categoryFilter">Subject</label>
-					<select id="categoryFilter" class="filter-select">
-						<option value="">All Subjects</option>
-						{categories?.map(cat => (
-							<option value={cat.slug}>{cat.icon} {cat.name}</option>
-						))}
-					</select>
-				</div>
-				<div class="filter-group">
-					<label for="levelFilter">Level</label>
-					<select id="levelFilter" class="filter-select">
-						<option value="">All Levels</option>
-						<option value="Beginner">Beginner</option>
-						<option value="Intermediate">Intermediate</option>
-						<option value="Advanced">Advanced</option>
-					</select>
-				</div>
-				<div class="filter-group">
-					<label for="priceFilter">Price</label>
-					<select id="priceFilter" class="filter-select">
-						<option value="">All Prices</option>
-						<option value="Free">Free Only</option>
-						<option value="Paid">Paid</option>
-					</select>
-				</div>
-				<div class="filter-group">
-					<label for="sortFilter">Sort By</label>
-					<select id="sortFilter" class="filter-select">
-						<option value="featured">Featured</option>
-						<option value="popularity">Popularity</option>
-						<option value="price-low">Price: Low to High</option>
-						<option value="price-high">Price: High to Low</option>
-					</select>
-				</div>
-				<div class="results-count">
-					Showing <span id="courseCount">{coursesData.length}</span> courses
-				</div>
-			</div>
-
-			<!-- Course Cards Grid -->
-			<div class="unified-grid" id="coursesGrid">
-				{coursesData.map(course => (
-					<a
-						href={course.course_url || '#'}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="card"
-						data-course-id={course.id}
-						data-category={course.course_categories?.slug}
-						data-level={course.level}
-						data-price={course.price}
-						data-popularity={course.colleges?.popularity_score}
-						data-featured={course.featured}
-						data-created={course.created_at}
-					>
+			<div class="unified-grid">
+				{featuredCourses.map(course => (
+					<a href={`/courses/${course.slug}`} class="card">
 						<div class="card-image">
 							<img
 								src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
 								alt={course.title}
 								loading="lazy"
 							/>
-							{course.featured && <span class="badge-featured">Featured</span>}
-							{course.price === 'Free'
-								? <span class="badge-price free">Free</span>
-								: course.price && <span class="badge-price">{course.price}</span>
-							}
 						</div>
 						<div class="card-body">
-							<span class="card-label">
-								{course.course_categories ? `${course.course_categories.icon ?? ''} ${course.course_categories.name}` : 'Course'}
-							</span>
+							<span class="card-label">Featured Course</span>
 							<h3 class="card-title">{course.title}</h3>
-							{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
+							{course.colleges && (
+								<p class="card-brand">{course.colleges.name}</p>
+							)}
 							<p class="card-excerpt">
 								{course.short_description || course.description?.slice(0, 160)}
 							</p>
-							<span class="card-cta">View program →</span>
-						</div>
-					</a>
-				))}
-			</div>
-
-			<div class="no-results" id="noResults" style="display:none;">
-				<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-					<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-				</svg>
-				<h3>No courses found</h3>
-				<p>Try adjusting your filters or search terms</p>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- From Our Blog -->
-	{latestPosts.length > 0 && (
-	<div class="blog-section">
-		<div class="container">
-			<div class="blog-header">
-				<div>
-					<h2>From Our Blog</h2>
-					<p>Guides and insights to help you succeed in online learning</p>
-				</div>
-				<a href="/blog" class="view-all">View all articles →</a>
-			</div>
-			<div class="blog-grid">
-				{latestPosts.map((post) => (
-					<a href={`/blog/${post.slug}`} class="card">
-						{post.data.image && (
-							<div class="card-image">
-								<img src={post.data.image} alt={post.data.title} loading="lazy" />
-							</div>
-						)}
-						<div class="card-body">
-							{post.data.tags && post.data.tags.length > 0 && (
-								<span class="card-label">{post.data.tags[0]}</span>
-							)}
-							<h3 class="card-title">{post.data.title}</h3>
-							<p class="card-excerpt">{post.data.description}</p>
-							<div class="card-meta">
-								<span>{formatDate(post.data.pubDate)}</span>
-								{post.data.author && <><span class="dot">·</span><span>{post.data.author}</span></>}
-							</div>
-							<span class="card-cta">Read article →</span>
+							<span class="card-cta">View course details →</span>
 						</div>
 					</a>
 				))}
 			</div>
 		</div>
-	</div>
+	</section>
 	)}
+
+	<main class="main-content">
+		<div class="container">
+			<section class="filters-section">
+				<div class="filters-header">
+					<h2>Browse Courses</h2>
+					<div class="results-count" id="resultsCount">
+						Showing <span id="courseCount">{coursesData.length}</span> courses
+					</div>
+				</div>
+
+				<div class="search-box">
+					<svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+						<circle cx="9" cy="9" r="5" stroke="currentColor" stroke-width="2"/>
+						<path d="M13 13L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+					</svg>
+					<input
+						type="text"
+						id="searchInput"
+						placeholder="Search for courses (e.g., Algebra, Computer Science)..."
+						class="search-input"
+					/>
+				</div>
+
+				<div class="filters">
+					<div class="filter-group">
+						<label for="categoryFilter">Subject</label>
+						<select id="categoryFilter" class="filter-select">
+							<option value="">All Subjects</option>
+							{categories?.map(cat => (
+								<option value={cat.slug}>{cat.icon} {cat.name}</option>
+							))}
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="sortFilter">Sort By</label>
+						<select id="sortFilter" class="filter-select">
+							<option value="featured">Featured</option>
+							<option value="popularity">Popularity</option>
+							<option value="price-low">Price: Low to High</option>
+							<option value="price-high">Price: High to Low</option>
+							<option value="ease">Ease of Access</option>
+							<option value="accreditation">Accreditation</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="levelFilter">Level</label>
+						<select id="levelFilter" class="filter-select">
+							<option value="">All Levels</option>
+							<option value="Beginner">Beginner</option>
+							<option value="Intermediate">Intermediate</option>
+							<option value="Advanced">Advanced</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="priceFilter">Price</label>
+						<select id="priceFilter" class="filter-select">
+							<option value="">All Prices</option>
+							<option value="Free">Free Only</option>
+							<option value="Paid">Paid</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="certificateFilter">Certificate</label>
+						<select id="certificateFilter" class="filter-select">
+							<option value="">All</option>
+							<option value="true">Certificate Available</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="accreditationFilter">Accreditation</label>
+						<select id="accreditationFilter" class="filter-select">
+							<option value="">All Types</option>
+							<option value="Regional">Regional</option>
+							<option value="National">National</option>
+							<option value="International">International</option>
+						</select>
+					</div>
+				</div>
+			</section>
+
+			<section class="courses-section">
+				<div class="courses-grid" id="coursesGrid">
+					{coursesData.map(course => (
+						<a href={course.course_url || '#'} target="_blank" rel="noopener noreferrer" class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+							<div class="card-image">
+								<img
+									src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
+									alt={course.title}
+									loading="lazy"
+								/>
+								{course.featured && <span class="card-badge-featured">Featured</span>}
+								{course.price === 'Free'
+									? <span class="card-badge-price free">Free</span>
+									: course.price && <span class="card-badge-price">{course.price}</span>
+								}
+							</div>
+							<div class="card-body">
+								<span class="card-label">
+									{course.course_categories ? `${course.course_categories.icon ?? ''} ${course.course_categories.name}` : 'Course'}
+								</span>
+								<h3 class="card-title">{course.title}</h3>
+								{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
+								<p class="card-excerpt">
+									{course.short_description || course.description?.slice(0, 160)}
+								</p>
+								<span class="card-cta">View program →</span>
+							</div>
+						</a>
+					))}
+				</div>
+
+				<div class="no-results" id="noResults" style="display: none;">
+					<svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+						<circle cx="60" cy="60" r="50" fill="#f5f5f5"/>
+						<path d="M45 50C45 47.2386 47.2386 45 50 45H70C72.7614 45 75 47.2386 75 50V70C75 72.7614 72.7614 75 70 75H50C47.2386 75 45 72.7614 45 70V50Z" stroke="#a3a3a3" stroke-width="3"/>
+						<circle cx="55" cy="57" r="3" fill="#a3a3a3"/>
+						<circle cx="65" cy="57" r="3" fill="#a3a3a3"/>
+						<path d="M52 67C52 67 56 63 60 63C64 63 68 67 68 67" stroke="#a3a3a3" stroke-width="3" stroke-linecap="round"/>
+					</svg>
+					<h3>No courses found</h3>
+					<p>Try adjusting your filters or search terms</p>
+				</div>
+			</section>
+		</div>
+	</main>
 
 	<script type="application/ld+json" set:html={JSON.stringify({
 		"@context": "https://schema.org",
@@ -221,91 +214,22 @@ if (isSupabaseConfigured && supabase) {
 			}
 		}))
 	})} />
-
 </Layout>
 
 <style>
-	/* ── Page Header ── */
-	.page-header {
-		background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
-		color: white;
-		padding: 3rem 0 2.5rem;
-		text-align: center;
-	}
-
-	.page-header h1 {
-		color: white;
-		font-size: clamp(1.75rem, 4vw, 2.5rem);
-		font-weight: 800;
-		letter-spacing: -0.03em;
-		margin-bottom: 0.375rem;
-		line-height: 1.2;
-	}
-
-	.motto {
-		font-size: 1.125rem;
-		color: rgba(255,255,255,0.9);
-		font-weight: 500;
-		letter-spacing: 0.01em;
-		margin-bottom: 1.75rem;
-	}
-
-	.search-wrapper {
-		max-width: 520px;
-		margin: 0 auto;
-	}
-
-	.search-box {
-		position: relative;
-		display: flex;
-		align-items: center;
-	}
-
-	.search-icon {
-		position: absolute;
-		left: 1.125rem;
-		color: #64748b;
-		pointer-events: none;
-		z-index: 1;
-	}
-
-	#searchInput {
-		width: 100%;
-		padding: 0.9375rem 1.25rem 0.9375rem 3rem;
-		font-size: 1rem;
-		border: none;
-		border-radius: 50px;
-		background: rgba(255,255,255,0.97);
-		color: #0f172a;
-		box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-		transition: box-shadow 0.2s;
-		font-family: 'Inter', sans-serif;
-	}
-
-	#searchInput::placeholder { color: #94a3b8; }
-	#searchInput:focus {
-		outline: none;
-		background: white;
-		box-shadow: 0 4px 28px rgba(0,0,0,0.22);
-	}
-
-	/* ── Container ── */
-	.container {
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: 0 1.5rem;
-	}
-
-	/* ── Unified Section ── */
-	.unified-section {
+	/* ── Featured Section ── */
+	.featured-section {
+		background: #f8fafc;
 		padding: 2.5rem 0 3rem;
+		border-bottom: 1px solid #e2e8f0;
 	}
 
 	.section-heading {
-		margin-bottom: 1.5rem;
+		margin-bottom: 2rem;
 	}
 
 	.section-heading h2 {
+		font-family: 'Inter', sans-serif;
 		font-size: 1.875rem;
 		font-weight: 800;
 		color: #0f172a;
@@ -319,67 +243,6 @@ if (isSupabaseConfigured && supabase) {
 		margin: 0;
 	}
 
-	/* ── Filters Bar ── */
-	.filters-bar {
-		display: flex;
-		align-items: flex-end;
-		gap: 1rem;
-		flex-wrap: wrap;
-		background: white;
-		border: 1px solid #e2e8f0;
-		border-radius: 12px;
-		padding: 1.25rem 1.5rem;
-		margin-bottom: 2rem;
-		box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-	}
-
-	.filter-group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-		min-width: 140px;
-	}
-
-	.filter-group label {
-		font-size: 0.75rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: #64748b;
-	}
-
-	.filter-select {
-		padding: 0.5rem 0.75rem;
-		border: 1.5px solid #e2e8f0;
-		border-radius: 8px;
-		font-size: 0.9rem;
-		color: #334155;
-		background: white;
-		cursor: pointer;
-		transition: border-color 0.15s;
-		font-family: 'Inter', sans-serif;
-	}
-
-	.filter-select:focus {
-		outline: none;
-		border-color: #0d9488;
-	}
-
-	.results-count {
-		font-size: 0.875rem;
-		color: #64748b;
-		margin-left: auto;
-		align-self: flex-end;
-		padding-bottom: 0.5rem;
-		white-space: nowrap;
-	}
-
-	#courseCount {
-		font-weight: 700;
-		color: #0d9488;
-	}
-
-	/* ── Card Grid ── */
 	.unified-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -387,7 +250,6 @@ if (isSupabaseConfigured && supabase) {
 		align-items: start;
 	}
 
-	/* ── Card ── */
 	.card {
 		display: flex;
 		flex-direction: column;
@@ -403,8 +265,8 @@ if (isSupabaseConfigured && supabase) {
 
 	.card:hover {
 		transform: translateY(-4px);
-		box-shadow: 0 12px 40px rgba(0,0,0,0.10);
-		border-color: #0d9488;
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+		border-color: #2563eb;
 	}
 
 	.card-image {
@@ -423,37 +285,8 @@ if (isSupabaseConfigured && supabase) {
 		transition: transform 0.35s ease;
 	}
 
-	.card:hover .card-image img { transform: scale(1.06); }
-
-	.badge-featured {
-		position: absolute;
-		top: 10px;
-		left: 10px;
-		padding: 3px 9px;
-		background: linear-gradient(135deg, #f59e0b, #ea580c);
-		color: white;
-		font-size: 0.65rem;
-		font-weight: 700;
-		border-radius: 5px;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.badge-price {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		padding: 3px 9px;
-		background: rgba(15,23,42,0.75);
-		color: white;
-		font-size: 0.75rem;
-		font-weight: 700;
-		border-radius: 5px;
-		backdrop-filter: blur(6px);
-	}
-
-	.badge-price.free {
-		background: linear-gradient(135deg, #10b981, #059669);
+	.card:hover .card-image img {
+		transform: scale(1.06);
 	}
 
 	.card-body {
@@ -468,26 +301,29 @@ if (isSupabaseConfigured && supabase) {
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
-		color: #0d9488;
+		color: #2563eb;
 		margin-bottom: 0.5rem;
 		display: inline-block;
 	}
 
 	.card-title {
+		font-family: 'Inter', sans-serif;
 		font-size: 1.125rem;
 		font-weight: 700;
 		color: #0f172a;
 		line-height: 1.4;
-		margin-bottom: 0.375rem;
+		margin-bottom: 0.625rem;
 		letter-spacing: -0.02em;
 	}
 
-	.card:hover .card-title { color: #0d9488; }
+	.card:hover .card-title {
+		color: #2563eb;
+	}
 
 	.card-brand {
 		font-size: 0.85rem;
 		color: #94a3b8;
-		margin-bottom: 0.5rem;
+		margin-bottom: 0.625rem;
 		font-weight: 500;
 	}
 
@@ -503,99 +339,222 @@ if (isSupabaseConfigured && supabase) {
 		margin-bottom: 1rem;
 	}
 
-	.card-meta {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.8rem;
-		color: #94a3b8;
-		margin-bottom: 0.75rem;
-	}
-
-	.dot { opacity: 0.5; }
-
 	.card-cta {
 		font-size: 0.875rem;
 		font-weight: 600;
-		color: #0d9488;
+		color: #2563eb;
 		transition: color 0.2s;
 		margin-top: auto;
 	}
 
-	.card:hover .card-cta { color: #0f766e; }
-
-	/* ── No Results ── */
-	.no-results {
-		text-align: center;
-		padding: 5rem 0;
-		color: #94a3b8;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1rem;
+	.card:hover .card-cta {
+		color: #1d4ed8;
 	}
 
-	.no-results h3 { font-size: 1.25rem; color: #475569; }
-	.no-results p { font-size: 0.9375rem; color: #94a3b8; }
-
-	/* ── Blog Section ── */
-	.blog-section {
-		background: #f8fafc;
-		border-top: 1px solid #e2e8f0;
-		padding: 3rem 0 4rem;
-		margin-top: 1rem;
+	.card-badge-featured {
+		position: absolute;
+		top: 12px;
+		left: 12px;
+		padding: 4px 10px;
+		background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+		color: white;
+		font-size: 0.7rem;
+		font-weight: 700;
+		border-radius: 6px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 	}
 
-	.blog-header {
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		margin-bottom: 1.75rem;
-		gap: 1rem;
+	.card-badge-price {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		padding: 4px 10px;
+		background: rgba(15, 23, 42, 0.80);
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 700;
+		border-radius: 6px;
+		backdrop-filter: blur(8px);
 	}
 
-	.blog-header h2 {
-		font-size: 1.875rem;
-		font-weight: 800;
-		color: #0f172a;
-		letter-spacing: -0.03em;
-		margin-bottom: 0.25rem;
-	}
-
-	.blog-header p {
-		font-size: 1rem;
-		color: #64748b;
-		margin: 0;
-	}
-
-	.view-all {
-		font-size: 0.9375rem;
-		font-weight: 600;
-		color: #0d9488;
-		text-decoration: none;
-		white-space: nowrap;
-		flex-shrink: 0;
-	}
-
-	.view-all:hover { color: #0f766e; }
-
-	.blog-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5rem;
-	}
-
-	/* ── Responsive ── */
-	@media (max-width: 1024px) {
-		.blog-grid { grid-template-columns: repeat(2, 1fr); }
+	.card-badge-price.free {
+		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 	}
 
 	@media (max-width: 768px) {
-		.unified-grid { grid-template-columns: 1fr; }
-		.blog-grid { grid-template-columns: 1fr; }
-		.filters-bar { flex-direction: column; align-items: stretch; }
-		.results-count { margin-left: 0; }
-		.blog-header { flex-direction: column; align-items: flex-start; }
+		.unified-grid,
+		.courses-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Main Content */
+	.main-content {
+		padding: calc(var(--spacing) * 8) 0;
+		min-height: 60vh;
+	}
+
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.filters-section {
+		margin-bottom: calc(var(--spacing) * 5);
+	}
+
+	.search-box {
+		position: relative;
+		margin-bottom: calc(var(--spacing) * 3);
+	}
+
+	.search-icon {
+		position: absolute;
+		left: calc(var(--spacing) * 2);
+		top: 50%;
+		transform: translateY(-50%);
+		color: var(--neutral-400);
+		pointer-events: none;
+	}
+
+	.search-input {
+		width: 100%;
+		padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 2.5) calc(var(--spacing) * 2.5) calc(var(--spacing) * 6);
+		border: 2px solid var(--neutral-200);
+		border-radius: calc(var(--border-radius) * 1.25);
+		font-size: 1.125rem;
+		color: var(--neutral-800);
+		background: white;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	}
+
+	.search-input:hover {
+		border-color: var(--color-primary-light);
+		box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08);
+	}
+
+	.search-input:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 4px 16px rgba(30, 64, 175, 0.15), 0 0 0 4px rgba(30, 64, 175, 0.1);
+	}
+
+	.search-input::placeholder {
+		color: var(--neutral-400);
+	}
+
+	.filters-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: calc(var(--spacing) * 3);
+		flex-wrap: wrap;
+		gap: calc(var(--spacing) * 2);
+	}
+
+	.filters-header h2 {
+		font-size: 2rem;
+		color: var(--neutral-900);
+	}
+
+	.results-count {
+		font-size: 1rem;
+		color: var(--neutral-600);
+	}
+
+	#courseCount {
+		font-weight: 600;
+		color: var(--color-primary);
+	}
+
+	.filters {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: calc(var(--spacing) * 2);
+		padding: calc(var(--spacing) * 4);
+		background: white;
+		border-radius: calc(var(--border-radius) * 1.25);
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+		border: 1px solid var(--neutral-100);
+	}
+
+	.filter-group label {
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--neutral-700);
+		margin-bottom: calc(var(--spacing) * 1);
+	}
+
+	.filter-select {
+		width: 100%;
+		padding: calc(var(--spacing) * 1.75);
+		border: 2px solid var(--neutral-200);
+		border-radius: calc(var(--border-radius) * 0.75);
+		font-size: 1rem;
+		color: var(--neutral-800);
+		background: white;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		cursor: pointer;
+	}
+
+	.filter-select:hover {
+		border-color: var(--color-primary-light);
+		box-shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
+	}
+
+	.filter-select:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 2px 12px rgba(30, 64, 175, 0.12), 0 0 0 3px rgba(30, 64, 175, 0.1);
+	}
+
+	.courses-section {
+		position: relative;
+	}
+
+	.courses-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.5rem;
+		margin-bottom: calc(var(--spacing) * 5);
+	}
+
+	.no-results {
+		text-align: center;
+		padding: calc(var(--spacing) * 10) 0;
+	}
+
+	.no-results svg {
+		margin: 0 auto calc(var(--spacing) * 3);
+	}
+
+	.no-results h3 {
+		font-size: 1.5rem;
+		color: var(--neutral-700);
+		margin-bottom: calc(var(--spacing) * 1);
+	}
+
+	.no-results p {
+		font-size: 1rem;
+		color: var(--neutral-500);
+	}
+
+	@media (max-width: 768px) {
+		.main-content {
+			padding: calc(var(--spacing) * 5) 0;
+		}
+
+		.filters-header h2 {
+			font-size: 1.5rem;
+		}
+
+		.filters {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>
 
@@ -612,62 +571,98 @@ if (isSupabaseConfigured && supabase) {
 	const sortFilter = document.getElementById('sortFilter') as HTMLSelectElement;
 	const levelFilter = document.getElementById('levelFilter') as HTMLSelectElement;
 	const priceFilter = document.getElementById('priceFilter') as HTMLSelectElement;
+	const certificateFilter = document.getElementById('certificateFilter') as HTMLSelectElement;
+	const accreditationFilter = document.getElementById('accreditationFilter') as HTMLSelectElement;
 
 	let searchQuery = '';
 
-	function filterAndSort() {
+	function filterAndSortCourses() {
 		filteredCourses = coursesData.filter((course: any) => {
 			const matchesSearch = searchQuery === '' ||
-				course.title?.toLowerCase().includes(searchQuery) ||
-				course.description?.toLowerCase().includes(searchQuery) ||
-				course.colleges?.name?.toLowerCase().includes(searchQuery) ||
-				course.course_categories?.name?.toLowerCase().includes(searchQuery);
+				course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				course.colleges?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				course.course_categories?.name.toLowerCase().includes(searchQuery.toLowerCase());
 
 			const matchesCategory = !categoryFilter?.value ||
 				course.course_categories?.slug === categoryFilter.value;
 
-			const matchesLevel = !levelFilter?.value || course.level === levelFilter.value;
+			const matchesLevel = !levelFilter?.value ||
+				course.level === levelFilter.value;
 
 			const matchesPrice = !priceFilter?.value ||
 				(priceFilter.value === 'Free' && course.price === 'Free') ||
 				(priceFilter.value === 'Paid' && course.price !== 'Free');
 
-			return matchesSearch && matchesCategory && matchesLevel && matchesPrice;
+			const matchesCertificate = !certificateFilter?.value ||
+				course.certificate_available === true;
+
+			const matchesAccreditation = !accreditationFilter?.value ||
+				course.colleges?.accreditation_level === accreditationFilter.value;
+
+			return matchesSearch && matchesCategory && matchesLevel && matchesPrice && matchesCertificate && matchesAccreditation;
 		});
 
 		const sortValue = sortFilter?.value || 'featured';
 		filteredCourses.sort((a: any, b: any) => {
-			if (sortValue === 'popularity') return (b.colleges?.popularity_score || 0) - (a.colleges?.popularity_score || 0);
-			if (sortValue === 'price-low') return (a.price_numeric || 0) - (b.price_numeric || 0);
-			if (sortValue === 'price-high') return (b.price_numeric || 0) - (a.price_numeric || 0);
-			if (b.featured !== a.featured) return b.featured ? 1 : -1;
-			return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+			switch (sortValue) {
+				case 'popularity':
+					return (b.colleges?.popularity_score || 0) - (a.colleges?.popularity_score || 0);
+				case 'price-low':
+					return (a.price_numeric || 0) - (b.price_numeric || 0);
+				case 'price-high':
+					return (b.price_numeric || 0) - (a.price_numeric || 0);
+				case 'ease':
+					return (b.colleges?.ease_of_access_score || 0) - (a.colleges?.ease_of_access_score || 0);
+				case 'accreditation':
+					const accreditationOrder: any = { 'Regional': 3, 'National': 2, 'International': 1 };
+					return (accreditationOrder[b.colleges?.accreditation_level] || 0) -
+					       (accreditationOrder[a.colleges?.accreditation_level] || 0);
+				case 'featured':
+				default:
+					if (b.featured !== a.featured) {
+						return b.featured ? 1 : -1;
+					}
+					return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+			}
 		});
 
-		if (courseCount) courseCount.textContent = filteredCourses.length.toString();
+		updateDisplay();
+	}
+
+	function updateDisplay() {
+		if (courseCount) {
+			courseCount.textContent = filteredCourses.length.toString();
+		}
 
 		if (filteredCourses.length === 0) {
 			if (coursesGrid) coursesGrid.style.display = 'none';
-			if (noResults) noResults.style.display = 'flex';
+			if (noResults) noResults.style.display = 'block';
 		} else {
 			if (coursesGrid) coursesGrid.style.display = 'grid';
 			if (noResults) noResults.style.display = 'none';
-			coursesGrid?.querySelectorAll('.card').forEach((card) => {
-				const id = (card as HTMLElement).dataset.courseId;
-				(card as HTMLElement).style.display = filteredCourses.some((c: any) => c.id === id) ? 'flex' : 'none';
+
+			const cards = coursesGrid?.querySelectorAll('.card');
+			cards?.forEach((card) => {
+				const courseId = (card as HTMLElement).dataset.courseId;
+				const shouldShow = filteredCourses.some((c: any) => c.id === courseId);
+				(card as HTMLElement).style.display = shouldShow ? 'flex' : 'none';
 			});
 		}
 	}
 
 	searchInput?.addEventListener('input', (e) => {
-		searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
-		filterAndSort();
+		searchQuery = (e.target as HTMLInputElement).value;
+		filterAndSortCourses();
 	});
 
-	categoryFilter?.addEventListener('change', filterAndSort);
-	sortFilter?.addEventListener('change', filterAndSort);
-	levelFilter?.addEventListener('change', filterAndSort);
-	priceFilter?.addEventListener('change', filterAndSort);
+	categoryFilter?.addEventListener('change', filterAndSortCourses);
+	sortFilter?.addEventListener('change', filterAndSortCourses);
+	levelFilter?.addEventListener('change', filterAndSortCourses);
+	priceFilter?.addEventListener('change', filterAndSortCourses);
+	certificateFilter?.addEventListener('change', filterAndSortCourses);
+	accreditationFilter?.addEventListener('change', filterAndSortCourses);
 </script>
 
 <script id="coursesData" type="application/json" set:html={JSON.stringify(coursesData)} />
+

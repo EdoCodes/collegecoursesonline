@@ -21,11 +21,10 @@ const currentPath = Astro.url.pathname;
       <!-- Desktop Navigation -->
       <ul class="nav-links">
         <li><a href="/" class={`nav-link${currentPath === '/' ? ' active' : ''}`}>Home</a></li>
-        <li><a href="/blog" class={`nav-link${currentPath.startsWith('/blog') ? ' active' : ''}`}>Blog</a></li>
+        <li><a href="/blog" class={`nav-link${currentPath.startsWith('/blog') ? ' active' : ''}`}>News</a></li>
         <li><a href="/colleges" class={`nav-link${currentPath.startsWith('/colleges') ? ' active' : ''}`}>Colleges</a></li>
         <li><a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>Courses</a></li>
         <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
-        <li><a href="/resources/blog" class={`nav-link${currentPath.startsWith('/resources/blog') && !currentPath.includes('how-to') ? ' active' : ''}`}>Rankings</a></li>
         <li class="nav-item-dropdown">
           <a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>
             Resources
@@ -35,15 +34,7 @@ const currentPath = Astro.url.pathname;
           </a>
           <div class="nav-dropdown">
             <a href="/resources/blog" class="dropdown-link">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="15 4 9 10 6 7 1 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Rankings
-            </a>
-            <a href="/resources/blog" class="dropdown-link">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              Guides
-            </a>
-            <a href="/blog" class="dropdown-link">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2h5a3 3 0 0 1 3 3v9a2 2 0 0 0-2-2H2z" stroke="currentColor" stroke-width="1.5"/><path d="M14 2h-5a3 3 0 0 0-3 3v9a2 2 0 0 1 2-2h6z" stroke="currentColor" stroke-width="1.5"/></svg>
               Blog
             </a>
           </div>
@@ -71,11 +62,10 @@ const currentPath = Astro.url.pathname;
     <div class="mobile-menu" id="mobileMenu">
       <ul class="mobile-nav-links">
         <li><a href="/" class="mobile-nav-link">Home</a></li>
-        <li><a href="/blog" class="mobile-nav-link">Blog</a></li>
+        <li><a href="/blog" class="mobile-nav-link">News</a></li>
         <li><a href="/colleges" class="mobile-nav-link">Colleges</a></li>
         <li><a href="/courses" class="mobile-nav-link">Courses</a></li>
         <li><a href="/categories/certificate-programs" class="mobile-nav-link">Certificate Programs</a></li>
-        <li><a href="/resources/blog" class="mobile-nav-link">Rankings</a></li>
         <li><a href="/resources" class="mobile-nav-link">Resources</a></li>
       </ul>
       <a href="/submit-course" class="mobile-cta-button">Submit a Course</a>

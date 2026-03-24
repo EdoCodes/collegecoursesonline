@@ -84,42 +84,6 @@
         <button type="button" id="heroSearchBtn">Search</button>
       </div>
 
-      <!-- Stats Bar -->
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="stat-number">5,000+</span>
-          <span class="stat-label">Courses</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-number">200+</span>
-          <span class="stat-label">Colleges</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-number">50+</span>
-          <span class="stat-label">Subjects</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-number">Free &amp; Paid</span>
-          <span class="stat-label">Options</span>
-        </div>
-      </div>
-
-      <!-- Subject Quick-Links -->
-      <div class="hero-subjects">
-        <span class="subjects-label">Popular:</span>
-        <div class="subject-pills">
-          <a href="/categories/business" class="subject-pill">Business</a>
-          <a href="/categories/computer-science" class="subject-pill">Computer Science</a>
-          <a href="/categories/nursing" class="subject-pill">Nursing</a>
-          <a href="/categories/psychology" class="subject-pill">Psychology</a>
-          <a href="/categories/mba" class="subject-pill">MBA</a>
-          <a href="/categories/education" class="subject-pill">Education</a>
-        </div>
-      </div>
-
       <div class="hero-links">
         <a href="/courses">Browse all courses</a>
         <span class="divider">·</span>
@@ -308,95 +272,6 @@
     background: #132e22;
   }
 
-  /* ── Stats Bar ── */
-  .hero-stats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    background: rgba(255,255,255,0.10);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 50px;
-    padding: 0.625rem 1.5rem;
-    max-width: 520px;
-    margin: 0 auto 1.25rem;
-  }
-
-  .hero-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 1.125rem;
-  }
-
-  .stat-number {
-    font-size: 0.9375rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.65);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    line-height: 1.2;
-  }
-
-  .stat-divider {
-    width: 1px;
-    height: 28px;
-    background: rgba(255,255,255,0.2);
-    flex-shrink: 0;
-  }
-
-  /* ── Subject Pills ── */
-  .hero-subjects {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.25rem;
-  }
-
-  .subjects-label {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.6);
-    white-space: nowrap;
-  }
-
-  .subject-pills {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .subject-pill {
-    display: inline-block;
-    padding: 0.3rem 0.875rem;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.22);
-    border-radius: 50px;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.88);
-    text-decoration: none;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    white-space: nowrap;
-  }
-
-  .subject-pill:hover {
-    background: rgba(255,255,255,0.22);
-    border-color: rgba(255,255,255,0.4);
-    color: #ffffff;
-  }
-
   /* ── Sub-links ── */
   .hero-links {
     display: flex;
@@ -428,9 +303,5 @@
     .chalk-line { display: none; }
     .chalk-grain { display: none; }
     .hero-search { margin-left: 0; margin-right: 0; max-width: 100%; }
-    .hero-stats { max-width: 100%; padding: 0.5rem 0.75rem; }
-    .hero-stat { padding: 0 0.625rem; }
-    .stat-number { font-size: 0.8125rem; }
-    .subjects-label { display: none; }
   }
 </style>
