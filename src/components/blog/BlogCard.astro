@@ -1,0 +1,149 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  excerpt: string;
+  label?: string;
+  date?: string;
+  readingTime?: string;
+  image: string;
+  tags?: string[];
+}
+
+const { slug, title, excerpt, label, date, readingTime, image, tags = [] } = Astro.props;
+const href = `/resources/blog/${slug}`;
+---
+
+<a href={href} class="card">
+  <div class="card-image">
+    <img src={image} alt={title} loading="lazy" />
+  </div>
+  <div class="card-body">
+    {label && <span class="card-label">{label}</span>}
+    <h2 class="card-title">{title}</h2>
+    <p class="card-excerpt">{excerpt}</p>
+    <div class="card-footer">
+      {tags.length > 0 && (
+        <div class="card-tags">
+          {tags.slice(0, 4).map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+      {(date || readingTime) && (
+        <div class="card-meta">
+          {date && <span>{date}</span>}
+          {date && readingTime && <span class="dot">·</span>}
+          {readingTime && <span>{readingTime}</span>}
+        </div>
+      )}
+    </div>
+    <span class="card-cta">Read the guide →</span>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
+    box-shadow: var(--shadow-subtle);
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+  .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--color-bg-lighter);
+    flex-shrink: 0;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .card:hover .card-image img { transform: scale(1.05); }
+  .card-body {
+    padding: 1.5rem 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.35;
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.02em;
+  }
+  .card:hover .card-title { color: var(--color-primary); }
+  .card-excerpt {
+    font-size: 0.9375rem;
+    color: var(--color-text-medium);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  .card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--color-bg-lighter);
+    color: var(--color-text-medium);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-lighter);
+  }
+  .dot { opacity: 0.5; }
+  .card-cta {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color 0.2s;
+    margin-top: auto;
+  }
+  .card:hover .card-cta { color: var(--color-primary-dark); }
+</style>

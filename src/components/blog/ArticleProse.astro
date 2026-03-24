@@ -1,0 +1,361 @@
+---
+/**
+ * Shared prose styles for blog article content.
+ * Use a wrapper div with class="article-prose" around article body content.
+ */
+---
+
+<div class="article-prose">
+  <slot />
+</div>
+
+<style>
+  .article-prose section {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .article-prose section:last-child { border-bottom: none; }
+  .article-prose .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+  .article-prose h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-navy);
+    letter-spacing: -0.03em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .article-prose h2:first-child { margin-top: 0; }
+  .article-prose h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-top: 1.75rem;
+    margin-bottom: 0.625rem;
+  }
+  .article-prose h4 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 0.375rem;
+  }
+  .article-prose p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-slate);
+    margin-bottom: 1.125rem;
+  }
+  .article-prose .article-intro {
+    font-size: 1.125rem !important;
+    line-height: 1.85 !important;
+    color: var(--color-slate) !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* TL;DR */
+  .article-prose .tldr-box {
+    background: linear-gradient(90deg, #eff6ff 0%, #f0f9ff 100%);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 1px 3px rgba(30, 64, 175, 0.06);
+  }
+  .article-prose .tldr-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 0.625rem;
+  }
+  .article-prose .tldr-box p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: #1e3a8a;
+    margin: 0;
+  }
+
+  /* Lists */
+  .article-prose .styled-list {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .article-prose .styled-list li {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-slate);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Callouts */
+  .article-prose .callout {
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  .article-prose .callout-warning {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #78350f;
+  }
+  .article-prose .callout-danger {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #881337;
+  }
+  .article-prose .callout-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #14532d;
+  }
+  .article-prose .pro-tip {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    padding: 1rem 1.375rem;
+    font-size: 0.9375rem;
+    color: #0c4a6e;
+    margin: 1.5rem 0;
+    line-height: 1.75;
+  }
+  .article-prose .quick-win {
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    border-radius: 12px;
+    padding: 1rem 1.375rem;
+    font-size: 0.9375rem;
+    color: #713f12;
+    margin: 1.5rem 0;
+    line-height: 1.75;
+  }
+
+  /* Info Grid */
+  .article-prose .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .article-prose .info-card {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1.125rem 1.25rem;
+  }
+  .article-prose .info-card h4 {
+    font-size: 0.9375rem;
+    margin-bottom: 0.375rem;
+  }
+  .article-prose .info-card p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-text-medium);
+    margin: 0;
+  }
+
+  /* Tables */
+  .article-prose .compare-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .article-prose .compare-col {
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+  }
+  .article-prose .green-col { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .article-prose .yellow-col { background: #fffbeb; border: 1px solid #fde68a; }
+  .article-prose .compare-col h4 { font-size: 1rem; margin-bottom: 0.625rem; }
+  .article-prose .green-col h4 { color: #14532d; }
+  .article-prose .yellow-col h4 { color: #78350f; }
+  .article-prose .compare-col p { font-size: 0.875rem; line-height: 1.7; margin: 0; }
+
+  .article-prose .cost-table,
+  .article-prose .salary-table {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+  .article-prose .cost-row,
+  .article-prose .salary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+  }
+  .article-prose .cost-row:last-child,
+  .article-prose .salary-row:last-child { border-bottom: none; }
+  .article-prose .highlight-row { background: #eff6ff; }
+  .article-prose .header-row { background: var(--color-primary); color: white; font-weight: 700; }
+  .article-prose .salary-amount { color: var(--color-primary); font-weight: 700; white-space: nowrap; }
+
+  /* Red flags, steps, flags grid */
+  .article-prose .red-flags-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin: 1.5rem 0;
+  }
+  .article-prose .red-flag-item {
+    display: flex;
+    gap: 0.875rem;
+    align-items: flex-start;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 10px;
+    padding: 0.875rem 1.125rem;
+  }
+  .article-prose .flag-icon { font-size: 1.125rem; flex-shrink: 0; }
+  .article-prose .red-flag-item div { font-size: 0.9375rem; line-height: 1.6; color: #881337; }
+
+  .article-prose .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .article-prose .step-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+  }
+  .article-prose .step-number {
+    width: 36px;
+    height: 36px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9375rem;
+    flex-shrink: 0;
+  }
+  .article-prose .step-content h4 { font-size: 1rem; margin-bottom: 0.375rem; }
+  .article-prose .step-content p { font-size: 0.9rem; line-height: 1.65; color: var(--color-text-medium); margin: 0; }
+
+  .article-prose .flags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .article-prose .flags-col {
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .article-prose .red-flags-col { background: #fff1f2; border: 1px solid #fecdd3; }
+  .article-prose .green-flags-col { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .article-prose .flags-col h3 { font-size: 1rem; margin-bottom: 1rem; }
+  .article-prose .red-flags-col h3 { color: #881337; }
+  .article-prose .green-flags-col h3 { color: #14532d; }
+  .article-prose .flags-col ul { padding-left: 1.25rem; }
+  .article-prose .flags-col ul li { font-size: 0.875rem; line-height: 1.6; margin-bottom: 0.5rem; }
+
+  /* FAQ */
+  .article-prose .faq-section { margin-bottom: 3rem; }
+  .article-prose .faq-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .article-prose .faq-item {
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .article-prose .faq-item summary {
+    padding: 1.125rem 1.375rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .article-prose .faq-item summary::after {
+    content: '+';
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+  .article-prose .faq-item[open] summary::after { content: '−'; }
+  .article-prose .faq-item summary::-webkit-details-marker { display: none; }
+  .article-prose .faq-item[open] {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+  }
+  .article-prose .faq-item[open] summary { color: var(--color-primary); }
+  .article-prose .faq-answer { padding: 0 1.375rem 1.25rem; }
+  .article-prose .faq-answer p { font-size: 0.9375rem; margin: 0; }
+  .article-prose .faq-answer a { color: var(--color-primary); font-weight: 500; }
+
+  /* Conclusion */
+  .article-prose .conclusion-section {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  .article-prose .conclusion-section h2 { color: #1e3a8a; }
+  .article-prose .conclusion-section p { color: #1e3a8a; }
+
+  /* Resources */
+  .article-prose .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.875rem;
+    margin-top: 1.5rem;
+  }
+  .article-prose .resource-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .article-prose .resource-link:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(30,64,175,0.1);
+  }
+  .article-prose .resource-link strong { font-size: 0.9rem; color: var(--color-navy); }
+  .article-prose .resource-link span { font-size: 0.8rem; color: var(--color-primary); }
+
+  @media (max-width: 768px) {
+    .article-prose .flags-grid,
+    .article-prose .compare-table { grid-template-columns: 1fr; }
+    .article-prose .info-grid { grid-template-columns: 1fr; }
+    .article-prose .cost-row,
+    .article-prose .salary-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>

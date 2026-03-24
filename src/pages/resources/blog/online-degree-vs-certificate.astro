@@ -1,0 +1,690 @@
+---
+import BlogArticleLayout from '../../../components/blog/BlogArticleLayout.astro';
+import ArticleProse from '../../../components/blog/ArticleProse.astro';
+
+const title = "Online Degree vs Certificate: Which Is Right for You? (2026 Guide)";
+const description = "A complete side-by-side comparison of online degrees and certificates — cost, time to complete, career outcomes, employer recognition, and a decision framework to help you choose.";
+const publishDate = "2026-02-01";
+const updatedDate = "2026-03-10";
+const author = "Editorial Team";
+const readingTime = "18 min read";
+const slug = "/resources/blog/online-degree-vs-certificate";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is a certificate better than a degree for getting a job?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the field. In technology (IT, cybersecurity, cloud computing), certificates from recognized providers like CompTIA, Google, or AWS are often sufficient and sometimes preferred over degrees. In healthcare, education, law, and engineering, degrees are typically required. For career changers, a certificate can provide faster entry while a degree provides long-term earning potential."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to earn an online certificate vs a degree?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Online certificates typically take 3–12 months to complete. Associate degrees take 1–2 years, bachelor's degrees take 2–4 years (depending on transfer credits), and master's degrees take 1–2 years. Accelerated online programs can compress these timelines significantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a certificate lead to the same salary as a degree?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In some fields, yes. IT professionals with certifications like CISSP or AWS Solutions Architect can earn $100,000+ without a degree. However, across all industries, bachelor's degree holders earn a median weekly income of $1,432 vs $935 for those with some college but no degree. The gap is most pronounced in management, healthcare, and education."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do employers prefer degrees over certificates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Employer preferences vary by industry and role. A 2024 survey found that 72% of employers still list a bachelor's degree as a minimum requirement for professional roles. However, 45% said they would consider a candidate with a relevant certificate and demonstrated skills over a degree holder with no practical experience. The trend is moving toward skills-based hiring, especially in tech."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I stack certificates into a degree?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Some institutions allow certificate credits to count toward a degree. Western Governors University, Southern New Hampshire University, and many community colleges have stackable credential pathways. Always confirm with the institution before enrolling whether certificate credits will apply toward a future degree program."
+      }
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": publishDate,
+  "dateModified": updatedDate,
+  "author": { "@type": "Organization", "name": "College Courses Online Editorial Team" },
+  "publisher": { "@type": "Organization", "name": "College Courses Online" }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://yoursite.com/resources" },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://yoursite.com/resources/blog" },
+    { "@type": "ListItem", "position": 4, "name": title }
+  ]
+};
+
+const tocItems = [
+  { id: "overview", label: "Quick Overview" },
+  { id: "comparison", label: "Side-by-Side Comparison" },
+  { id: "when-degree", label: "When to Choose a Degree" },
+  { id: "when-certificate", label: "When to Choose a Certificate" },
+  { id: "by-industry", label: "By Industry & Career" },
+  { id: "costs", label: "Cost Comparison" },
+  { id: "stackable", label: "Stackable Credentials" },
+  { id: "decision-framework", label: "Decision Framework" },
+  { id: "faq", label: "Frequently Asked Questions" },
+];
+---
+
+<BlogArticleLayout
+  title={title}
+  description={description}
+  breadcrumbItems={[
+    { label: "Home", href: "/" },
+    { label: "Resources", href: "/resources" },
+    { label: "Blog", href: "/resources/blog" },
+    { label: "Degree vs Certificate" },
+  ]}
+  heroLabel="Degree Planning"
+  heroSubtitle={description}
+  updatedDate={`Updated ${updatedDate}`}
+  readingTime={readingTime}
+  author={author}
+  tags={["Degree Planning", "Certificates", "Career Advice", "Online Learning"]}
+  heroImage="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  tocItems={tocItems}
+  canonical={slug}
+>
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <ArticleProse>
+    <div class="tldr-box">
+      <strong>TL;DR — Key Takeaways</strong>
+      <ul>
+        <li><strong>Choose a certificate</strong> if you need to enter the workforce quickly, are changing careers in tech, or want to upskill without a multi-year commitment.</li>
+        <li><strong>Choose a degree</strong> if your target career requires licensure, you want maximum long-term earning potential, or you're entering a regulated field like healthcare, law, or education.</li>
+        <li>Bachelor's degree holders earn a median $1,432/week vs $935 for those with some college but no degree.</li>
+        <li>In tech, certifications like AWS, CISSP, or Google Cloud can command $100,000+ salaries without a degree.</li>
+        <li>Some schools offer stackable credentials — certificates that count toward a future degree.</li>
+      </ul>
+    </div>
+
+    <p>One of the most common questions prospective online students ask is: <em>"Should I get a degree or a certificate?"</em> The honest answer is: it depends on your career goals, timeline, budget, and industry. This guide breaks down every key factor so you can make the right choice for your situation.</p>
+
+    <h2 id="overview">Quick Overview</h2>
+
+    <div class="comparison-cards">
+      <div class="compare-card degree">
+        <div class="compare-header">
+          <span class="compare-icon">🎓</span>
+          <h3>Online Degree</h3>
+        </div>
+        <ul>
+          <li>⏱ <strong>Time:</strong> 1–4 years</li>
+          <li>💰 <strong>Cost:</strong> $15,000–$70,000+</li>
+          <li>📋 <strong>Types:</strong> Associate, Bachelor's, Master's, Doctorate</li>
+          <li>✅ <strong>Best for:</strong> Long-term career growth, regulated fields, management roles</li>
+          <li>🏛 <strong>Recognition:</strong> Universally recognized by employers</li>
+        </ul>
+      </div>
+      <div class="compare-card certificate">
+        <div class="compare-header">
+          <span class="compare-icon">📜</span>
+          <h3>Online Certificate</h3>
+        </div>
+        <ul>
+          <li>⏱ <strong>Time:</strong> 3–12 months</li>
+          <li>💰 <strong>Cost:</strong> $500–$15,000</li>
+          <li>📋 <strong>Types:</strong> Professional, Academic, Industry Certification</li>
+          <li>✅ <strong>Best for:</strong> Career changers, tech skills, quick upskilling</li>
+          <li>🏛 <strong>Recognition:</strong> Varies by industry and issuing body</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 id="comparison">Side-by-Side Comparison</h2>
+
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Online Degree</th>
+            <th>Online Certificate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Time to Complete</strong></td>
+            <td>1–4 years</td>
+            <td>3–12 months</td>
+          </tr>
+          <tr>
+            <td><strong>Average Cost</strong></td>
+            <td>$15,000–$70,000</td>
+            <td>$500–$15,000</td>
+          </tr>
+          <tr>
+            <td><strong>Federal Financial Aid</strong></td>
+            <td>Yes (FAFSA eligible)</td>
+            <td>Some programs only</td>
+          </tr>
+          <tr>
+            <td><strong>Employer Recognition</strong></td>
+            <td>Universal</td>
+            <td>Industry-dependent</td>
+          </tr>
+          <tr>
+            <td><strong>Earning Premium</strong></td>
+            <td>High (lifetime)</td>
+            <td>Moderate (field-specific)</td>
+          </tr>
+          <tr>
+            <td><strong>Licensure Eligibility</strong></td>
+            <td>Yes (most fields)</td>
+            <td>Limited</td>
+          </tr>
+          <tr>
+            <td><strong>Career Flexibility</strong></td>
+            <td>High (transferable)</td>
+            <td>Narrow (field-specific)</td>
+          </tr>
+          <tr>
+            <td><strong>Stackable to Degree</strong></td>
+            <td>N/A</td>
+            <td>Sometimes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="when-degree">When to Choose an Online Degree</h2>
+
+    <p>A degree is the right choice in these situations:</p>
+
+    <div class="decision-grid">
+      <div class="decision-item green">
+        <h4>You're entering a licensed profession</h4>
+        <p>Nursing, teaching, engineering, social work, and accounting all require degrees for licensure. No certificate will substitute.</p>
+      </div>
+      <div class="decision-item green">
+        <h4>You want management or leadership roles</h4>
+        <p>Most director, VP, and C-suite positions list a bachelor's or master's degree as a minimum requirement, regardless of experience.</p>
+      </div>
+      <div class="decision-item green">
+        <h4>You're early in your career</h4>
+        <p>A degree provides the broadest foundation and the highest lifetime earnings premium. The ROI is strongest when you have decades of career ahead.</p>
+      </div>
+      <div class="decision-item green">
+        <h4>You want to pursue graduate school</h4>
+        <p>Graduate programs require an accredited bachelor's degree. Certificates alone will not qualify you for admission to most master's or doctoral programs.</p>
+      </div>
+    </div>
+
+    <h2 id="when-certificate">When to Choose an Online Certificate</h2>
+
+    <p>A certificate is the right choice in these situations:</p>
+
+    <div class="decision-grid">
+      <div class="decision-item blue">
+        <h4>You're changing careers into tech</h4>
+        <p>IT, cybersecurity, cloud computing, and data analysis are skills-first fields where industry certifications (CompTIA, AWS, Google) are widely respected and often preferred.</p>
+      </div>
+      <div class="decision-item blue">
+        <h4>You need to upskill quickly</h4>
+        <p>If you're already employed and need a specific skill to advance or avoid layoffs, a 3–6 month certificate is far more efficient than a 2–4 year degree.</p>
+      </div>
+      <div class="decision-item blue">
+        <h4>You have a tight budget</h4>
+        <p>Certificates cost a fraction of a degree. If ROI speed matters, a $2,000 certificate that leads to a $15,000 salary increase pays for itself in weeks.</p>
+      </div>
+      <div class="decision-item blue">
+        <h4>You already have a degree</h4>
+        <p>Adding a certificate in a complementary field (e.g., a business degree + data analytics certificate) can be more valuable than a second degree.</p>
+      </div>
+    </div>
+
+    <h2 id="by-industry">By Industry & Career</h2>
+
+    <div class="industry-list">
+      <div class="industry-item">
+        <div class="industry-header">
+          <span class="industry-icon">💻</span>
+          <h3>Technology & IT</h3>
+          <span class="industry-verdict verdict-cert">Certificate-Friendly</span>
+        </div>
+        <p>Tech is the most certificate-friendly industry. AWS, Google Cloud, CompTIA Security+, and Cisco CCNA are widely recognized. Many tech companies have removed degree requirements entirely. That said, a CS degree still opens doors to software engineering roles at top companies.</p>
+      </div>
+      <div class="industry-item">
+        <div class="industry-header">
+          <span class="industry-icon">🏥</span>
+          <h3>Healthcare</h3>
+          <span class="industry-verdict verdict-degree">Degree Required</span>
+        </div>
+        <p>Most clinical healthcare roles require accredited degrees and state licensure. RN programs require at minimum an Associate Degree in Nursing (ADN). Physician assistants, nurse practitioners, and physicians need advanced degrees. Medical billing/coding is an exception where certificates are accepted.</p>
+      </div>
+      <div class="industry-item">
+        <div class="industry-header">
+          <span class="industry-icon">💼</span>
+          <h3>Business & Management</h3>
+          <span class="industry-verdict verdict-both">Both Viable</span>
+        </div>
+        <p>Entry-level business roles often accept certificates. Management and director-level roles typically require a bachelor's. An MBA is the gold standard for senior leadership. Project management certificates (PMP, CAPM) are highly valued alongside degrees.</p>
+      </div>
+      <div class="industry-item">
+        <div class="industry-header">
+          <span class="industry-icon">📚</span>
+          <h3>Education</h3>
+          <span class="industry-verdict verdict-degree">Degree Required</span>
+        </div>
+        <p>K-12 teaching requires a bachelor's degree and state teaching license in all 50 states. Instructional design and corporate training roles may accept certificates. Higher education administration typically requires a master's degree.</p>
+      </div>
+      <div class="industry-item">
+        <div class="industry-header">
+          <span class="industry-icon">📊</span>
+          <h3>Data & Analytics</h3>
+          <span class="industry-verdict verdict-cert">Certificate-Friendly</span>
+        </div>
+        <p>Data analyst roles are increasingly open to certificate holders with strong portfolios. Google's Data Analytics Certificate and IBM Data Science Professional Certificate are widely recognized. Senior data scientist and ML engineer roles still typically require a degree in a quantitative field.</p>
+      </div>
+    </div>
+
+    <h2 id="costs">Cost Comparison in Detail</h2>
+
+    <p>Here's a realistic cost breakdown for common credential paths:</p>
+
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Credential</th>
+            <th>Typical Cost</th>
+            <th>Time</th>
+            <th>Avg. Starting Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Industry Certificate (e.g., CompTIA A+)</td>
+            <td>$300–$500</td>
+            <td>3–6 months</td>
+            <td>$45,000–$55,000</td>
+          </tr>
+          <tr>
+            <td>Academic Certificate (online college)</td>
+            <td>$3,000–$12,000</td>
+            <td>6–12 months</td>
+            <td>$40,000–$65,000</td>
+          </tr>
+          <tr>
+            <td>Associate Degree (online)</td>
+            <td>$8,000–$20,000</td>
+            <td>1.5–2 years</td>
+            <td>$38,000–$55,000</td>
+          </tr>
+          <tr>
+            <td>Bachelor's Degree (online, public)</td>
+            <td>$15,000–$40,000</td>
+            <td>2–4 years</td>
+            <td>$50,000–$75,000</td>
+          </tr>
+          <tr>
+            <td>Master's Degree (online)</td>
+            <td>$20,000–$60,000</td>
+            <td>1–2 years</td>
+            <td>$65,000–$100,000+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="stackable">Stackable Credentials: The Best of Both Worlds</h2>
+
+    <p>Some institutions offer <strong>stackable credentials</strong> — a pathway where certificate credits count toward a full degree. This lets you:</p>
+    <ul>
+      <li>Enter the workforce faster with a certificate</li>
+      <li>Continue earning your degree while working</li>
+      <li>Avoid paying for the same content twice</li>
+    </ul>
+
+    <p>Schools known for strong stackable credential programs include:</p>
+    <ul>
+      <li><strong>Western Governors University (WGU)</strong> — Competency-based, many certificates stack toward degrees</li>
+      <li><strong>Southern New Hampshire University</strong> — Undergraduate certificates that apply to bachelor's programs</li>
+      <li><strong>Community Colleges</strong> — Associate degrees that transfer to 4-year universities</li>
+      <li><strong>Coursera / edX</strong> — Professional certificates from Google, IBM, Meta that some schools accept for credit</li>
+    </ul>
+
+    <div class="callout callout-info">
+      <strong>Pro Tip:</strong> Before enrolling in a certificate program, ask the institution: "Do these credits count toward a future degree program here?" Get the answer in writing.
+    </div>
+
+    <h2 id="decision-framework">Decision Framework: Which Should You Choose?</h2>
+
+    <p>Answer these five questions to guide your decision:</p>
+
+    <div class="framework-steps">
+      <div class="framework-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Does your target job require a specific degree or license?</h4>
+          <p>If yes → <strong>Degree</strong>. If no → continue to step 2.</p>
+        </div>
+      </div>
+      <div class="framework-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Do you need to be employed in your new field within 12 months?</h4>
+          <p>If yes → <strong>Certificate</strong>. If no → continue to step 3.</p>
+        </div>
+      </div>
+      <div class="framework-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Is your target industry tech, IT, or data?</h4>
+          <p>If yes → <strong>Certificate</strong> (with option to add degree later). If no → continue to step 4.</p>
+        </div>
+      </div>
+      <div class="framework-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h4>Are you planning to stay in this career for 10+ years?</h4>
+          <p>If yes → <strong>Degree</strong> (higher lifetime ROI). If no → <strong>Certificate</strong>.</p>
+        </div>
+      </div>
+      <div class="framework-step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h4>Do you have existing college credits?</h4>
+          <p>If yes → <strong>Degree</strong> (use your prior credits to reduce time and cost significantly).</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="faq">Frequently Asked Questions</h2>
+
+    <details>
+      <summary>Is a certificate better than a degree for getting a job?</summary>
+      <p>It depends on the field. In technology, certificates from recognized providers like CompTIA, Google, or AWS are often sufficient. In healthcare, education, law, and engineering, degrees are typically required. For career changers, a certificate can provide faster entry while a degree provides long-term earning potential.</p>
+    </details>
+
+    <details>
+      <summary>How long does it take to earn an online certificate vs a degree?</summary>
+      <p>Online certificates typically take 3–12 months. Associate degrees take 1–2 years, bachelor's degrees take 2–4 years, and master's degrees take 1–2 years. Accelerated online programs can compress these timelines significantly.</p>
+    </details>
+
+    <details>
+      <summary>Can a certificate lead to the same salary as a degree?</summary>
+      <p>In some fields, yes. IT professionals with certifications like CISSP or AWS Solutions Architect can earn $100,000+ without a degree. However, across all industries, bachelor's degree holders earn a median weekly income of $1,432 vs $935 for those with some college but no degree.</p>
+    </details>
+
+    <details>
+      <summary>Do employers prefer degrees over certificates?</summary>
+      <p>Employer preferences vary by industry. 72% of employers still list a bachelor's degree as a minimum requirement for professional roles. However, 45% said they would consider a candidate with a relevant certificate and demonstrated skills over a degree holder with no practical experience.</p>
+    </details>
+
+    <details>
+      <summary>Can I stack certificates into a degree?</summary>
+      <p>Some institutions allow certificate credits to count toward a degree. WGU, SNHU, and many community colleges have stackable credential pathways. Always confirm with the institution before enrolling whether certificate credits will apply toward a future degree program.</p>
+    </details>
+
+    <div class="conclusion-block">
+      <h3>Ready to Start Your Search?</h3>
+      <p>Browse our directory of accredited online degrees and certificate programs. Filter by subject, level, price, and accreditation to find the perfect program for your goals and timeline.</p>
+      <a href="/courses" class="conclusion-cta">Browse Programs →</a>
+    </div>
+
+    <div class="resource-links">
+      <h3>Related Guides</h3>
+      <ul>
+        <li><a href="/resources/blog/how-to-choose-right-online-college">How to Choose the Right Online College</a> — Our complete 9-step framework</li>
+        <li><a href="/resources/blog/best-online-colleges-2026">Best Online Colleges 2026</a> — Our ranked list of top accredited schools</li>
+        <li><a href="/blog/accreditation-guide">Accreditation Guide for Online Students</a> — What accreditation means and why it matters</li>
+        <li><a href="/blog/financial-aid-scholarships-online-learning">Financial Aid for Online Students</a> — Grants, loans, and scholarships explained</li>
+      </ul>
+    </div>
+  </ArticleProse>
+</BlogArticleLayout>
+
+<style>
+  .comparison-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .compare-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+
+  .compare-card.degree { border-color: #bfdbfe; }
+  .compare-card.certificate { border-color: #bbf7d0; }
+
+  .compare-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .compare-icon { font-size: 1.75rem; }
+
+  .compare-header h3 {
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .compare-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .compare-card li {
+    font-size: 0.9rem;
+    color: #334155;
+    line-height: 1.5;
+  }
+
+  .data-table {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .data-table th {
+    background: #1e40af;
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:nth-child(even) td { background: #f8fafc; }
+
+  .decision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .decision-item {
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid;
+  }
+
+  .decision-item.green {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+
+  .decision-item.blue {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+
+  .decision-item h4 {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.375rem;
+  }
+
+  .decision-item p {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .industry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    margin: 1.5rem 0;
+  }
+
+  .industry-item {
+    background: white;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .industry-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .industry-icon { font-size: 1.25rem; }
+
+  .industry-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    flex: 1;
+  }
+
+  .industry-verdict {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  .verdict-cert { background: #dcfce7; color: #166534; }
+  .verdict-degree { background: #dbeafe; color: #1e40af; }
+  .verdict-both { background: #fef9c3; color: #854d0e; }
+
+  .industry-item p {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .framework-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    margin: 1.5rem 0;
+  }
+
+  .framework-step {
+    display: flex;
+    gap: 1.25rem;
+    background: white;
+    padding: 1.25rem 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    width: 2rem;
+    height: 2rem;
+    background: #1e40af;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  .step-content h4 {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+  }
+
+  .step-content p {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .comparison-cards { grid-template-columns: 1fr; }
+    .decision-grid { grid-template-columns: 1fr; }
+  }
+</style>

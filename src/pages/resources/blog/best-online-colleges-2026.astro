@@ -1,0 +1,585 @@
+---
+import BlogArticleLayout from '../../../components/blog/BlogArticleLayout.astro';
+import ArticleProse from '../../../components/blog/ArticleProse.astro';
+
+const title = "2026 Best Online Colleges: Top 20 Accredited Programs Ranked";
+const description = "Our data-driven ranking of the best online colleges for 2026. Compare tuition costs, program offerings, accreditation, and student outcomes to find the right school for you.";
+const publishDate = "2026-01-10";
+const updatedDate = "2026-03-15";
+const author = "Editorial Team";
+const readingTime = "22 min read";
+const slug = "/resources/blog/best-online-colleges-2026";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the best online college in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Based on our data-driven ranking, the University of Florida Online ranks #1 for 2026 due to its combination of affordability ($129/credit for in-state), strong accreditation, wide program selection, and high graduate outcomes. However, the 'best' school depends on your specific program, budget, and career goals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are online college degrees respected by employers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Post-pandemic surveys show 84% of adults believe employers are more accepting of online degrees than before. Employer acceptance is highest when the degree is from a regionally accredited institution with a strong reputation. The delivery format matters far less than the accreditation status and institutional reputation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does an online college degree cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Costs vary widely. Public online universities typically charge $129–$620 per credit hour. A full 120-credit bachelor's degree can range from $15,000 at the most affordable schools (e.g., University of Florida Online) to over $70,000 at private institutions. Online degrees are on average $31,165 cheaper than equivalent in-person programs at public universities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What accreditation should I look for in an online college?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Regional accreditation is the gold standard. Look for schools accredited by one of the seven regional bodies: HLC, SACSCOC, MSCHE, NECHE, NWCCU, WSCUC, or ACCJC. These are recognized by the U.S. Department of Education and ensure your credits will transfer and your degree will be recognized by employers and graduate programs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get financial aid for an online degree?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Online students at accredited institutions qualify for the same federal financial aid as on-campus students, including Pell Grants, Federal Direct Loans, and Federal Work-Study. Complete the FAFSA at studentaid.gov to determine your eligibility."
+      }
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": publishDate,
+  "dateModified": updatedDate,
+  "author": { "@type": "Organization", "name": "College Courses Online Editorial Team" },
+  "publisher": { "@type": "Organization", "name": "College Courses Online" }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://yoursite.com/resources" },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://yoursite.com/resources/blog" },
+    { "@type": "ListItem", "position": 4, "name": title }
+  ]
+};
+
+const tocItems = [
+  { id: "how-we-rank", label: "How We Rank Schools" },
+  { id: "top-20", label: "2026 Top 20 Online Colleges" },
+  { id: "what-to-look-for", label: "What to Look For" },
+  { id: "costs", label: "Understanding Costs" },
+  { id: "accreditation", label: "Accreditation Guide" },
+  { id: "financial-aid", label: "Financial Aid Options" },
+  { id: "faq", label: "Frequently Asked Questions" },
+];
+---
+
+<BlogArticleLayout
+  title={title}
+  description={description}
+  breadcrumbItems={[
+    { label: "Home", href: "/" },
+    { label: "Resources", href: "/resources" },
+    { label: "Blog", href: "/resources/blog" },
+    { label: "Best Online Colleges 2026" },
+  ]}
+  heroLabel="Rankings"
+  heroSubtitle={description}
+  updatedDate={`Updated ${updatedDate}`}
+  readingTime={readingTime}
+  author={author}
+  tags={["Rankings", "Online Colleges", "Accreditation", "Tuition"]}
+  heroImage="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  tocItems={tocItems}
+  canonical={slug}
+>
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <ArticleProse>
+    <div class="tldr-box">
+      <strong>TL;DR — Key Takeaways</strong>
+      <ul>
+        <li>The University of Florida Online ranks #1 for 2026 with in-state tuition as low as $129/credit.</li>
+        <li>Online degrees are on average $31,165 cheaper than in-person equivalents at public universities.</li>
+        <li>85% of institutions now view online learning as a strategic priority for student access.</li>
+        <li>84% of adults believe employers are more accepting of online degrees post-pandemic.</li>
+        <li>Always verify regional accreditation before enrolling — it determines credit transferability and employer recognition.</li>
+      </ul>
+    </div>
+
+    <p>Choosing the right online college is one of the most important decisions you'll make for your career. With hundreds of accredited institutions now offering fully online programs, the options can feel overwhelming. Our 2026 ranking cuts through the noise with data-driven analysis of tuition costs, program variety, accreditation quality, student support, and graduate outcomes.</p>
+
+    <h2 id="how-we-rank">How We Rank Schools</h2>
+
+    <p>Our ranking methodology draws from multiple authoritative data sources to produce an objective, comprehensive assessment of each institution. We do not accept payment from schools to influence rankings.</p>
+
+    <p><strong>Data sources used:</strong></p>
+    <ul>
+      <li><a href="https://nces.ed.gov/ipeds/" target="_blank" rel="noopener">IPEDS Database</a> — Institutional data on enrollment, tuition, and completion rates</li>
+      <li><a href="https://collegescorecard.ed.gov/" target="_blank" rel="noopener">College Scorecard</a> — Graduate earnings and student debt data</li>
+      <li><a href="https://petersonsdata.com/" target="_blank" rel="noopener">Peterson's Database</a> — Program offerings and admissions requirements</li>
+      <li><a href="https://nces.ed.gov/" target="_blank" rel="noopener">National Center for Education Statistics</a> — Accreditation and institutional profiles</li>
+    </ul>
+
+    <p><strong>Ranking factors (weighted):</strong></p>
+    <ul>
+      <li>Accreditation quality and recognition (25%)</li>
+      <li>Tuition affordability and financial aid availability (20%)</li>
+      <li>Program variety and depth (20%)</li>
+      <li>Student support services (15%)</li>
+      <li>Graduate outcomes and employment rates (15%)</li>
+      <li>Technology and learning platform quality (5%)</li>
+    </ul>
+
+    <h2 id="top-20">2026 Top 20 Best Online Colleges</h2>
+
+    <div class="ranking-list">
+
+      <div class="ranking-item">
+        <div class="rank-number">1</div>
+        <div class="rank-content">
+          <h3>University of Florida Online</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Gainesville, Florida</span>
+            <span class="rank-cost">💰 $129–$553/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $30</span>
+          </div>
+          <p>UF Online offers 25 undergraduate majors and 11 minors across computer science, advertising, psychology, environmental management, and sport management. The Gator Pathways network connects students with employer partners. Accredited by SACSCOC.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">Regional Accreditation</span>
+            <span class="rank-tag">Public University</span>
+            <span class="rank-tag">High ROI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">2</div>
+        <div class="rank-content">
+          <h3>University of Central Florida Online</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Orange County, Florida</span>
+            <span class="rank-cost">💰 $179–$716/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $30</span>
+          </div>
+          <p>With 25+ years of online education experience, UCF Online offers over 100 undergraduate and graduate programs in healthcare, education, engineering, and criminal justice. Students receive dedicated success coaches. Accredited by SACSCOC.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">Regional Accreditation</span>
+            <span class="rank-tag">100+ Programs</span>
+            <span class="rank-tag">Success Coaching</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">3</div>
+        <div class="rank-content">
+          <h3>Purdue University Online</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 West Lafayette, Indiana</span>
+            <span class="rank-cost">💰 $270–$1,430/credit</span>
+            <span class="rank-app">Application fee: $60</span>
+          </div>
+          <p>Purdue Online brings together programs from all Purdue campuses including 175+ online programs from Purdue Global. Study areas include communication, agriculture, law, veterinary medicine, and technology. Accredited by the Higher Learning Commission.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">Research University</span>
+            <span class="rank-tag">175+ Programs</span>
+            <span class="rank-tag">HLC Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">4</div>
+        <div class="rank-content">
+          <h3>Arizona State University Online</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Tempe, Arizona</span>
+            <span class="rank-cost">💰 $561–$661/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $70</span>
+          </div>
+          <p>ASU Online offers 300+ undergraduate and graduate programs in engineering, nursing, management, psychology, and more. Most courses are asynchronous and run 6–8 weeks. Provides tutors, career advisors, and time management coaching. Accredited by HLC.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">300+ Programs</span>
+            <span class="rank-tag">Innovative Learning</span>
+            <span class="rank-tag">HLC Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">5</div>
+        <div class="rank-content">
+          <h3>Penn State World Campus</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 University Park, Pennsylvania</span>
+            <span class="rank-cost">💰 $620–$677/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $65</span>
+          </div>
+          <p>Established in 1988, Penn State World Campus is one of the pioneers of online learning. Offers 175+ degree and certificate programs in business, education, engineering, technology, and healthcare. 78% of students enroll specifically for career advancement. Accredited by MSCHE.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">Pioneer in Online Ed</span>
+            <span class="rank-tag">Strong Alumni Network</span>
+            <span class="rank-tag">MSCHE Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">6</div>
+        <div class="rank-content">
+          <h3>Southern New Hampshire University</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Manchester, New Hampshire</span>
+            <span class="rank-cost">💰 $320/credit (undergrad, all students)</span>
+            <span class="rank-app">Application fee: $20</span>
+          </div>
+          <p>SNHU offers 200+ online programs with rolling admissions — no application deadlines. Undergraduate and graduate degrees in accounting, finance, art, criminal justice, business, and education. Some graduate courses are offered at undergraduate tuition rates. Accredited by NECHE.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">Rolling Admissions</span>
+            <span class="rank-tag">200+ Programs</span>
+            <span class="rank-tag">NECHE Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">7</div>
+        <div class="rank-content">
+          <h3>Indiana University Online</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Bloomington, Indiana</span>
+            <span class="rank-cost">💰 $250–$350/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $65</span>
+          </div>
+          <p>IU Online offers 200+ programs including certificates, associate, bachelor's, master's, and doctorate courses. Online learners are assigned a home campus but can take courses from any IU campus. Courses are taught by the same on-campus faculty. Accredited by HLC.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">200+ Programs</span>
+            <span class="rank-tag">Multi-Campus Access</span>
+            <span class="rank-tag">HLC Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">8</div>
+        <div class="rank-content">
+          <h3>Colorado State University – Global</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Aurora, Colorado</span>
+            <span class="rank-cost">💰 $350/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $25</span>
+          </div>
+          <p>CSU-Global is 100% online with a Tuition Guarantee — fixed pricing with no hidden fees. Unlike 85% of similar universities, it does not charge student fees. Programs in business management, healthcare management, IT, project management, and criminal justice. Accredited by HLC.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">Tuition Guarantee</span>
+            <span class="rank-tag">No Student Fees</span>
+            <span class="rank-tag">HLC Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">9</div>
+        <div class="rank-content">
+          <h3>University of Maryland Global Campus</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Adelphi, Maryland</span>
+            <span class="rank-cost">💰 $306–$499/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $75</span>
+          </div>
+          <p>One of the largest public online universities in the nation, UMGC offers 125+ degrees and certificates. Electronic textbooks are included, and all alumni have lifetime access to career services. Programs are designed for collaborative learning in 8-week sessions. Accredited by MSCHE.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">125+ Programs</span>
+            <span class="rank-tag">Free eTextbooks</span>
+            <span class="rank-tag">MSCHE Accredited</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="rank-number">10</div>
+        <div class="rank-content">
+          <h3>University of Minnesota Online</h3>
+          <div class="rank-meta">
+            <span class="rank-location">📍 Minneapolis, Minnesota</span>
+            <span class="rank-cost">💰 ~$419/credit (undergrad)</span>
+            <span class="rank-app">Application fee: $55</span>
+          </div>
+          <p>UM Online offers 100+ programs from all five campuses. All online students pay in-state tuition regardless of location. 66% of online students are employed full-time. Programs include business administration, electrical and computer engineering, and health management. Accredited by HLC.</p>
+          <div class="rank-tags">
+            <span class="rank-tag">In-State Tuition for All</span>
+            <span class="rank-tag">Research University</span>
+            <span class="rank-tag">HLC Accredited</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-info">
+      <strong>Note:</strong> Rankings 11–20 include Liberty University Online, Florida International University, Utah State University Online, Texas Tech University, Thomas Edison State University, University of West Florida Online, University of Massachusetts Global, Western Governors University, Capella University, and Walden University. Full profiles available in our extended rankings database.
+    </div>
+
+    <h2 id="what-to-look-for">What to Look For in an Online College</h2>
+
+    <p>Beyond rankings, here are the four most important factors to evaluate when choosing your online college:</p>
+
+    <h3>1. Accreditation Status</h3>
+    <p>This is non-negotiable. Regional accreditation from one of the seven recognized bodies (HLC, SACSCOC, MSCHE, NECHE, NWCCU, WSCUC, ACCJC) is the gold standard. Without it, your degree may not be recognized by employers or graduate programs, and you won't qualify for federal financial aid.</p>
+
+    <h3>2. Program Fit</h3>
+    <p>Not every school excels in every field. A school ranked #1 overall may not have the strongest program in your specific area. Research the specific department, faculty credentials, and curriculum for your intended major.</p>
+
+    <h3>3. Student Support Services</h3>
+    <p>Online learning requires strong institutional support. Look for: dedicated academic advisors, 24/7 technical support, online tutoring, career services, and mental health resources. These services significantly impact completion rates.</p>
+
+    <h3>4. Cost and Financial Aid</h3>
+    <p>Compare the total cost of attendance — not just tuition per credit. Factor in technology fees, textbook costs, and whether the school offers institutional scholarships for online students.</p>
+
+    <h2 id="costs">Understanding Online College Costs</h2>
+
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th>School Type</th>
+            <th>Avg. Online Tuition</th>
+            <th>Avg. In-Person Tuition</th>
+            <th>Savings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Public 4-Year</td>
+            <td>$38,496</td>
+            <td>$69,661</td>
+            <td>~$31,165</td>
+          </tr>
+          <tr>
+            <td>Private Nonprofit</td>
+            <td>$60,593</td>
+            <td>$185,252</td>
+            <td>~$124,659</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Source: EducationData.org. Figures represent average total cost for a 4-year bachelor's degree.</p>
+
+    <h2 id="accreditation">Accreditation: The Complete Guide</h2>
+
+    <p>Accreditation is the process by which an independent agency evaluates whether a college meets established standards of quality. There are two main types relevant to online students:</p>
+
+    <p><strong>Regional Accreditation</strong> — Granted by one of seven regional bodies. Universally recognized by employers, graduate programs, and federal financial aid. Credits transfer freely between regionally accredited schools.</p>
+
+    <p><strong>National Accreditation</strong> — Granted by bodies like DEAC. Legitimate and DOE-recognized, but generally considered less rigorous. Credits from nationally accredited schools are often not accepted by regionally accredited institutions.</p>
+
+    <div class="callout callout-warning">
+      <strong>Warning:</strong> Always verify accreditation directly at <a href="https://ope.ed.gov/dapip/" target="_blank" rel="noopener">ed.gov's DAPIP database</a> before enrolling. Diploma mills sometimes claim accreditation from agencies not recognized by the DOE or CHEA.
+    </div>
+
+    <h2 id="financial-aid">Financial Aid for Online Students</h2>
+
+    <p>Online students at accredited institutions qualify for the same federal financial aid as on-campus students:</p>
+
+    <ul>
+      <li><strong>Pell Grants</strong> — Up to $7,395 for 2024–2025 (does not need to be repaid)</li>
+      <li><strong>Federal Direct Subsidized Loans</strong> — Government pays interest while you're enrolled</li>
+      <li><strong>Federal Direct Unsubsidized Loans</strong> — Available regardless of financial need</li>
+      <li><strong>Federal Work-Study</strong> — Part-time employment to help cover costs</li>
+      <li><strong>Institutional Scholarships</strong> — Many online schools offer merit and need-based awards</li>
+      <li><strong>Military Benefits</strong> — GI Bill, MyCAA, and Tuition Assistance for eligible students</li>
+    </ul>
+
+    <p>Complete the FAFSA at <a href="https://studentaid.gov" target="_blank" rel="noopener">studentaid.gov</a> to determine your eligibility. The FAFSA opens October 1 each year for the following academic year.</p>
+
+    <h2 id="faq">Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is the best online college in 2026?</summary>
+      <p>Based on our data-driven ranking, the University of Florida Online ranks #1 for 2026 due to its combination of affordability ($129/credit for in-state), strong accreditation, wide program selection, and high graduate outcomes. However, the "best" school depends on your specific program, budget, and career goals.</p>
+    </details>
+
+    <details>
+      <summary>Are online college degrees respected by employers?</summary>
+      <p>Yes. Post-pandemic surveys show 84% of adults believe employers are more accepting of online degrees than before. Employer acceptance is highest when the degree is from a regionally accredited institution with a strong reputation.</p>
+    </details>
+
+    <details>
+      <summary>How much does an online college degree cost?</summary>
+      <p>Costs vary widely. Public online universities typically charge $129–$620 per credit hour. A full 120-credit bachelor's degree can range from $15,000 at the most affordable schools to over $70,000 at private institutions. Online degrees are on average $31,165 cheaper than equivalent in-person programs at public universities.</p>
+    </details>
+
+    <details>
+      <summary>What accreditation should I look for?</summary>
+      <p>Regional accreditation is the gold standard. Look for schools accredited by HLC, SACSCOC, MSCHE, NECHE, NWCCU, WSCUC, or ACCJC. These are recognized by the U.S. Department of Education and ensure your credits will transfer and your degree will be recognized by employers.</p>
+    </details>
+
+    <details>
+      <summary>Can I get financial aid for an online degree?</summary>
+      <p>Yes. Online students at accredited institutions qualify for the same federal financial aid as on-campus students, including Pell Grants, Federal Direct Loans, and Federal Work-Study. Complete the FAFSA at studentaid.gov to determine your eligibility.</p>
+    </details>
+
+    <div class="conclusion-block">
+      <h3>Ready to Find Your Program?</h3>
+      <p>Use our course directory to search thousands of online programs from accredited institutions. Filter by subject, level, price, and accreditation type to find the perfect fit for your goals.</p>
+      <a href="/courses" class="conclusion-cta">Browse All Courses →</a>
+    </div>
+
+    <div class="resource-links">
+      <h3>Additional Resources</h3>
+      <ul>
+        <li><a href="https://collegescorecard.ed.gov/" target="_blank" rel="noopener">College Scorecard</a> — Compare earnings and debt data for any school</li>
+        <li><a href="https://nces.ed.gov/collegenavigator/" target="_blank" rel="noopener">College Navigator</a> — Official program and accreditation lookup</li>
+        <li><a href="https://studentaid.gov/" target="_blank" rel="noopener">Federal Student Aid</a> — FAFSA and financial aid information</li>
+        <li><a href="/resources/blog/how-to-choose-right-online-college">How to Choose the Right Online College</a> — Our complete 9-step guide</li>
+      </ul>
+    </div>
+  </ArticleProse>
+</BlogArticleLayout>
+
+<style>
+  .ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .ranking-item {
+    display: flex;
+    gap: 1.25rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .ranking-item:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+    border-color: #bfdbfe;
+  }
+
+  .rank-number {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #1e40af;
+    min-width: 2.5rem;
+    line-height: 1;
+    padding-top: 0.25rem;
+    letter-spacing: -0.04em;
+  }
+
+  .rank-content {
+    flex: 1;
+  }
+
+  .rank-content h3 {
+    font-size: 1.1875rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .rank-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .rank-meta span {
+    font-size: 0.8125rem;
+    color: #64748b;
+  }
+
+  .rank-content p {
+    font-size: 0.9375rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 0.875rem;
+  }
+
+  .rank-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .rank-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1e40af;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  .data-table {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .data-table th {
+    background: #1e40af;
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .data-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  @media (max-width: 640px) {
+    .ranking-item { flex-direction: column; gap: 0.75rem; }
+    .rank-number { font-size: 1.5rem; }
+    .rank-meta { flex-direction: column; gap: 0.25rem; }
+  }
+</style>
