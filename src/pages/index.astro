@@ -1,8 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import type { Course } from '../lib/supabase';
 
-const categories = [
+let coursesData: Course[] = [];
+let featuredCourses: Course[] = [];
+let categories: any[] = [];
+
+if (isSupabaseConfigured && supabase) {
+	const { data: courses } = await supabase
+		.from('courses')
+		.select(`*, colleges (*), course_categories (*)`)
+		.order('featured', { ascending: false })
+		.order('created_at', { ascending: false })
+		.limit(50);
+
+	coursesData = courses || [];
+	featuredCourses = coursesData.filter(c => c.featured).slice(0, 3);
+
+	const { data: cats } = await supabase
+		.from('course_categories')
+		.select('*')
+		.order('name');
+
+	categories = cats || [];
+}
+
+// Fallback static categories (shown in filter even if Supabase is empty)
+if (categories.length === 0) {
+	categories = [
 	{ slug: 'business',        name: 'Business',          icon: '💼' },
 	{ slug: 'computer-science',name: 'Computer Science',  icon: '💻' },
 	{ slug: 'data-science',    name: 'Data Science',      icon: '📊' },
@@ -13,9 +40,10 @@ const categories = [
 	{ slug: 'mathematics',     name: 'Mathematics',       icon: '➗' },
 	{ slug: 'psychology',      name: 'Psychology',        icon: '🧠' },
 	{ slug: 'science',         name: 'Natural Sciences',  icon: '🔬' },
-];
+	];
+}
 
-const coursesData = [
+const _staticCoursesData = [
 	// ── FEATURED ──────────────────────────────────────────────────────────────
 	{
 		id: '1', slug: 'intro-to-computer-science', featured: true,
@@ -244,8 +272,7 @@ const coursesData = [
 		course_categories: { slug: 'education', name: 'Education', icon: '🎓' },
 	},
 ];
-
-const featuredCourses = coursesData.filter(c => c.featured).slice(0, 3);
+// _staticCoursesData is kept as reference only — not used when Supabase is live
 ---
 
 <Layout>
