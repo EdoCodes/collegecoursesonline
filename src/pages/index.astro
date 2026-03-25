@@ -286,29 +286,29 @@ const _staticCoursesData = [
 				<h2>Featured Courses</h2>
 				<p>In-depth guides to help you find the right program, earn credits faster, and advance your career</p>
 			</div>
-			<div class="unified-grid">
-				{featuredCourses.map(course => (
-					<a href={`/courses/${course.slug}`} class="card">
-						<div class="card-image">
-							<img
-								src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
-								alt={course.title}
-								loading="lazy"
-							/>
-						</div>
-						<div class="card-body">
-							<span class="card-label">Featured Course</span>
-							<h3 class="card-title">{course.title}</h3>
-							{course.colleges && (
-								<p class="card-brand">{course.colleges.name}</p>
-							)}
-							<p class="card-excerpt">
-								{course.short_description || course.description?.slice(0, 160)}
-							</p>
-							<span class="card-cta">View course details →</span>
-						</div>
-					</a>
-				))}
+		<div class="unified-grid">
+			{featuredCourses.map(course => (
+				<a href={`/courses/${course.slug}`} class="card card-featured">
+					<div class="card-image">
+						<img
+							src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
+							alt={course.title}
+							loading="lazy"
+						/>
+					</div>
+					<div class="card-body">
+						<span class="card-label">Featured Course</span>
+						<h3 class="card-title">{course.title}</h3>
+						{course.colleges && (
+							<p class="card-brand">{course.colleges.name}</p>
+						)}
+						<p class="card-excerpt">
+							{course.short_description || course.description?.slice(0, 160)}
+						</p>
+						<span class="card-cta">View course details →</span>
+					</div>
+				</a>
+			))}
 			</div>
 		</div>
 	</section>
@@ -596,6 +596,63 @@ const _staticCoursesData = [
 
 	.card:hover .card-cta {
 		color: #1d4ed8;
+	}
+
+	/* ── Featured card overrides — white text on image overlay ── */
+	.card-featured {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.card-featured .card-image {
+		height: 100%;
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.card-featured .card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: brightness(0.45);
+	}
+
+	.card-featured .card-body {
+		position: relative;
+		z-index: 1;
+		background: transparent;
+		padding-top: 2rem;
+		min-height: 260px;
+	}
+
+	.card-featured .card-label {
+		color: #93c5fd;
+	}
+
+	.card-featured .card-title {
+		color: #ffffff;
+	}
+
+	.card-featured:hover .card-title {
+		color: #bfdbfe;
+	}
+
+	.card-featured .card-brand {
+		color: #cbd5e1;
+	}
+
+	.card-featured .card-excerpt {
+		color: #e2e8f0;
+		font-style: italic;
+	}
+
+	.card-featured .card-cta {
+		color: #60a5fa;
+	}
+
+	.card-featured:hover .card-cta {
+		color: #93c5fd;
 	}
 
 	.card-badge-featured {
