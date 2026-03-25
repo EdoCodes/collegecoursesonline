@@ -287,13 +287,14 @@ const _staticCoursesData = [
 				</div>
 				<div class="unified-grid">
 					{featuredCourses.map(course => (
-						<a href={`/courses/${course.slug}`} class="card card-featured" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+						<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
 							<div class="card-image">
 								<img
 									src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
 									alt={course.title}
 									loading="lazy"
 								/>
+								<span class="card-badge-featured">Featured</span>
 								{course.price === 'Free'
 									? <span class="card-badge-price free">Free</span>
 									: course.price && <span class="card-badge-price">{course.price}</span>
@@ -404,8 +405,8 @@ const _staticCoursesData = [
 
 			<section class="courses-section">
 				<div class="courses-grid" id="coursesGrid">
-					{coursesData.map(course => (
-						<a href={course.course_url || '#'} target="_blank" rel="noopener noreferrer" class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+				{coursesData.map(course => (
+					<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
 							<div class="card-image">
 								<img
 									src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
@@ -568,7 +569,17 @@ const _staticCoursesData = [
 	}
 
 	.card-badge-featured {
-		display: none;
+		position: absolute;
+		top: 12px;
+		left: 12px;
+		padding: 4px 10px;
+		background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+		color: white;
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		border-radius: 6px;
 	}
 
 	/* ── Featured Section ─────────────────────────────────────────────────── */
@@ -599,39 +610,6 @@ const _staticCoursesData = [
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: 1.5rem;
 	}
-
-	/* ── Featured card overlay style ─────────────────────────────────────── */
-	.card-featured {
-		position: relative;
-		overflow: hidden;
-		min-height: 340px;
-	}
-
-	.card-featured .card-image {
-		height: 100%;
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-	}
-
-	.card-featured .card-image img {
-		filter: brightness(0.45);
-		height: 100%;
-	}
-
-	.card-featured .card-body {
-		position: relative;
-		z-index: 1;
-		background: transparent;
-		padding-top: 2rem;
-		min-height: 260px;
-	}
-
-	.card-featured .card-label  { color: #93c5fd; }
-	.card-featured .card-title  { color: #ffffff; }
-	.card-featured .card-brand  { color: #cbd5e1; }
-	.card-featured .card-excerpt { color: #e2e8f0; font-style: italic; }
-	.card-featured .card-cta    { color: #60a5fa; }
 
 	@media (max-width: 768px) {
 		.unified-grid { grid-template-columns: 1fr; }
