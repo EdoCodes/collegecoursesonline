@@ -1,0 +1,210 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { supabase, isSupabaseConfigured } from '../../../lib/supabase';
+
+export async function getStaticPaths() {
+  if (!isSupabaseConfigured || !supabase) return [];
+  const { data: cats } = await supabase.from('course_categories').select('slug, name');
+  return (cats || []).map(cat => ({ params: { category: cat.slug }, props: { catName: cat.name } }));
+}
+
+const { category } = Astro.params;
+const { catName } = Astro.props;
+
+if (!isSupabaseConfigured || !supabase) return Astro.redirect('/');
+
+// Fetch all courses in this category
+const { data: courses } = await supabase
+  .from('courses')
+  .select('*, colleges(*), course_categories(*)')
+  .eq('course_categories.slug', category)
+  .order('subcategory')
+  .order('title');
+
+// Also fetch this category's details
+const { data: catData } = await supabase
+  .from('course_categories')
+  .select('*')
+  .eq('slug', category)
+  .single();
+
+// Group courses by subcategory
+const grouped: Record<string, any[]> = {};
+for (const course of courses || []) {
+  if (course.course_categories?.slug !== category) continue;
+  const sub = course.subcategory || 'General';
+  if (!grouped[sub]) grouped[sub] = [];
+  grouped[sub].push(course);
+}
+
+const subcategories = Object.keys(grouped).sort();
+const totalCourses = (courses || []).filter(c => c.course_categories?.slug === category).length;
+
+const categoryIcons: Record<string, string> = {
+  business: '💼', 'computer-science': '💻', 'data-science': '📊',
+  education: '🎓', engineering: '⚙️', health: '🏥',
+  humanities: '📚', mathematics: '➗', psychology: '🧠', science: '🔬',
+};
+const icon = categoryIcons[category] ?? '📖';
+---
+
+<Layout title={`${catName} Courses Online | College Courses Online`} description={`Browse ${totalCourses} online ${catName} courses from accredited colleges. Filter by subcategory, price, and credit type.`}>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span>›</span>
+        <a href="/courses">Courses</a>
+        <span>›</span>
+        <span>{catName}</span>
+      </nav>
+      <div class="hero-content">
+        <span class="cat-icon">{icon}</span>
+        <div>
+          <h1>{catName} Courses</h1>
+          <p>{totalCourses} course{totalCourses !== 1 ? 's' : ''} available from accredited institutions</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="container">
+      {subcategories.length > 1 && (
+        <div class="subcategory-nav">
+          <span class="subcategory-nav-label">Browse by topic:</span>
+          {subcategories.map(sub => (
+            <a href={`/courses/category/${category}/${sub.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} class="subcategory-pill">
+              {sub} <span class="pill-count">{grouped[sub].length}</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {subcategories.map(sub => (
+        <section class="subcategory-section">
+          <div class="subcategory-header">
+            <h2>{sub}</h2>
+            <span class="course-count">{grouped[sub].length} course{grouped[sub].length !== 1 ? 's' : ''}</span>
+          </div>
+          <div class="courses-grid">
+            {grouped[sub].map(course => (
+              <a href={`/courses/${course.slug}`} class="card">
+                <div class="card-image">
+                  <img src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'} alt={course.title} loading="lazy" />
+                  {course.price === 'Free'
+                    ? <span class="card-badge-price free">Free</span>
+                    : course.price && <span class="card-badge-price">{course.price}</span>
+                  }
+                </div>
+                <div class="card-body">
+                  <span class="card-label">{icon} {sub}</span>
+                  <h3 class="card-title">{course.title}</h3>
+                  {course.colleges && <p class="card-brand">{course.colleges.name}</p>}
+                  <p class="card-excerpt">{course.short_description || course.description?.slice(0, 160)}</p>
+                  <span class="card-cta">View program →</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      {totalCourses === 0 && (
+        <div class="empty-state">
+          <p>No courses found in this category yet. Check back soon!</p>
+          <a href="/" class="back-link">← Browse all courses</a>
+        </div>
+      )}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: white;
+    padding: 3rem 0 2.5rem;
+  }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.875rem; margin-bottom: 1.5rem; opacity: 0.85;
+  }
+  .breadcrumb a { color: white; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { opacity: 0.6; }
+  .hero-content { display: flex; align-items: center; gap: 1.25rem; }
+  .cat-icon { font-size: 3rem; line-height: 1; }
+  .hero-content h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 0.35rem; letter-spacing: -0.03em; }
+  .hero-content p { font-size: 1rem; opacity: 0.85; }
+
+  .main-content { padding: 3rem 0 5rem; }
+
+  .subcategory-nav {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.625rem;
+    margin-bottom: 2.5rem; padding: 1.25rem 1.5rem;
+    background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .subcategory-nav-label { font-size: 0.875rem; font-weight: 600; color: #64748b; margin-right: 0.25rem; }
+  .subcategory-pill {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    padding: 0.4rem 0.875rem; background: #f1f5f9; color: #334155;
+    border-radius: 999px; font-size: 0.875rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .subcategory-pill:hover { background: #2563eb; color: white; }
+  .pill-count {
+    background: #e2e8f0; color: #64748b; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 700; padding: 0 0.4rem;
+    transition: all 0.2s;
+  }
+  .subcategory-pill:hover .pill-count { background: rgba(255,255,255,0.25); color: white; }
+
+  .subcategory-section { margin-bottom: 3.5rem; }
+  .subcategory-header {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .subcategory-header h2 { font-size: 1.5rem; font-weight: 700; color: #0f172a; }
+  .course-count { font-size: 0.875rem; color: #64748b; font-weight: 500; }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Card styles (same as homepage) */
+  .card {
+    display: flex; flex-direction: column; background: #fff;
+    border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;
+    text-decoration: none; color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    height: 100%;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.10); border-color: #2563eb; }
+  .card-image { position: relative; width: 100%; height: 200px; overflow: hidden; background: #f1f5f9; flex-shrink: 0; }
+  .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+  .card:hover .card-image img { transform: scale(1.06); }
+  .card-body { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  .card-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2563eb; margin-bottom: 0.5rem; }
+  .card-title { font-size: 1.1rem; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 0.5rem; }
+  .card:hover .card-title { color: #2563eb; }
+  .card-brand { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem; font-weight: 500; }
+  .card-excerpt { font-size: 0.875rem; color: #334155; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; margin-bottom: 1rem; }
+  .card-cta { font-size: 0.875rem; font-weight: 600; color: #2563eb; margin-top: auto; }
+  .card:hover .card-cta { color: #1d4ed8; }
+  .card-badge-price { position: absolute; top: 12px; right: 12px; padding: 4px 10px; background: rgba(15,23,42,0.80); color: white; font-size: 0.8rem; font-weight: 700; border-radius: 6px; backdrop-filter: blur(8px); }
+  .card-badge-price.free { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+
+  .empty-state { text-align: center; padding: 5rem 0; color: #64748b; }
+  .back-link { display: inline-block; margin-top: 1rem; color: #2563eb; text-decoration: none; font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .hero-content h1 { font-size: 1.75rem; }
+    .courses-grid { grid-template-columns: 1fr; }
+  }
+</style>

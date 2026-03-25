@@ -1,5 +1,40 @@
 ---
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+
 const currentPath = Astro.url.pathname;
+
+// Fetch categories + subcategories for mega-menu
+const categoryIcons: Record<string, string> = {
+  business: '💼', 'computer-science': '💻', 'data-science': '📊',
+  education: '🎓', engineering: '⚙️', health: '🏥',
+  humanities: '📚', mathematics: '➗', psychology: '🧠', science: '🔬',
+};
+
+let menuCategories: { slug: string; name: string; icon: string; subcategories: { name: string; slug: string; count: number }[] }[] = [];
+
+if (isSupabaseConfigured && supabase) {
+  const { data: cats } = await supabase.from('course_categories').select('slug, name').order('name');
+  const { data: courses } = await supabase.from('courses').select('subcategory, course_categories(slug)').not('subcategory', 'is', null);
+
+  for (const cat of cats || []) {
+    const subMap: Record<string, number> = {};
+    for (const c of courses || []) {
+      if ((c.course_categories as any)?.slug !== cat.slug) continue;
+      const sub = c.subcategory as string;
+      subMap[sub] = (subMap[sub] || 0) + 1;
+    }
+    const subcategories = Object.entries(subMap)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([name, count]) => ({
+        name,
+        slug: name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        count,
+      }));
+    if (subcategories.length > 0) {
+      menuCategories.push({ slug: cat.slug, name: cat.name, icon: categoryIcons[cat.slug] ?? '📖', subcategories });
+    }
+  }
+}
 ---
 
 <header class="site-header">
@@ -34,7 +69,48 @@ const currentPath = Astro.url.pathname;
         <li><a href="/" class={`nav-link${currentPath === '/' ? ' active' : ''}`}>Home</a></li>
         <li><a href="/blog" class={`nav-link${currentPath.startsWith('/blog') ? ' active' : ''}`}>News</a></li>
         <li><a href="/colleges" class={`nav-link${currentPath.startsWith('/colleges') ? ' active' : ''}`}>Colleges</a></li>
-        <li><a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>Courses</a></li>
+        <li class="nav-item-mega">
+          <a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>
+            Courses
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline-block;margin-left:3px;vertical-align:middle;">
+              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="mega-menu">
+            <div class="mega-inner">
+              <div class="mega-categories">
+                {menuCategories.map((cat, i) => (
+                  <button class={`mega-cat-btn${i === 0 ? ' active' : ''}`} data-cat={cat.slug}>
+                    <span class="mega-cat-icon">{cat.icon}</span>
+                    <span class="mega-cat-name">{cat.name}</span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="mega-cat-arrow">
+                      <path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                ))}
+                <a href="/courses" class="mega-view-all">Explore all courses →</a>
+              </div>
+              <div class="mega-subcategories">
+                {menuCategories.map((cat, i) => (
+                  <div class={`mega-sub-panel${i === 0 ? ' active' : ''}`} data-panel={cat.slug}>
+                    <p class="mega-sub-heading">{cat.icon} {cat.name}</p>
+                    <div class="mega-sub-links">
+                      {cat.subcategories.map(sub => (
+                        <a href={`/courses/category/${cat.slug}/${sub.slug}`} class="mega-sub-link">
+                          {sub.name}
+                          <span class="mega-sub-count">{sub.count}</span>
+                        </a>
+                      ))}
+                      <a href={`/courses/category/${cat.slug}`} class="mega-sub-link mega-sub-all">
+                        All {cat.name} →
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </li>
         <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
         <li class="nav-item-dropdown">
           <a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>
@@ -319,6 +395,149 @@ const currentPath = Astro.url.pathname;
     color: white;
   }
 
+  /* ── Mega Menu ── */
+  .nav-item-mega {
+    position: static;
+  }
+
+  .mega-menu {
+    position: fixed;
+    top: var(--header-height, 65px);
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 500;
+  }
+
+  .nav-item-mega:hover .mega-menu,
+  .nav-item-mega:focus-within .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mega-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 320px;
+    max-height: 480px;
+  }
+
+  .mega-categories {
+    border-right: 1px solid #f1f5f9;
+    padding: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow-y: auto;
+  }
+
+  .mega-cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1rem;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #334155;
+    transition: background 0.15s, color 0.15s;
+    width: 100%;
+  }
+
+  .mega-cat-btn:hover,
+  .mega-cat-btn.active {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .mega-cat-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .mega-cat-name { flex: 1; }
+  .mega-cat-arrow { opacity: 0.4; flex-shrink: 0; }
+  .mega-cat-btn.active .mega-cat-arrow { opacity: 1; }
+
+  .mega-view-all {
+    margin-top: auto;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+    border-top: 1px solid #f1f5f9;
+  }
+  .mega-view-all:hover { text-decoration: underline; }
+
+  .mega-subcategories {
+    padding: 1.25rem 1.5rem;
+    overflow-y: auto;
+  }
+
+  .mega-sub-panel { display: none; }
+  .mega-sub-panel.active { display: block; }
+
+  .mega-sub-heading {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin-bottom: 0.875rem;
+  }
+
+  .mega-sub-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.25rem;
+  }
+
+  .mega-sub-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    border-radius: 7px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #334155;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .mega-sub-link:hover { background: #eff6ff; color: #1d4ed8; }
+
+  .mega-sub-count {
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 999px;
+  }
+
+  .mega-sub-link:hover .mega-sub-count { background: #dbeafe; color: #1d4ed8; }
+
+  .mega-sub-all {
+    color: #2563eb;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    gap: 0.25rem;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 1024px) {
     .nav-links {
@@ -341,6 +560,20 @@ const currentPath = Astro.url.pathname;
 </style>
 
 <script>
+  // Mega menu category switching
+  const catBtns = document.querySelectorAll<HTMLButtonElement>('.mega-cat-btn');
+  const subPanels = document.querySelectorAll<HTMLElement>('.mega-sub-panel');
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      const cat = btn.dataset.cat;
+      catBtns.forEach(b => b.classList.remove('active'));
+      subPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector<HTMLElement>(`.mega-sub-panel[data-panel="${cat}"]`)?.classList.add('active');
+    });
+  });
+
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
   const menuIcon = mobileMenuBtn?.querySelector('.menu-icon') as SVGElement;
