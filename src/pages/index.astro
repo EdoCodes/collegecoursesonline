@@ -5,6 +5,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
 
 let coursesData: Course[] = [];
+let featuredCourses: Course[] = [];
 let categories: any[] = [];
 
 if (isSupabaseConfigured && supabase) {
@@ -16,6 +17,7 @@ if (isSupabaseConfigured && supabase) {
 		.limit(50);
 
 	coursesData = courses || [];
+	featuredCourses = coursesData.filter(c => c.featured).slice(0, 3);
 
 	const { data: cats } = await supabase
 		.from('course_categories')
@@ -276,6 +278,45 @@ const _staticCoursesData = [
 <Layout>
 	<Hero />
 
+	{featuredCourses.length > 0 && (
+		<section class="featured-section">
+			<div class="container">
+				<div class="section-heading">
+					<h2>Featured Courses</h2>
+					<p>Hand-picked programs from top institutions</p>
+				</div>
+				<div class="unified-grid">
+					{featuredCourses.map(course => (
+						<a href={`/courses/${course.slug}`} class="card card-featured" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+							<div class="card-image">
+								<img
+									src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
+									alt={course.title}
+									loading="lazy"
+								/>
+								{course.price === 'Free'
+									? <span class="card-badge-price free">Free</span>
+									: course.price && <span class="card-badge-price">{course.price}</span>
+								}
+							</div>
+							<div class="card-body">
+								<span class="card-label">
+									{course.course_categories ? `${course.course_categories.icon ?? ''} ${course.course_categories.name}` : 'Course'}
+								</span>
+								<h3 class="card-title">{course.title}</h3>
+								{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
+								<p class="card-excerpt">
+									{course.short_description || course.description?.slice(0, 160)}
+								</p>
+								<span class="card-cta">View program →</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
 	<main class="main-content">
 		<div class="container">
 			<section class="filters-section">
@@ -528,6 +569,74 @@ const _staticCoursesData = [
 
 	.card-badge-featured {
 		display: none;
+	}
+
+	/* ── Featured Section ─────────────────────────────────────────────────── */
+	.featured-section {
+		padding: calc(var(--spacing) * 8) 0 calc(var(--spacing) * 4);
+		background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+	}
+
+	.section-heading {
+		margin-bottom: calc(var(--spacing) * 5);
+	}
+
+	.section-heading h2 {
+		font-size: 2rem;
+		font-weight: 800;
+		color: var(--neutral-900);
+		letter-spacing: -0.03em;
+		margin-bottom: 0.35rem;
+	}
+
+	.section-heading p {
+		font-size: 1rem;
+		color: var(--neutral-500);
+	}
+
+	.unified-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.5rem;
+	}
+
+	/* ── Featured card overlay style ─────────────────────────────────────── */
+	.card-featured {
+		position: relative;
+		overflow: hidden;
+		min-height: 340px;
+	}
+
+	.card-featured .card-image {
+		height: 100%;
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.card-featured .card-image img {
+		filter: brightness(0.45);
+		height: 100%;
+	}
+
+	.card-featured .card-body {
+		position: relative;
+		z-index: 1;
+		background: transparent;
+		padding-top: 2rem;
+		min-height: 260px;
+	}
+
+	.card-featured .card-label  { color: #93c5fd; }
+	.card-featured .card-title  { color: #ffffff; }
+	.card-featured .card-brand  { color: #cbd5e1; }
+	.card-featured .card-excerpt { color: #e2e8f0; font-style: italic; }
+	.card-featured .card-cta    { color: #60a5fa; }
+
+	@media (max-width: 768px) {
+		.unified-grid { grid-template-columns: 1fr; }
+		.featured-section { padding: calc(var(--spacing) * 5) 0 calc(var(--spacing) * 3); }
+		.section-heading h2 { font-size: 1.5rem; }
 	}
 
 	.card-badge-price {
