@@ -4,13 +4,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 const currentPath = Astro.url.pathname;
 
 // Fetch categories + subcategories for mega-menu
-const categoryIcons: Record<string, string> = {
-  business: '💼', 'computer-science': '💻', 'data-science': '📊',
-  education: '🎓', engineering: '⚙️', health: '🏥',
-  humanities: '📚', mathematics: '➗', psychology: '🧠', science: '🔬',
-};
-
-let menuCategories: { slug: string; name: string; icon: string; subcategories: { name: string; slug: string; count: number }[] }[] = [];
+let menuCategories: { slug: string; name: string; subcategories: { name: string; slug: string; count: number }[] }[] = [];
 
 if (isSupabaseConfigured && supabase) {
   const { data: cats } = await supabase.from('course_categories').select('slug, name').order('name');
@@ -31,7 +25,7 @@ if (isSupabaseConfigured && supabase) {
         count,
       }));
     if (subcategories.length > 0) {
-      menuCategories.push({ slug: cat.slug, name: cat.name, icon: categoryIcons[cat.slug] ?? '📖', subcategories });
+      menuCategories.push({ slug: cat.slug, name: cat.name, subcategories });
     }
   }
 }
@@ -76,35 +70,38 @@ if (isSupabaseConfigured && supabase) {
               <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div class="mega-menu">
+          <div class="mega-menu" role="region" aria-label="Course categories">
             <div class="mega-inner">
-              <div class="mega-categories">
+              <!-- Left: category list -->
+              <div class="mega-cats">
+                <p class="mega-section-label">Course Categories</p>
                 {menuCategories.map((cat, i) => (
                   <button class={`mega-cat-btn${i === 0 ? ' active' : ''}`} data-cat={cat.slug}>
-                    <span class="mega-cat-icon">{cat.icon}</span>
-                    <span class="mega-cat-name">{cat.name}</span>
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="mega-cat-arrow">
-                      <path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    {cat.name}
+                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" class="mega-chevron">
+                      <path d="M2 1.5l3 2.5-3 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </button>
                 ))}
-                <a href="/courses" class="mega-view-all">Explore all courses →</a>
+                <a href="/courses" class="mega-explore-all">Explore All Courses</a>
               </div>
-              <div class="mega-subcategories">
+              <!-- Right: subcategory links -->
+              <div class="mega-subs">
                 {menuCategories.map((cat, i) => (
                   <div class={`mega-sub-panel${i === 0 ? ' active' : ''}`} data-panel={cat.slug}>
-                    <p class="mega-sub-heading">{cat.icon} {cat.name}</p>
-                    <div class="mega-sub-links">
+                    <p class="mega-section-label">{cat.name}</p>
+                    <ul class="mega-sub-list">
                       {cat.subcategories.map(sub => (
-                        <a href={`/courses/category/${cat.slug}/${sub.slug}`} class="mega-sub-link">
-                          {sub.name}
-                          <span class="mega-sub-count">{sub.count}</span>
-                        </a>
+                        <li>
+                          <a href={`/courses/category/${cat.slug}/${sub.slug}`} class="mega-sub-link">
+                            {sub.name}
+                          </a>
+                        </li>
                       ))}
-                      <a href={`/courses/category/${cat.slug}`} class="mega-sub-link mega-sub-all">
-                        All {cat.name} →
-                      </a>
-                    </div>
+                      <li class="mega-sub-viewall">
+                        <a href={`/courses/category/${cat.slug}`}>View All</a>
+                      </li>
+                    </ul>
                   </div>
                 ))}
               </div>
@@ -402,16 +399,16 @@ if (isSupabaseConfigured && supabase) {
 
   .mega-menu {
     position: fixed;
-    top: var(--header-height, 65px);
+    top: 65px;
     left: 0;
     right: 0;
-    background: white;
-    border-top: 1px solid #e2e8f0;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    background: #fff;
+    border-top: 2px solid #2563eb;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.13);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    transform: translateY(-6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
     z-index: 500;
   }
 
@@ -427,116 +424,138 @@ if (isSupabaseConfigured && supabase) {
     margin: 0 auto;
     padding: 0 1.5rem;
     display: grid;
-    grid-template-columns: 240px 1fr;
-    min-height: 320px;
-    max-height: 480px;
+    grid-template-columns: 260px 1fr;
   }
 
-  .mega-categories {
-    border-right: 1px solid #f1f5f9;
-    padding: 1.25rem 0;
+  /* Left column */
+  .mega-cats {
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    padding: 1.5rem 0.75rem 1.5rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 2px;
-    overflow-y: auto;
+  }
+
+  .mega-section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .mega-cat-btn {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    padding: 0.625rem 1rem;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
     background: none;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    text-align: left;
-    font-size: 0.9rem;
+    font-size: 0.9375rem;
     font-weight: 500;
-    color: #334155;
-    transition: background 0.15s, color 0.15s;
-    width: 100%;
+    color: #374151;
+    text-align: left;
+    transition: background 0.12s, color 0.12s;
+    font-family: inherit;
   }
 
-  .mega-cat-btn:hover,
-  .mega-cat-btn.active {
-    background: #eff6ff;
+  .mega-cat-btn:hover {
+    background: #e0e7ff;
     color: #1d4ed8;
   }
 
-  .mega-cat-icon { font-size: 1.1rem; flex-shrink: 0; }
-  .mega-cat-name { flex: 1; }
-  .mega-cat-arrow { opacity: 0.4; flex-shrink: 0; }
-  .mega-cat-btn.active .mega-cat-arrow { opacity: 1; }
+  .mega-cat-btn.active {
+    background: #2563eb;
+    color: #fff;
+    font-weight: 600;
+  }
 
-  .mega-view-all {
-    margin-top: auto;
-    padding: 0.75rem 1rem;
+  .mega-chevron {
+    opacity: 0.5;
+    flex-shrink: 0;
+    transition: opacity 0.12s;
+  }
+
+  .mega-cat-btn.active .mega-chevron {
+    opacity: 1;
+    color: #fff;
+  }
+
+  .mega-explore-all {
+    margin-top: 1rem;
+    padding: 0.6rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 600;
     color: #2563eb;
     text-decoration: none;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid #e2e8f0;
+    display: block;
   }
-  .mega-view-all:hover { text-decoration: underline; }
 
-  .mega-subcategories {
-    padding: 1.25rem 1.5rem;
+  .mega-explore-all:hover { text-decoration: underline; }
+
+  /* Right column */
+  .mega-subs {
+    padding: 1.5rem 2rem;
     overflow-y: auto;
+    max-height: 420px;
   }
 
   .mega-sub-panel { display: none; }
   .mega-sub-panel.active { display: block; }
 
-  .mega-sub-heading {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #94a3b8;
-    margin-bottom: 0.875rem;
+  .mega-sub-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 1.5rem;
   }
 
-  .mega-sub-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.25rem;
+  .mega-sub-list li {
+    break-inside: avoid;
+    margin-bottom: 2px;
   }
 
   .mega-sub-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0.75rem;
-    border-radius: 7px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #334155;
+    display: block;
+    padding: 0.45rem 0.625rem;
+    border-radius: 5px;
+    font-size: 0.9375rem;
+    color: #374151;
     text-decoration: none;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.12s, color 0.12s;
+    white-space: nowrap;
   }
 
-  .mega-sub-link:hover { background: #eff6ff; color: #1d4ed8; }
-
-  .mega-sub-count {
-    background: #f1f5f9;
-    color: #64748b;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 1px 6px;
-    border-radius: 999px;
+  .mega-sub-link:hover {
+    background: #eff6ff;
+    color: #1d4ed8;
   }
 
-  .mega-sub-link:hover .mega-sub-count { background: #dbeafe; color: #1d4ed8; }
+  .mega-sub-viewall {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+    break-inside: avoid;
+  }
 
-  .mega-sub-all {
-    color: #2563eb;
+  .mega-sub-viewall a {
+    font-size: 0.875rem;
     font-weight: 600;
-    margin-top: 0.5rem;
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-    gap: 0.25rem;
+    color: #2563eb;
+    text-decoration: none;
+    padding: 0.45rem 0.625rem;
+    display: inline-block;
   }
+
+  .mega-sub-viewall a:hover { text-decoration: underline; }
 
   /* ── Responsive ── */
   @media (max-width: 1024px) {
