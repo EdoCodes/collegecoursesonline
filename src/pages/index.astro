@@ -276,11 +276,21 @@ const _staticCoursesData = [
 // _staticCoursesData is kept as reference only — not used when Supabase is live
 
 // Blog articles for homepage section
+// Featured article is the "How to Choose the Right Online College" guide
+const featuredArticle = {
+  href: '/resources/blog/how-to-choose-right-online-college',
+  title: 'How to Choose the Right Online College: The Complete Guide (2025–2026)',
+  description: 'Everything you need to know before you enroll—accreditation, true costs, transfer credits, diploma mill warnings, and a 9-step decision framework.',
+  image: 'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  author: 'Editorial Team',
+  readingTime: '28 min read',
+  label: 'Complete Guide',
+};
+
+// Side articles from content collection
 const allPosts = await getCollection('blog');
-const featuredPost = allPosts.filter(p => !p.data.draft && p.data.featured)[0]
-  ?? allPosts.filter(p => !p.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())[0];
 const sideArticles = allPosts
-  .filter(p => !p.data.draft && p.slug !== featuredPost?.slug)
+  .filter(p => !p.data.draft)
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
 ---
@@ -329,54 +339,55 @@ const sideArticles = allPosts
 	)}
 
 	<!-- ── Blog Articles Section ── -->
-	{featuredPost && (
-		<section class="blog-section">
-			<div class="container">
-				<div class="blog-header">
-					<h2>Featured education articles</h2>
-					<a href="/blog" class="blog-view-all">View all articles →</a>
+	<section class="blog-section">
+		<div class="container">
+			<div class="blog-header">
+				<h2>Featured education articles</h2>
+				<a href="/resources/blog" class="blog-view-all">View all articles →</a>
+			</div>
+			<div class="blog-layout">
+				<!-- Left: stacked small articles -->
+				<div class="blog-list">
+					{sideArticles.map(post => (
+						<a href={`/blog/${post.slug}`} class="blog-list-item">
+							<div class="blog-list-img">
+								<img
+									src={post.data.image || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=400'}
+									alt={post.data.title}
+									loading="lazy"
+								/>
+							</div>
+							<div class="blog-list-body">
+								<h3 class="blog-list-title">{post.data.title}</h3>
+								<p class="blog-list-excerpt">{post.data.description}</p>
+							</div>
+						</a>
+					))}
 				</div>
-				<div class="blog-layout">
-					<!-- Left: stacked small articles -->
-					<div class="blog-list">
-						{sideArticles.map(post => (
-							<a href={`/blog/${post.slug}`} class="blog-list-item">
-								<div class="blog-list-img">
-									<img
-										src={post.data.image || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=400'}
-										alt={post.data.title}
-										loading="lazy"
-									/>
-								</div>
-								<div class="blog-list-body">
-									<h3 class="blog-list-title">{post.data.title}</h3>
-									<p class="blog-list-excerpt">{post.data.description}</p>
-								</div>
-							</a>
-						))}
-					</div>
-					<!-- Right: large featured article -->
-					<a href={`/blog/${featuredPost.slug}`} class="blog-featured-card">
-						<div class="blog-featured-img">
-							<img
-								src={featuredPost.data.image || 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800'}
-								alt={featuredPost.data.title}
-								loading="lazy"
-							/>
-							<div class="blog-featured-overlay">
-								<div class="blog-featured-body">
-									<h3 class="blog-featured-title">{featuredPost.data.title}</h3>
-									<div class="blog-featured-meta">
-										<span class="blog-featured-author">by {featuredPost.data.author}</span>
-									</div>
+				<!-- Right: large featured article -->
+				<a href={featuredArticle.href} class="blog-featured-card">
+					<div class="blog-featured-img">
+						<img
+							src={featuredArticle.image}
+							alt={featuredArticle.title}
+							loading="lazy"
+						/>
+						<div class="blog-featured-overlay">
+							<div class="blog-featured-body">
+								<span class="blog-featured-label">{featuredArticle.label}</span>
+								<h3 class="blog-featured-title">{featuredArticle.title}</h3>
+								<div class="blog-featured-meta">
+									<span class="blog-featured-author">by {featuredArticle.author}</span>
+									<span class="blog-featured-dot">·</span>
+									<span class="blog-featured-time">{featuredArticle.readingTime}</span>
 								</div>
 							</div>
 						</div>
-					</a>
-				</div>
+					</div>
+				</a>
 			</div>
-		</section>
-	)}
+		</div>
+	</section>
 
 	<main class="main-content">
 		<div class="container">
@@ -839,25 +850,45 @@ const sideArticles = allPosts
 
 	.blog-featured-body { width: 100%; }
 
+	.blog-featured-label {
+		display: inline-block;
+		background: rgba(255,255,255,0.18);
+		color: #fff;
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		padding: 3px 10px;
+		border-radius: 4px;
+		margin-bottom: 0.625rem;
+		backdrop-filter: blur(4px);
+	}
+
 	.blog-featured-title {
-		font-size: 1.25rem;
+		font-size: 1.375rem;
 		font-weight: 800;
 		color: #ffffff;
-		line-height: 1.35;
+		line-height: 1.3;
 		letter-spacing: -0.02em;
-		margin-bottom: 0.625rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.blog-featured-meta {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.4rem;
 	}
 
-	.blog-featured-author {
+	.blog-featured-author,
+	.blog-featured-time {
 		font-size: 0.8125rem;
-		color: rgba(255,255,255,0.75);
+		color: rgba(255,255,255,0.8);
 		font-weight: 500;
+	}
+
+	.blog-featured-dot {
+		color: rgba(255,255,255,0.5);
+		font-size: 0.8rem;
 	}
 
 	@media (max-width: 900px) {
