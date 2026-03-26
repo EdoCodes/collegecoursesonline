@@ -172,7 +172,7 @@ const breadcrumbSchema = {
           <div class="toc-card">
             <div class="toc-title">Table of Contents</div>
             <ol class="toc-list">
-              <li><a href="#tldr">Quick Summary</a></li>
+              <li><a href="#summary">Quick Summary</a></li>
               <li><a href="#section-1">1. What "Right" Really Means</a></li>
               <li><a href="#section-2">2. Is Online Right for You?</a></li>
               <li><a href="#section-3">3. Define Your Non-Negotiables</a></li>
@@ -198,8 +198,8 @@ const breadcrumbSchema = {
         <article class="article-content">
 
           <!-- Quick Summary -->
-          <div id="tldr" class="tldr-box">
-            <div class="tldr-label">📄 Quick Summary</div>
+          <div id="summary" class="summary-box">
+            <div class="summary-label">📄 Quick Summary</div>
             <p>The right online college is <strong>NOT</strong> the one with the most ads or the fanciest website. It's the one that accepts the most credit you've already earned, fits your real life (work, kids, health, unpredictable schedules), is properly accredited, and is genuinely built to support online and transfer students. You've already done the hard part by deciding to start. This guide helps you finish that decision wisely.</p>
           </div>
 
@@ -1111,15 +1111,15 @@ const breadcrumbSchema = {
     margin-bottom: 1.25rem;
   }
 
-  /* ── TL;DR ── */
-  .tldr-box {
+  /* ── Quick Summary ── */
+  .summary-box {
     background: #eff6ff;
     border-left: 4px solid #1e40af;
     border-radius: 0 12px 12px 0;
     padding: 1.5rem 1.75rem;
     margin-bottom: 2.5rem;
   }
-  .tldr-label {
+  .summary-label {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -1127,7 +1127,7 @@ const breadcrumbSchema = {
     color: #1e40af;
     margin-bottom: 0.625rem;
   }
-  .tldr-box p {
+  .summary-box p {
     font-size: 0.9375rem;
     line-height: 1.7;
     color: #1e3a8a;
