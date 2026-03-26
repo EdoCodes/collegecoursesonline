@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
+import { getCollection } from 'astro:content';
 
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
@@ -273,6 +274,15 @@ const _staticCoursesData = [
 	},
 ];
 // _staticCoursesData is kept as reference only — not used when Supabase is live
+
+// Blog articles for homepage section
+const allPosts = await getCollection('blog');
+const featuredPost = allPosts.filter(p => !p.data.draft && p.data.featured)[0]
+  ?? allPosts.filter(p => !p.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())[0];
+const sideArticles = allPosts
+  .filter(p => !p.data.draft && p.slug !== featuredPost?.slug)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
 ---
 
 <Layout>
@@ -313,6 +323,56 @@ const _staticCoursesData = [
 							</div>
 						</a>
 					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- ── Blog Articles Section ── -->
+	{featuredPost && (
+		<section class="blog-section">
+			<div class="container">
+				<div class="blog-header">
+					<h2>Featured education articles</h2>
+					<a href="/blog" class="blog-view-all">View all articles →</a>
+				</div>
+				<div class="blog-layout">
+					<!-- Left: stacked small articles -->
+					<div class="blog-list">
+						{sideArticles.map(post => (
+							<a href={`/blog/${post.slug}`} class="blog-list-item">
+								<div class="blog-list-img">
+									<img
+										src={post.data.image || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=400'}
+										alt={post.data.title}
+										loading="lazy"
+									/>
+								</div>
+								<div class="blog-list-body">
+									<h3 class="blog-list-title">{post.data.title}</h3>
+									<p class="blog-list-excerpt">{post.data.description}</p>
+								</div>
+							</a>
+						))}
+					</div>
+					<!-- Right: large featured article -->
+					<a href={`/blog/${featuredPost.slug}`} class="blog-featured-card">
+						<div class="blog-featured-img">
+							<img
+								src={featuredPost.data.image || 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800'}
+								alt={featuredPost.data.title}
+								loading="lazy"
+							/>
+							<div class="blog-featured-overlay">
+								<div class="blog-featured-body">
+									<h3 class="blog-featured-title">{featuredPost.data.title}</h3>
+									<div class="blog-featured-meta">
+										<span class="blog-featured-author">by {featuredPost.data.author}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
 				</div>
 			</div>
 		</section>
@@ -639,6 +699,175 @@ const _staticCoursesData = [
 		.courses-grid {
 			grid-template-columns: 1fr;
 		}
+	}
+
+	/* ── Blog Section ──────────────────────────────────────────────────────── */
+	.blog-section {
+		padding: 4rem 0;
+		background: #fff;
+		border-top: 1px solid #f1f5f9;
+	}
+
+	.blog-header {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		margin-bottom: 1.75rem;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.blog-header h2 {
+		font-size: 1.375rem;
+		font-weight: 700;
+		color: #1e40af;
+		letter-spacing: -0.01em;
+	}
+
+	.blog-view-all {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #2563eb;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.blog-view-all:hover { text-decoration: underline; }
+
+	.blog-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		align-items: start;
+	}
+
+	/* Left: article list */
+	.blog-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.blog-list-item {
+		display: grid;
+		grid-template-columns: 96px 1fr;
+		gap: 1rem;
+		text-decoration: none;
+		color: inherit;
+		align-items: start;
+	}
+
+	.blog-list-img {
+		width: 96px;
+		height: 72px;
+		border-radius: 8px;
+		overflow: hidden;
+		flex-shrink: 0;
+		background: #f1f5f9;
+	}
+
+	.blog-list-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.blog-list-item:hover .blog-list-img img { transform: scale(1.06); }
+
+	.blog-list-body { display: flex; flex-direction: column; gap: 0.3rem; }
+
+	.blog-list-title {
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: #1e293b;
+		line-height: 1.4;
+		transition: color 0.15s;
+	}
+
+	.blog-list-item:hover .blog-list-title { color: #2563eb; }
+
+	.blog-list-excerpt {
+		font-size: 0.8125rem;
+		color: #64748b;
+		line-height: 1.55;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* Right: featured card */
+	.blog-featured-card {
+		display: block;
+		text-decoration: none;
+		border-radius: 12px;
+		overflow: hidden;
+		position: relative;
+		aspect-ratio: 4/3;
+		background: #0f172a;
+	}
+
+	.blog-featured-img {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.blog-featured-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: brightness(0.55);
+		transition: filter 0.3s ease, transform 0.3s ease;
+	}
+
+	.blog-featured-card:hover .blog-featured-img img {
+		filter: brightness(0.45);
+		transform: scale(1.03);
+	}
+
+	.blog-featured-overlay {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: flex-end;
+		padding: 1.75rem;
+		background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+	}
+
+	.blog-featured-body { width: 100%; }
+
+	.blog-featured-title {
+		font-size: 1.25rem;
+		font-weight: 800;
+		color: #ffffff;
+		line-height: 1.35;
+		letter-spacing: -0.02em;
+		margin-bottom: 0.625rem;
+	}
+
+	.blog-featured-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.blog-featured-author {
+		font-size: 0.8125rem;
+		color: rgba(255,255,255,0.75);
+		font-weight: 500;
+	}
+
+	@media (max-width: 900px) {
+		.blog-layout { grid-template-columns: 1fr; }
+		.blog-featured-card { aspect-ratio: 16/9; }
+	}
+
+	@media (max-width: 600px) {
+		.blog-list-img { width: 72px; height: 56px; }
+		.blog-list-title { font-size: 0.875rem; }
 	}
 
 	/* Main Content */
