@@ -1,0 +1,988 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = "Can International Students Study Online at U.S. Colleges? A Complete Guide";
+const description = "Yes — international students can earn an accredited U.S. online bachelor's degree without relocating. Learn about visa rules, English requirements, top schools, and how to apply from abroad.";
+const publishDate = "2026-03-26";
+const updatedDate = "2026-03-26";
+const author = "Adam Goodmanson";
+const authorTitle = "Senior Education Writer";
+const readingTime = "14 min read";
+const slug = "/resources/blog/international-students-online-us-colleges";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can international students study fully online at U.S. universities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, if you live outside the U.S. Many accredited schools accept international applicants for 100% online programs without requiring a student visa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do online U.S. degrees require a student visa for international students?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, not if you study from your home country. A visa is generally only needed if you plan to live and study physically in the United States, and even then, fully online programs usually do not qualify for F-1 status."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What English tests are required for online U.S. college admission?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common tests include TOEFL iBT, IELTS Academic, Duolingo English Test, and PTE Academic. Many schools also offer waivers based on prior education in English-speaking environments."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which U.S. online colleges accept international students?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Popular options include University of Florida Online, Arizona State University Online, Purdue University Global, Franklin University, University of New Mexico Online, and University of Arkansas Grantham."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I work while studying an online U.S. degree from abroad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Since you remain in your home country, you can typically continue working locally while completing your online program on a flexible schedule."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is an online bachelor's degree from a U.S. college valid for international students?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when earned from a regionally accredited institution, the degree carries the same credibility as on-campus programs and is widely recognized globally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there extra fees for international students in online U.S. programs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many schools charge the same tuition rates for online international students as domestic ones, with no additional international fees in several cases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is studying online from abroad a good alternative to coming to the U.S. on a student visa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For many students, yes—it provides flexibility, significant cost savings, and the ability to earn a U.S. credential without relocation or visa hurdles."
+      }
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": publishDate,
+  "dateModified": updatedDate,
+  "author": {
+    "@type": "Person",
+    "name": author,
+    "jobTitle": authorTitle
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "College Courses Online"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": slug
+  },
+  "keywords": "international students online US college, online degree without visa, study USA from abroad, F-1 visa online programs, TOEFL online admission, accredited US online bachelor degree international"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "/" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "/resources" },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "/resources/blog" },
+    { "@type": "ListItem", "position": 4, "name": "Can International Students Study Online at U.S. Colleges?", "item": slug }
+  ]
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  type="article"
+  canonical={slug}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>›</span>
+        <a href="/resources">Resources</a>
+        <span>›</span>
+        <a href="/resources/blog">Blog</a>
+        <span>›</span>
+        <span>International Students Online U.S. Colleges</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Article Hero -->
+  <header class="article-hero">
+    <div class="container">
+      <div class="article-label">International Students</div>
+      <h1>Can International Students Study Online at U.S. Colleges? A Complete Guide</h1>
+      <p class="article-subtitle">Yes — students living abroad can earn an accredited U.S. online degree without relocating. Learn about visa rules, English requirements, top schools, and how to apply.</p>
+      <div class="article-meta">
+        <span class="meta-item">Updated {updatedDate}</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-item">{readingTime}</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-item">By {author}</span>
+      </div>
+      <div class="article-tags">
+        <span class="tag">International Students</span>
+        <span class="tag">Online Degrees</span>
+        <span class="tag">Visa Rules</span>
+        <span class="tag">U.S. Colleges</span>
+        <span class="tag">Study Abroad</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="article-layout">
+    <div class="container">
+      <div class="article-body">
+
+        <!-- Sidebar TOC -->
+        <aside class="toc-sidebar">
+          <div class="toc-card">
+            <div class="toc-title">Table of Contents</div>
+            <ol class="toc-list">
+              <li><a href="#summary">Quick Summary</a></li>
+              <li><a href="#eligibility">Who Is Eligible?</a></li>
+              <li><a href="#visa">Visa Rules</a></li>
+              <li><a href="#english">English Proficiency</a></li>
+              <li><a href="#requirements">Admission Requirements</a></li>
+              <li><a href="#top-schools">Top U.S. Colleges</a></li>
+              <li><a href="#why">Why Choose Online U.S. Degrees</a></li>
+              <li><a href="#challenges">Challenges & Solutions</a></li>
+              <li><a href="#advice">Practical Advice</a></li>
+              <li><a href="#paa">People Also Ask</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#conclusion">Bottom Line</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+          </div>
+          <div class="author-card">
+            <div class="author-avatar">AG</div>
+            <div class="author-info">
+              <div class="author-name">{author}</div>
+              <div class="author-title">{authorTitle}</div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Article -->
+        <article class="article-content">
+
+          <!-- Quick Summary -->
+          <div id="summary" class="summary-box">
+            <div class="summary-label">📄 Quick Summary</div>
+            <p>International students living <strong>outside the U.S.</strong> can enroll in fully online bachelor's and graduate programs at many accredited U.S. colleges — <strong>no student visa required</strong>. Students physically inside the U.S. on an F-1 visa face stricter rules and generally need hybrid or in-person programs. Key steps: confirm the school accepts international online applicants, verify accreditation, meet English proficiency requirements, and have your transcripts evaluated.</p>
+          </div>
+
+          <!-- Eligibility -->
+          <section id="eligibility">
+            <div class="section-label">Eligibility</div>
+            <h2>Who Is Eligible to Enroll in Online U.S. Programs?</h2>
+
+            <p>Yes, international students can study online at many U.S. colleges and earn a respected online bachelor's degree (or higher) without relocating to the United States. This flexible option is ideal for students living abroad who want a high-quality American education while staying in their home country, balancing work or family responsibilities, and avoiding the high costs and visa complexities of on-campus study.</p>
+
+            <div class="two-col">
+              <div class="eligibility-card eligible">
+                <div class="eligibility-heading">✅ Students Living Abroad</div>
+                <ul>
+                  <li>Often fully eligible for 100% online programs</li>
+                  <li>No U.S. student visa required</li>
+                  <li>Many schools explicitly welcome international applicants</li>
+                  <li>Must meet admissions and English proficiency requirements</li>
+                </ul>
+              </div>
+              <div class="eligibility-card restricted">
+                <div class="eligibility-heading">⚠️ Students on F-1 Visa (Inside U.S.)</div>
+                <ul>
+                  <li>Fully online programs generally do not qualify for F-1 status</li>
+                  <li>Usually need a hybrid or in-person component</li>
+                  <li>Limited online credits (often up to 3/semester) may count toward full-time enrollment</li>
+                  <li>Consult your Designated School Official (DSO)</li>
+                </ul>
+              </div>
+            </div>
+
+            <p>Key requirements typically include: the college accepts international students for online programs; the program is fully online and completable from your home country; regional accreditation of the institution; and evaluation of your prior academic credentials for U.S. equivalency.</p>
+          </section>
+
+          <!-- Visa Rules -->
+          <section id="visa">
+            <div class="section-label">Visa Rules</div>
+            <h2>Visa Rules for International Online Students</h2>
+
+            <div class="info-grid">
+              <div class="info-card">
+                <h4>Studying from Your Home Country</h4>
+                <p>If you remain abroad, you typically <strong>do not need a U.S. student visa</strong> to enroll in fully online courses or degree programs. This saves significant time, money, and immigration-related expenses.</p>
+              </div>
+              <div class="info-card">
+                <h4>Studying Inside the U.S.</h4>
+                <p>If you want to live and study in the U.S., you must follow <strong>F-1 visa guidelines</strong>. Fully online degree programs usually do not meet visa requirements. Hybrid programs are often the best option for visa compliance.</p>
+              </div>
+            </div>
+
+            <div class="pro-tip">
+              <strong>Important:</strong> Always check with the school's international admissions office or Designated School Official (DSO) for the latest guidance, as policies can vary by institution and change over time.
+            </div>
+          </section>
+
+          <!-- English Proficiency -->
+          <section id="english">
+            <div class="section-label">Language Requirements</div>
+            <h2>English Proficiency Requirements</h2>
+
+            <p>Most U.S. colleges require proof of English proficiency for international applicants whose native language is not English (unless you qualify for a waiver, such as prior education in an English-speaking country or sufficient prior coursework).</p>
+
+            <div class="test-grid">
+              <div class="test-card">
+                <div class="test-name">TOEFL iBT</div>
+                <div class="test-desc">Most widely accepted. Scores typically required: 61–80+ depending on program.</div>
+              </div>
+              <div class="test-card">
+                <div class="test-name">IELTS Academic</div>
+                <div class="test-desc">Widely recognized. Minimum band score typically 6.0–6.5 for undergrad.</div>
+              </div>
+              <div class="test-card">
+                <div class="test-name">Duolingo English Test</div>
+                <div class="test-desc">Increasingly accepted. Convenient online format. Score requirements vary.</div>
+              </div>
+              <div class="test-card">
+                <div class="test-name">PTE Academic</div>
+                <div class="test-desc">Computer-based test accepted by many U.S. institutions as an alternative.</div>
+              </div>
+            </div>
+
+            <p>Minimum scores vary by school and program. For example, <a href="https://asuonline.asu.edu/admissions/international/" target="_blank" rel="noopener noreferrer">Arizona State University Online</a> typically requires IELTS 6.0 overall for undergraduates. <a href="https://www.purdueglobal.edu/admission/international-students/" target="_blank" rel="noopener noreferrer">Purdue Global</a> and <a href="https://www.ufonline.ufl.edu/" target="_blank" rel="noopener noreferrer">University of Florida Online</a> also have clear English proficiency guidelines, with options for waivers based on prior academic experience. Always submit official scores as part of your application and confirm exact requirements directly with the program.</p>
+          </section>
+
+          <!-- Admission Requirements -->
+          <section id="requirements">
+            <div class="section-label">Admissions</div>
+            <h2>Other Common Admission Requirements for Overseas Students</h2>
+
+            <p>In addition to English proficiency, international applicants usually need to provide:</p>
+
+            <ul class="styled-list">
+              <li>Official transcripts from previous schools, often with a professional credential evaluation</li>
+              <li>Proof of identity and citizenship</li>
+              <li>Minimum GPA or prior academic qualifications (some bachelor's completion programs require existing college credits)</li>
+              <li>Program-specific prerequisites</li>
+              <li>Completed international application form</li>
+            </ul>
+
+            <div class="warning-box">
+              <strong>⚠️ Note:</strong> Certain fields such as nursing, health sciences, or programs with labs/clinicals may have additional restrictions or local completion requirements that are harder to fulfill from abroad. Confirm feasibility with the school before applying.
+            </div>
+          </section>
+
+          <!-- Top Schools -->
+          <section id="top-schools">
+            <div class="section-label">Top Schools</div>
+            <h2>Top U.S. Colleges That Accept International Students for Online Programs</h2>
+
+            <p>Many reputable institutions openly support online learners from around the world. Here are strong examples:</p>
+
+            <div class="schools-list">
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://www.ufonline.ufl.edu/" target="_blank" rel="noopener noreferrer">University of Florida Online (UF Online)</a>
+                </div>
+                <p>Welcomes students from all over the world for fully online bachelor's degrees with flexible completion options and no campus visits required for most programs. Regionally accredited by SACSCOC.</p>
+              </div>
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://asuonline.asu.edu/admissions/international/" target="_blank" rel="noopener noreferrer">Arizona State University Online (ASU Online)</a>
+                </div>
+                <p>Offers hundreds of online bachelor's and graduate programs and provides clear international admissions and English proficiency guidance. Consistently ranked among the top online programs in the country.</p>
+              </div>
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://www.purdueglobal.edu/admission/international-students/" target="_blank" rel="noopener noreferrer">Purdue University Global</a>
+                </div>
+                <p>Allows international students to earn U.S.-based degrees fully online from home, with flexible scheduling and strong accreditation. Designed for working adults worldwide.</p>
+              </div>
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://www.franklin.edu/international-students" target="_blank" rel="noopener noreferrer">Franklin University</a>
+                </div>
+                <p>Explicitly states that students outside the U.S. may be eligible for 100% online bachelor's, master's, or doctoral degrees, with a streamlined international application process.</p>
+              </div>
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://online.unm.edu/international-students.html" target="_blank" rel="noopener noreferrer">University of New Mexico Online (UNM Online)</a>
+                </div>
+                <p>Confirms that international students living abroad can enroll in online courses without needing a student visa, offering affordable programs across multiple disciplines.</p>
+              </div>
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://www.uagrantham.edu/" target="_blank" rel="noopener noreferrer">University of Arkansas Grantham</a>
+                </div>
+                <p>Makes its affordable online programs available to international students with no additional fees for those outside the U.S. Strong value for cost-conscious learners.</p>
+              </div>
+
+              <div class="school-item">
+                <div class="school-name">
+                  <a href="https://extension.ucla.edu/" target="_blank" rel="noopener noreferrer">UCLA Extension</a> and <a href="https://extension.harvard.edu/online-learning/" target="_blank" rel="noopener noreferrer">Harvard Extension School</a>
+                </div>
+                <p>Offer online courses and programs accessible to international learners seeking flexible, high-quality U.S. education from world-renowned institutions.</p>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Why Choose -->
+          <section id="why">
+            <div class="section-label">Benefits</div>
+            <h2>Why International Students Choose Online U.S. Degrees</h2>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Visa requirements for students studying from home country</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">$31K+</div>
+                <div class="stat-label">Potential savings vs. on-campus study in the U.S.</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Online delivery — study from anywhere in the world</div>
+              </div>
+            </div>
+
+            <ul class="styled-list">
+              <li><strong>No relocation needed</strong> — Study from home and avoid housing, travel, and living expenses in the U.S.</li>
+              <li><strong>Cost savings</strong> — Often lower overall tuition compared to on-campus options, plus no visa-related costs for overseas students.</li>
+              <li><strong>Flexibility</strong> — Asynchronous coursework fits around work, family, or other commitments.</li>
+              <li><strong>Global recognition</strong> — A U.S. degree from an accredited institution can enhance career prospects and English-language skills worldwide.</li>
+              <li><strong>Continue working</strong> — Online formats allow you to keep your current job while building valuable U.S. credentials.</li>
+            </ul>
+          </section>
+
+          <!-- Challenges -->
+          <section id="challenges">
+            <div class="section-label">Challenges</div>
+            <h2>Common Challenges and How to Overcome Them</h2>
+
+            <div class="info-grid">
+              <div class="info-card">
+                <h4>Program Limitations</h4>
+                <p>Fields requiring hands-on labs, clinical placements, or state licensure (e.g., certain health sciences or nursing) may need hybrid elements or local arrangements. Confirm feasibility before applying.</p>
+              </div>
+              <div class="info-card">
+                <h4>Time Zone Differences</h4>
+                <p>Live sessions or deadlines may align with U.S. time zones. Choose fully asynchronous programs when possible to maximize flexibility across time zones.</p>
+              </div>
+              <div class="info-card">
+                <h4>Credential Evaluation</h4>
+                <p>Budget time and fees for professional transcript evaluations early in the process. Services like WES (World Education Services) are widely recognized by U.S. schools.</p>
+              </div>
+              <div class="info-card">
+                <h4>Technology Access</h4>
+                <p>Ensure reliable internet access and compatible devices. Some programs use specific platforms or proctoring software that may have regional restrictions.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Practical Advice -->
+          <section id="advice">
+            <div class="section-label">Guidance</div>
+            <h2>Practical Advice for International Applicants</h2>
+
+            <p>Before applying, take these steps to ensure a smooth process:</p>
+
+            <div class="steps-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                  <strong>Confirm overseas eligibility</strong>
+                  <p>Verify the school accepts students living outside the U.S. for your desired program. Not all online programs are open to international applicants.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                  <strong>Check accreditation</strong>
+                  <p>Confirm regional accreditation and any programmatic accreditation (especially important for fields like nursing or business). Use the <a href="https://www.ed.gov/accreditation" target="_blank" rel="noopener noreferrer">DOE Accreditation Database</a>.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                  <strong>Review English and transcript requirements</strong>
+                  <p>Confirm which English proficiency tests are accepted and begin the credential evaluation process early — it can take several weeks.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                  <strong>Contact the admissions office directly</strong>
+                  <p>Reach out with specific questions about overseas enrollment and program compatibility. This proactive step ensures a smooth application and helps you find the best fit.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PAA -->
+          <section id="paa">
+            <div class="section-label">People Also Ask</div>
+            <h2>People Also Ask</h2>
+
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>Can international students study fully online at U.S. universities?</summary>
+                <p>Yes, if you live outside the U.S. Many accredited schools accept international applicants for 100% online programs without requiring a student visa.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Do online U.S. degrees require a student visa for international students?</summary>
+                <p>No, not if you study from your home country. A visa is generally only needed if you plan to live and study physically in the United States, and even then, fully online programs usually do not qualify for F-1 status.</p>
+              </details>
+              <details class="faq-item">
+                <summary>What English tests are required for online U.S. college admission?</summary>
+                <p>Common tests include TOEFL iBT, IELTS Academic, Duolingo English Test, and PTE Academic. Many schools also offer waivers based on prior education in English-speaking environments.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Which U.S. online colleges accept international students?</summary>
+                <p>Popular options include University of Florida Online, Arizona State University Online, Purdue University Global, Franklin University, University of New Mexico Online, and University of Arkansas Grantham.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Can I work while studying an online U.S. degree from abroad?</summary>
+                <p>Yes. Since you remain in your home country, you can typically continue working locally while completing your online program on a flexible schedule.</p>
+              </details>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section id="faq">
+            <div class="section-label">FAQ</div>
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>Is an online bachelor's degree from a U.S. college valid for international students?</summary>
+                <p>Yes, when earned from a regionally accredited institution, the degree carries the same credibility as on-campus programs and is widely recognized globally.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Can I apply to an online U.S. program without English proficiency test scores?</summary>
+                <p>Possibly, if you qualify for a waiver (e.g., completed prior education in English). Otherwise, most schools require TOEFL, IELTS, or equivalent scores.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Are there extra fees for international students in online U.S. programs?</summary>
+                <p>Many schools charge the same tuition rates for online international students as domestic ones, with no additional international fees in several cases (e.g., University of Arkansas Grantham).</p>
+              </details>
+              <details class="faq-item">
+                <summary>What if my program requires labs or clinicals?</summary>
+                <p>Some programs use virtual simulations or remote kits, but others may require local arrangements or hybrid elements. Confirm feasibility with the school before enrolling.</p>
+              </details>
+              <details class="faq-item">
+                <summary>How do I get my foreign transcripts evaluated?</summary>
+                <p>Schools often recommend professional credential evaluation services such as <a href="https://www.wes.org/" target="_blank" rel="noopener noreferrer">WES (World Education Services)</a> or <a href="https://www.naces.org/" target="_blank" rel="noopener noreferrer">NACES members</a>. Start this process early as part of your application.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Is studying online from abroad a good alternative to coming to the U.S. on a student visa?</summary>
+                <p>For many students, yes—it provides flexibility, significant cost savings, and the ability to earn a U.S. credential without relocation or visa hurdles.</p>
+              </details>
+            </div>
+          </section>
+
+          <!-- Conclusion -->
+          <section id="conclusion">
+            <div class="section-label">Bottom Line</div>
+            <h2>Bottom Line</h2>
+
+            <p>International students living abroad can successfully pursue online bachelor's degrees and other programs at many accredited U.S. colleges without a student visa. Options from respected institutions like <a href="https://www.ufonline.ufl.edu/" target="_blank" rel="noopener noreferrer">UF Online</a>, <a href="https://asuonline.asu.edu/" target="_blank" rel="noopener noreferrer">ASU Online</a>, <a href="https://www.purdueglobal.edu/" target="_blank" rel="noopener noreferrer">Purdue Global</a>, and <a href="https://www.franklin.edu/" target="_blank" rel="noopener noreferrer">Franklin University</a> make high-quality American education more accessible than ever.</p>
+
+            <p>While challenges exist—particularly around visa rules for those in the U.S. and hands-on program requirements—thorough research and direct communication with schools can help you find the right pathway. An online U.S. degree offers flexibility, affordability, and strong career value for motivated learners worldwide.</p>
+
+            <div class="pro-tip">
+              <strong>Always verify</strong> the most current requirements directly with the university, as policies and program details can change. Use the resources below as starting points for your research.
+            </div>
+          </section>
+
+          <!-- Sources -->
+          <section id="sources">
+            <div class="section-label">Sources</div>
+            <h2>Sources & Key Resources</h2>
+            <div class="resources-grid">
+              <a href="https://studyinthestates.dhs.gov/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>Study in the States (DHS)</strong>
+                <span>studyinthestates.dhs.gov</span>
+              </a>
+              <a href="https://www.ice.gov/sevis" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>SEVIS — Student Visa Info</strong>
+                <span>ice.gov/sevis</span>
+              </a>
+              <a href="https://www.ed.gov/accreditation" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>DOE Accreditation Database</strong>
+                <span>ed.gov/accreditation</span>
+              </a>
+              <a href="https://www.wes.org/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>WES Credential Evaluation</strong>
+                <span>wes.org</span>
+              </a>
+              <a href="https://www.naces.org/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>NACES — Credential Evaluators</strong>
+                <span>naces.org</span>
+              </a>
+              <a href="https://collegescorecard.ed.gov" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>College Scorecard</strong>
+                <span>collegescorecard.ed.gov</span>
+              </a>
+              <a href="https://www.toefl.org/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>TOEFL Official Site</strong>
+                <span>toefl.org</span>
+              </a>
+              <a href="https://www.ielts.org/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                <strong>IELTS Official Site</strong>
+                <span>ielts.org</span>
+              </a>
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* ── Layout ── */
+  .breadcrumb-bar {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.75rem 0;
+  }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.875rem; color: #64748b;
+  }
+  .breadcrumb a { color: #2563eb; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: #94a3b8; }
+
+  /* ── Hero ── */
+  .article-hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #0284c7 100%);
+    color: white;
+    padding: 3.5rem 0 3rem;
+  }
+  .article-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  .article-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    max-width: 820px;
+  }
+  .article-subtitle {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.82);
+    max-width: 680px;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+  .article-meta {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.9rem; color: rgba(255,255,255,0.75);
+    margin-bottom: 1rem; flex-wrap: wrap;
+  }
+  .meta-dot { opacity: 0.5; }
+  .article-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── Article Layout ── */
+  .article-layout { padding: 3rem 0 5rem; background: #fff; }
+  .article-body {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── Sidebar ── */
+  .toc-sidebar { position: sticky; top: 80px; }
+  .toc-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .toc-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 0.875rem;
+  }
+  .toc-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 2px;
+    counter-reset: toc;
+  }
+  .toc-list li { counter-increment: toc; }
+  .toc-list a {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.875rem;
+    color: #475569;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.12s, color 0.12s;
+    line-height: 1.4;
+  }
+  .toc-list a:hover { background: #eff6ff; color: #1d4ed8; }
+
+  .author-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+  .author-avatar {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #2563eb, #0284c7);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .author-name { font-size: 0.875rem; font-weight: 700; color: #0f172a; }
+  .author-title { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+
+  /* ── Article Content ── */
+  .article-content { min-width: 0; }
+  .article-content p { font-size: 1rem; color: #374151; line-height: 1.75; margin-bottom: 1.25rem; }
+  .article-content section { margin-bottom: 3rem; }
+  .article-content h2 {
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 1rem;
+    line-height: 1.3;
+  }
+  .article-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 1.5rem 0 0.625rem;
+  }
+  .article-content a { color: #2563eb; text-decoration: underline; }
+  .article-content a:hover { color: #1d4ed8; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #2563eb;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── Summary box ── */
+  .summary-box {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 0 10px 10px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .summary-label { font-size: 0.875rem; font-weight: 700; color: #1d4ed8; margin-bottom: 0.5rem; }
+  .summary-box p { margin: 0; color: #1e3a8a; font-size: 0.9375rem; line-height: 1.7; }
+
+  /* ── Eligibility two-col ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .eligibility-card {
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 1px solid;
+  }
+  .eligibility-card.eligible {
+    background: #f0fdf4;
+    border-color: #86efac;
+  }
+  .eligibility-card.restricted {
+    background: #fffbeb;
+    border-color: #fcd34d;
+  }
+  .eligibility-heading {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+  .eligibility-card ul {
+    padding-left: 1.25rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .eligibility-card li { font-size: 0.875rem; color: #374151; line-height: 1.55; }
+
+  /* ── Stats grid ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .stat-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .stat-number { font-size: 1.75rem; font-weight: 800; color: #2563eb; letter-spacing: -0.03em; }
+  .stat-label { font-size: 0.8125rem; color: #64748b; margin-top: 0.25rem; line-height: 1.4; }
+
+  /* ── Info grid ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .info-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.125rem 1.25rem;
+  }
+  .info-card h4 { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin-bottom: 0.375rem; }
+  .info-card p { font-size: 0.875rem; color: #64748b; line-height: 1.6; margin: 0; }
+
+  /* ── Test grid ── */
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .test-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+  .test-name { font-size: 1rem; font-weight: 700; color: #1e40af; margin-bottom: 0.375rem; }
+  .test-desc { font-size: 0.875rem; color: #64748b; line-height: 1.55; margin: 0; }
+
+  /* ── Schools list ── */
+  .schools-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.25rem 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .school-item {
+    padding: 1.125rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .school-item:last-child { border-bottom: none; }
+  .school-item:nth-child(even) { background: #f8fafc; }
+  .school-name {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.375rem;
+  }
+  .school-name a { color: #1e40af; text-decoration: none; }
+  .school-name a:hover { text-decoration: underline; color: #1d4ed8; }
+  .school-item p { font-size: 0.875rem; color: #64748b; line-height: 1.6; margin: 0; }
+
+  /* ── Styled list ── */
+  .styled-list {
+    padding-left: 1.25rem;
+    margin: 0.75rem 0 1.25rem;
+    display: flex; flex-direction: column; gap: 0.625rem;
+  }
+  .styled-list li { font-size: 0.9375rem; color: #374151; line-height: 1.65; }
+
+  /* ── Warning box ── */
+  .warning-box {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 0.9375rem;
+    color: #78350f;
+    line-height: 1.65;
+  }
+
+  /* ── Pro tip ── */
+  .pro-tip {
+    background: #f0fdf4;
+    border-left: 4px solid #10b981;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+    color: #064e3b;
+    line-height: 1.65;
+  }
+  .pro-tip a { color: #059669; }
+
+  /* ── Steps list ── */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .step-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.125rem 1.25rem;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #2563eb, #0284c7);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.875rem; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .step-body { flex: 1; min-width: 0; }
+  .step-body strong { display: block; font-size: 0.9375rem; color: #0f172a; margin-bottom: 0.25rem; }
+  .step-body p { font-size: 0.875rem; color: #64748b; line-height: 1.6; margin: 0; }
+
+  /* ── FAQ ── */
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+  .faq-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .faq-item summary {
+    padding: 1rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.12s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 1.25rem; color: #2563eb; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item summary:hover { background: #f8fafc; }
+  .faq-item p { padding: 0 1.25rem 1rem; font-size: 0.9375rem; color: #475569; line-height: 1.7; margin: 0; }
+
+  /* ── Resources ── */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .resource-link {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 0.875rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .resource-link:hover { border-color: #2563eb; background: #eff6ff; }
+  .resource-link strong { font-size: 0.9rem; color: #0f172a; }
+  .resource-link span { font-size: 0.8rem; color: #2563eb; }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .article-body { grid-template-columns: 1fr; }
+    .toc-sidebar { position: static; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .test-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .step-item { flex-direction: column; gap: 0.625rem; }
+  }
+</style>
