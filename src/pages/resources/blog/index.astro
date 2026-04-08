@@ -12,6 +12,7 @@ const posts = [
     image: '/images/cards/blog/campus-edu-review-card.png',
     /** Logos: contain + no hover scale = sharper than cover + scale */
     imageObjectFit: 'contain' as const,
+    imageContainVariant: 'white' as const,
     tags: ['Campus.edu', 'College Review', 'Online Community College', 'Accredited'],
   },
   {
@@ -86,6 +87,7 @@ const posts = [
                 'card-image',
                 (post as { imageObjectFit?: string }).imageObjectFit === 'contain' && 'card-image--contain',
                 (post as { imageContainVariant?: string }).imageContainVariant === 'blue' && 'card-image--contain-blue',
+                (post as { imageContainVariant?: string }).imageContainVariant === 'white' && 'card-image--contain-white',
               ]}>
               <img src={post.image} alt={post.title} loading="lazy" decoding="async" />
             </div>
@@ -202,6 +204,9 @@ const posts = [
   }
   .card-image--contain.card-image--contain-blue {
     background: #eff6ff;
+  }
+  .card-image--contain.card-image--contain-white {
+    background: #ffffff;
   }
   .card-image--contain img {
     object-fit: contain;
