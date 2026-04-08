@@ -1,0 +1,800 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = "Campus.edu Review: Accreditation, Programs, Tuition, and Everything You Need to Know";
+const description = "Explore Campus.edu in this in-depth review covering accreditation, tuition, online associate degrees, live classes, student support, financial aid, and who Campus is best for.";
+const publishDate = "2026-03-26";
+const updatedDate = "2026-03-26";
+const author = "Adam Goodmanson";
+const authorTitle = "Senior Education Writer";
+const readingTime = "13 min read";
+const slug = "/resources/blog/campus-edu-review";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Campus.edu a real accredited college?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Campus.edu is accredited by the Accrediting Commission for Community and Junior Colleges (ACCJC), which is recognized by the U.S. Department of Education and CHEA. Accreditation has been in place since 1999."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Campus.edu fully online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Campus.edu emphasizes live online classes and a fully digital college experience. Students attend scheduled sessions with real instructors rather than watching pre-recorded videos only."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What degrees does Campus.edu offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Campus.edu focuses on associate degrees and certificates, especially in business administration, information technology, paralegal studies, healthcare, and barbering/cosmetology."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Campus.edu accept financial aid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Campus.edu participates in federal student aid programs and designs its tuition to align with Pell Grant support. Many students may qualify for enough Pell Grant funding to cover tuition entirely."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Campus.edu good for working adults?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The live online format, personal success coaching, affordability model, and flexible scheduling make Campus.edu a strong fit for working adults returning to school or pursuing a first degree."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Campus.edu offer tutoring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Campus.edu provides free math and writing tutoring as part of its student support model, along with personal success coaching and in some cases technology support."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes Campus.edu different from other online colleges?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Its combination of live instruction, strong student support (coaching, tutoring, tech assistance), capped tuition aligned with Pell Grants, and a focused community-college model sets it apart from larger or more self-paced online schools."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does Campus.edu cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Campus.edu's Scholars programs are capped at $7,320 per academic year. Many students may qualify for enough Pell Grant support to cover tuition entirely, making it one of the more affordable accredited online college options."
+      }
+    }
+  ]
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": publishDate,
+  "dateModified": updatedDate,
+  "author": {
+    "@type": "Person",
+    "name": author,
+    "jobTitle": authorTitle
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "College Courses Online"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": slug
+  },
+  "keywords": "Campus.edu review, is Campus.edu legit, Campus.edu accreditation, Campus.edu tuition, Campus.edu online college, Campus.edu programs, Campus.edu financial aid, online community college, accredited online college, affordable online associate degree, live online college classes, Pell Grant online college"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "/" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "/resources" },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "/resources/blog" },
+    { "@type": "ListItem", "position": 4, "name": "Campus.edu Review", "item": slug }
+  ]
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  type="article"
+  canonical={slug}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>›</span>
+        <a href="/resources">Resources</a>
+        <span>›</span>
+        <a href="/resources/blog">Blog</a>
+        <span>›</span>
+        <span>Campus.edu Review</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="article-hero">
+    <div class="container">
+      <div class="article-label">College Review</div>
+      <h1>Campus.edu Review: Accreditation, Programs, Tuition, Student Support, and Everything You Need to Know</h1>
+      <p class="article-subtitle">An in-depth look at Campus.edu — the accredited online community college built around live classes, strong student support, and affordable access to career-focused education.</p>
+      <div class="article-meta">
+        <span class="meta-item">Updated {updatedDate}</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-item">{readingTime}</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-item">By {author}</span>
+      </div>
+      <div class="article-tags">
+        <span class="tag">Campus.edu</span>
+        <span class="tag">College Review</span>
+        <span class="tag">Online Community College</span>
+        <span class="tag">Accredited</span>
+        <span class="tag">Financial Aid</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="article-layout">
+    <div class="container">
+      <div class="article-body">
+
+        <!-- TOC Sidebar -->
+        <aside class="toc-sidebar">
+          <div class="toc-card">
+            <div class="toc-title">Table of Contents</div>
+            <ol class="toc-list">
+              <li><a href="#summary">Quick Summary</a></li>
+              <li><a href="#what-is">What Is Campus.edu?</a></li>
+              <li><a href="#accreditation">Accreditation & Legitimacy</a></li>
+              <li><a href="#programs">Programs Offered</a></li>
+              <li><a href="#learning">Learning Experience</a></li>
+              <li><a href="#support">Student Support Services</a></li>
+              <li><a href="#tuition">Tuition & Affordability</a></li>
+              <li><a href="#mission">Mission & Values</a></li>
+              <li><a href="#leadership">Leadership</a></li>
+              <li><a href="#best-for">Who Campus.edu Is Best For</a></li>
+              <li><a href="#pros">Advantages</a></li>
+              <li><a href="#cons">Limitations</a></li>
+              <li><a href="#quick-facts">Quick Facts</a></li>
+              <li><a href="#paa">People Also Ask</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#conclusion">Conclusion</a></li>
+            </ol>
+          </div>
+          <div class="author-card">
+            <div class="author-avatar">AG</div>
+            <div class="author-info">
+              <div class="author-name">{author}</div>
+              <div class="author-title">{authorTitle}</div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div class="sidebar-cta">
+            <p>Ready to explore Campus.edu?</p>
+            <a href="https://www.campus.edu/" target="_blank" rel="noopener noreferrer" class="cta-btn">Visit Campus.edu →</a>
+          </div>
+        </aside>
+
+        <!-- Article -->
+        <article class="article-content">
+
+          <!-- Quick Summary -->
+          <div id="summary" class="summary-box">
+            <div class="summary-label">📄 Quick Summary</div>
+            <p><a href="https://www.campus.edu/" target="_blank" rel="noopener noreferrer">Campus.edu</a> is an <strong>ACCJC-accredited online community college</strong> offering live classes, personal coaching, free tutoring, and tuition capped at <strong>$7,320/year</strong> — designed to align with Pell Grant support. It focuses on a targeted set of career-ready programs including business, IT, paralegal, and healthcare. Best for working adults, first-generation students, and anyone seeking an affordable, supported path to an associate degree.</p>
+          </div>
+
+          <!-- What Is Campus.edu -->
+          <section id="what-is">
+            <div class="section-label">Overview</div>
+            <h2>What Is Campus.edu?</h2>
+            <p><a href="https://campus.edu/about" target="_blank" rel="noopener noreferrer">Campus.edu</a> describes itself as "an online college for the future" — a community college focused on maximizing access to world-class education. The school's model centers on live, online learning with real instructors, academic support, and a streamlined path to affordable college completion.</p>
+            <p>The institution is connected to the legacy of MTI College and now operates under the Campus brand, giving it both historical roots and a modern online identity. That combination matters because it signals the school is not a new concept without history — it is a reimagined version of an established educational provider with accreditation dating back to 1999.</p>
+          </section>
+
+          <!-- Accreditation -->
+          <section id="accreditation">
+            <div class="section-label">Accreditation</div>
+            <h2>Accreditation and Legitimacy</h2>
+            <p>Accreditation is the most important factor when evaluating any online college, and Campus.edu has a significant advantage here. The school is accredited by the <strong>Accrediting Commission for Community and Junior Colleges (ACCJC)</strong>, which is recognized by both the U.S. Department of Education and CHEA.</p>
+
+            <div class="accred-box">
+              <div class="accred-item">
+                <div class="accred-icon">✅</div>
+                <div>
+                  <strong>ACCJC Accredited</strong>
+                  <p>Recognized by the U.S. Department of Education and the Council for Higher Education Accreditation (CHEA).</p>
+                </div>
+              </div>
+              <div class="accred-item">
+                <div class="accred-icon">📅</div>
+                <div>
+                  <strong>Accredited Since 1999</strong>
+                  <p>Long-standing institutional accreditation providing stability and credibility for students and employers.</p>
+                </div>
+              </div>
+              <div class="accred-item">
+                <div class="accred-icon">💰</div>
+                <div>
+                  <strong>Federal Aid Eligible</strong>
+                  <p>Accreditation enables students to use FAFSA, Pell Grants, and federal loans to fund their education.</p>
+                </div>
+              </div>
+              <div class="accred-item">
+                <div class="accred-icon">🏢</div>
+                <div>
+                  <strong>Employer Recognition</strong>
+                  <p>Degrees from accredited institutions are recognized by most employers and may be transferable to other colleges.</p>
+                </div>
+              </div>
+            </div>
+
+            <p>For students, accreditation affects federal financial aid eligibility, transfer potential, and employer recognition. You can verify Campus.edu's accreditation status at the <a href="https://www.ed.gov/accreditation" target="_blank" rel="noopener noreferrer">DOE Accreditation Database</a> or <a href="https://www.chea.org" target="_blank" rel="noopener noreferrer">CHEA</a>. Full accreditation details are also available on the <a href="https://campus.edu/about/accreditation" target="_blank" rel="noopener noreferrer">Campus.edu accreditation page</a>.</p>
+          </section>
+
+          <!-- Programs -->
+          <section id="programs">
+            <div class="section-label">Programs</div>
+            <h2>Campus.edu Programs</h2>
+            <p>Campus does not try to be everything to everyone. Instead, it focuses on a targeted set of degree and certificate pathways aligned with workforce and transfer goals. View the full catalog on the <a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">Campus.edu programs page</a>.</p>
+
+            <div class="programs-grid">
+              <div class="program-card">
+                <div class="program-icon">💻</div>
+                <div class="program-name">Information Technology</div>
+                <p>Online associate degree covering IT fundamentals, networking, and technical support skills for a tech-driven workforce.</p>
+                <a href="https://campus.edu/online-degree-in-information-technology" target="_blank" rel="noopener noreferrer">View program →</a>
+              </div>
+              <div class="program-card">
+                <div class="program-icon">💼</div>
+                <div class="program-name">Business Administration</div>
+                <p>Practical business training covering management, finance, marketing, and operations for career advancement or transfer.</p>
+                <a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">View program →</a>
+              </div>
+              <div class="program-card">
+                <div class="program-icon">⚖️</div>
+                <div class="program-name">Paralegal Studies</div>
+                <p>Career-focused legal training preparing students for roles in law offices, corporate legal departments, and government agencies.</p>
+                <a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">View program →</a>
+              </div>
+              <div class="program-card">
+                <div class="program-icon">🏥</div>
+                <div class="program-name">Healthcare</div>
+                <p>Healthcare-related training pathways designed for students entering one of the fastest-growing employment sectors.</p>
+                <a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">View program →</a>
+              </div>
+              <div class="program-card">
+                <div class="program-icon">✂️</div>
+                <div class="program-name">Barbering & Cosmetology</div>
+                <p>Vocational pathways for students pursuing licensure and careers in the beauty and personal care industry.</p>
+                <a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">View program →</a>
+              </div>
+            </div>
+
+            <div class="pro-tip">
+              <strong>Why a focused catalog?</strong> Campus intentionally limits its program list to concentrate on fields with strong demand and practical career outcomes — rather than building a massive academic inventory that spreads resources thin.
+            </div>
+          </section>
+
+          <!-- Learning Experience -->
+          <section id="learning">
+            <div class="section-label">Learning</div>
+            <h2>Learning Experience</h2>
+            <p>Campus emphasizes <strong>live classes</strong> rather than self-paced-only coursework. According to the <a href="https://campus.edu/experience" target="_blank" rel="noopener noreferrer">Campus.edu experience page</a>, students learn from professors who also teach at top universities — creating a more interactive and academically grounded experience than many generic online programs.</p>
+
+            <div class="info-grid">
+              <div class="info-card">
+                <h4>Live Instruction</h4>
+                <p>Scheduled live sessions with real instructors. Students interact directly, ask questions, and engage with classmates in real time — not just watch pre-recorded videos.</p>
+              </div>
+              <div class="info-card">
+                <h4>Cohort-Based Learning</h4>
+                <p>Students progress through coursework with a group, building community and accountability — a model that often leads to higher completion rates.</p>
+              </div>
+              <div class="info-card">
+                <h4>Expert Faculty</h4>
+                <p>Instructors with experience at top universities bring academic rigor to an accessible, community-college format.</p>
+              </div>
+              <div class="info-card">
+                <h4>Structured Schedule</h4>
+                <p>Ideal for students who thrive with accountability and defined deadlines rather than fully self-directed, open-ended coursework.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Student Support -->
+          <section id="support">
+            <div class="section-label">Support</div>
+            <h2>Student Support Services</h2>
+            <p>One of Campus.edu's strongest selling points is its support infrastructure. The school provides a comprehensive set of services designed to help students succeed — especially those who are first-generation, returning, or balancing work and family.</p>
+
+            <div class="support-grid">
+              <div class="support-item">
+                <div class="support-icon">📐</div>
+                <div class="support-body">
+                  <strong>Free Math & Writing Tutoring</strong>
+                  <p>On-demand academic support in core subjects to help students stay on track and build confidence.</p>
+                </div>
+              </div>
+              <div class="support-item">
+                <div class="support-icon">🎯</div>
+                <div class="support-body">
+                  <strong>Personal Success Coach</strong>
+                  <p>Every student gets a dedicated coach to help with goal-setting, time management, and navigating college processes.</p>
+                </div>
+              </div>
+              <div class="support-item">
+                <div class="support-icon">💻</div>
+                <div class="support-body">
+                  <strong>Technology Support</strong>
+                  <p>In some cases, Campus provides laptops and internet access — removing one of the most common barriers to online learning.</p>
+                </div>
+              </div>
+              <div class="support-item">
+                <div class="support-icon">📚</div>
+                <div class="support-body">
+                  <strong>Academic Resources</strong>
+                  <p>Course materials, library access, and learning tools designed to support students throughout their program.</p>
+                </div>
+              </div>
+            </div>
+
+            <p>This support structure is especially useful for first-generation students, working adults, and learners who need guidance to stay on track. It also helps reduce common barriers to online learning — lack of equipment, lack of academic support, or uncertainty about college processes.</p>
+          </section>
+
+          <!-- Tuition -->
+          <section id="tuition">
+            <div class="section-label">Tuition</div>
+            <h2>Tuition and Affordability</h2>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number">$7,320</div>
+                <div class="stat-label">Tuition cap per academic year in Scholars programs</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">$7,395</div>
+                <div class="stat-label">Maximum Pell Grant award (2024–25) — may cover full tuition</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">$0</div>
+                <div class="stat-label">Out-of-pocket cost for many qualifying students after Pell Grant</div>
+              </div>
+            </div>
+
+            <p>Campus markets affordability as a central part of its mission. Tuition in its Scholars programs is capped at <strong>$7,320 per academic year</strong>, and many students may qualify for enough Pell Grant support to cover tuition entirely. This makes Campus especially interesting for students who want to avoid heavy borrowing.</p>
+
+            <p>By aligning pricing with federal aid thresholds, the school appears to be designed for students who need a realistic, low-friction path to an affordable associate degree. Learn more about financial aid options on the <a href="https://www.campus.edu/" target="_blank" rel="noopener noreferrer">Campus.edu website</a> or by filing your FAFSA at <a href="https://studentaid.gov/h/apply-for-aid/fafsa" target="_blank" rel="noopener noreferrer">studentaid.gov</a>.</p>
+
+            <div class="pro-tip">
+              <strong>Pell Grant tip:</strong> The maximum Pell Grant award for 2024–25 is $7,395. If you qualify for the full amount, it may cover Campus.edu's entire annual tuition — making your degree effectively free. Check your eligibility at <a href="https://studentaid.gov/understand-aid/eligibility" target="_blank" rel="noopener noreferrer">Federal Student Aid Eligibility Requirements</a>.
+            </div>
+          </section>
+
+          <!-- Mission -->
+          <section id="mission">
+            <div class="section-label">Mission</div>
+            <h2>Mission and Values</h2>
+            <p>According to the <a href="https://campus.edu/about" target="_blank" rel="noopener noreferrer">Campus.edu about page</a>, the school's mission is to <em>"maximize access to world-class education, preparing students for academic, career, and life success."</em> That mission is reinforced by a set of values that include student experience, ownership, progress, and innovation.</p>
+            <p>The language is modern and entrepreneurial, reflecting how the school positions itself in the online education space. Rather than emphasizing tradition for tradition's sake, Campus emphasizes access, outcomes, and student-centered service — a philosophy that resonates with working adults and non-traditional learners.</p>
+          </section>
+
+          <!-- Leadership -->
+          <section id="leadership">
+            <div class="section-label">Leadership</div>
+            <h2>Leadership and Institutional Direction</h2>
+            <p>The school's founder, <strong>Tade Oyerinde</strong>, is a key part of its identity. Campus presents him as a technology-minded education entrepreneur who previously built Campuswire and has been recognized for his work in education innovation.</p>
+            <p>The leadership team includes academic, operational, and administrative leaders with experience across higher education, technology, law, and finance. That background suggests the institution is balancing startup-like agility with the governance and oversight expected from an accredited college. Full institutional documentation is available in the <a href="https://campus.edu/documents/Campus-2025-ISER.pdf" target="_blank" rel="noopener noreferrer">Campus 2025 ISER report</a>.</p>
+          </section>
+
+          <!-- Best For -->
+          <section id="best-for">
+            <div class="section-label">Best For</div>
+            <h2>Who Campus.edu Is Best For</h2>
+
+            <div class="two-col">
+              <div class="fit-card good">
+                <div class="fit-heading">✅ Great Fit</div>
+                <ul>
+                  <li>First-time college students</li>
+                  <li>Adults returning to school</li>
+                  <li>Working learners with limited time</li>
+                  <li>Students seeking a lower-cost associate degree</li>
+                  <li>Students who want live classes over self-paced modules</li>
+                  <li>Students who need coaching and tutoring support</li>
+                  <li>Pell Grant-eligible students seeking $0 tuition</li>
+                </ul>
+              </div>
+              <div class="fit-card less">
+                <div class="fit-heading">⚠️ May Not Be the Best Fit</div>
+                <ul>
+                  <li>Students wanting a broad university catalog</li>
+                  <li>Students seeking extensive campus life</li>
+                  <li>Students who prefer fully asynchronous study</li>
+                  <li>Students needing advanced or specialized degrees</li>
+                  <li>Students with very specific transfer requirements</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Pros -->
+          <section id="pros">
+            <div class="section-label">Advantages</div>
+            <h2>Advantages of Campus.edu</h2>
+
+            <div class="pros-list">
+              <div class="pro-item">
+                <div class="pro-check">✓</div>
+                <div>
+                  <strong>ACCJC Accreditation</strong> — Institutional credibility recognized by the U.S. Department of Education, enabling federal financial aid and employer recognition.
+                </div>
+              </div>
+              <div class="pro-item">
+                <div class="pro-check">✓</div>
+                <div>
+                  <strong>Live Instruction</strong> — Real-time classes with instructors rather than passive video-only coursework, creating a more engaging learning environment.
+                </div>
+              </div>
+              <div class="pro-item">
+                <div class="pro-check">✓</div>
+                <div>
+                  <strong>Strong Student Support</strong> — Personal success coaching, free tutoring, and technology assistance reduce common barriers to completion.
+                </div>
+              </div>
+              <div class="pro-item">
+                <div class="pro-check">✓</div>
+                <div>
+                  <strong>Pell Grant-Aligned Tuition</strong> — Capped at $7,320/year, making it possible for many students to attend at little or no out-of-pocket cost.
+                </div>
+              </div>
+              <div class="pro-item">
+                <div class="pro-check">✓</div>
+                <div>
+                  <strong>Career-Focused Programs</strong> — Practical degree options in high-demand fields rather than a diluted catalog spread across too many disciplines.
+                </div>
+              </div>
+              <div class="pro-item">
+                <div class="pro-check">✓</div>
+                <div>
+                  <strong>Established History</strong> — Accreditation since 1999 through MTI College heritage provides institutional stability and track record.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Cons -->
+          <section id="cons">
+            <div class="section-label">Limitations</div>
+            <h2>Limitations to Consider</h2>
+
+            <div class="cons-list">
+              <div class="con-item">
+                <div class="con-x">✗</div>
+                <div>
+                  <strong>Limited Program Breadth</strong> — Campus offers a focused set of degrees and certificates. Students seeking liberal arts, sciences, or advanced professional programs will need to look elsewhere.
+                </div>
+              </div>
+              <div class="con-item">
+                <div class="con-x">✗</div>
+                <div>
+                  <strong>Live Schedule Required</strong> — Students who prefer fully asynchronous, self-paced study may find the scheduled live class format restrictive.
+                </div>
+              </div>
+              <div class="con-item">
+                <div class="con-x">✗</div>
+                <div>
+                  <strong>Transfer Policies Vary</strong> — As with any community college, transferability of credits depends on the receiving institution. Confirm transfer agreements before enrolling if transfer is your goal.
+                </div>
+              </div>
+              <div class="con-item">
+                <div class="con-x">✗</div>
+                <div>
+                  <strong>National vs. Regional Accreditation</strong> — ACCJC is a regional accreditor, which is the gold standard. However, students should verify transfer and employer acceptance for their specific goals.
+                </div>
+              </div>
+            </div>
+
+            <div class="warning-box">
+              <strong>Always verify:</strong> Confirm that your specific program fits your transfer plans or career goals by contacting Campus.edu's admissions team directly before enrolling.
+            </div>
+          </section>
+
+          <!-- Quick Facts -->
+          <section id="quick-facts">
+            <div class="section-label">At a Glance</div>
+            <h2>Campus.edu Quick Facts</h2>
+
+            <div class="table-wrap">
+              <table class="facts-table">
+                <tbody>
+                  <tr>
+                    <td><strong>School Type</strong></td>
+                    <td><a href="https://campus.edu/about" target="_blank" rel="noopener noreferrer">Accredited online community college</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Delivery Format</strong></td>
+                    <td><a href="https://campus.edu/experience" target="_blank" rel="noopener noreferrer">Live online classes</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Accreditation</strong></td>
+                    <td><a href="https://campus.edu/about/accreditation" target="_blank" rel="noopener noreferrer">ACCJC-accredited (since 1999)</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tuition</strong></td>
+                    <td>Capped at $7,320/year in Scholars programs</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Financial Aid</strong></td>
+                    <td>FAFSA-eligible; Pell Grant may cover full tuition</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Main Programs</strong></td>
+                    <td><a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">Business, IT, Paralegal, Healthcare, Barbering/Cosmetology</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Support Services</strong></td>
+                    <td>Coaching, tutoring, technology assistance</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mission</strong></td>
+                    <td>Maximize access to world-class education</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Best For</strong></td>
+                    <td><a href="https://campus.edu/experience" target="_blank" rel="noopener noreferrer">Working adults, first-time students, affordability seekers</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Official Website</strong></td>
+                    <td><a href="https://www.campus.edu/" target="_blank" rel="noopener noreferrer">campus.edu</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- PAA -->
+          <section id="paa">
+            <div class="section-label">People Also Ask</div>
+            <h2>People Also Ask</h2>
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>What is Campus.edu?</summary>
+                <p>Campus.edu is an <a href="https://campus.edu/about" target="_blank" rel="noopener noreferrer">accredited online community college</a> focused on access, affordability, and career-oriented education. It offers live online classes, personal coaching, free tutoring, and tuition aligned with federal Pell Grant support.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Is Campus.edu worth it?</summary>
+                <p>It can be worth it for students who want a low-cost, accredited, live online college experience with strong support and practical degree paths. The combination of capped tuition and Pell Grant eligibility makes it one of the more financially accessible options available.</p>
+              </details>
+              <details class="faq-item">
+                <summary>How much does Campus.edu cost?</summary>
+                <p>The school's Scholars programs are capped at <strong>$7,320 per academic year</strong>. Many students may qualify for enough Pell Grant support to cover tuition entirely, potentially resulting in $0 out-of-pocket cost.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Does Campus.edu help with job preparation?</summary>
+                <p>Yes. The institution's <a href="https://campus.edu/about" target="_blank" rel="noopener noreferrer">mission</a> and program structure are centered on academic, career, and life success. Programs are selected for their workforce relevance and practical career outcomes.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Can you transfer credits from Campus.edu?</summary>
+                <p>Transferability depends on the receiving institution, the student's program, and course alignment. ACCJC accreditation helps, but transfer policies are set by each college. Confirm transfer agreements with your target school before enrolling.</p>
+              </details>
+            </div>
+          </section>
+
+          <!-- FAQ -->
+          <section id="faq">
+            <div class="section-label">FAQ</div>
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>Is Campus.edu a real accredited college?</summary>
+                <p>Yes. Campus.edu is accredited by the <a href="https://campus.edu/about/accreditation" target="_blank" rel="noopener noreferrer">Accrediting Commission for Community and Junior Colleges (ACCJC)</a>, recognized by the U.S. Department of Education and CHEA. Accreditation has been in place since 1999.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Is Campus.edu fully online?</summary>
+                <p>Yes. Campus.edu is a fully online college emphasizing <a href="https://campus.edu/experience" target="_blank" rel="noopener noreferrer">live online classes</a> with real instructors. Students attend scheduled sessions rather than watching pre-recorded videos only.</p>
+              </details>
+              <details class="faq-item">
+                <summary>What degrees does Campus.edu offer?</summary>
+                <p>Campus.edu focuses on associate degrees and certificates in <a href="https://campus.edu/programs" target="_blank" rel="noopener noreferrer">business administration, information technology, paralegal studies, healthcare, and barbering/cosmetology</a>.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Does Campus.edu accept financial aid?</summary>
+                <p>Yes. Campus.edu participates in federal student aid programs. Students can use FAFSA, and many may qualify for enough Pell Grant support to cover tuition entirely. File your FAFSA at <a href="https://studentaid.gov/h/apply-for-aid/fafsa" target="_blank" rel="noopener noreferrer">studentaid.gov</a>.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Is Campus.edu good for working adults?</summary>
+                <p>Yes. The live online format, personal success coaching, affordability model, and flexible scheduling make Campus.edu a strong fit for <a href="https://campus.edu/experience" target="_blank" rel="noopener noreferrer">working adults</a> returning to school or pursuing a first degree.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Does Campus.edu offer tutoring?</summary>
+                <p>Yes. Campus.edu provides free math and writing tutoring as part of its student support model, along with personal success coaching and in some cases technology support including laptops and internet access.</p>
+              </details>
+              <details class="faq-item">
+                <summary>What makes Campus.edu different from other online colleges?</summary>
+                <p>Its combination of live instruction, strong student support (coaching, tutoring, tech assistance), capped tuition aligned with Pell Grants, and a focused community-college model sets it apart from larger or more self-paced online schools.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Is Campus.edu nationally or regionally accredited?</summary>
+                <p>Campus.edu is accredited by ACCJC, which is a <strong>regional accreditor</strong> — the gold standard in U.S. higher education. Regional accreditation is generally preferred over national accreditation for transfer purposes and employer recognition.</p>
+              </details>
+            </div>
+          </section>
+
+          <!-- Conclusion -->
+          <section id="conclusion">
+            <div class="section-label">Conclusion</div>
+            <h2>Conclusion: Is Campus.edu Right for You?</h2>
+            <p>Campus.edu is a legitimate, accredited online community college with a strong emphasis on accessibility, affordability, and live academic support. Its focused program list, lower-cost tuition model, and student-centered services make it appealing to learners who want a practical path to a degree without the complexity or cost of a traditional campus.</p>
+            <p>For students seeking an affordable online college with real instructors, personal coaching, and free tutoring, <a href="https://www.campus.edu/" target="_blank" rel="noopener noreferrer">Campus.edu</a> is a noteworthy option worth exploring. For students who want a broader catalog or a fully asynchronous experience, it may be better to compare other accredited online colleges before deciding.</p>
+            <div class="pro-tip">
+              <strong>Next step:</strong> Visit <a href="https://www.campus.edu/" target="_blank" rel="noopener noreferrer">campus.edu</a> to explore programs and admissions, and file your FAFSA at <a href="https://studentaid.gov/h/apply-for-aid/fafsa" target="_blank" rel="noopener noreferrer">studentaid.gov</a> to check your financial aid eligibility.
+            </div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .breadcrumb-bar { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 0.75rem 0; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
+  .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #64748b; }
+  .breadcrumb a { color: #2563eb; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: #94a3b8; }
+
+  .article-hero { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #0284c7 100%); color: white; padding: 3.5rem 0 3rem; }
+  .article-label { display: inline-block; background: rgba(255,255,255,0.15); color: white; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 4px 12px; border-radius: 4px; margin-bottom: 1rem; backdrop-filter: blur(4px); }
+  .article-hero h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 1rem; max-width: 820px; }
+  .article-subtitle { font-size: 1.125rem; color: rgba(255,255,255,0.82); max-width: 680px; line-height: 1.6; margin-bottom: 1.25rem; }
+  .article-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-bottom: 1rem; flex-wrap: wrap; }
+  .meta-dot { opacity: 0.5; }
+  .article-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 4px; backdrop-filter: blur(4px); }
+
+  .article-layout { padding: 3rem 0 5rem; background: #fff; }
+  .article-body { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start; }
+
+  .toc-sidebar { position: sticky; top: 80px; }
+  .toc-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.25rem; }
+  .toc-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 0.875rem; }
+  .toc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .toc-list a { display: block; padding: 0.35rem 0.5rem; font-size: 0.875rem; color: #475569; text-decoration: none; border-radius: 5px; transition: background 0.12s, color 0.12s; line-height: 1.4; }
+  .toc-list a:hover { background: #eff6ff; color: #1d4ed8; }
+  .author-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; display: flex; align-items: center; gap: 0.875rem; margin-bottom: 1.25rem; }
+  .author-avatar { width: 44px; height: 44px; background: linear-gradient(135deg, #2563eb, #0284c7); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; font-weight: 700; flex-shrink: 0; }
+  .author-name { font-size: 0.875rem; font-weight: 700; color: #0f172a; }
+  .author-title { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+  .sidebar-cta { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .sidebar-cta p { font-size: 0.875rem; color: #1e40af; font-weight: 600; margin: 0 0 0.75rem; }
+  .cta-btn { display: inline-block; background: #dc2626; color: #fff !important; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 9px 18px; border-radius: 6px; text-decoration: none !important; transition: background 0.15s; }
+  .cta-btn:hover { background: #b91c1c; }
+
+  .article-content { min-width: 0; }
+  .article-content p { font-size: 1rem; color: #374151; line-height: 1.75; margin-bottom: 1.25rem; }
+  .article-content section { margin-bottom: 3rem; }
+  .article-content h2 { font-size: 1.625rem; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin: 0.5rem 0 1rem; line-height: 1.3; }
+  .article-content a { color: #2563eb; text-decoration: underline; }
+  .article-content a:hover { color: #1d4ed8; }
+  .section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #2563eb; margin-bottom: 0.25rem; }
+
+  .summary-box { background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+  .summary-label { font-size: 0.875rem; font-weight: 700; color: #1d4ed8; margin-bottom: 0.5rem; }
+  .summary-box p { margin: 0; color: #1e3a8a; font-size: 0.9375rem; line-height: 1.7; }
+
+  .accred-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.25rem 0; }
+  .accred-item { display: flex; gap: 0.875rem; align-items: flex-start; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem 1.125rem; }
+  .accred-icon { font-size: 1.375rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+  .accred-item strong { display: block; font-size: 0.9375rem; color: #0f172a; margin-bottom: 0.25rem; }
+  .accred-item p { font-size: 0.875rem; color: #64748b; line-height: 1.55; margin: 0; }
+
+  .programs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin: 1.25rem 0; }
+  .program-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.125rem; display: flex; flex-direction: column; gap: 0.375rem; transition: border-color 0.15s, box-shadow 0.15s; }
+  .program-card:hover { border-color: #2563eb; box-shadow: 0 4px 16px rgba(37,99,235,0.08); }
+  .program-icon { font-size: 1.5rem; line-height: 1; }
+  .program-name { font-size: 0.9375rem; font-weight: 700; color: #0f172a; }
+  .program-card p { font-size: 0.8125rem; color: #64748b; line-height: 1.55; margin: 0; flex: 1; }
+  .program-card a { font-size: 0.8125rem; font-weight: 600; color: #2563eb; text-decoration: none; margin-top: auto; }
+  .program-card a:hover { text-decoration: underline; }
+
+  .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.25rem 0; }
+  .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.125rem 1.25rem; }
+  .info-card h4 { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin-bottom: 0.375rem; }
+  .info-card p { font-size: 0.875rem; color: #64748b; line-height: 1.6; margin: 0; }
+
+  .support-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.25rem 0; }
+  .support-item { display: flex; gap: 0.875rem; align-items: flex-start; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem 1.125rem; }
+  .support-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+  .support-body strong { display: block; font-size: 0.9375rem; color: #0f172a; margin-bottom: 0.25rem; }
+  .support-body p { font-size: 0.875rem; color: #64748b; line-height: 1.6; margin: 0; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+  .stat-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; text-align: center; }
+  .stat-number { font-size: 1.75rem; font-weight: 800; color: #2563eb; letter-spacing: -0.03em; }
+  .stat-label { font-size: 0.8125rem; color: #64748b; margin-top: 0.25rem; line-height: 1.4; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+  .fit-card { border-radius: 10px; padding: 1.25rem; border: 1px solid; }
+  .fit-card.good { background: #f0fdf4; border-color: #86efac; }
+  .fit-card.less { background: #fffbeb; border-color: #fcd34d; }
+  .fit-heading { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin-bottom: 0.75rem; }
+  .fit-card ul { padding-left: 1.25rem; margin: 0; display: flex; flex-direction: column; gap: 0.375rem; }
+  .fit-card li { font-size: 0.875rem; color: #374151; line-height: 1.55; }
+
+  .pros-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; }
+  .pro-item { display: flex; gap: 1rem; align-items: flex-start; background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 1rem 1.25rem; font-size: 0.9375rem; color: #374151; line-height: 1.65; }
+  .pro-check { width: 24px; height: 24px; background: #16a34a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+  .cons-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.25rem 0; }
+  .con-item { display: flex; gap: 1rem; align-items: flex-start; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 1rem 1.25rem; font-size: 0.9375rem; color: #374151; line-height: 1.65; }
+  .con-x { width: 24px; height: 24px; background: #ea580c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+  .table-wrap { overflow-x: auto; margin: 1.25rem 0; border-radius: 10px; border: 1px solid #e2e8f0; }
+  .facts-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .facts-table td { padding: 0.875rem 1.25rem; border-bottom: 1px solid #e2e8f0; color: #374151; vertical-align: top; line-height: 1.55; }
+  .facts-table tr:last-child td { border-bottom: none; }
+  .facts-table tr:nth-child(even) td { background: #f8fafc; }
+  .facts-table td:first-child { font-weight: 600; color: #0f172a; white-space: nowrap; width: 180px; }
+  .facts-table a { color: #2563eb; text-decoration: underline; }
+
+  .pro-tip { background: #f0fdf4; border-left: 4px solid #10b981; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.9375rem; color: #064e3b; line-height: 1.65; }
+  .pro-tip a { color: #059669; }
+  .warning-box { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.25rem 0; font-size: 0.9375rem; color: #78350f; line-height: 1.65; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+  .faq-item { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+  .faq-item summary { padding: 1rem 1.25rem; font-size: 0.9375rem; font-weight: 600; color: #0f172a; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background 0.12s; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 1.25rem; color: #2563eb; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item summary:hover { background: #f8fafc; }
+  .faq-item p { padding: 0 1.25rem 1rem; font-size: 0.9375rem; color: #475569; line-height: 1.7; margin: 0; }
+
+  @media (max-width: 1024px) {
+    .article-body { grid-template-columns: 1fr; }
+    .toc-sidebar { position: static; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .accred-box { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .support-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .programs-grid { grid-template-columns: 1fr; }
+  }
+</style>
