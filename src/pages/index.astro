@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
-import { getCollection } from 'astro:content';
+import { resourcesBlogPosts } from '../data/resourcesBlogPosts';
 
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
@@ -275,24 +275,9 @@ const _staticCoursesData = [
 ];
 // _staticCoursesData is kept as reference only — not used when Supabase is live
 
-// Blog articles for homepage section
-// Featured article is the "How to Choose the Right Online College" guide
-const featuredArticle = {
-  href: '/resources/blog/how-to-choose-right-online-college',
-  title: 'How to Choose the Right Online College: The Complete Guide (2025–2026)',
-  description: 'Everything you need to know before you enroll—accreditation, true costs, transfer credits, diploma mill warnings, and a 9-step decision framework.',
-  image: 'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  author: 'Editorial Team',
-  readingTime: '28 min read',
-  label: 'Complete Guide',
-};
-
-// Side articles from content collection
-const allPosts = await getCollection('blog');
-const sideArticles = allPosts
-  .filter(p => !p.data.draft)
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 3);
+// Homepage "Featured education articles" — same posts as /resources/blog (see src/data/resourcesBlogPosts.ts)
+const homepageFeaturedPost = resourcesBlogPosts[0];
+const homepageSidePosts = resourcesBlogPosts.slice(1, 4);
 ---
 
 <Layout>
@@ -348,38 +333,47 @@ const sideArticles = allPosts
 			<div class="blog-layout">
 				<!-- Left: stacked small articles -->
 				<div class="blog-list">
-					{sideArticles.map(post => (
-						<a href={`/blog/${post.slug}`} class="blog-list-item">
-							<div class="blog-list-img">
-								<img
-									src={post.data.image || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=400'}
-									alt={post.data.title}
-									loading="lazy"
-								/>
+					{homepageSidePosts.map(post => (
+						<a href={`/resources/blog/${post.slug}`} class="blog-list-item">
+							<div
+								class:list={[
+									'blog-list-img',
+									post.imageObjectFit === 'contain' && post.imageContainVariant === 'white' && 'blog-list-img--contain-white',
+									post.imageObjectFit === 'contain' && post.imageContainVariant === 'blue' && 'blog-list-img--contain-blue',
+								]}
+							>
+								<img src={post.image} alt={post.title} loading="lazy" decoding="async" />
 							</div>
 							<div class="blog-list-body">
-								<h3 class="blog-list-title">{post.data.title}</h3>
-								<p class="blog-list-excerpt">{post.data.description}</p>
+								<h3 class="blog-list-title">{post.title}</h3>
+								<p class="blog-list-excerpt">{post.excerpt}</p>
 							</div>
 						</a>
 					))}
 				</div>
-				<!-- Right: large featured article -->
-				<a href={featuredArticle.href} class="blog-featured-card">
+				<!-- Right: large featured article (first Resources blog post) -->
+				<a
+					href={`/resources/blog/${homepageFeaturedPost.slug}`}
+					class:list={[
+						'blog-featured-card',
+						homepageFeaturedPost.imageContainVariant === 'white' && 'blog-featured-card--light-img',
+					]}
+				>
 					<div class="blog-featured-img">
 						<img
-							src={featuredArticle.image}
-							alt={featuredArticle.title}
+							src={homepageFeaturedPost.image}
+							alt={homepageFeaturedPost.title}
 							loading="lazy"
+							decoding="async"
 						/>
 						<div class="blog-featured-overlay">
 							<div class="blog-featured-body">
-								<span class="blog-featured-label">{featuredArticle.label}</span>
-								<h3 class="blog-featured-title">{featuredArticle.title}</h3>
+								<span class="blog-featured-label">{homepageFeaturedPost.label}</span>
+								<h3 class="blog-featured-title">{homepageFeaturedPost.title}</h3>
 								<div class="blog-featured-meta">
-									<span class="blog-featured-author">by {featuredArticle.author}</span>
+									<span class="blog-featured-author">College Courses Online</span>
 									<span class="blog-featured-dot">·</span>
-									<span class="blog-featured-time">{featuredArticle.readingTime}</span>
+									<span class="blog-featured-time">{homepageFeaturedPost.readingTime}</span>
 								</div>
 							</div>
 						</div>
@@ -786,6 +780,22 @@ const sideArticles = allPosts
 
 	.blog-list-item:hover .blog-list-img img { transform: scale(1.06); }
 
+	.blog-list-img--contain-white,
+	.blog-list-img--contain-blue {
+		padding: 4px;
+		box-sizing: border-box;
+	}
+	.blog-list-img--contain-white { background: #ffffff; }
+	.blog-list-img--contain-blue { background: #eff6ff; }
+	.blog-list-img--contain-white img,
+	.blog-list-img--contain-blue img {
+		object-fit: contain;
+	}
+	.blog-list-item:hover .blog-list-img--contain-white img,
+	.blog-list-item:hover .blog-list-img--contain-blue img {
+		transform: none;
+	}
+
 	.blog-list-body { display: flex; flex-direction: column; gap: 0.3rem; }
 
 	.blog-list-title {
@@ -837,6 +847,25 @@ const sideArticles = allPosts
 	.blog-featured-card:hover .blog-featured-img img {
 		filter: brightness(0.45);
 		transform: scale(1.03);
+	}
+
+	/* Resources blog: logo / light artwork (no photo darkening) */
+	.blog-featured-card--light-img {
+		background: #ffffff;
+	}
+	.blog-featured-card--light-img .blog-featured-img img {
+		object-fit: contain;
+		object-position: center center;
+		filter: none;
+		padding: clamp(0.75rem, 3vw, 1.5rem);
+		box-sizing: border-box;
+	}
+	.blog-featured-card--light-img:hover .blog-featured-img img {
+		filter: none;
+		transform: none;
+	}
+	.blog-featured-card--light-img .blog-featured-overlay {
+		background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.45) 50%, transparent 75%);
 	}
 
 	.blog-featured-overlay {
