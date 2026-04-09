@@ -1,5 +1,5 @@
 ---
-import Layout from '../../../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 
 const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
 const canonicalPath = '/resources/blog/study-com-vs-sophia-vs-straighterline/';
@@ -266,13 +266,13 @@ const faqSchema = {
 			<div class="cost-calc">
 				<div class="calc-title">Cost comparison tool</div>
 				<div class="slider-row">
-					<label for="courses">Courses per month</label>
-					<input type="range" id="courses" min="1" max="10" value="3" step="1" />
+					<label for="study-courses-range">Courses per month</label>
+					<input type="range" id="study-courses-range" min="1" max="10" value="3" step="1" />
 					<span class="slider-val" id="courses-out">3</span>
 				</div>
 				<div class="slider-row">
-					<label for="months">Months enrolled</label>
-					<input type="range" id="months" min="1" max="6" value="1" step="1" />
+					<label for="study-months-range">Months enrolled</label>
+					<input type="range" id="study-months-range" min="1" max="6" value="1" step="1" />
 					<span class="slider-val" id="months-out">1</span>
 				</div>
 				<div class="results-grid">
@@ -528,21 +528,24 @@ const faqSchema = {
 				</p>
 			</div>
 		</div>
-	</main>
 
-	<script
-		slot="scripts"
-		is:inline
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-	<script slot="scripts" is:inline>
-		if (typeof Chart !== 'undefined') {
-			const coursesEl = document.getElementById('courses');
-			const monthsEl = document.getElementById('months');
+		<script>
+			import Chart from 'chart.js/auto';
+
+		const gridColor = 'rgba(128, 128, 128, 0.12)';
+
+		function initCostCalculator() {
+			const coursesEl = document.getElementById('study-courses-range');
+			const monthsEl = document.getElementById('study-months-range');
+			if (!coursesEl || !monthsEl) {
+				console.warn('[study-comparison] Cost calculator inputs not found');
+				return;
+			}
 			function updateCalc() {
 				const c = parseInt(coursesEl.value, 10);
 				const m = parseInt(monthsEl.value, 10);
-				document.getElementById('courses-out').textContent = c;
-				document.getElementById('months-out').textContent = m;
+				document.getElementById('courses-out').textContent = String(c);
+				document.getElementById('months-out').textContent = String(m);
 				const study = 95 * m;
 				const sophia = 99 * m;
 				const straight = (99 + c * 79) * m;
@@ -560,13 +563,12 @@ const faqSchema = {
 						costs[id] === minVal ? 'inline-block' : 'none';
 				});
 			}
-			if (coursesEl && monthsEl) {
-				coursesEl.addEventListener('input', updateCalc);
-				monthsEl.addEventListener('input', updateCalc);
-				updateCalc();
-			}
+			coursesEl.addEventListener('input', updateCalc);
+			monthsEl.addEventListener('input', updateCalc);
+			updateCalc();
+		}
 
-			const gridColor = 'rgba(128,128,128,0.12)';
+		function initCharts() {
 			const costChartEl = document.getElementById('costChart');
 			if (costChartEl) {
 				new Chart(costChartEl, {
@@ -733,7 +735,27 @@ const faqSchema = {
 				});
 			}
 		}
-	</script>
+
+		function run() {
+			try {
+				initCostCalculator();
+			} catch (e) {
+				console.error('[study-comparison] Calculator error:', e);
+			}
+			try {
+				initCharts();
+			} catch (e) {
+				console.error('[study-comparison] Charts failed to render:', e);
+			}
+		}
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', run);
+			} else {
+				run();
+			}
+		</script>
+	</main>
 </Layout>
 
 <style is:global>

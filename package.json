@@ -16,7 +16,8 @@
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/sitemap": "^3.7.0",
     "@supabase/supabase-js": "^2.97.0",
-    "astro": "^5.2.5"
+    "astro": "^5.2.5",
+    "chart.js": "^4.5.1"
   },
   "keywords": [
     "online courses",
