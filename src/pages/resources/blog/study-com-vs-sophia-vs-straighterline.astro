@@ -445,73 +445,73 @@ const faqSchema = {
 
 			<h2>Frequently asked questions</h2>
 			<div class="faq-block">
-				<div class="faq-item">
-					<div class="faq-q">What is the difference between Study.com, Sophia Learning, and StraighterLine?</div>
+				<details class="faq-item">
+					<summary class="faq-q">What is the difference between Study.com, Sophia Learning, and StraighterLine?</summary>
 					<div class="faq-a">
 						Study.com has the broadest catalog with upper-division options and dual ACE + NCCRS recommendations.
 						Sophia is the cheapest flat-rate option for bulk general education completion. StraighterLine has the
 						largest direct partner-school network and the most structured course support.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Which platform is cheapest?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Which platform is cheapest?</summary>
 					<div class="faq-a">
 						Study.com starts lowest at $95/month. Sophia is $99/month flat with all courses included. StraighterLine
 						is typically the most expensive for multiple courses because it charges $79 per course on top of the $99
 						membership fee.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Which platform transfers best?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Which platform transfers best?</summary>
 					<div class="faq-a">
 						StraighterLine has the largest direct partner network (180+ schools), but transfer approval always depends
 						on the receiving college's own policies. All three platforms use ACE credit recommendations as the
 						baseline.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Which is best for general education credits?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Which is best for general education credits?</summary>
 					<div class="faq-a">
 						Sophia is usually best for gen-ed credits because of its low flat-rate cost and self-paced format. Taking
 						three or more courses in a single month makes it significantly cheaper than the other two platforms.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Which is best for upper-division credits?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Which is best for upper-division credits?</summary>
 					<div class="faq-a">
 						Study.com is the only platform of the three that offers upper-division alternative credit courses. Sophia
 						and StraighterLine focus almost entirely on lower-division general education.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Can these credits transfer to a university?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Can these credits transfer to a university?</summary>
 					<div class="faq-a">
 						Yes, but transfer is never automatic. The receiving university decides whether a course counts and how it
 						applies to the degree plan. Always verify equivalency before enrolling.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Is Sophia easier than Study.com?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Is Sophia easier than Study.com?</summary>
 					<div class="faq-a">
 						Generally yes. Sophia is more streamlined and assessment-focused. Study.com includes more video lessons,
 						quizzes, and structured content before the final exam.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Is StraighterLine better than Sophia?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Is StraighterLine better than Sophia?</summary>
 					<div class="faq-a">
 						StraighterLine can be better if a student wants stronger support, a more traditional course format, or a
 						direct pathway to a specific school. For pure cost efficiency across multiple courses, Sophia usually
 						wins.
 					</div>
-				</div>
-				<div class="faq-item">
-					<div class="faq-q">Which platform is best overall?</div>
+				</details>
+				<details class="faq-item">
+					<summary class="faq-q">Which platform is best overall?</summary>
 					<div class="faq-a">
 						Study.com is the strongest all-around option, Sophia is the best budget option, and StraighterLine is the
 						best partnership-first option.
 					</div>
-				</div>
+				</details>
 			</div>
 
 			<h2>Conclusion</h2>
@@ -623,7 +623,7 @@ const faqSchema = {
 						},
 						scales: {
 							x: {
-								ticks: { font: { size: 11 }, autoSkip: false, maxRotation: 30 },
+								ticks: { font: { size: 12 }, autoSkip: false, maxRotation: 30 },
 								grid: { display: false },
 							},
 							y: {
@@ -631,7 +631,7 @@ const faqSchema = {
 									callback: function (v) {
 										return '$' + v;
 									},
-									font: { size: 11 },
+									font: { size: 12 },
 								},
 								grid: { color: gridColor },
 							},
@@ -668,8 +668,8 @@ const faqSchema = {
 						maintainAspectRatio: false,
 						plugins: { legend: { display: false } },
 						scales: {
-							x: { stacked: true, grid: { display: false }, ticks: { font: { size: 12 } } },
-							y: { stacked: true, ticks: { font: { size: 11 } }, grid: { color: gridColor } },
+							x: { stacked: true, grid: { display: false }, ticks: { font: { size: 13 } } },
+							y: { stacked: true, ticks: { font: { size: 12 } }, grid: { color: gridColor } },
 						},
 					},
 				});
@@ -725,11 +725,11 @@ const faqSchema = {
 									callback: function (v) {
 										return v >= 1000 ? v / 1000 + 'k' : v;
 									},
-									font: { size: 11 },
+									font: { size: 12 },
 								},
 								grid: { color: gridColor },
 							},
-							y: { grid: { display: false }, ticks: { font: { size: 12 } } },
+							y: { grid: { display: false }, ticks: { font: { size: 13 } } },
 						},
 					},
 				});
@@ -782,11 +782,12 @@ const faqSchema = {
 		margin: 0 auto;
 		padding: 2.5rem 1.5rem 5rem;
 		font-family: var(--sans);
+		font-size: 1.0625rem;
 	}
 
 	.study-standalone-wrap .hero-tag {
 		display: inline-block;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 500;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
@@ -799,14 +800,14 @@ const faqSchema = {
 
 	.study-standalone-wrap h1 {
 		font-family: var(--serif);
-		font-size: clamp(1.75rem, 4.5vw, 2.65rem);
+		font-size: clamp(1.86rem, 4.5vw, 2.82rem);
 		line-height: 1.14;
 		font-weight: 600;
 		margin-bottom: 1rem;
 	}
 
 	.study-standalone-wrap .hero-sub {
-		font-size: 1.05rem;
+		font-size: 1.12rem;
 		line-height: 1.72;
 		max-width: 600px;
 		margin-bottom: 2rem;
@@ -817,13 +818,13 @@ const faqSchema = {
 
 	.study-standalone-wrap h2 {
 		font-family: var(--serif);
-		font-size: 1.35rem;
+		font-size: 1.43rem;
 		font-weight: 500;
 		margin: 2.75rem 0 0.85rem;
 	}
 
 	.study-standalone-wrap .page-wrap > p {
-		font-size: 0.97rem;
+		font-size: 1.03rem;
 		line-height: 1.75;
 		margin-bottom: 0.95rem;
 	}
@@ -852,7 +853,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .vc-role {
-		font-size: 10px;
+		font-size: 11px;
 		font-weight: 500;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
@@ -871,7 +872,7 @@ const faqSchema = {
 
 	.study-standalone-wrap .vc-name {
 		font-family: var(--serif);
-		font-size: 1.05rem;
+		font-size: 1.12rem;
 		font-weight: 500;
 		margin-bottom: 0.3rem;
 	}
@@ -887,7 +888,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .vc-blurb {
-		font-size: 12px;
+		font-size: 13px;
 		line-height: 1.55;
 	}
 
@@ -916,7 +917,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .s-brand {
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 500;
 		margin-bottom: 0.2rem;
 	}
@@ -933,7 +934,7 @@ const faqSchema = {
 
 	.study-standalone-wrap .s-num {
 		font-family: var(--serif);
-		font-size: 1.9rem;
+		font-size: 2.02rem;
 		font-weight: 500;
 		line-height: 1.1;
 	}
@@ -949,7 +950,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .s-label {
-		font-size: 11px;
+		font-size: 12px;
 		color: #888780;
 		margin-top: 0.2rem;
 		text-transform: uppercase;
@@ -966,14 +967,14 @@ const faqSchema = {
 	.study-standalone-wrap table.compare-tbl {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.875rem;
+		font-size: 0.93rem;
 		table-layout: fixed;
 	}
 
 	.study-standalone-wrap .compare-tbl th {
 		padding: 11px 13px;
 		font-weight: 500;
-		font-size: 10px;
+		font-size: 11px;
 		text-transform: uppercase;
 		letter-spacing: 0.07em;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -1012,7 +1013,7 @@ const faqSchema = {
 
 	.study-standalone-wrap .compare-tbl td:first-child {
 		color: #5f5e5a;
-		font-size: 0.82rem;
+		font-size: 0.87rem;
 	}
 	.study-standalone-wrap .compare-tbl td:nth-child(2) {
 		color: var(--study-dark);
@@ -1029,7 +1030,7 @@ const faqSchema = {
 
 	.study-standalone-wrap .win-badge {
 		display: inline-block;
-		font-size: 10px;
+		font-size: 11px;
 		font-weight: 500;
 		padding: 2px 7px;
 		border-radius: 4px;
@@ -1059,7 +1060,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .calc-title {
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 500;
 		color: #5f5e5a;
 		text-transform: uppercase;
@@ -1075,7 +1076,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .slider-row label {
-		font-size: 13px;
+		font-size: 14px;
 		color: #5f5e5a;
 		min-width: 135px;
 	}
@@ -1087,7 +1088,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .slider-val {
-		font-size: 14px;
+		font-size: 15px;
 		font-weight: 500;
 		min-width: 30px;
 		text-align: right;
@@ -1118,7 +1119,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .res-name {
-		font-size: 10px;
+		font-size: 11px;
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.07em;
@@ -1137,7 +1138,7 @@ const faqSchema = {
 
 	.study-standalone-wrap .res-price {
 		font-family: var(--serif);
-		font-size: 1.65rem;
+		font-size: 1.75rem;
 		font-weight: 500;
 	}
 
@@ -1152,14 +1153,14 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .res-note {
-		font-size: 11px;
+		font-size: 12px;
 		margin-top: 0.3rem;
 		color: #5f5e5a;
 	}
 
 	.study-standalone-wrap .winner-tag {
 		display: none;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 500;
 		padding: 2px 8px;
 		border-radius: 4px;
@@ -1173,7 +1174,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .chart-meta {
-		font-size: 11px;
+		font-size: 12px;
 		color: #5f5e5a;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
@@ -1186,7 +1187,7 @@ const faqSchema = {
 		flex-wrap: wrap;
 		gap: 14px;
 		margin-bottom: 8px;
-		font-size: 12px;
+		font-size: 13px;
 		color: #5f5e5a;
 	}
 
@@ -1244,7 +1245,7 @@ const faqSchema = {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: 500;
 		flex-shrink: 0;
 	}
@@ -1264,11 +1265,11 @@ const faqSchema = {
 
 	.study-standalone-wrap .pd-name {
 		font-weight: 500;
-		font-size: 0.95rem;
+		font-size: 1.01rem;
 	}
 
 	.study-standalone-wrap .pd-tag {
-		font-size: 10px;
+		font-size: 11px;
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.07em;
@@ -1291,7 +1292,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .pd-body {
-		font-size: 0.88rem;
+		font-size: 0.935rem;
 		line-height: 1.68;
 		color: #5f5e5a;
 	}
@@ -1304,7 +1305,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .pill {
-		font-size: 11px;
+		font-size: 12px;
 		padding: 3px 10px;
 		border-radius: 20px;
 		font-weight: 500;
@@ -1347,7 +1348,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .ch-head {
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.07em;
@@ -1369,7 +1370,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .ch-col li {
-		font-size: 0.82rem;
+		font-size: 0.87rem;
 		margin-bottom: 0.42rem;
 		line-height: 1.5;
 	}
@@ -1407,7 +1408,7 @@ const faqSchema = {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: 500;
 		flex-shrink: 0;
 		margin-top: 2px;
@@ -1431,7 +1432,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .wf-text {
-		font-size: 0.9rem;
+		font-size: 0.96rem;
 		line-height: 1.6;
 	}
 
@@ -1439,25 +1440,55 @@ const faqSchema = {
 		margin: 1.5rem 0;
 	}
 
-	.study-standalone-wrap .faq-item {
-		padding: 1rem 0;
+	.study-standalone-wrap details.faq-item {
 		border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 	}
 
-	.study-standalone-wrap .faq-item:last-child {
+	.study-standalone-wrap details.faq-item:last-of-type {
 		border-bottom: none;
 	}
 
-	.study-standalone-wrap .faq-q {
+	.study-standalone-wrap summary.faq-q {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		list-style: none;
+		cursor: pointer;
 		font-weight: 500;
-		font-size: 0.95rem;
-		margin-bottom: 0.35rem;
+		font-size: 1.01rem;
+		padding: 1rem 0 1rem;
+		color: var(--study-dark);
+		line-height: 1.45;
+	}
+
+	.study-standalone-wrap summary.faq-q::-webkit-details-marker {
+		display: none;
+	}
+
+	.study-standalone-wrap summary.faq-q::after {
+		content: '';
+		width: 0.45rem;
+		height: 0.45rem;
+		border-right: 2px solid var(--study-mid);
+		border-bottom: 2px solid var(--study-mid);
+		transform: rotate(45deg);
+		flex-shrink: 0;
+		margin-top: -0.2rem;
+		transition: transform 0.2s ease;
+	}
+
+	.study-standalone-wrap details.faq-item[open] summary.faq-q::after {
+		transform: rotate(-135deg);
+		margin-top: 0.15rem;
 	}
 
 	.study-standalone-wrap .faq-a {
-		font-size: 0.88rem;
+		font-size: 0.935rem;
 		color: #5f5e5a;
 		line-height: 1.65;
+		padding: 0 0 1.1rem;
+		max-width: 100%;
 	}
 
 	.study-standalone-wrap .verdict-box {
@@ -1469,7 +1500,7 @@ const faqSchema = {
 	}
 
 	.study-standalone-wrap .verdict-box p {
-		font-size: 0.96rem;
+		font-size: 1.02rem;
 		line-height: 1.74;
 	}
 
