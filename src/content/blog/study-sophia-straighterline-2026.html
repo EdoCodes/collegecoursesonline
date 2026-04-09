@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Reference / merge source — sync content into src/pages/resources/blog/study-com-vs-sophia-vs-straighterline/index.astro -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study.com vs Sophia vs Straighterline: Which Saves You More Time &amp; Money? (2026)</title>
+  <meta name="description" content="Compare Study.com, Sophia Learning, and StraighterLine for online college credits—pricing, course pace, transfer rules, and a total-cost calculator." />
+  <meta name="keywords" content="Study.com vs Sophia, StraighterLine comparison, online college credits, ACE credit, alternative credit" />
+  <link rel="canonical" href="/resources/blog/study-com-vs-sophia-vs-straighterline/" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Study.com vs Sophia vs Straighterline: Which Saves You More Time & Money? (2026)",
+    "description": "Compare Study.com, Sophia Learning, and StraighterLine for online college credits—pricing, course pace, transfer rules, and a total-cost calculator.",
+    "datePublished": "2026-04-08",
+    "dateModified": "2026-04-08",
+    "author": { "@type": "Organization", "name": "College Courses Online" },
+    "publisher": { "@type": "Organization", "name": "College Courses Online" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "/resources/blog/study-com-vs-sophia-vs-straighterline/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Which is cheapest: Study.com, Sophia, or StraighterLine?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on your pace and how many months you need. Use the on-page calculator with your target credits and timeline."
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --study-page-max: 52rem;
+      --study-border: #e2e8f0;
+    }
+    .study-standalone-wrap {
+      max-width: var(--study-page-max);
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .study-standalone-wrap h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin-bottom: 0.75rem;
+    }
+    .study-standalone-wrap p {
+      color: #475569;
+    }
+    #study-chart-wrap {
+      margin: 2rem 0;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <main role="main" class="study-standalone-wrap">
+    <h2 class="sr-only">Article summary</h2>
+    <p>Replace this placeholder with your full article markup from the standalone HTML file (keep one <code>&lt;main&gt;</code> root inside the Astro page).</p>
+    <section id="study-calculator" aria-label="Cost calculator">
+      <label for="credits">Target credits</label>
+      <input id="credits" type="number" min="1" value="12" />
+    </section>
+    <div id="study-chart-wrap">
+      <canvas id="studyChart" width="400" height="220" aria-label="Comparison chart"></canvas>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    (function () {
+      var el = document.getElementById("studyChart");
+      if (!el || typeof Chart === "undefined") return;
+      new Chart(el, {
+        type: "bar",
+        data: {
+          labels: ["Study.com", "Sophia", "StraighterLine"],
+          datasets: [{ label: "Placeholder", data: [3, 4, 5] }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+      });
+    })();
+  </script>
+</body>
+</html>

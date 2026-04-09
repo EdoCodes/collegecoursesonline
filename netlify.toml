@@ -53,6 +53,17 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Moved article: keep old URLs working
+[[redirects]]
+  from = "/study-com-vs-sophia-vs-straighterline"
+  to = "/resources/blog/study-com-vs-sophia-vs-straighterline/"
+  status = 301
+
+[[redirects]]
+  from = "/study-com-vs-sophia-vs-straighterline/"
+  to = "/resources/blog/study-com-vs-sophia-vs-straighterline/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"

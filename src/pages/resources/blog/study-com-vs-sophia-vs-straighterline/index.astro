@@ -1,0 +1,1468 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const canonicalPath = '/resources/blog/study-com-vs-sophia-vs-straighterline/';
+const pageUrl = new URL(canonicalPath.replace(/^\//, ''), `${site}/`).href;
+
+const title =
+	'Study.com vs Sophia vs StraighterLine: which online college credit platform wins in 2026?';
+const description =
+	'Three platforms dominate alternative college credit. Compare Study.com, Sophia, and StraighterLine on price, catalog, transfer credit, and learning experience — with calculators and charts.';
+const keywords =
+	'Study.com vs Sophia, StraighterLine comparison, online college credits, ACE credit, alternative credit, NCCRS, transfer credit 2026';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	datePublished: '2026-04-08',
+	dateModified: '2026-04-08',
+	author: { '@type': 'Organization', name: 'College Courses Online' },
+	publisher: { '@type': 'Organization', name: 'College Courses Online' },
+	mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+};
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: [
+		{
+			'@type': 'Question',
+			name: 'What is the difference between Study.com, Sophia Learning, and StraighterLine?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Study.com has the broadest catalog with upper-division options and dual ACE + NCCRS recommendations. Sophia is the cheapest flat-rate option for bulk general education completion. StraighterLine has the largest direct partner-school network and the most structured course support.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Which platform is cheapest?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Study.com starts lowest at $95/month. Sophia is $99/month flat with all courses included. StraighterLine is typically the most expensive for multiple courses because it charges $79 per course on top of the $99 membership fee.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Which platform transfers best?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: "StraighterLine has the largest direct partner network (180+ schools), but transfer approval always depends on the receiving college's own policies. All three platforms use ACE credit recommendations as the baseline.",
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Which is best for general education credits?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Sophia is usually best for gen-ed credits because of its low flat-rate cost and self-paced format. Taking three or more courses in a single month makes it significantly cheaper than the other two platforms.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Which is best for upper-division credits?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Study.com is the only platform of the three that offers upper-division alternative credit courses. Sophia and StraighterLine focus almost entirely on lower-division general education.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Can these credits transfer to a university?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes, but transfer is never automatic. The receiving university decides whether a course counts and how it applies to the degree plan. Always verify equivalency before enrolling.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is Sophia easier than Study.com?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: "Generally yes. Sophia is more streamlined and assessment-focused. Study.com includes more video lessons, quizzes, and structured content before the final exam.",
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is StraighterLine better than Sophia?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'StraighterLine can be better if a student wants stronger support, a more traditional course format, or a direct pathway to a specific school. For pure cost efficiency across multiple courses, Sophia usually wins.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Which platform is best overall?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Study.com is the strongest all-around option, Sophia is the best budget option, and StraighterLine is the best partnership-first option.',
+			},
+		},
+	],
+};
+---
+
+<Layout title={title} description={description} canonical={canonicalPath} type="article">
+	<link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
+	<link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		slot="head"
+		href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+		rel="stylesheet"
+	/>
+	<meta slot="head" name="keywords" content={keywords} />
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+	<main role="main" class="study-standalone-wrap">
+		<div class="page-wrap">
+			<div class="hero-tag">Platform comparison · 2026</div>
+			<h1>
+				Study.com vs Sophia vs StraighterLine: which online college credit platform wins in 2026?
+			</h1>
+			<p class="hero-sub">
+				Three platforms dominate the alternative college credit space. Here's exactly how they compare on price,
+				catalog, transfer credit, and learning experience — so you can choose the right one for your degree plan.
+			</p>
+
+			<div class="verdict-strip">
+				<div class="vc study">
+					<div class="vc-role">Best all-around</div>
+					<div class="vc-name">Study.com</div>
+					<div class="vc-blurb">Broadest catalog, upper-division options, ACE + NCCRS dual recommendations.</div>
+				</div>
+				<div class="vc sophia">
+					<div class="vc-role">Best budget pick</div>
+					<div class="vc-name">Sophia Learning</div>
+					<div class="vc-blurb">Cheapest flat-rate model for stacking multiple gen-ed credits fast.</div>
+				</div>
+				<div class="vc straight">
+					<div class="vc-role">Best for partnerships</div>
+					<div class="vc-name">StraighterLine</div>
+					<div class="vc-blurb">Largest partner-school network, structured courses, 24/7 tutoring.</div>
+				</div>
+			</div>
+
+			<h2>Key numbers at a glance</h2>
+			<div class="stats-row">
+				<div class="stat study">
+					<div class="s-brand">Study.com</div><div class="s-num">220+</div><div class="s-label">Credit courses</div>
+				</div>
+				<div class="stat sophia">
+					<div class="s-brand">Sophia Learning</div><div class="s-num">70+</div><div class="s-label">Credit courses</div>
+				</div>
+				<div class="stat straight">
+					<div class="s-brand">StraighterLine</div><div class="s-num">75+</div><div class="s-label">Credit courses</div>
+				</div>
+			</div>
+			<div class="stats-row">
+				<div class="stat study">
+					<div class="s-brand">Study.com</div><div class="s-num">$95</div><div class="s-label">Starting monthly</div>
+				</div>
+				<div class="stat sophia">
+					<div class="s-brand">Sophia Learning</div><div class="s-num">$99</div><div class="s-label">Flat monthly</div>
+				</div>
+				<div class="stat straight">
+					<div class="s-brand">StraighterLine</div><div class="s-num">$178+</div><div class="s-label">Per course (1st)</div>
+				</div>
+			</div>
+
+			<h2>Executive summary</h2>
+			<p>
+				Study.com is usually the strongest all-around option because it combines a large course catalog,
+				upper-division flexibility, and ACE plus NCCRS recommendations. Sophia is usually the cheapest and simplest
+				way to complete multiple general education courses quickly, especially for students who want a subscription
+				model with no per-course fee. StraighterLine is often the best fit when transfer partnerships, support
+				services, and a more traditional course structure matter most.
+			</p>
+
+			<h2>Full feature comparison</h2>
+			<div class="tbl-wrap">
+				<table class="compare-tbl">
+					<thead>
+						<tr>
+							<th>Feature</th>
+							<th>Study.com <span class="win-badge wb-study">Top pick</span></th>
+							<th>Sophia Learning</th>
+							<th>StraighterLine</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td>Monthly cost</td><td>$95 / $235 Pro</td><td>$99 flat</td><td>$99 + $79/course</td></tr>
+						<tr><td>Course catalog</td><td>220+ courses <span class="win-badge wb-study">Most</span></td><td>70+ courses</td><td>75+ courses</td></tr>
+						<tr><td>Course levels</td><td>Lower + upper-division <span class="win-badge wb-study">Unique</span></td><td>Mostly lower-div</td><td>Mostly lower-div</td></tr>
+						<tr><td>Credit recommendations</td><td>ACE + NCCRS <span class="win-badge wb-study">Both</span></td><td>ACE only</td><td>ACE only</td></tr>
+						<tr><td>Partner schools</td><td>45+</td><td>100+ <span class="win-badge wb-sophia">Strong</span></td><td>180+ <span class="win-badge wb-straight">Largest</span></td></tr>
+						<tr><td>Institutions reviewed</td><td>1,500–2,000+</td><td>~3,000</td><td>3,000+ <span class="win-badge wb-straight">Widest</span></td></tr>
+						<tr><td>Learning format</td><td>Lessons, quizzes, open-book exams</td><td>Self-paced, assessment-based</td><td>Structured: assignments + finals</td></tr>
+						<tr><td>Tutoring / advising</td><td>Study tools, no live tutoring</td><td>Learning coaches</td><td>24/7 tutoring + advising <span class="win-badge wb-straight">Best support</span></td></tr>
+						<tr><td>Best for</td><td>Breadth + upper-div flexibility</td><td>Cheap, fast gen-ed completion</td><td>Direct pathways + structure</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2>Platform deep-dives</h2>
+			<div class="platform-deep">
+				<div class="pd-card study">
+					<div class="pd-top">
+						<div class="pd-icon">S.</div>
+						<div><span class="pd-name">Study.com</span><span class="pd-tag">Best all-around</span></div>
+					</div>
+					<p class="pd-body">
+						The most complete platform with 220+ courses spanning both lower- and upper-division levels. The College
+						Saver plan at $95/month is the most affordable entry point of the three, and its dual ACE + NCCRS credit
+						recommendations give it an edge at schools that evaluate transfers through multiple standards.
+						Open-book, non-proctored final exams reduce test anxiety while maintaining academic rigor.
+					</p>
+					<div class="pd-pills">
+						<span class="pill study">$95/mo College Saver</span>
+						<span class="pill study">ACE + NCCRS</span>
+						<span class="pill study">Upper-division courses</span>
+						<span class="pill study">220+ catalog</span>
+					</div>
+				</div>
+				<div class="pd-card sophia">
+					<div class="pd-top">
+						<div class="pd-icon">So.</div>
+						<div><span class="pd-name">Sophia Learning</span><span class="pd-tag">Best budget</span></div>
+					</div>
+					<p class="pd-body">
+						Built for students who want to knock out general education requirements as cheaply and quickly as
+						possible. The flat $99/month model means cost per credit drops sharply as you complete more courses in a
+						single billing cycle. Assessment-based and self-paced, it rewards motivated learners who don't need a
+						structured environment. Nearly 3,000 institutions have reviewed Sophia transcripts.
+					</p>
+					<div class="pd-pills">
+						<span class="pill sophia">$99/mo flat rate</span>
+						<span class="pill sophia">ACE credit</span>
+						<span class="pill sophia">100+ partners</span>
+						<span class="pill sophia">Self-paced</span>
+					</div>
+				</div>
+				<div class="pd-card straight">
+					<div class="pd-top">
+						<div class="pd-icon">SL.</div>
+						<div><span class="pd-name">StraighterLine</span><span class="pd-tag">Best partnerships</span></div>
+					</div>
+					<p class="pd-body">
+						The platform with the largest direct-partner network at 180+ schools and 3,000+ institutions that have
+						reviewed or accepted credits. The per-course fee model means it's most cost-effective for one or two highly
+						specific courses. Structured assignments, quizzes, and finals — plus 24/7 tutoring and academic advising —
+						make it the strongest choice for students who want a conventional online class experience.
+					</p>
+					<div class="pd-pills">
+						<span class="pill straight">$99/mo + $79/course</span>
+						<span class="pill straight">180+ partners</span>
+						<span class="pill straight">24/7 tutoring</span>
+						<span class="pill straight">Traditional format</span>
+					</div>
+				</div>
+			</div>
+
+			<h2>Interactive cost calculator</h2>
+			<p>Adjust the sliders to see total cost across all three platforms for your situation.</p>
+			<div class="cost-calc">
+				<div class="calc-title">Cost comparison tool</div>
+				<div class="slider-row">
+					<label for="courses">Courses per month</label>
+					<input type="range" id="courses" min="1" max="10" value="3" step="1" />
+					<span class="slider-val" id="courses-out">3</span>
+				</div>
+				<div class="slider-row">
+					<label for="months">Months enrolled</label>
+					<input type="range" id="months" min="1" max="6" value="1" step="1" />
+					<span class="slider-val" id="months-out">1</span>
+				</div>
+				<div class="results-grid">
+					<div class="res-card study">
+						<div class="res-name">Study.com</div>
+						<div class="res-price" id="study-cost">$95</div>
+						<div class="res-note" id="study-note">College Saver plan</div>
+						<div class="winner-tag" id="study-win">Cheapest option</div>
+					</div>
+					<div class="res-card sophia">
+						<div class="res-name">Sophia</div>
+						<div class="res-price" id="sophia-cost">$99</div>
+						<div class="res-note">Flat monthly, all courses</div>
+						<div class="winner-tag" id="sophia-win">Cheapest option</div>
+					</div>
+					<div class="res-card straight">
+						<div class="res-name">StraighterLine</div>
+						<div class="res-price" id="straight-cost">$178</div>
+						<div class="res-note" id="straight-note">$99 + $79 × 3 courses</div>
+						<div class="winner-tag" id="straight-win">Cheapest option</div>
+					</div>
+				</div>
+			</div>
+
+			<h2>Visual cost comparison</h2>
+			<div class="chart-section">
+				<div class="chart-meta">Total monthly cost by number of courses</div>
+				<div class="chart-legend">
+					<span class="legend-swatch"
+						><span class="swatch-line" style="background:#534AB7;display:inline-block;width:24px;height:3px;"
+						></span> Study.com</span
+					>
+					<span class="legend-swatch"
+						><span
+							class="swatch-line"
+							style="display:inline-block;width:24px;height:0;border-top:3px dashed #1D9E75;"></span> Sophia</span
+					>
+					<span class="legend-swatch"
+						><span
+							class="swatch-line"
+							style="display:inline-block;width:24px;height:0;border-top:3px dotted #378ADD;"></span> StraighterLine</span
+					>
+				</div>
+				<div class="chart-canvas-wrap">
+					<canvas id="costChart"></canvas>
+				</div>
+			</div>
+
+			<h2>Credit level breakdown</h2>
+			<div class="chart-section">
+				<div class="chart-meta">Lower-division vs upper-division courses available</div>
+				<div class="chart-legend">
+					<span class="legend-swatch"
+						><span
+							class="swatch"
+							style="background:#EEEDFE;border:1.5px solid #534AB7;display:inline-block;width:10px;height:10px;border-radius:2px;"
+						></span> Lower-division</span
+					>
+					<span class="legend-swatch"
+						><span
+							class="swatch"
+							style="background:#AFA9EC;border:1.5px solid #534AB7;display:inline-block;width:10px;height:10px;border-radius:2px;"
+						></span> Upper-division (Study.com only)</span
+					>
+				</div>
+				<div class="chart-canvas-wrap chart-canvas-wrap--sm">
+					<canvas id="levelChart"></canvas>
+				</div>
+			</div>
+
+			<h2>Transfer credit recognition</h2>
+			<div class="chart-section">
+				<div class="chart-meta">Partner schools and institutions that have reviewed credits</div>
+				<div class="chart-legend">
+					<span class="legend-swatch"
+						><span
+							class="swatch"
+							style="background:#EEEDFE;border:1.5px solid #534AB7;display:inline-block;width:10px;height:10px;border-radius:2px;"
+						></span> Study.com</span
+					>
+					<span class="legend-swatch"
+						><span
+							class="swatch"
+							style="background:#E1F5EE;border:1.5px solid #1D9E75;display:inline-block;width:10px;height:10px;border-radius:2px;"
+						></span> Sophia</span
+					>
+					<span class="legend-swatch"
+						><span
+							class="swatch"
+							style="background:#E6F1FB;border:1.5px solid #378ADD;display:inline-block;width:10px;height:10px;border-radius:2px;"
+						></span> StraighterLine</span
+					>
+				</div>
+				<div class="chart-canvas-wrap chart-canvas-wrap--sm">
+					<canvas id="transferChart"></canvas>
+				</div>
+			</div>
+
+			<h2>Which platform should you choose?</h2>
+			<div class="choose-grid">
+				<div class="ch-col study">
+					<div class="ch-head">Choose Study.com if…</div>
+					<ul>
+						<li>You need upper-division or advanced credits</li>
+						<li>You want the broadest catalog (220+ courses)</li>
+						<li>You want ACE and NCCRS recommendations</li>
+						<li>You prefer open-book, non-proctored exams</li>
+						<li>You want a flat plan with the lowest entry price</li>
+					</ul>
+				</div>
+				<div class="ch-col sophia">
+					<div class="ch-head">Choose Sophia if…</div>
+					<ul>
+						<li>You want the cheapest fast path through gen-eds</li>
+						<li>You can complete several courses in one month</li>
+						<li>You prefer fully self-paced, assessment-based study</li>
+						<li>You mostly need lower-division requirements</li>
+						<li>Your target school already recognizes Sophia credits</li>
+					</ul>
+				</div>
+				<div class="ch-col straight">
+					<div class="ch-head">Choose StraighterLine if…</div>
+					<ul>
+						<li>Your school has a direct StraighterLine pathway</li>
+						<li>You want 24/7 tutoring and academic advising</li>
+						<li>You need one or two very specific courses</li>
+						<li>You prefer structured assignments and finals</li>
+						<li>Transfer certainty is your top priority</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2>Smart enrollment workflow</h2>
+			<p>
+				For transfer-friendly schools such as WGU, SNHU, Purdue Global, UMPI, Excelsior, TESU, and Charter Oak, follow
+				this process before spending any money.
+			</p>
+			<div class="workflow">
+				<div class="wf-step">
+					<div class="wf-num s1">1</div>
+					<div class="wf-text">
+						<strong>Identify the exact course requirement</strong> — get the specific course name and number from your
+						degree plan or academic advisor.
+					</div>
+				</div>
+				<div class="wf-step">
+					<div class="wf-num s2">2</div>
+					<div class="wf-text">
+						<strong>Check your school's equivalency list</strong> — most transfer-friendly schools publish
+						course-by-course equivalency tables for each platform.
+					</div>
+				</div>
+				<div class="wf-step">
+					<div class="wf-num s3">3</div>
+					<div class="wf-text">
+						<strong>Compare total cost across all three</strong> — use the calculator above. The cheapest platform per
+						credit varies by how many courses you take.
+					</div>
+				</div>
+				<div class="wf-step">
+					<div class="wf-num s4">4</div>
+					<div class="wf-text">
+						<strong>Enroll only after transfer confirmation</strong> — get written confirmation from your registrar
+						before spending money on any alternative credit course.
+					</div>
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+			<h2>Frequently asked questions</h2>
+			<div class="faq-block">
+				<div class="faq-item">
+					<div class="faq-q">What is the difference between Study.com, Sophia Learning, and StraighterLine?</div>
+					<div class="faq-a">
+						Study.com has the broadest catalog with upper-division options and dual ACE + NCCRS recommendations.
+						Sophia is the cheapest flat-rate option for bulk general education completion. StraighterLine has the
+						largest direct partner-school network and the most structured course support.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Which platform is cheapest?</div>
+					<div class="faq-a">
+						Study.com starts lowest at $95/month. Sophia is $99/month flat with all courses included. StraighterLine
+						is typically the most expensive for multiple courses because it charges $79 per course on top of the $99
+						membership fee.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Which platform transfers best?</div>
+					<div class="faq-a">
+						StraighterLine has the largest direct partner network (180+ schools), but transfer approval always depends
+						on the receiving college's own policies. All three platforms use ACE credit recommendations as the
+						baseline.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Which is best for general education credits?</div>
+					<div class="faq-a">
+						Sophia is usually best for gen-ed credits because of its low flat-rate cost and self-paced format. Taking
+						three or more courses in a single month makes it significantly cheaper than the other two platforms.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Which is best for upper-division credits?</div>
+					<div class="faq-a">
+						Study.com is the only platform of the three that offers upper-division alternative credit courses. Sophia
+						and StraighterLine focus almost entirely on lower-division general education.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Can these credits transfer to a university?</div>
+					<div class="faq-a">
+						Yes, but transfer is never automatic. The receiving university decides whether a course counts and how it
+						applies to the degree plan. Always verify equivalency before enrolling.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Is Sophia easier than Study.com?</div>
+					<div class="faq-a">
+						Generally yes. Sophia is more streamlined and assessment-focused. Study.com includes more video lessons,
+						quizzes, and structured content before the final exam.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Is StraighterLine better than Sophia?</div>
+					<div class="faq-a">
+						StraighterLine can be better if a student wants stronger support, a more traditional course format, or a
+						direct pathway to a specific school. For pure cost efficiency across multiple courses, Sophia usually
+						wins.
+					</div>
+				</div>
+				<div class="faq-item">
+					<div class="faq-q">Which platform is best overall?</div>
+					<div class="faq-a">
+						Study.com is the strongest all-around option, Sophia is the best budget option, and StraighterLine is the
+						best partnership-first option.
+					</div>
+				</div>
+			</div>
+
+			<h2>Conclusion</h2>
+			<div class="verdict-box">
+				<p>
+					Study.com is the strongest all-around option for students who need breadth, upper-division flexibility, and a
+					flat subscription price. Sophia is usually the best value for fast, low-cost general education completion.
+					StraighterLine is often the best choice when a direct pathway, structured support, or a more traditional
+					course experience matters most.
+				</p>
+				<p>
+					For most learners, the smartest strategy is to start with your school's transfer requirements, then choose the
+					platform — not the other way around.
+				</p>
+			</div>
+		</div>
+	</main>
+
+	<script
+		slot="scripts"
+		is:inline
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+	<script slot="scripts" is:inline>
+		if (typeof Chart !== 'undefined') {
+			const coursesEl = document.getElementById('courses');
+			const monthsEl = document.getElementById('months');
+			function updateCalc() {
+				const c = parseInt(coursesEl.value, 10);
+				const m = parseInt(monthsEl.value, 10);
+				document.getElementById('courses-out').textContent = c;
+				document.getElementById('months-out').textContent = m;
+				const study = 95 * m;
+				const sophia = 99 * m;
+				const straight = (99 + c * 79) * m;
+				document.getElementById('study-cost').textContent = '$' + study;
+				document.getElementById('sophia-cost').textContent = '$' + sophia;
+				document.getElementById('straight-cost').textContent = '$' + straight;
+				document.getElementById('straight-note').textContent =
+					'$99 + $79 × ' + c + ' course' + (c > 1 ? 's' : '');
+				document.getElementById('study-note').textContent =
+					m > 1 ? '$95 × ' + m + ' months' : 'College Saver plan';
+				const minVal = Math.min(study, sophia, straight);
+				['study', 'sophia', 'straight'].forEach((id) => {
+					const costs = { study, sophia, straight };
+					document.getElementById(id + '-win').style.display =
+						costs[id] === minVal ? 'inline-block' : 'none';
+				});
+			}
+			if (coursesEl && monthsEl) {
+				coursesEl.addEventListener('input', updateCalc);
+				monthsEl.addEventListener('input', updateCalc);
+				updateCalc();
+			}
+
+			const gridColor = 'rgba(128,128,128,0.12)';
+			const costChartEl = document.getElementById('costChart');
+			if (costChartEl) {
+				new Chart(costChartEl, {
+					type: 'line',
+					data: {
+						labels: Array.from({ length: 10 }, (_, i) => i + 1 + ' course' + (i > 0 ? 's' : '')),
+						datasets: [
+							{
+								label: 'Study.com',
+								data: Array.from({ length: 10 }, () => 95),
+								borderColor: '#534AB7',
+								borderWidth: 2,
+								pointRadius: 3,
+								pointBackgroundColor: '#534AB7',
+								fill: false,
+								borderDash: [],
+							},
+							{
+								label: 'Sophia',
+								data: Array.from({ length: 10 }, () => 99),
+								borderColor: '#1D9E75',
+								borderWidth: 2,
+								pointRadius: 3,
+								pointBackgroundColor: '#1D9E75',
+								fill: false,
+								borderDash: [6, 3],
+							},
+							{
+								label: 'StraighterLine',
+								data: Array.from({ length: 10 }, (_, i) => 99 + (i + 1) * 79),
+								borderColor: '#378ADD',
+								borderWidth: 2,
+								pointRadius: 3,
+								pointBackgroundColor: '#378ADD',
+								fill: false,
+								borderDash: [2, 2],
+							},
+						],
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						plugins: {
+							legend: { display: false },
+							tooltip: {
+								callbacks: {
+									label: function (ctx) {
+										return ' $' + ctx.raw;
+									},
+								},
+							},
+						},
+						scales: {
+							x: {
+								ticks: { font: { size: 11 }, autoSkip: false, maxRotation: 30 },
+								grid: { display: false },
+							},
+							y: {
+								ticks: {
+									callback: function (v) {
+										return '$' + v;
+									},
+									font: { size: 11 },
+								},
+								grid: { color: gridColor },
+							},
+						},
+					},
+				});
+			}
+
+			const levelChartEl = document.getElementById('levelChart');
+			if (levelChartEl) {
+				new Chart(levelChartEl, {
+					type: 'bar',
+					data: {
+						labels: ['Study.com', 'Sophia Learning', 'StraighterLine'],
+						datasets: [
+							{
+								label: 'Lower-division',
+								data: [150, 70, 75],
+								backgroundColor: ['#EEEDFE', '#E1F5EE', '#E6F1FB'],
+								borderColor: ['#534AB7', '#1D9E75', '#378ADD'],
+								borderWidth: 1.5,
+							},
+							{
+								label: 'Upper-division',
+								data: [70, 0, 0],
+								backgroundColor: ['#AFA9EC', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)'],
+								borderColor: ['#534AB7', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)'],
+								borderWidth: 1.5,
+							},
+						],
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						plugins: { legend: { display: false } },
+						scales: {
+							x: { stacked: true, grid: { display: false }, ticks: { font: { size: 12 } } },
+							y: { stacked: true, ticks: { font: { size: 11 } }, grid: { color: gridColor } },
+						},
+					},
+				});
+			}
+
+			const transferChartEl = document.getElementById('transferChart');
+			if (transferChartEl) {
+				new Chart(transferChartEl, {
+					type: 'bar',
+					data: {
+						labels: ['Partner schools', 'Institutions reviewed'],
+						datasets: [
+							{
+								label: 'Study.com',
+								data: [45, 1750],
+								backgroundColor: '#EEEDFE',
+								borderColor: '#534AB7',
+								borderWidth: 1.5,
+							},
+							{
+								label: 'Sophia',
+								data: [100, 3000],
+								backgroundColor: '#E1F5EE',
+								borderColor: '#1D9E75',
+								borderWidth: 1.5,
+							},
+							{
+								label: 'StraighterLine',
+								data: [180, 3000],
+								backgroundColor: '#E6F1FB',
+								borderColor: '#378ADD',
+								borderWidth: 1.5,
+							},
+						],
+					},
+					options: {
+						indexAxis: 'y',
+						responsive: true,
+						maintainAspectRatio: false,
+						plugins: {
+							legend: { display: false },
+							tooltip: {
+								callbacks: {
+									label: function (ctx) {
+										return ' ' + ctx.dataset.label + ': ' + ctx.raw.toLocaleString();
+									},
+								},
+							},
+						},
+						scales: {
+							x: {
+								ticks: {
+									callback: function (v) {
+										return v >= 1000 ? v / 1000 + 'k' : v;
+									},
+									font: { size: 11 },
+								},
+								grid: { color: gridColor },
+							},
+							y: { grid: { display: false }, ticks: { font: { size: 12 } } },
+						},
+					},
+				});
+			}
+		}
+	</script>
+</Layout>
+
+<style is:global>
+	/* Scoped to article main — :root vars live here to avoid site-wide overrides */
+	.study-standalone-wrap {
+		--study: #534ab7;
+		--study-light: #eeedfe;
+		--study-mid: #7f77dd;
+		--study-dark: #3c3489;
+		--sophia: #0f6e56;
+		--sophia-light: #e1f5ee;
+		--sophia-mid: #1d9e75;
+		--sophia-dark: #085041;
+		--straight: #185fa5;
+		--straight-light: #e6f1fb;
+		--straight-mid: #378add;
+		--straight-dark: #0c447c;
+		--serif: 'Playfair Display', Georgia, serif;
+		--sans: 'IBM Plex Sans', system-ui, sans-serif;
+	}
+
+	.study-standalone-wrap .page-wrap {
+		max-width: 780px;
+		margin: 0 auto;
+		padding: 2.5rem 1.5rem 5rem;
+		font-family: var(--sans);
+	}
+
+	.study-standalone-wrap .hero-tag {
+		display: inline-block;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--study-dark);
+		background: var(--study-light);
+		border-radius: 6px;
+		padding: 4px 10px;
+		margin-bottom: 1rem;
+	}
+
+	.study-standalone-wrap h1 {
+		font-family: var(--serif);
+		font-size: clamp(1.75rem, 4.5vw, 2.65rem);
+		line-height: 1.14;
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	.study-standalone-wrap .hero-sub {
+		font-size: 1.05rem;
+		line-height: 1.72;
+		max-width: 600px;
+		margin-bottom: 2rem;
+		border-left: 3px solid var(--study-mid);
+		padding-left: 1rem;
+		color: #5f5e5a;
+	}
+
+	.study-standalone-wrap h2 {
+		font-family: var(--serif);
+		font-size: 1.35rem;
+		font-weight: 500;
+		margin: 2.75rem 0 0.85rem;
+	}
+
+	.study-standalone-wrap .page-wrap > p {
+		font-size: 0.97rem;
+		line-height: 1.75;
+		margin-bottom: 0.95rem;
+	}
+
+	.study-standalone-wrap .verdict-strip {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+		margin-bottom: 2.5rem;
+	}
+
+	.study-standalone-wrap .vc {
+		border-radius: 14px;
+		padding: 1.15rem 1rem;
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.study-standalone-wrap .vc.study {
+		background: var(--study-light);
+	}
+	.study-standalone-wrap .vc.sophia {
+		background: var(--sophia-light);
+	}
+	.study-standalone-wrap .vc.straight {
+		background: var(--straight-light);
+	}
+
+	.study-standalone-wrap .vc-role {
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 0.3rem;
+	}
+
+	.study-standalone-wrap .vc.study .vc-role {
+		color: var(--study);
+	}
+	.study-standalone-wrap .vc.sophia .vc-role {
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .vc.straight .vc-role {
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .vc-name {
+		font-family: var(--serif);
+		font-size: 1.05rem;
+		font-weight: 500;
+		margin-bottom: 0.3rem;
+	}
+
+	.study-standalone-wrap .vc.study .vc-name {
+		color: var(--study-dark);
+	}
+	.study-standalone-wrap .vc.sophia .vc-name {
+		color: var(--sophia-dark);
+	}
+	.study-standalone-wrap .vc.straight .vc-name {
+		color: var(--straight-dark);
+	}
+
+	.study-standalone-wrap .vc-blurb {
+		font-size: 12px;
+		line-height: 1.55;
+	}
+
+	.study-standalone-wrap .vc.study .vc-blurb {
+		color: var(--study);
+	}
+	.study-standalone-wrap .vc.sophia .vc-blurb {
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .vc.straight .vc-blurb {
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .stats-row {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+		margin-bottom: 10px;
+	}
+
+	.study-standalone-wrap .stat {
+		background: #f6f5f0;
+		border-radius: 10px;
+		padding: 1rem;
+		text-align: center;
+	}
+
+	.study-standalone-wrap .s-brand {
+		font-size: 12px;
+		font-weight: 500;
+		margin-bottom: 0.2rem;
+	}
+
+	.study-standalone-wrap .stat.study .s-brand {
+		color: var(--study);
+	}
+	.study-standalone-wrap .stat.sophia .s-brand {
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .stat.straight .s-brand {
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .s-num {
+		font-family: var(--serif);
+		font-size: 1.9rem;
+		font-weight: 500;
+		line-height: 1.1;
+	}
+
+	.study-standalone-wrap .stat.study .s-num {
+		color: var(--study);
+	}
+	.study-standalone-wrap .stat.sophia .s-num {
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .stat.straight .s-num {
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .s-label {
+		font-size: 11px;
+		color: #888780;
+		margin-top: 0.2rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.study-standalone-wrap .tbl-wrap {
+		overflow-x: auto;
+		margin: 1.25rem 0;
+		border-radius: 10px;
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.study-standalone-wrap table.compare-tbl {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.875rem;
+		table-layout: fixed;
+	}
+
+	.study-standalone-wrap .compare-tbl th {
+		padding: 11px 13px;
+		font-weight: 500;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		text-align: left;
+		background: #f6f5f0;
+	}
+
+	.study-standalone-wrap .compare-tbl th:first-child {
+		color: #5f5e5a;
+		width: 30%;
+	}
+	.study-standalone-wrap .compare-tbl th:nth-child(2) {
+		color: var(--study-dark);
+	}
+	.study-standalone-wrap .compare-tbl th:nth-child(3) {
+		color: var(--sophia-dark);
+	}
+	.study-standalone-wrap .compare-tbl th:nth-child(4) {
+		color: var(--straight-dark);
+	}
+
+	.study-standalone-wrap .compare-tbl td {
+		padding: 10px 13px;
+		border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+		vertical-align: top;
+		line-height: 1.5;
+		word-wrap: break-word;
+	}
+
+	.study-standalone-wrap .compare-tbl tr:last-child td {
+		border-bottom: none;
+	}
+	.study-standalone-wrap .compare-tbl tr:hover td {
+		background: #f6f5f0;
+	}
+
+	.study-standalone-wrap .compare-tbl td:first-child {
+		color: #5f5e5a;
+		font-size: 0.82rem;
+	}
+	.study-standalone-wrap .compare-tbl td:nth-child(2) {
+		color: var(--study-dark);
+		font-weight: 500;
+	}
+	.study-standalone-wrap .compare-tbl td:nth-child(3) {
+		color: var(--sophia-dark);
+		font-weight: 500;
+	}
+	.study-standalone-wrap .compare-tbl td:nth-child(4) {
+		color: var(--straight-dark);
+		font-weight: 500;
+	}
+
+	.study-standalone-wrap .win-badge {
+		display: inline-block;
+		font-size: 10px;
+		font-weight: 500;
+		padding: 2px 7px;
+		border-radius: 4px;
+		margin-left: 5px;
+		vertical-align: middle;
+	}
+
+	.study-standalone-wrap .wb-study {
+		background: var(--study-light);
+		color: var(--study);
+	}
+	.study-standalone-wrap .wb-sophia {
+		background: var(--sophia-light);
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .wb-straight {
+		background: var(--straight-light);
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .cost-calc {
+		background: #f6f5f0;
+		border-radius: 14px;
+		padding: 1.5rem;
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+		margin: 1.5rem 0;
+	}
+
+	.study-standalone-wrap .calc-title {
+		font-size: 12px;
+		font-weight: 500;
+		color: #5f5e5a;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		margin-bottom: 1.1rem;
+	}
+
+	.study-standalone-wrap .slider-row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 1rem;
+	}
+
+	.study-standalone-wrap .slider-row label {
+		font-size: 13px;
+		color: #5f5e5a;
+		min-width: 135px;
+	}
+
+	.study-standalone-wrap .slider-row input[type='range'] {
+		flex: 1;
+		accent-color: var(--study);
+		cursor: pointer;
+	}
+
+	.study-standalone-wrap .slider-val {
+		font-size: 14px;
+		font-weight: 500;
+		min-width: 30px;
+		text-align: right;
+	}
+
+	.study-standalone-wrap .results-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+		margin-top: 1.25rem;
+	}
+
+	.study-standalone-wrap .res-card {
+		border-radius: 10px;
+		padding: 1rem;
+		text-align: center;
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.study-standalone-wrap .res-card.study {
+		background: var(--study-light);
+	}
+	.study-standalone-wrap .res-card.sophia {
+		background: var(--sophia-light);
+	}
+	.study-standalone-wrap .res-card.straight {
+		background: var(--straight-light);
+	}
+
+	.study-standalone-wrap .res-name {
+		font-size: 10px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		margin-bottom: 0.3rem;
+	}
+
+	.study-standalone-wrap .res-card.study .res-name {
+		color: var(--study);
+	}
+	.study-standalone-wrap .res-card.sophia .res-name {
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .res-card.straight .res-name {
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .res-price {
+		font-family: var(--serif);
+		font-size: 1.65rem;
+		font-weight: 500;
+	}
+
+	.study-standalone-wrap .res-card.study .res-price {
+		color: var(--study-dark);
+	}
+	.study-standalone-wrap .res-card.sophia .res-price {
+		color: var(--sophia-dark);
+	}
+	.study-standalone-wrap .res-card.straight .res-price {
+		color: var(--straight-dark);
+	}
+
+	.study-standalone-wrap .res-note {
+		font-size: 11px;
+		margin-top: 0.3rem;
+		color: #5f5e5a;
+	}
+
+	.study-standalone-wrap .winner-tag {
+		display: none;
+		font-size: 11px;
+		font-weight: 500;
+		padding: 2px 8px;
+		border-radius: 4px;
+		margin-top: 0.4rem;
+		background: var(--sophia-light);
+		color: var(--sophia-dark);
+	}
+
+	.study-standalone-wrap .chart-section {
+		margin: 1.5rem 0 2rem;
+	}
+
+	.study-standalone-wrap .chart-meta {
+		font-size: 11px;
+		color: #5f5e5a;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		font-weight: 500;
+		margin-bottom: 0.6rem;
+	}
+
+	.study-standalone-wrap .chart-legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+		margin-bottom: 8px;
+		font-size: 12px;
+		color: #5f5e5a;
+	}
+
+	.study-standalone-wrap .legend-swatch {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
+
+	.study-standalone-wrap .chart-canvas-wrap {
+		position: relative;
+		width: 100%;
+		height: 280px;
+	}
+
+	.study-standalone-wrap .chart-canvas-wrap--sm {
+		height: 220px;
+	}
+
+	.study-standalone-wrap .platform-deep {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		margin: 1.5rem 0;
+	}
+
+	.study-standalone-wrap .pd-card {
+		border-radius: 0 10px 10px 0;
+		padding: 1.25rem;
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+		background: #fff;
+	}
+
+	.study-standalone-wrap .pd-card.study {
+		border-left: 3px solid var(--study);
+	}
+	.study-standalone-wrap .pd-card.sophia {
+		border-left: 3px solid var(--sophia);
+	}
+	.study-standalone-wrap .pd-card.straight {
+		border-left: 3px solid var(--straight);
+	}
+
+	.study-standalone-wrap .pd-top {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 0.65rem;
+	}
+
+	.study-standalone-wrap .pd-icon {
+		width: 32px;
+		height: 32px;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 13px;
+		font-weight: 500;
+		flex-shrink: 0;
+	}
+
+	.study-standalone-wrap .pd-card.study .pd-icon {
+		background: var(--study-light);
+		color: var(--study);
+	}
+	.study-standalone-wrap .pd-card.sophia .pd-icon {
+		background: var(--sophia-light);
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .pd-card.straight .pd-icon {
+		background: var(--straight-light);
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .pd-name {
+		font-weight: 500;
+		font-size: 0.95rem;
+	}
+
+	.study-standalone-wrap .pd-tag {
+		font-size: 10px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		padding: 2px 8px;
+		border-radius: 4px;
+		margin-left: 7px;
+	}
+
+	.study-standalone-wrap .pd-card.study .pd-tag {
+		background: var(--study-light);
+		color: var(--study);
+	}
+	.study-standalone-wrap .pd-card.sophia .pd-tag {
+		background: var(--sophia-light);
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .pd-card.straight .pd-tag {
+		background: var(--straight-light);
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .pd-body {
+		font-size: 0.88rem;
+		line-height: 1.68;
+		color: #5f5e5a;
+	}
+
+	.study-standalone-wrap .pd-pills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-top: 0.7rem;
+	}
+
+	.study-standalone-wrap .pill {
+		font-size: 11px;
+		padding: 3px 10px;
+		border-radius: 20px;
+		font-weight: 500;
+	}
+
+	.study-standalone-wrap .pill.study {
+		background: var(--study-light);
+		color: var(--study-dark);
+	}
+	.study-standalone-wrap .pill.sophia {
+		background: var(--sophia-light);
+		color: var(--sophia-dark);
+	}
+	.study-standalone-wrap .pill.straight {
+		background: var(--straight-light);
+		color: var(--straight-dark);
+	}
+
+	.study-standalone-wrap .choose-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+		margin: 1.5rem 0;
+	}
+
+	.study-standalone-wrap .ch-col {
+		border-radius: 10px;
+		padding: 1.2rem;
+		border: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.study-standalone-wrap .ch-col.study {
+		background: var(--study-light);
+	}
+	.study-standalone-wrap .ch-col.sophia {
+		background: var(--sophia-light);
+	}
+	.study-standalone-wrap .ch-col.straight {
+		background: var(--straight-light);
+	}
+
+	.study-standalone-wrap .ch-head {
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		margin-bottom: 0.75rem;
+	}
+
+	.study-standalone-wrap .ch-col.study .ch-head {
+		color: var(--study-dark);
+	}
+	.study-standalone-wrap .ch-col.sophia .ch-head {
+		color: var(--sophia-dark);
+	}
+	.study-standalone-wrap .ch-col.straight .ch-head {
+		color: var(--straight-dark);
+	}
+
+	.study-standalone-wrap .ch-col ul {
+		padding-left: 1rem;
+	}
+
+	.study-standalone-wrap .ch-col li {
+		font-size: 0.82rem;
+		margin-bottom: 0.42rem;
+		line-height: 1.5;
+	}
+
+	.study-standalone-wrap .ch-col.study li {
+		color: var(--study);
+	}
+	.study-standalone-wrap .ch-col.sophia li {
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .ch-col.straight li {
+		color: var(--straight);
+	}
+
+	.study-standalone-wrap .workflow {
+		margin: 1.5rem 0;
+	}
+
+	.study-standalone-wrap .wf-step {
+		display: flex;
+		gap: 14px;
+		align-items: flex-start;
+		padding: 0.9rem 0;
+		border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.study-standalone-wrap .wf-step:last-child {
+		border-bottom: none;
+	}
+
+	.study-standalone-wrap .wf-num {
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 13px;
+		font-weight: 500;
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.study-standalone-wrap .wf-num.s1 {
+		background: var(--study-light);
+		color: var(--study);
+	}
+	.study-standalone-wrap .wf-num.s2 {
+		background: var(--sophia-light);
+		color: var(--sophia);
+	}
+	.study-standalone-wrap .wf-num.s3 {
+		background: var(--straight-light);
+		color: var(--straight);
+	}
+	.study-standalone-wrap .wf-num.s4 {
+		background: #f1efe8;
+		color: #5f5e5a;
+	}
+
+	.study-standalone-wrap .wf-text {
+		font-size: 0.9rem;
+		line-height: 1.6;
+	}
+
+	.study-standalone-wrap .faq-block {
+		margin: 1.5rem 0;
+	}
+
+	.study-standalone-wrap .faq-item {
+		padding: 1rem 0;
+		border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.study-standalone-wrap .faq-item:last-child {
+		border-bottom: none;
+	}
+
+	.study-standalone-wrap .faq-q {
+		font-weight: 500;
+		font-size: 0.95rem;
+		margin-bottom: 0.35rem;
+	}
+
+	.study-standalone-wrap .faq-a {
+		font-size: 0.88rem;
+		color: #5f5e5a;
+		line-height: 1.65;
+	}
+
+	.study-standalone-wrap .verdict-box {
+		background: #f6f5f0;
+		border-radius: 14px;
+		padding: 1.5rem 1.6rem;
+		border-left: 3px solid var(--study-mid);
+		margin: 2rem 0;
+	}
+
+	.study-standalone-wrap .verdict-box p {
+		font-size: 0.96rem;
+		line-height: 1.74;
+	}
+
+	.study-standalone-wrap .divider {
+		height: 0.5px;
+		background: rgba(0, 0, 0, 0.1);
+		margin: 2.5rem 0;
+	}
+
+	@media (max-width: 560px) {
+		.study-standalone-wrap .verdict-strip,
+		.study-standalone-wrap .stats-row,
+		.study-standalone-wrap .choose-grid,
+		.study-standalone-wrap .results-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

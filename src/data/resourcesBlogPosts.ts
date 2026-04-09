@@ -16,6 +16,18 @@ export type ResourcesBlogPost = {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'study-com-vs-sophia-vs-straighterline',
+    title:
+      'Study.com vs Sophia vs StraighterLine: which online college credit platform wins in 2026?',
+    excerpt:
+      'Compare three major alternative credit platforms on price, catalogs, transfer partnerships, and learning format — with interactive cost calculators and charts.',
+    label: 'Platform comparison',
+    date: 'Apr 8, 2026',
+    readingTime: '18 min read',
+    image: 'https://images.pexels.com/photos/6239107/pexels-photo-6239107.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: ['Study.com', 'Sophia Learning', 'StraighterLine', 'Transfer Credits', '2026'],
+  },
+  {
     slug: 'campus-edu-review',
     title:
       'Campus.edu Review: Accreditation, Programs, Tuition, Student Support, and Everything You Need to Know',
