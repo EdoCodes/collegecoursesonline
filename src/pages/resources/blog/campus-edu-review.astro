@@ -10,6 +10,12 @@ const authorTitle = "Senior Education Writer";
 const readingTime = "13 min read";
 const slug = "/resources/blog/campus-edu-review";
 
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+/** Same asset as Resources blog card — OG/social + Article schema (not rendered as page hero). */
+const ogImagePath = '/images/cards/blog/campus-edu-review-card.png';
+const pageUrl = new URL(slug.replace(/^\//, ''), `${site}/`).href;
+const ogImageUrl = new URL(ogImagePath, `${site}/`).href;
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -86,6 +92,7 @@ const articleSchema = {
   "@type": "Article",
   "headline": title,
   "description": description,
+  "image": [ogImageUrl],
   "datePublished": publishDate,
   "dateModified": updatedDate,
   "author": {
@@ -95,11 +102,16 @@ const articleSchema = {
   },
   "publisher": {
     "@type": "Organization",
-    "name": "College Courses Online"
+    "name": "College Courses Online",
+    "url": site,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${site}/favicon.svg`
+    }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": slug
+    "@id": pageUrl
   },
   "keywords": "Campus.edu review, is Campus.edu legit, Campus.edu accreditation, Campus.edu tuition, Campus.edu online college, Campus.edu programs, Campus.edu financial aid, online community college, accredited online college, affordable online associate degree, live online college classes, Pell Grant online college"
 };
@@ -108,10 +120,10 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "/" },
-    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "/resources" },
-    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "/resources/blog" },
-    { "@type": "ListItem", "position": 4, "name": "Campus.edu Review", "item": slug }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${site}/` },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": `${site}/resources/` },
+    { "@type": "ListItem", "position": 3, "name": "Blog", "item": `${site}/resources/blog/` },
+    { "@type": "ListItem", "position": 4, "name": "Campus.edu Review", "item": pageUrl }
   ]
 };
 ---
@@ -121,6 +133,7 @@ const breadcrumbSchema = {
   description={description}
   type="article"
   canonical={slug}
+  image={ogImagePath}
 >
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
