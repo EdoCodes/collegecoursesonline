@@ -1,30 +1,70 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const raw = await getCollection('blog');
+const posts = raw
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+function readingMinutes(body: string) {
+  const words = body.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
 ---
 
 <Layout
   title="News | Online College Courses"
-  description="The latest news, updates, and announcements from Online College Courses."
+  description="Articles and guides on online courses, nursing prerequisites, accreditation, financial aid, and succeeding in online learning."
 >
   <div class="page-header">
     <div class="container">
       <h1>News</h1>
-      <p class="subtitle">Updates and announcements — check back soon</p>
+      <p class="subtitle">Articles, guides, and updates from our editorial team</p>
     </div>
   </div>
 
   <main class="main-content">
     <div class="container">
-      <div class="empty-state">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l6 6v8a2 2 0 0 1-2 2z"/>
-          <polyline points="17 2 17 8 23 8"/>
-          <line x1="9" y1="15" x2="15" y2="15"/>
-          <line x1="9" y1="11" x2="11" y2="11"/>
-        </svg>
-        <h2>Coming Soon</h2>
-        <p>We're working on something great. News and updates will appear here shortly.</p>
-      </div>
+      {posts.length === 0 ? (
+        <div class="empty-state">
+          <p>No articles published yet. Check back soon.</p>
+        </div>
+      ) : (
+        <div class="posts-grid">
+          {posts.map((post) => {
+            const dateStr = post.data.pubDate.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            });
+            const mins = readingMinutes(post.body);
+            const label = post.data.tags[0] ?? 'Article';
+            return (
+              <a href={`/blog/${post.slug}`} class="card">
+                {post.data.image ? (
+                  <div class="card-image">
+                    <img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />
+                  </div>
+                ) : (
+                  <div class="card-image card-image--placeholder" aria-hidden="true" />
+                )}
+                <div class="card-body">
+                  <span class="card-label">{label}</span>
+                  <h2 class="card-title">{post.data.title}</h2>
+                  <p class="card-excerpt">{post.data.description}</p>
+                  <div class="card-meta">
+                    <span>{dateStr}</span>
+                    <span class="dot">·</span>
+                    <span>{mins} min read</span>
+                  </div>
+                  <span class="card-cta">Read article →</span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
     </div>
   </main>
 </Layout>
@@ -54,38 +94,124 @@ import Layout from '../../layouts/Layout.astro';
     font-size: 1.0625rem;
     color: rgba(255, 255, 255, 0.75);
     margin: 0;
+    max-width: 560px;
   }
 
   .main-content {
-    padding: 5rem 0 8rem;
+    padding: 3rem 0 5rem;
   }
 
   .empty-state {
+    text-align: center;
+    color: #64748b;
+    padding: 3rem 1rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 1rem;
-    color: #94a3b8;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    height: 100%;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    border-color: #2563eb;
+  }
+  .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #f1f5f9;
+    flex-shrink: 0;
+  }
+  .card-image--placeholder {
+    background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .card:hover .card-image img {
+    transform: scale(1.06);
   }
 
-  .empty-state svg {
-    color: #cbd5e1;
+  .card-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
-
-  .empty-state h2 {
-    font-size: 1.5rem;
+  .card-label {
+    font-size: 0.7rem;
     font-weight: 700;
-    color: #334155;
-    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.4;
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.02em;
+  }
+  .card:hover .card-title {
+    color: #2563eb;
+  }
+  .card-excerpt {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+  }
+  .dot {
+    opacity: 0.5;
+  }
+  .card-cta {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-top: auto;
+  }
+  .card:hover .card-cta {
+    color: #1d4ed8;
   }
 
-  .empty-state p {
-    font-size: 1rem;
-    color: #64748b;
-    max-width: 380px;
-    margin: 0;
-    line-height: 1.6;
+  @media (max-width: 768px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

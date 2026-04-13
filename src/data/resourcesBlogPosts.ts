@@ -12,9 +12,37 @@ export type ResourcesBlogPost = {
   tags: string[];
   imageObjectFit?: 'contain';
   imageContainVariant?: 'blue' | 'white';
+  /** If set, cards link here (e.g. MDX article at `/blog/...`). Otherwise `/resources/blog/{slug}`. */
+  hrefOverride?: string;
 };
 
+/** Resolved URL for a Resources blog card or homepage link. */
+export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
+  return post.hrefOverride ?? `/resources/blog/${post.slug}`;
+}
+
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
+  {
+    slug: 'prerequisite-courses-for-nursing-school',
+    hrefOverride: '/blog/prerequisite-courses-for-nursing-school',
+    title:
+      'Prerequisite Courses for Nursing School: Complete 2026 Guide for Future Nurses',
+    excerpt:
+      'Learn the most common prerequisite courses for nursing school, how to choose the right classes, GPA requirements, expiration dates, accredited online nursing programs, and how counselors can help you plan ahead.',
+    label: 'Nursing',
+    date: 'Apr 13, 2026',
+    readingTime: '22 min read',
+    image:
+      'https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: [
+      'Nursing',
+      'Prerequisites',
+      'BSN',
+      'ADN',
+      'Online Nursing',
+      '2026',
+    ],
+  },
   {
     slug: 'study-com-vs-sophia-vs-straighterline',
     title:

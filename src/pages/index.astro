@@ -3,7 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
-import { resourcesBlogPosts } from '../data/resourcesBlogPosts';
+import {
+	resourcesBlogPosts,
+	type ResourcesBlogPost,
+	getResourcesBlogPostHref,
+} from '../data/resourcesBlogPosts';
 
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
@@ -275,9 +279,26 @@ const _staticCoursesData = [
 ];
 // _staticCoursesData is kept as reference only — not used when Supabase is live
 
-// Homepage "Featured education articles" — same posts as /resources/blog (see src/data/resourcesBlogPosts.ts)
-const homepageFeaturedPost = resourcesBlogPosts[0];
-const homepageSidePosts = resourcesBlogPosts.slice(1, 4);
+// Homepage: left column = three Resources blog guides; large hero = featured guide below
+const HOW_TO_CHOOSE_SLUG = 'how-to-choose-right-online-college';
+/** Large photo card (right) — nursing prerequisites guide (MDX at /blog/... via hrefOverride) */
+const HOMEPAGE_FEATURED_SLUG = 'prerequisite-courses-for-nursing-school';
+
+/** Pinned slugs for the three stacked cards (left column) */
+const HOMEPAGE_SIDE_SLUGS = [
+	'campus-edu-review',
+	'fafsa-financial-aid-online-college-degrees',
+	'international-students-online-us-colleges',
+] as const;
+
+const homepageFeaturedPost =
+	resourcesBlogPosts.find((p) => p.slug === HOMEPAGE_FEATURED_SLUG) ??
+	resourcesBlogPosts.find((p) => p.slug === HOW_TO_CHOOSE_SLUG) ??
+	resourcesBlogPosts[0];
+
+const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
+	resourcesBlogPosts.find((p) => p.slug === slug)
+).filter((p): p is ResourcesBlogPost => p != null);
 ---
 
 <Layout>
@@ -334,7 +355,7 @@ const homepageSidePosts = resourcesBlogPosts.slice(1, 4);
 				<!-- Left: stacked small articles -->
 				<div class="blog-list">
 					{homepageSidePosts.map(post => (
-						<a href={`/resources/blog/${post.slug}`} class="blog-list-item">
+						<a href={getResourcesBlogPostHref(post)} class="blog-list-item">
 							<div
 								class:list={[
 									'blog-list-img',
@@ -351,13 +372,10 @@ const homepageSidePosts = resourcesBlogPosts.slice(1, 4);
 						</a>
 					))}
 				</div>
-				<!-- Right: large featured article (first Resources blog post) -->
+				<!-- Right: large hero article (featured guide) -->
 				<a
-					href={`/resources/blog/${homepageFeaturedPost.slug}`}
-					class:list={[
-						'blog-featured-card',
-						homepageFeaturedPost.imageContainVariant === 'white' && 'blog-featured-card--light-img',
-					]}
+					href={getResourcesBlogPostHref(homepageFeaturedPost)}
+					class="blog-featured-card"
 				>
 					<div class="blog-featured-img">
 						<img
@@ -371,7 +389,7 @@ const homepageSidePosts = resourcesBlogPosts.slice(1, 4);
 								<span class="blog-featured-label">{homepageFeaturedPost.label}</span>
 								<h3 class="blog-featured-title">{homepageFeaturedPost.title}</h3>
 								<div class="blog-featured-meta">
-									<span class="blog-featured-author">College Courses Online</span>
+									<span class="blog-featured-author">by Editorial Team</span>
 									<span class="blog-featured-dot">·</span>
 									<span class="blog-featured-time">{homepageFeaturedPost.readingTime}</span>
 								</div>

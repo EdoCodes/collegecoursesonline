@@ -1,6 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { resourcesBlogPosts as posts } from '../../../data/resourcesBlogPosts';
+import {
+  resourcesBlogPosts as posts,
+  getResourcesBlogPostHref,
+} from '../../../data/resourcesBlogPosts';
 ---
 
 <Layout
@@ -25,7 +28,7 @@ import { resourcesBlogPosts as posts } from '../../../data/resourcesBlogPosts';
     <div class="container">
       <div class="posts-grid">
         {posts.map(post => (
-          <a href={`/resources/blog/${post.slug}`} class="card">
+          <a href={getResourcesBlogPostHref(post)} class="card">
             <div class:list={[
                 'card-image',
                 (post as { imageObjectFit?: string }).imageObjectFit === 'contain' && 'card-image--contain',
