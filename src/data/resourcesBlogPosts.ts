@@ -24,7 +24,6 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
     slug: 'prerequisite-courses-for-nursing-school',
-    hrefOverride: '/blog/prerequisite-courses-for-nursing-school',
     title:
       'Prerequisite Courses for Nursing School: Complete 2026 Guide for Future Nurses',
     excerpt:
