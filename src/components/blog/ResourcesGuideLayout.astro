@@ -387,29 +387,34 @@ const authorInitials =
 		margin: 1.5rem 0 0.65rem;
 		line-height: 1.35;
 	}
-	/* External school links + internal course links: match text until hover → blue */
+	/*
+	 * External + course links: blend with text, blue on hover.
+	 * !important beats Layout.astro global `a` / `a:hover` (would otherwise force primary blue always).
+	 */
 	.article-content a.link-external,
 	.article-content a.link-course,
 	.article-content a.link-external:visited,
-	.article-content a.link-course:visited {
-		color: inherit;
-		text-decoration: none;
+	.article-content a.link-course:visited,
+	.article-content .faq-item summary a.link-external,
+	.article-content .faq-item summary a.link-external:visited {
+		color: inherit !important;
+		text-decoration: none !important;
 		transition: color 0.15s ease;
 	}
 	.article-content a.link-external strong,
 	.article-content a.link-course strong {
-		color: inherit;
+		color: inherit !important;
 		font-weight: 700;
 	}
 	.article-content strong a.link-external,
 	.article-content strong a.link-course,
 	.article-content td a.link-external,
 	.article-content td a.link-course {
-		color: inherit;
+		color: inherit !important;
 	}
 	.article-content .facts-table td a.link-course,
 	.article-content .facts-table td a.link-external {
-		color: #0f172a;
+		color: #0f172a !important;
 		font-weight: 600;
 	}
 	.article-content a.link-external:hover,
@@ -424,12 +429,13 @@ const authorInitials =
 	.article-content .faq-item p a.link-external:hover strong,
 	.article-content .faq-item p a.link-course:hover,
 	.article-content .faq-item p a.link-course:hover strong,
+	.article-content .faq-item summary a.link-external:hover,
 	.article-content li a.link-external:hover,
 	.article-content li a.link-external:hover strong,
 	.article-content li a.link-course:hover,
 	.article-content li a.link-course:hover strong {
-		color: #2563eb;
-		text-decoration: none;
+		color: #2563eb !important;
+		text-decoration: none !important;
 	}
 	/* Any other links in the article (fallback) */
 	.article-content a:not(.link-external):not(.link-course) {
