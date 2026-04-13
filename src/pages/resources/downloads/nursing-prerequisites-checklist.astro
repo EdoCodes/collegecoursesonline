@@ -1,0 +1,449 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const title = 'Nursing school prerequisites checklist (printable)';
+const description =
+	'Printable worksheet: common nursing prerequisite courses with checkboxes and space to verify requirements with each program.';
+const canonical = '/resources/downloads/nursing-prerequisites-checklist';
+
+/** Mirrors the table in prerequisite-courses-for-nursing-school.mdx */
+const prerequisites: {
+	course: string;
+	lab: string;
+	typical: string;
+}[] = [
+	{ course: 'Anatomy & Physiology I', lab: 'Yes', typical: 'Required at most schools' },
+	{ course: 'Anatomy & Physiology II', lab: 'Yes', typical: 'Required at most schools' },
+	{ course: 'Microbiology', lab: 'Yes', typical: 'Required at most schools' },
+	{ course: 'General Chemistry', lab: 'Yes', typical: 'Required at most schools' },
+	{ course: 'Biology or Human Biology', lab: 'Sometimes', typical: 'Common' },
+	{ course: 'English Composition', lab: 'No', typical: 'Required at most schools' },
+	{ course: 'General Psychology', lab: 'No', typical: 'Required at most schools' },
+	{ course: 'Developmental / Lifespan Psychology', lab: 'No', typical: 'Common' },
+	{ course: 'Statistics', lab: 'No', typical: 'Required at most schools' },
+	{ course: 'Nutrition', lab: 'No', typical: 'Common' },
+	{ course: 'Sociology', lab: 'No', typical: 'Program-specific' },
+	{ course: 'Speech / Communication', lab: 'No', typical: 'Program-specific' },
+	{ course: 'College Algebra / Math', lab: 'No', typical: 'Some programs' },
+];
+
+const guideUrl = '/resources/blog/prerequisite-courses-for-nursing-school';
+---
+
+<Layout title={`${title} | Online College Courses`} description={description} canonical={canonical} type="article">
+	<div class="checklist-page">
+		<div class="checklist-toolbar no-print">
+			<a class="checklist-back" href={guideUrl}>← Back to nursing prerequisites guide</a>
+			<button type="button" class="checklist-print-action" id="checklist-print-btn">
+				Print or save as PDF
+			</button>
+		</div>
+
+		<div class="checklist-sheet">
+			<header class="checklist-header">
+				<p class="checklist-kicker">College Courses Online · Nursing</p>
+				<h1 class="checklist-title">Nursing school prerequisites checklist</h1>
+				<p class="checklist-lead">
+					Use this sheet to track coursework and confirm each requirement with your target programs. Requirements
+					vary by school; this list is a planning aid, not a substitute for official admissions pages.
+				</p>
+			</header>
+
+			<section class="checklist-section" aria-labelledby="courses-heading">
+				<h2 id="courses-heading" class="checklist-h2">Prerequisite courses</h2>
+				<p class="checklist-legend no-print">
+					<strong>Columns:</strong> Mark when complete · Lab? shows whether a lab is commonly required · Use Notes for
+					grades, terms, or school-specific rules.
+				</p>
+				<div class="checklist-table-wrap">
+					<table class="checklist-table">
+						<thead>
+							<tr>
+								<th scope="col" class="col-done">Done</th>
+								<th scope="col" class="col-course">Course</th>
+								<th scope="col" class="col-lab">Lab?</th>
+								<th scope="col" class="col-typical">Typical requirement</th>
+								<th scope="col" class="col-notes">Notes (grade, term, school)</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								prerequisites.map((row) => (
+									<tr>
+										<td class="col-done">
+											<span class="checklist-box" aria-hidden="true">☐</span>
+										</td>
+										<td class="col-course">{row.course}</td>
+										<td class="col-lab">{row.lab}</td>
+										<td class="col-typical">{row.typical}</td>
+										<td class="col-notes" />
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="checklist-section" aria-labelledby="verify-heading">
+				<h2 id="verify-heading" class="checklist-h2">Program verification</h2>
+				<p class="checklist-muted">
+					Repeat for each nursing program you are considering. Official catalogs and admissions offices are the source
+					of truth.
+				</p>
+				<div class="checklist-verify-grid">
+					{
+						[1, 2, 3].map((n) => (
+							<div class="checklist-verify-card">
+								<div class="checklist-verify-row">
+									<span class="checklist-box" aria-hidden="true">
+										☐
+									</span>
+									<span>Program / school {n}:</span>
+								</div>
+								<div class="checklist-verify-lines" />
+								<div class="checklist-verify-row checklist-verify-tight">
+									<span class="checklist-box" aria-hidden="true">
+										☐
+									</span>
+									<span>I verified prerequisites on the official program page (date):</span>
+								</div>
+								<div class="checklist-verify-lines short" />
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="checklist-section" aria-labelledby="extras-heading">
+				<h2 id="extras-heading" class="checklist-h2">Additional reminders</h2>
+				<ul class="checklist-reminders">
+					<li>
+						<span class="checklist-box" aria-hidden="true">
+							☐
+						</span>
+						<span>Confirmed whether science courses must include in-person labs</span>
+					</li>
+					<li>
+						<span class="checklist-box" aria-hidden="true">
+							☐
+						</span>
+						<span>Checked recency / expiration rules for older science credits</span>
+					</li>
+					<li>
+						<span class="checklist-box" aria-hidden="true">
+							☐
+						</span>
+						<span>Asked how repeated courses and science GPA are calculated</span>
+					</li>
+				</ul>
+			</section>
+
+			<footer class="checklist-footer">
+				<p>
+					Full guide with explanations and accredited program examples:{' '}
+					<span class="checklist-url">{guideUrl}</span>
+				</p>
+				<p class="checklist-fineprint">For educational planning only. Not legal or academic advising.</p>
+			</footer>
+		</div>
+	</div>
+
+	<script is:inline>
+		document.getElementById('checklist-print-btn')?.addEventListener('click', () => window.print());
+	</script>
+</Layout>
+
+<style>
+	.checklist-page {
+		background: #f1f5f9;
+		min-height: 60vh;
+		padding: 1.5rem 0 3rem;
+	}
+
+	.checklist-toolbar {
+		max-width: 960px;
+		margin: 0 auto 1.25rem;
+		padding: 0 1.25rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.checklist-back {
+		color: #2563eb;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		text-decoration: none;
+	}
+	.checklist-back:hover {
+		text-decoration: underline;
+	}
+
+	.checklist-print-action {
+		background: #2563eb;
+		color: #fff;
+		font-weight: 700;
+		font-size: 0.9375rem;
+		padding: 0.65rem 1.35rem;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		font-family: inherit;
+	}
+	.checklist-print-action:hover {
+		background: #1d4ed8;
+	}
+
+	.checklist-sheet {
+		max-width: 960px;
+		margin: 0 auto;
+		background: #fff;
+		padding: 2rem 1.5rem 2.5rem;
+		border-radius: 12px;
+		box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+	}
+
+	.checklist-kicker {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #64748b;
+		margin: 0 0 0.5rem;
+	}
+
+	.checklist-title {
+		font-size: clamp(1.5rem, 3vw, 1.875rem);
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0 0 0.75rem;
+		line-height: 1.2;
+	}
+
+	.checklist-lead {
+		font-size: 0.9375rem;
+		color: #475569;
+		line-height: 1.65;
+		margin: 0 0 1.75rem;
+		max-width: 52rem;
+	}
+
+	.checklist-section {
+		margin-bottom: 2rem;
+	}
+
+	.checklist-h2 {
+		font-size: 1.125rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0 0 0.75rem;
+		padding-bottom: 0.35rem;
+		border-bottom: 2px solid #e2e8f0;
+	}
+
+	.checklist-legend {
+		font-size: 0.8125rem;
+		color: #64748b;
+		margin: 0 0 0.75rem;
+		line-height: 1.5;
+	}
+
+	.checklist-muted {
+		font-size: 0.875rem;
+		color: #64748b;
+		margin: 0 0 1rem;
+		line-height: 1.55;
+	}
+
+	.checklist-table-wrap {
+		overflow-x: auto;
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+	}
+
+	.checklist-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.8125rem;
+	}
+
+	.checklist-table th {
+		text-align: left;
+		background: #f8fafc;
+		color: #334155;
+		font-weight: 700;
+		padding: 0.5rem 0.5rem;
+		border-bottom: 1px solid #e2e8f0;
+	}
+
+	.checklist-table td {
+		padding: 0.45rem 0.5rem;
+		border-bottom: 1px solid #e2e8f0;
+		vertical-align: top;
+		color: #1e293b;
+	}
+
+	.checklist-table tr:nth-child(even) td {
+		background: #fafafa;
+	}
+
+	.checklist-table tr:last-child td {
+		border-bottom: none;
+	}
+
+	.col-done {
+		width: 2.75rem;
+		text-align: center;
+	}
+
+	.col-lab {
+		width: 5.5rem;
+		white-space: nowrap;
+	}
+
+	.col-typical {
+		width: 28%;
+	}
+
+	.col-notes {
+		min-height: 1.75rem;
+		background: repeating-linear-gradient(
+			transparent,
+			transparent 1.35rem,
+			#e2e8f0 1.35rem,
+			#e2e8f0 calc(1.35rem + 1px)
+		);
+	}
+
+	.checklist-box {
+		font-size: 1rem;
+		line-height: 1;
+		user-select: none;
+	}
+
+	.checklist-verify-grid {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.checklist-verify-card {
+		border: 1px solid #e2e8f0;
+		border-radius: 8px;
+		padding: 1rem 1.125rem;
+		background: #fafafa;
+	}
+
+	.checklist-verify-row {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #0f172a;
+	}
+
+	.checklist-verify-tight {
+		margin-top: 1rem;
+		font-weight: 500;
+		color: #334155;
+	}
+
+	.checklist-verify-lines {
+		min-height: 2.5rem;
+		margin-top: 0.35rem;
+		border-bottom: 1px solid #cbd5e1;
+		background: repeating-linear-gradient(
+			transparent,
+			transparent 1.25rem,
+			#e2e8f0 1.25rem,
+			#e2e8f0 calc(1.25rem + 1px)
+		);
+	}
+
+	.checklist-verify-lines.short {
+		min-height: 1.5rem;
+	}
+
+	.checklist-reminders {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+	}
+
+	.checklist-reminders li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		color: #334155;
+		line-height: 1.5;
+	}
+
+	.checklist-footer {
+		margin-top: 2rem;
+		padding-top: 1rem;
+		border-top: 1px solid #e2e8f0;
+		font-size: 0.8125rem;
+		color: #64748b;
+	}
+
+	.checklist-footer p {
+		margin: 0 0 0.35rem;
+	}
+
+	.checklist-url {
+		font-family: ui-monospace, monospace;
+		font-size: 0.75rem;
+		word-break: break-all;
+	}
+
+	.checklist-fineprint {
+		font-size: 0.75rem;
+		color: #94a3b8;
+	}
+
+	@media print {
+		@page {
+			margin: 0.6in;
+		}
+
+		.no-print {
+			display: none !important;
+		}
+
+		:global(.site-header),
+		:global(.site-footer) {
+			display: none !important;
+		}
+
+		.checklist-page {
+			background: #fff;
+			padding: 0;
+		}
+
+		.checklist-sheet {
+			box-shadow: none;
+			border-radius: 0;
+			padding: 0;
+			max-width: none;
+		}
+
+		.checklist-table {
+			font-size: 9pt;
+		}
+
+		.checklist-verify-card {
+			break-inside: avoid;
+		}
+
+		.checklist-section {
+			break-inside: avoid;
+		}
+	}
+</style>
