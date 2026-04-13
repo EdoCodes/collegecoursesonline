@@ -12,16 +12,48 @@ const description =
 const keywords =
 	'Study.com vs Sophia, StraighterLine comparison, online college credits, ACE credit, alternative credit, NCCRS, transfer credit 2026';
 
+/** Official sites — used for outbound links in the article body */
+const URL_STUDY = 'https://www.study.com';
+const URL_SOPHIA = 'https://www.sophia.org';
+const URL_STRAIGHT = 'https://www.straighterline.com';
+
+/** Same image as Resources blog cards — used for OG/Twitter/JSON-LD only (not rendered in article body). */
+const CARD_IMAGE_URL =
+	'https://images.pexels.com/photos/6239107/pexels-photo-6239107.jpeg?auto=compress&cs=tinysrgb&w=1200';
+
 const articleSchema = {
 	'@context': 'https://schema.org',
 	'@type': 'Article',
 	headline: title,
 	description: description,
+	image: [CARD_IMAGE_URL],
 	datePublished: '2026-04-08',
 	dateModified: '2026-04-08',
-	author: { '@type': 'Organization', name: 'College Courses Online' },
-	publisher: { '@type': 'Organization', name: 'College Courses Online' },
+	author: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
 	mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${site}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Blog', item: `${site}/resources/blog/` },
+		{ '@type': 'ListItem', position: 4, name: title, item: pageUrl },
+	],
 };
 
 const faqSchema = {
@@ -104,7 +136,13 @@ const faqSchema = {
 };
 ---
 
-<Layout title={title} description={description} canonical={canonicalPath} type="article">
+<Layout
+	title={title}
+	description={description}
+	canonical={canonicalPath}
+	type="article"
+	image={CARD_IMAGE_URL}
+>
 	<link slot="head" rel="preconnect" href="https://fonts.googleapis.com" />
 	<link slot="head" rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link
@@ -114,13 +152,17 @@ const faqSchema = {
 	/>
 	<meta slot="head" name="keywords" content={keywords} />
 	<script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 	<script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 	<main role="main" class="study-standalone-wrap">
 		<div class="page-wrap">
 			<div class="hero-tag">Platform comparison · 2026</div>
 			<h1>
-				Study.com vs Sophia vs StraighterLine: which online college credit platform wins in 2026?
+				<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> vs{' '}
+				<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> vs{' '}
+				<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer">StraighterLine</a>:
+				which online college credit platform wins in 2026?
 			</h1>
 			<p class="hero-sub">
 				Three platforms dominate the alternative college credit space. Here's exactly how they compare on price,
@@ -130,17 +172,23 @@ const faqSchema = {
 			<div class="verdict-strip">
 				<div class="vc study">
 					<div class="vc-role">Best all-around</div>
-					<div class="vc-name">Study.com</div>
+					<div class="vc-name">
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a>
+					</div>
 					<div class="vc-blurb">Broadest catalog, upper-division options, ACE + NCCRS dual recommendations.</div>
 				</div>
 				<div class="vc sophia">
 					<div class="vc-role">Best budget pick</div>
-					<div class="vc-name">Sophia Learning</div>
+					<div class="vc-name">
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia Learning</a>
+					</div>
 					<div class="vc-blurb">Cheapest flat-rate model for stacking multiple gen-ed credits fast.</div>
 				</div>
 				<div class="vc straight">
 					<div class="vc-role">Best for partnerships</div>
-					<div class="vc-name">StraighterLine</div>
+					<div class="vc-name">
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer">StraighterLine</a>
+					</div>
 					<div class="vc-blurb">Largest partner-school network, structured courses, 24/7 tutoring.</div>
 				</div>
 			</div>
@@ -148,34 +196,50 @@ const faqSchema = {
 			<h2>Key numbers at a glance</h2>
 			<div class="stats-row">
 				<div class="stat study">
-					<div class="s-brand">Study.com</div><div class="s-num">220+</div><div class="s-label">Credit courses</div>
+					<div class="s-brand">
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a>
+					</div><div class="s-num">220+</div><div class="s-label">Credit courses</div>
 				</div>
 				<div class="stat sophia">
-					<div class="s-brand">Sophia Learning</div><div class="s-num">70+</div><div class="s-label">Credit courses</div>
+					<div class="s-brand">
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia Learning</a>
+					</div><div class="s-num">70+</div><div class="s-label">Credit courses</div>
 				</div>
 				<div class="stat straight">
-					<div class="s-brand">StraighterLine</div><div class="s-num">75+</div><div class="s-label">Credit courses</div>
+					<div class="s-brand">
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer">StraighterLine</a>
+					</div><div class="s-num">75+</div><div class="s-label">Credit courses</div>
 				</div>
 			</div>
 			<div class="stats-row">
 				<div class="stat study">
-					<div class="s-brand">Study.com</div><div class="s-num">$95</div><div class="s-label">Starting monthly</div>
+					<div class="s-brand">
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a>
+					</div><div class="s-num">$95</div><div class="s-label">Starting monthly</div>
 				</div>
 				<div class="stat sophia">
-					<div class="s-brand">Sophia Learning</div><div class="s-num">$99</div><div class="s-label">Flat monthly</div>
+					<div class="s-brand">
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia Learning</a>
+					</div><div class="s-num">$99</div><div class="s-label">Flat monthly</div>
 				</div>
 				<div class="stat straight">
-					<div class="s-brand">StraighterLine</div><div class="s-num">$178+</div><div class="s-label">Per course (1st)</div>
+					<div class="s-brand">
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer">StraighterLine</a>
+					</div><div class="s-num">$178+</div><div class="s-label">Per course (1st)</div>
 				</div>
 			</div>
 
 			<h2>Executive summary</h2>
 			<p>
-				Study.com is usually the strongest all-around option because it combines a large course catalog,
-				upper-division flexibility, and ACE plus NCCRS recommendations. Sophia is usually the cheapest and simplest
-				way to complete multiple general education courses quickly, especially for students who want a subscription
-				model with no per-course fee. StraighterLine is often the best fit when transfer partnerships, support
-				services, and a more traditional course structure matter most.
+				<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> is usually
+				the strongest all-around option because it combines a large course catalog, upper-division flexibility, and ACE
+				plus NCCRS recommendations.{' '}
+				<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is usually the
+				cheapest and simplest way to complete multiple general education courses quickly, especially for students who
+				want a subscription model with no per-course fee.{' '}
+				<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer">StraighterLine</a> is
+				often the best fit when transfer partnerships, support services, and a more traditional course structure
+				matter most.
 			</p>
 
 			<h2>Full feature comparison</h2>
@@ -184,9 +248,20 @@ const faqSchema = {
 					<thead>
 						<tr>
 							<th>Feature</th>
-							<th>Study.com <span class="win-badge wb-study">Top pick</span></th>
-							<th>Sophia Learning</th>
-							<th>StraighterLine</th>
+							<th>
+								<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a>{' '}
+								<span class="win-badge wb-study">Top pick</span>
+							</th>
+							<th>
+								<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+									>Sophia Learning</a
+								>
+							</th>
+							<th>
+								<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+									>StraighterLine</a
+								>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -207,8 +282,13 @@ const faqSchema = {
 			<div class="platform-deep">
 				<div class="pd-card study">
 					<div class="pd-top">
-						<div class="pd-icon">S.</div>
-						<div><span class="pd-name">Study.com</span><span class="pd-tag">Best all-around</span></div>
+						<div class="pd-icon" aria-hidden="true">S.</div>
+						<h3 class="pd-h3">
+							<span class="pd-name">
+								<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a>
+							</span>
+							<span class="pd-tag">Best all-around</span>
+						</h3>
 					</div>
 					<p class="pd-body">
 						The most complete platform with 220+ courses spanning both lower- and upper-division levels. The College
@@ -225,14 +305,23 @@ const faqSchema = {
 				</div>
 				<div class="pd-card sophia">
 					<div class="pd-top">
-						<div class="pd-icon">So.</div>
-						<div><span class="pd-name">Sophia Learning</span><span class="pd-tag">Best budget</span></div>
+						<div class="pd-icon" aria-hidden="true">So.</div>
+						<h3 class="pd-h3">
+							<span class="pd-name">
+								<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+									>Sophia Learning</a
+								>
+							</span>
+							<span class="pd-tag">Best budget</span>
+						</h3>
 					</div>
 					<p class="pd-body">
 						Built for students who want to knock out general education requirements as cheaply and quickly as
 						possible. The flat $99/month model means cost per credit drops sharply as you complete more courses in a
 						single billing cycle. Assessment-based and self-paced, it rewards motivated learners who don't need a
-						structured environment. Nearly 3,000 institutions have reviewed Sophia transcripts.
+						structured environment. Nearly 3,000 institutions have reviewed{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a>{' '}
+						transcripts.
 					</p>
 					<div class="pd-pills">
 						<span class="pill sophia">$99/mo flat rate</span>
@@ -243,8 +332,15 @@ const faqSchema = {
 				</div>
 				<div class="pd-card straight">
 					<div class="pd-top">
-						<div class="pd-icon">SL.</div>
-						<div><span class="pd-name">StraighterLine</span><span class="pd-tag">Best partnerships</span></div>
+						<div class="pd-icon" aria-hidden="true">SL.</div>
+						<h3 class="pd-h3">
+							<span class="pd-name">
+								<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+									>StraighterLine</a
+								>
+							</span>
+							<span class="pd-tag">Best partnerships</span>
+						</h3>
 					</div>
 					<p class="pd-body">
 						The platform with the largest direct-partner network at 180+ schools and 3,000+ institutions that have
@@ -264,7 +360,7 @@ const faqSchema = {
 			<h2>Interactive cost calculator</h2>
 			<p>Adjust the sliders to see total cost across all three platforms for your situation.</p>
 			<div class="cost-calc">
-				<div class="calc-title">Cost comparison tool</div>
+				<h3 class="calc-title">Cost comparison tool</h3>
 				<div class="slider-row">
 					<label for="study-courses-range">Courses per month</label>
 					<input type="range" id="study-courses-range" min="1" max="10" value="3" step="1" />
@@ -277,19 +373,27 @@ const faqSchema = {
 				</div>
 				<div class="results-grid">
 					<div class="res-card study">
-						<div class="res-name">Study.com</div>
+						<div class="res-name">
+							<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a>
+						</div>
 						<div class="res-price" id="study-cost">$95</div>
 						<div class="res-note" id="study-note">College Saver plan</div>
 						<div class="winner-tag" id="study-win">Cheapest option</div>
 					</div>
 					<div class="res-card sophia">
-						<div class="res-name">Sophia</div>
+						<div class="res-name">
+							<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a>
+						</div>
 						<div class="res-price" id="sophia-cost">$99</div>
 						<div class="res-note">Flat monthly, all courses</div>
 						<div class="winner-tag" id="sophia-win">Cheapest option</div>
 					</div>
 					<div class="res-card straight">
-						<div class="res-name">StraighterLine</div>
+						<div class="res-name">
+							<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+								>StraighterLine</a
+							>
+						</div>
 						<div class="res-price" id="straight-cost">$178</div>
 						<div class="res-note" id="straight-note">$99 + $79 × 3 courses</div>
 						<div class="winner-tag" id="straight-win">Cheapest option</div>
@@ -299,21 +403,26 @@ const faqSchema = {
 
 			<h2>Visual cost comparison</h2>
 			<div class="chart-section">
-				<div class="chart-meta">Total monthly cost by number of courses</div>
+				<h3 class="chart-meta">Total monthly cost by number of courses</h3>
 				<div class="chart-legend">
 					<span class="legend-swatch"
 						><span class="swatch-line" style="background:#534AB7;display:inline-block;width:24px;height:3px;"
-						></span> Study.com</span
+						></span>{' '}
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a></span
 					>
 					<span class="legend-swatch"
 						><span
 							class="swatch-line"
-							style="display:inline-block;width:24px;height:0;border-top:3px dashed #1D9E75;"></span> Sophia</span
+							style="display:inline-block;width:24px;height:0;border-top:3px dashed #1D9E75;"></span>{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a></span
 					>
 					<span class="legend-swatch"
 						><span
 							class="swatch-line"
-							style="display:inline-block;width:24px;height:0;border-top:3px dotted #378ADD;"></span> StraighterLine</span
+							style="display:inline-block;width:24px;height:0;border-top:3px dotted #378ADD;"></span>{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						></span
 					>
 				</div>
 				<div class="chart-canvas-wrap">
@@ -323,7 +432,7 @@ const faqSchema = {
 
 			<h2>Credit level breakdown</h2>
 			<div class="chart-section">
-				<div class="chart-meta">Lower-division vs upper-division courses available</div>
+				<h3 class="chart-meta">Lower-division vs upper-division courses available</h3>
 				<div class="chart-legend">
 					<span class="legend-swatch"
 						><span
@@ -335,7 +444,9 @@ const faqSchema = {
 						><span
 							class="swatch"
 							style="background:#AFA9EC;border:1.5px solid #534AB7;display:inline-block;width:10px;height:10px;border-radius:2px;"
-						></span> Upper-division (Study.com only)</span
+						></span>{' '}
+						Upper-division (
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> only)</span
 					>
 				</div>
 				<div class="chart-canvas-wrap chart-canvas-wrap--sm">
@@ -345,25 +456,30 @@ const faqSchema = {
 
 			<h2>Transfer credit recognition</h2>
 			<div class="chart-section">
-				<div class="chart-meta">Partner schools and institutions that have reviewed credits</div>
+				<h3 class="chart-meta">Partner schools and institutions that have reviewed credits</h3>
 				<div class="chart-legend">
 					<span class="legend-swatch"
 						><span
 							class="swatch"
 							style="background:#EEEDFE;border:1.5px solid #534AB7;display:inline-block;width:10px;height:10px;border-radius:2px;"
-						></span> Study.com</span
+						></span>{' '}
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a></span
 					>
 					<span class="legend-swatch"
 						><span
 							class="swatch"
 							style="background:#E1F5EE;border:1.5px solid #1D9E75;display:inline-block;width:10px;height:10px;border-radius:2px;"
-						></span> Sophia</span
+						></span>{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a></span
 					>
 					<span class="legend-swatch"
 						><span
 							class="swatch"
 							style="background:#E6F1FB;border:1.5px solid #378ADD;display:inline-block;width:10px;height:10px;border-radius:2px;"
-						></span> StraighterLine</span
+						></span>{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						></span
 					>
 				</div>
 				<div class="chart-canvas-wrap chart-canvas-wrap--sm">
@@ -374,7 +490,10 @@ const faqSchema = {
 			<h2>Which platform should you choose?</h2>
 			<div class="choose-grid">
 				<div class="ch-col study">
-					<div class="ch-head">Choose Study.com if…</div>
+					<h3 class="ch-head">
+						Choose{' '}
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> if…
+					</h3>
 					<ul>
 						<li>You need upper-division or advanced credits</li>
 						<li>You want the broadest catalog (220+ courses)</li>
@@ -384,19 +503,38 @@ const faqSchema = {
 					</ul>
 				</div>
 				<div class="ch-col sophia">
-					<div class="ch-head">Choose Sophia if…</div>
+					<h3 class="ch-head">
+						Choose{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> if…
+					</h3>
 					<ul>
 						<li>You want the cheapest fast path through gen-eds</li>
 						<li>You can complete several courses in one month</li>
 						<li>You prefer fully self-paced, assessment-based study</li>
 						<li>You mostly need lower-division requirements</li>
-						<li>Your target school already recognizes Sophia credits</li>
+						<li>
+							Your target school already recognizes{' '}
+							<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a>{' '}
+							credits
+						</li>
 					</ul>
 				</div>
 				<div class="ch-col straight">
-					<div class="ch-head">Choose StraighterLine if…</div>
+					<h3 class="ch-head">
+						Choose{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
+						if…
+					</h3>
 					<ul>
-						<li>Your school has a direct StraighterLine pathway</li>
+						<li>
+							Your school has a direct{' '}
+							<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+								>StraighterLine</a
+							>{' '}
+							pathway
+						</li>
 						<li>You want 24/7 tutoring and academic advising</li>
 						<li>You need one or two very specific courses</li>
 						<li>You prefer structured assignments and finals</li>
@@ -446,70 +584,120 @@ const faqSchema = {
 			<h2>Frequently asked questions</h2>
 			<div class="faq-block">
 				<details class="faq-item">
-					<summary class="faq-q">What is the difference between Study.com, Sophia Learning, and StraighterLine?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">What is the difference between Study.com, Sophia Learning, and StraighterLine?</h3>
+					</summary>
 					<div class="faq-a">
-						Study.com has the broadest catalog with upper-division options and dual ACE + NCCRS recommendations.
-						Sophia is the cheapest flat-rate option for bulk general education completion. StraighterLine has the
-						largest direct partner-school network and the most structured course support.
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> has the
+						broadest catalog with upper-division options and dual ACE + NCCRS recommendations.{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is the
+						cheapest flat-rate option for bulk general education completion.{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
+						has the largest direct partner-school network and the most structured course support.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Which platform is cheapest?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Which platform is cheapest?</h3>
+					</summary>
 					<div class="faq-a">
-						Study.com starts lowest at $95/month. Sophia is $99/month flat with all courses included. StraighterLine
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> starts
+						lowest at $95/month.{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is $99/month
+						flat with all courses included.{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
 						is typically the most expensive for multiple courses because it charges $79 per course on top of the $99
 						membership fee.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Which platform transfers best?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Which platform transfers best?</h3>
+					</summary>
 					<div class="faq-a">
-						StraighterLine has the largest direct partner network (180+ schools), but transfer approval always depends
-						on the receiving college's own policies. All three platforms use ACE credit recommendations as the
-						baseline.
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
+						has the largest direct partner network (180+ schools), but transfer approval always depends on the
+						receiving college's own policies. All three platforms use ACE credit recommendations as the baseline.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Which is best for general education credits?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Which is best for general education credits?</h3>
+					</summary>
 					<div class="faq-a">
-						Sophia is usually best for gen-ed credits because of its low flat-rate cost and self-paced format. Taking
-						three or more courses in a single month makes it significantly cheaper than the other two platforms.
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is usually
+						best for gen-ed credits because of its low flat-rate cost and self-paced format. Taking three or more
+						courses in a single month makes it significantly cheaper than the other two platforms.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Which is best for upper-division credits?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Which is best for upper-division credits?</h3>
+					</summary>
 					<div class="faq-a">
-						Study.com is the only platform of the three that offers upper-division alternative credit courses. Sophia
-						and StraighterLine focus almost entirely on lower-division general education.
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> is the
+						only platform of the three that offers upper-division alternative credit courses.{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> and{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
+						focus almost entirely on lower-division general education.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Can these credits transfer to a university?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Can these credits transfer to a university?</h3>
+					</summary>
 					<div class="faq-a">
 						Yes, but transfer is never automatic. The receiving university decides whether a course counts and how it
 						applies to the degree plan. Always verify equivalency before enrolling.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Is Sophia easier than Study.com?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Is Sophia easier than Study.com?</h3>
+					</summary>
 					<div class="faq-a">
-						Generally yes. Sophia is more streamlined and assessment-focused. Study.com includes more video lessons,
-						quizzes, and structured content before the final exam.
+						Generally yes.{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is more
+						streamlined and assessment-focused.{' '}
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> includes
+						more video lessons, quizzes, and structured content before the final exam.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Is StraighterLine better than Sophia?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Is StraighterLine better than Sophia?</h3>
+					</summary>
 					<div class="faq-a">
-						StraighterLine can be better if a student wants stronger support, a more traditional course format, or a
-						direct pathway to a specific school. For pure cost efficiency across multiple courses, Sophia usually
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
+						can be better if a student wants stronger support, a more traditional course format, or a direct pathway to
+						a specific school. For pure cost efficiency across multiple courses,{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> usually
 						wins.
 					</div>
 				</details>
 				<details class="faq-item">
-					<summary class="faq-q">Which platform is best overall?</summary>
+					<summary class="faq-q">
+						<h3 class="faq-h3">Which platform is best overall?</h3>
+					</summary>
 					<div class="faq-a">
-						Study.com is the strongest all-around option, Sophia is the best budget option, and StraighterLine is the
-						best partnership-first option.
+						<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> is the
+						strongest all-around option,{' '}
+						<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is the
+						best budget option, and{' '}
+						<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+							>StraighterLine</a
+						>{' '}
+						is the best partnership-first option.
 					</div>
 				</details>
 			</div>
@@ -517,10 +705,16 @@ const faqSchema = {
 			<h2>Conclusion</h2>
 			<div class="verdict-box">
 				<p>
-					Study.com is the strongest all-around option for students who need breadth, upper-division flexibility, and a
-					flat subscription price. Sophia is usually the best value for fast, low-cost general education completion.
-					StraighterLine is often the best choice when a direct pathway, structured support, or a more traditional
-					course experience matters most.
+					<a href={URL_STUDY} class="platform-outbound" target="_blank" rel="noopener noreferrer">Study.com</a> is the
+					strongest all-around option for students who need breadth, upper-division flexibility, and a flat subscription
+					price.{' '}
+					<a href={URL_SOPHIA} class="platform-outbound" target="_blank" rel="noopener noreferrer">Sophia</a> is usually the
+					best value for fast, low-cost general education completion.{' '}
+					<a href={URL_STRAIGHT} class="platform-outbound" target="_blank" rel="noopener noreferrer"
+						>StraighterLine</a
+					>{' '}
+					is often the best choice when a direct pathway, structured support, or a more traditional course experience
+					matters most.
 				</p>
 				<p>
 					For most learners, the smartest strategy is to start with your school's transfer requirements, then choose the
@@ -775,6 +969,17 @@ const faqSchema = {
 		--straight-dark: #0c447c;
 		--serif: 'Playfair Display', Georgia, serif;
 		--sans: 'IBM Plex Sans', system-ui, sans-serif;
+	}
+
+	/* Outbound links to official sites — blue, darker on hover (overrides card/table colors) */
+	.study-standalone-wrap a.platform-outbound {
+		color: #2563eb !important;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		transition: color 0.15s ease;
+	}
+	.study-standalone-wrap a.platform-outbound:hover {
+		color: #1d4ed8 !important;
 	}
 
 	.study-standalone-wrap .page-wrap {
@@ -1068,6 +1273,11 @@ const faqSchema = {
 		margin-bottom: 1.1rem;
 	}
 
+	.study-standalone-wrap h3.calc-title {
+		margin: 0;
+		font-family: var(--sans);
+	}
+
 	.study-standalone-wrap .slider-row {
 		display: flex;
 		align-items: center;
@@ -1182,6 +1392,11 @@ const faqSchema = {
 		margin-bottom: 0.6rem;
 	}
 
+	.study-standalone-wrap h3.chart-meta {
+		margin: 0;
+		font-family: var(--sans);
+	}
+
 	.study-standalone-wrap .chart-legend {
 		display: flex;
 		flex-wrap: wrap;
@@ -1236,6 +1451,18 @@ const faqSchema = {
 		align-items: center;
 		gap: 10px;
 		margin-bottom: 0.65rem;
+	}
+
+	.study-standalone-wrap h3.pd-h3 {
+		margin: 0;
+		font-family: var(--sans);
+		font-weight: 500;
+		font-size: 1.01rem;
+		line-height: 1.3;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0 7px;
 	}
 
 	.study-standalone-wrap .pd-icon {
@@ -1355,6 +1582,11 @@ const faqSchema = {
 		margin-bottom: 0.75rem;
 	}
 
+	.study-standalone-wrap h3.ch-head {
+		margin: 0;
+		font-family: var(--sans);
+	}
+
 	.study-standalone-wrap .ch-col.study .ch-head {
 		color: var(--study-dark);
 	}
@@ -1460,6 +1692,15 @@ const faqSchema = {
 		padding: 1rem 0 1rem;
 		color: var(--study-dark);
 		line-height: 1.45;
+	}
+
+	.study-standalone-wrap summary.faq-q h3.faq-h3 {
+		margin: 0;
+		font: inherit;
+		color: inherit;
+		flex: 1;
+		text-align: left;
+		font-family: var(--sans);
 	}
 
 	.study-standalone-wrap summary.faq-q::-webkit-details-marker {
