@@ -527,11 +527,34 @@ const authorInitials =
 		margin: 1.5rem 0 0.65rem;
 		line-height: 1.35;
 	}
-	.article-content a {
+	/* External school links + internal course links: match text until hover */
+	.article-content a.link-external,
+	.article-content a.link-course {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+	.article-content strong a.link-external,
+	.article-content strong a.link-course,
+	.article-content td a.link-external,
+	.article-content td a.link-course {
+		color: inherit;
+	}
+	.article-content .facts-table td a.link-course {
+		color: #0f172a;
+		font-weight: 600;
+	}
+	.article-content a.link-external:hover,
+	.article-content a.link-course:hover {
+		color: #2563eb;
+		text-decoration: none;
+	}
+	/* Any other links in the article (fallback) */
+	.article-content a:not(.link-external):not(.link-course) {
 		color: #2563eb;
 		text-decoration: underline;
 	}
-	.article-content a:hover {
+	.article-content a:not(.link-external):not(.link-course):hover {
 		color: #1d4ed8;
 	}
 	.section-label {
@@ -880,8 +903,14 @@ const authorInitials =
 		color: #064e3b;
 		line-height: 1.65;
 	}
-	.pro-tip a {
+	.pro-tip a:not(.link-course) {
 		color: #059669;
+	}
+	.pro-tip a.link-course {
+		color: inherit;
+	}
+	.pro-tip a.link-course:hover {
+		color: #2563eb;
 	}
 	.warning-box {
 		background: #fffbeb;
