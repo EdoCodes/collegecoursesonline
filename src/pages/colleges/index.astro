@@ -1,0 +1,154 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import { resourcesBlogPosts } from '../../data/resourcesBlogPosts';
+
+const uopPost = resourcesBlogPosts.find(
+	(p) => p.slug === 'university-of-the-people-tuition-free-degrees',
+);
+---
+
+<Layout
+	title="Colleges & University Guides | Online College Courses"
+	description="Explore accredited colleges and in-depth guides to tuition-free online schools, transfer credit, and how to choose a program."
+	canonical="/colleges"
+>
+	<div class="page-header">
+		<div class="container">
+			<nav class="breadcrumb" aria-label="Breadcrumb">
+				<a href="/">Home</a>
+				<span>›</span>
+				<span>Colleges</span>
+			</nav>
+			<h1>Colleges &amp; university guides</h1>
+			<p class="subtitle">
+				Deep dives on institutions and how they fit your goals—plus links to course listings across the site.
+			</p>
+		</div>
+	</div>
+
+	<main class="main-content">
+		<div class="container">
+			<h2 class="section-title">Featured college guide</h2>
+			<p class="section-lead">
+				Same card layout as our Resources blog and homepage education articles—optimized for scanning programs,
+				transfer rules, and costs.
+			</p>
+			<div class="posts-grid">
+				{
+					uopPost && (
+						<BlogCard
+							slug={uopPost.slug}
+							title={uopPost.title}
+							excerpt={uopPost.excerpt}
+							label={uopPost.label}
+							date={uopPost.date}
+							readingTime={uopPost.readingTime}
+							image={uopPost.image}
+							tags={uopPost.tags}
+						/>
+					)
+				}
+			</div>
+			<p class="more-link">
+				<a href="/resources/blog">All education guides &amp; blog posts →</a>
+			</p>
+			<p class="more-link secondary">
+				<a href="/courses">Browse all online courses →</a>
+			</p>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.page-header {
+		background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #0284c7 100%);
+		color: white;
+		padding: 3rem 0 2.5rem;
+	}
+
+	.breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		color: rgba(255, 255, 255, 0.65);
+		margin-bottom: 1.25rem;
+		flex-wrap: wrap;
+	}
+	.breadcrumb a {
+		color: rgba(255, 255, 255, 0.65);
+		text-decoration: none;
+	}
+	.breadcrumb a:hover {
+		color: white;
+	}
+
+	.page-header h1 {
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		margin-bottom: 0.625rem;
+	}
+
+	.subtitle {
+		font-size: 1.0625rem;
+		color: rgba(255, 255, 255, 0.82);
+		margin: 0;
+		max-width: 640px;
+		line-height: 1.55;
+	}
+
+	.main-content {
+		padding: 3rem 0 5rem;
+		background: #f8fafc;
+	}
+
+	.section-title {
+		font-size: 1.375rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin-bottom: 0.5rem;
+	}
+
+	.section-lead {
+		font-size: 0.9375rem;
+		color: #64748b;
+		margin: 0 0 1.75rem;
+		max-width: 52rem;
+		line-height: 1.6;
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.5rem;
+		max-width: 400px;
+	}
+
+	.more-link {
+		margin-top: 2rem;
+		font-size: 0.9375rem;
+		font-weight: 600;
+	}
+	.more-link a {
+		color: #2563eb;
+		text-decoration: none;
+	}
+	.more-link a:hover {
+		text-decoration: underline;
+	}
+	.more-link.secondary {
+		margin-top: 0.75rem;
+	}
+	.more-link.secondary a {
+		color: #475569;
+		font-weight: 500;
+	}
+</style>

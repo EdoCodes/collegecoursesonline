@@ -23,6 +23,25 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'university-of-the-people-tuition-free-degrees',
+    title:
+      'University of the People: Tuition-Free Accredited Online Degrees, Programs, Transfer Credits, and FAQs',
+    excerpt:
+      'What UoPeople offers: tuition-free online degrees, accreditation, fees, transfer credit rules, who it fits—and what to verify before you enroll.',
+    label: 'Colleges',
+    date: 'Apr 15, 2026',
+    readingTime: '16 min read',
+    image:
+      'https://images.pexels.com/photos/4057650/pexels-photo-4057650.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: [
+      'University of the People',
+      'Tuition-free',
+      'Online degrees',
+      'Transfer credits',
+      '2026',
+    ],
+  },
+  {
     slug: 'student-integrity-online-proctored-exams',
     title:
       'Student Integrity in Online Proctored College Exams: Why It Matters More Than Ever',

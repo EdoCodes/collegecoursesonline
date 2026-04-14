@@ -1,0 +1,205 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('blog', 'university-of-the-people-tuition-free-degrees');
+if (!entry) {
+	throw new Error('Blog entry university-of-the-people-tuition-free-degrees not found');
+}
+
+const { Content } = await entry.render();
+const { title, description, pubDate, author, tags, image } = entry.data;
+
+const categoryLabel = entry.data.categoryLabel ?? 'Colleges';
+const authorTitle = entry.data.authorTitle ?? 'Contributor';
+const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
+const readTimeFromFrontmatter = entry.data.readTime;
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const slugPath = '/resources/blog/university-of-the-people-tuition-free-degrees';
+const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
+
+const publishDate = pubDate.toISOString().slice(0, 10);
+const updatedDate =
+	entry.data.updatedDate != null
+		? entry.data.updatedDate.toISOString().slice(0, 10)
+		: publishDate;
+
+const wordCount = entry.body.trim().split(/\s+/).filter(Boolean).length;
+const readingTime =
+	readTimeFromFrontmatter ?? `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
+
+const ogImageUrl =
+	typeof image === 'string' && image.startsWith('http')
+		? image
+		: image
+			? new URL(image, `${site}/`).href
+			: `${site}/og-image.jpg`;
+
+const ogImageForLayout =
+	typeof image === 'string' && image.startsWith('http') ? image : image ?? '/og-image.jpg';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	image: [ogImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: {
+		'@type': 'Person',
+		name: author,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+};
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: [
+		{
+			'@type': 'Question',
+			name: 'Is University of the People really tuition-free?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. UoPeople says it does not charge tuition, course material fees, or annual enrollment fees, though students still pay minimal fees such as application and assessment costs. Confirm current fees on UoPeople’s official website.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is UoPeople accredited?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UoPeople states that it is accredited and describes its programs as American-accredited. Confirm the exact accreditor and program status on UoPeople’s official site before enrolling.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'What degrees does UoPeople offer?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'It offers associate, bachelor’s, and master’s programs across fields such as Business Administration, Computer Science, Health Science, Information Technology, and Education. Verify the current catalog for availability.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Does UoPeople accept transfer credits?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. UoPeople may accept transfer credits from accredited U.S. and non-U.S. institutions, subject to course-by-course review and eligibility rules described in its transfer credit policy.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'How many transfer credits can I bring in?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'The exact amount depends on the courses and how closely they match UoPeople’s curriculum. UoPeople reviews transfer requests individually.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'How much does transfer credit cost at UoPeople?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UoPeople publishes per-course transfer fees on its official transfer page; amounts can change, so confirm the current fee before budgeting.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Can I transfer UoPeople credits to another school?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Maybe, but it depends entirely on the receiving institution. UoPeople explicitly says transferability is at the discretion of the school you want to transfer to.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is UoPeople good for working adults?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Its fully online, tuition-free model is built for flexibility, which can help working adults and caregivers. Compare support services and pacing with other accredited programs you consider.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is UoPeople a real college degree?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UoPeople presents itself as an accredited university offering degree programs; employers and other schools may still evaluate credentials on their own terms.',
+			},
+		},
+	],
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${site}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Blog', item: `${site}/resources/blog/` },
+		{ '@type': 'ListItem', position: 4, name: breadcrumbTitle, item: pageUrl },
+	],
+};
+
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#summary', label: 'Quick Summary' },
+	{ href: '#in-this-guide', label: 'In this guide' },
+	{ href: '#what-university-of-the-people-is', label: 'What UoPeople is' },
+	{ href: '#why-it-stands-out', label: 'Why it stands out' },
+	{ href: '#accreditation-and-recognition', label: 'Accreditation' },
+	{ href: '#tuition-free-model-explained', label: 'Tuition-free model' },
+	{ href: '#academic-programs', label: 'Programs' },
+	{ href: '#how-the-academic-structure-works', label: 'How learning works' },
+	{ href: '#costs-beyond-tuition', label: 'Costs beyond tuition' },
+	{ href: '#does-uopeople-accept-transfer-credits', label: 'Transfer in' },
+	{ href: '#how-transfer-credit-evaluation-works', label: 'Transfer evaluation' },
+	{ href: '#will-other-schools-accept-uopeople-credits', label: 'Transfer out' },
+	{ href: '#who-uopeople-is-best-for', label: 'Who it fits' },
+	{ href: '#potential-limitations', label: 'Limitations' },
+	{ href: '#frequently-asked-questions', label: 'FAQ' },
+	{ href: '#people-also-ask', label: 'People Also Ask' },
+	{ href: '#sources', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slugPath}
+	image={ogImageForLayout}
+	categoryLabel={categoryLabel}
+	breadcrumbTitle={breadcrumbTitle}
+	author={author}
+	authorTitle={authorTitle}
+	readingTime={readingTime}
+	updatedDate={updatedDate}
+	tags={tags}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'More college guides & rankings',
+		href: '/resources/blog/best-online-colleges-2026',
+		buttonLabel: 'Best online colleges 2026 →',
+	}}
+>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+	<Content />
+</ResourcesGuideLayout>

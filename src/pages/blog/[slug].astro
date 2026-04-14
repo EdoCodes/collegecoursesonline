@@ -4,13 +4,13 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
+  const resourcesOnlySlugs = new Set([
+    'prerequisite-courses-for-nursing-school',
+    'student-integrity-online-proctored-exams',
+    'university-of-the-people-tuition-free-degrees',
+  ]);
   return posts
-    .filter(
-      (post) =>
-        !post.data.draft &&
-        post.slug !== 'prerequisite-courses-for-nursing-school' &&
-        post.slug !== 'student-integrity-online-proctored-exams',
-    )
+    .filter((post) => !post.data.draft && !resourcesOnlySlugs.has(post.slug))
     .map((post) => ({
       params: { slug: post.slug },
       props: { post },
