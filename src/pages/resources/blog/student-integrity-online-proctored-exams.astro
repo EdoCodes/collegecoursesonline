@@ -1,0 +1,180 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('blog', 'student-integrity-online-proctored-exams');
+if (!entry) {
+	throw new Error('Blog entry student-integrity-online-proctored-exams not found');
+}
+
+const { Content } = await entry.render();
+const { title, description, pubDate, author, tags, image } = entry.data;
+
+const categoryLabel = entry.data.categoryLabel ?? 'Resources';
+const authorTitle = entry.data.authorTitle ?? 'Contributor';
+const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
+const readTimeFromFrontmatter = entry.data.readTime;
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const slugPath = '/resources/blog/student-integrity-online-proctored-exams';
+const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
+
+const publishDate = pubDate.toISOString().slice(0, 10);
+const updatedDate =
+	entry.data.updatedDate != null
+		? entry.data.updatedDate.toISOString().slice(0, 10)
+		: publishDate;
+
+const wordCount = entry.body.trim().split(/\s+/).filter(Boolean).length;
+const readingTime =
+	readTimeFromFrontmatter ?? `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
+
+const ogImageUrl =
+	typeof image === 'string' && image.startsWith('http')
+		? image
+		: image
+			? new URL(image, `${site}/`).href
+			: `${site}/og-image.jpg`;
+
+const ogImageForLayout =
+	typeof image === 'string' && image.startsWith('http') ? image : image ?? '/og-image.jpg';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	image: [ogImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: {
+		'@type': 'Person',
+		name: author,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+};
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: [
+		{
+			'@type': 'Question',
+			name: 'What is academic integrity in online exams?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Academic integrity means completing exams honestly and independently, without cheating, impersonation, or unauthorized help. Colleges rely on proctoring and policies to protect the meaning of grades and transfer credit.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Why are online proctored exams used so often now?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'They allow colleges to test students remotely while still verifying identity and reducing cheating risk compared with fully unmonitored online tests.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Do online proctored exams actually prevent cheating?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'They can reduce cheating and discourage misconduct, but research shows cheating still occurs and no system stops every dishonest attempt.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Are cheating services for proctored exams common?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. There is an active market of services advertising exam-taking help, which is one reason institutions invest in monitoring, authentication, and clear integrity policies.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Can a college revoke credit after a proctored exam?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. If a school finds an integrity violation, it may deny credit, invalidate an attempt, or restrict transfer eligibility under its policies.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Are online proctored exams fair?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'They can be fair when schools are transparent, provide accommodations, protect privacy, and offer due process—including meaningful appeals when misconduct is alleged.',
+			},
+		},
+	],
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${site}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Blog', item: `${site}/resources/blog/` },
+		{ '@type': 'ListItem', position: 4, name: breadcrumbTitle, item: pageUrl },
+	],
+};
+
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#summary', label: 'Quick Summary' },
+	{ href: '#in-this-guide', label: 'In this guide' },
+	{ href: '#what-student-integrity-means', label: 'What integrity means' },
+	{ href: '#why-online-proctored-exams-keep-growing', label: 'Why proctoring grows' },
+	{ href: '#why-integrity-is-essential', label: 'Why integrity matters' },
+	{ href: '#what-the-research-says', label: 'What research says' },
+	{ href: '#the-cheating-economy-around-proctored-exams', label: 'Cheating economy' },
+	{ href: '#the-ethics-problem', label: 'Ethics of proctoring' },
+	{ href: '#why-institutions-enforce-strict-rules', label: 'Institutional rules' },
+	{ href: '#what-students-should-understand', label: 'For students' },
+	{ href: '#a-practical-example', label: 'Example' },
+	{ href: '#best-practices-for-schools', label: 'Best practices' },
+	{ href: '#frequently-asked-questions', label: 'FAQ' },
+	{ href: '#people-also-ask', label: 'People Also Ask' },
+	{ href: '#final-thoughts', label: 'Final thoughts' },
+	{ href: '#sources', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slugPath}
+	image={ogImageForLayout}
+	categoryLabel={categoryLabel}
+	breadcrumbTitle={breadcrumbTitle}
+	author={author}
+	authorTitle={authorTitle}
+	readingTime={readingTime}
+	updatedDate={updatedDate}
+	tags={tags}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'Browse education & learning-skills topics',
+		href: '/categories/education',
+		buttonLabel: 'Explore education courses →',
+	}}
+>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+	<Content />
+</ResourcesGuideLayout>

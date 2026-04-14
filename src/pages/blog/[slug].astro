@@ -7,7 +7,9 @@ export async function getStaticPaths() {
   return posts
     .filter(
       (post) =>
-        !post.data.draft && post.slug !== 'prerequisite-courses-for-nursing-school',
+        !post.data.draft &&
+        post.slug !== 'prerequisite-courses-for-nursing-school' &&
+        post.slug !== 'student-integrity-online-proctored-exams',
     )
     .map((post) => ({
       params: { slug: post.slug },

@@ -23,6 +23,25 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'student-integrity-online-proctored-exams',
+    title:
+      'Student Integrity in Online Proctored College Exams: Why It Matters More Than Ever',
+    excerpt:
+      'Why academic integrity matters for online proctored exams: research on cheating rates, how colleges enforce rules, ethics of monitoring, and what students should know before test day.',
+    label: 'Academic integrity',
+    date: 'Apr 14, 2026',
+    readingTime: '14 min read',
+    image:
+      'https://images.pexels.com/photos/7092613/pexels-photo-7092613.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: [
+      'Online proctoring',
+      'Academic integrity',
+      'Online exams',
+      'Higher education',
+      '2026',
+    ],
+  },
+  {
     slug: 'prerequisite-courses-for-nursing-school',
     title:
       'Prerequisite Courses for Nursing School: Complete 2026 Guide for Future Nurses',
