@@ -33,11 +33,9 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     label: 'Colleges',
     date: 'Apr 15, 2026',
     readingTime: '16 min read',
-    image: '/images/cards/schools/university-of-the-people-logo.png',
+    image: '/images/cards/schools/university-of-the-people-card.png',
     imageAlt:
-      'Official University of the People logo: shield with world map and UoPeople banner beside UNIVERSITY OF THE PEOPLE wordmark.',
-    imageObjectFit: 'contain',
-    imageContainVariant: 'white',
+      'University of the People branding: white shield logo and wordmark on a deep purple gradient banner.',
     tags: [
       'University of the People',
       'Tuition-free',
