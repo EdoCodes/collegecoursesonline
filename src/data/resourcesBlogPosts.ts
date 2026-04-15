@@ -16,6 +16,8 @@ export type ResourcesBlogPost = {
   imageContainVariant?: 'blue' | 'white';
   /** If set, cards link here (e.g. MDX article at `/blog/...`). Otherwise `/resources/blog/{slug}`. */
   hrefOverride?: string;
+  /** When true, hide from `/resources/blog` grid (e.g. college guides hosted under `/colleges/*`). */
+  omitFromResourcesBlogIndex?: boolean;
 };
 
 /** Resolved URL for a Resources blog card or homepage link. */
@@ -43,6 +45,8 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
       'Transfer credits',
       '2026',
     ],
+    hrefOverride: '/colleges/university-of-the-people-tuition-free-degrees',
+    omitFromResourcesBlogIndex: true,
   },
   {
     slug: 'student-integrity-online-proctored-exams',

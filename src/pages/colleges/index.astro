@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
-import { resourcesBlogPosts } from '../../data/resourcesBlogPosts';
+import { getResourcesBlogPostHref, resourcesBlogPosts } from '../../data/resourcesBlogPosts';
 
 const uopPost = resourcesBlogPosts.find(
 	(p) => p.slug === 'university-of-the-people-tuition-free-degrees',
@@ -39,6 +39,7 @@ const uopPost = resourcesBlogPosts.find(
 					uopPost && (
 						<BlogCard
 							slug={uopPost.slug}
+							href={getResourcesBlogPostHref(uopPost)}
 							title={uopPost.title}
 							excerpt={uopPost.excerpt}
 							label={uopPost.label}

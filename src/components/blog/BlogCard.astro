@@ -10,6 +10,8 @@ interface Props {
   imageAlt?: string;
   imageObjectFit?: 'contain';
   imageContainVariant?: 'blue' | 'white';
+  /** Full path when different from `/resources/blog/{slug}` (e.g. college guides). */
+  href?: string;
   tags?: string[];
 }
 
@@ -24,10 +26,11 @@ const {
   imageAlt,
   imageObjectFit,
   imageContainVariant,
+  href: hrefProp,
   tags = [],
 } = Astro.props;
 const imgAlt = imageAlt ?? title;
-const href = `/resources/blog/${slug}`;
+const href = hrefProp ?? `/resources/blog/${slug}`;
 ---
 
 <a href={href} class="card">

@@ -1,9 +1,11 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import {
-  resourcesBlogPosts as posts,
+  resourcesBlogPosts,
   getResourcesBlogPostHref,
 } from '../../../data/resourcesBlogPosts';
+
+const posts = resourcesBlogPosts.filter((p) => !p.omitFromResourcesBlogIndex);
 ---
 
 <Layout

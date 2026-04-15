@@ -17,6 +17,12 @@ export interface ResourcesGuideSidebarCta {
 	buttonLabel: string;
 }
 
+/** Middle segments between Home and the page title. Default: Resources → Blog. */
+export interface ResourcesGuideBreadcrumbSegment {
+	label: string;
+	href: string;
+}
+
 interface Props {
 	title: string;
 	description: string;
@@ -26,6 +32,11 @@ interface Props {
 	layoutTitle?: string;
 	categoryLabel?: string;
 	breadcrumbTitle: string;
+	/**
+	 * Breadcrumb after Home. Defaults to Resources → Blog for `/resources/blog/*` guides.
+	 * Use `[{ label: 'Colleges', href: '/colleges' }]` for college-only guides under `/colleges/*`.
+	 */
+	breadcrumbTrail?: ResourcesGuideBreadcrumbSegment[];
 	author: string;
 	authorTitle?: string;
 	readingTime: string;
@@ -35,6 +46,11 @@ interface Props {
 	sidebarCta?: ResourcesGuideSidebarCta;
 }
 
+const defaultBreadcrumbTrail: ResourcesGuideBreadcrumbSegment[] = [
+	{ label: 'Resources', href: '/resources' },
+	{ label: 'Blog', href: '/resources/blog' },
+];
+
 const {
 	title,
 	description,
@@ -43,6 +59,7 @@ const {
 	layoutTitle = `${title} | Online College Courses`,
 	categoryLabel = 'Guide',
 	breadcrumbTitle,
+	breadcrumbTrail = defaultBreadcrumbTrail,
 	author,
 	authorTitle = 'Editorial',
 	readingTime,
@@ -66,10 +83,12 @@ const authorInitials =
 		<div class="container">
 			<nav class="breadcrumb" aria-label="Breadcrumb">
 				<a href="/">Home</a>
-				<span>›</span>
-				<a href="/resources">Resources</a>
-				<span>›</span>
-				<a href="/resources/blog">Blog</a>
+				{breadcrumbTrail.map((segment) => (
+					<>
+						<span>›</span>
+						<a href={segment.href}>{segment.label}</a>
+					</>
+				))}
 				<span>›</span>
 				<span>{breadcrumbTitle}</span>
 			</nav>

@@ -75,6 +75,17 @@
   to = "/resources/blog/fafsa-financial-aid-online-college-degrees/"
   status = 301
 
+# UoPeople guide lives under Colleges, not Resources › Blog
+[[redirects]]
+  from = "/resources/blog/university-of-the-people-tuition-free-degrees"
+  to = "/colleges/university-of-the-people-tuition-free-degrees/"
+  status = 301
+
+[[redirects]]
+  from = "/resources/blog/university-of-the-people-tuition-free-degrees/"
+  to = "/colleges/university-of-the-people-tuition-free-degrees/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"
