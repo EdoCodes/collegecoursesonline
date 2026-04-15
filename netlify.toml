@@ -64,6 +64,17 @@
   to = "/resources/blog/study-com-vs-sophia-vs-straighterline/"
   status = 301
 
+# Removed blog post — send to related Resources guide
+[[redirects]]
+  from = "/blog/financial-aid-scholarships-online-learning"
+  to = "/resources/blog/fafsa-financial-aid-online-college-degrees/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/financial-aid-scholarships-online-learning/"
+  to = "/resources/blog/fafsa-financial-aid-online-college-degrees/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"
