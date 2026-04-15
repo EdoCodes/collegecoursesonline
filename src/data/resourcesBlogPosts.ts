@@ -10,6 +10,8 @@ export type ResourcesBlogPost = {
   readingTime: string;
   image: string;
   tags: string[];
+  /** Optional; defaults to `title`. Use for logos or when `title` is too long for `alt`. */
+  imageAlt?: string;
   imageObjectFit?: 'contain';
   imageContainVariant?: 'blue' | 'white';
   /** If set, cards link here (e.g. MDX article at `/blog/...`). Otherwise `/resources/blog/{slug}`. */
@@ -31,8 +33,11 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     label: 'Colleges',
     date: 'Apr 15, 2026',
     readingTime: '16 min read',
-    image:
-      'https://images.pexels.com/photos/4057650/pexels-photo-4057650.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/cards/schools/university-of-the-people-logo.png',
+    imageAlt:
+      'Official University of the People logo: shield with world map and UoPeople banner beside UNIVERSITY OF THE PEOPLE wordmark.',
+    imageObjectFit: 'contain',
+    imageContainVariant: 'white',
     tags: [
       'University of the People',
       'Tuition-free',

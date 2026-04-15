@@ -7,16 +7,39 @@ interface Props {
   date?: string;
   readingTime?: string;
   image: string;
+  imageAlt?: string;
+  imageObjectFit?: 'contain';
+  imageContainVariant?: 'blue' | 'white';
   tags?: string[];
 }
 
-const { slug, title, excerpt, label, date, readingTime, image, tags = [] } = Astro.props;
+const {
+  slug,
+  title,
+  excerpt,
+  label,
+  date,
+  readingTime,
+  image,
+  imageAlt,
+  imageObjectFit,
+  imageContainVariant,
+  tags = [],
+} = Astro.props;
+const imgAlt = imageAlt ?? title;
 const href = `/resources/blog/${slug}`;
 ---
 
 <a href={href} class="card">
-  <div class="card-image">
-    <img src={image} alt={title} loading="lazy" />
+  <div
+    class:list={[
+      'card-image',
+      imageObjectFit === 'contain' && 'card-image--contain',
+      imageObjectFit === 'contain' && imageContainVariant === 'blue' && 'card-image--contain-blue',
+      imageObjectFit === 'contain' && imageContainVariant === 'white' && 'card-image--contain-white',
+    ]}
+  >
+    <img src={image} alt={imgAlt} loading="lazy" decoding="async" />
   </div>
   <div class="card-body">
     {label && <span class="card-label">{label}</span>}
@@ -75,6 +98,27 @@ const href = `/resources/blog/${slug}`;
     transition: transform 0.4s ease;
   }
   .card:hover .card-image img { transform: scale(1.05); }
+
+  /* Logos / sharp graphics: contain, no hover zoom */
+  .card-image--contain {
+    background: #faf9f7;
+    padding: 1rem 1.25rem;
+  }
+  .card-image--contain.card-image--contain-blue {
+    background: #eff6ff;
+  }
+  .card-image--contain.card-image--contain-white {
+    background: #ffffff;
+  }
+  .card-image--contain img {
+    object-fit: contain;
+    object-position: center;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  .card:hover .card-image--contain img {
+    transform: translateZ(0);
+  }
   .card-body {
     padding: 1.5rem 1.5rem 1.75rem;
     display: flex;

@@ -35,7 +35,12 @@ import {
                 (post as { imageContainVariant?: string }).imageContainVariant === 'blue' && 'card-image--contain-blue',
                 (post as { imageContainVariant?: string }).imageContainVariant === 'white' && 'card-image--contain-white',
               ]}>
-              <img src={post.image} alt={post.title} loading="lazy" decoding="async" />
+              <img
+                src={post.image}
+                alt={post.imageAlt ?? post.title}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div class="card-body">
               <span class="card-label">{post.label}</span>
