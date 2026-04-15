@@ -2,6 +2,12 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const currentPath = Astro.url.pathname;
+const pathNorm = currentPath.replace(/\/$/, '') || '/';
+const resourcesHubActive = pathNorm === '/resources';
+const blogSubActive = pathNorm === '/blog' || pathNorm.startsWith('/blog/');
+const guidesSubActive =
+	pathNorm.startsWith('/resources/guides') ||
+	pathNorm.startsWith('/resources/blog');
 
 // Fetch categories + subcategories for mega-menu
 let menuCategories: { slug: string; name: string; subcategories: { name: string; slug: string; count: number }[] }[] = [];
@@ -61,7 +67,6 @@ if (isSupabaseConfigured && supabase) {
       <!-- Desktop Navigation -->
       <ul class="nav-links">
         <li><a href="/" class={`nav-link${currentPath === '/' ? ' active' : ''}`}>Home</a></li>
-        <li><a href="/blog" class={`nav-link${currentPath.startsWith('/blog') ? ' active' : ''}`}>News</a></li>
         <li><a href="/colleges" class={`nav-link${currentPath.startsWith('/colleges') ? ' active' : ''}`}>Colleges</a></li>
         <li class="nav-item-mega">
           <a href="/courses" class={`nav-link${currentPath.startsWith('/courses') ? ' active' : ''}`}>
@@ -109,18 +114,29 @@ if (isSupabaseConfigured && supabase) {
           </div>
         </li>
         <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
-        <li class="nav-item-dropdown">
-          <a href="/resources" class={`nav-link${currentPath.startsWith('/resources') ? ' active' : ''}`}>
-            Resources
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline-block;margin-left:3px;vertical-align:middle;">
-              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <div class="nav-dropdown">
-            <a href="/resources/blog" class="dropdown-link">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              Blog
+        <li class="nav-item-resources">
+          <div class="nav-resources-desktop">
+            <a
+              href="/resources"
+              class={`nav-link${resourcesHubActive ? ' active' : ''}`}
+            >
+              Resources
             </a>
+            <div class="nav-resource-subs" role="group" aria-label="Resources: Blog and Guides">
+              <a
+                href="/blog"
+                class={`nav-resource-sub${blogSubActive ? ' active' : ''}`}
+              >
+                Blog
+              </a>
+              <span class="nav-resource-sep" aria-hidden="true">·</span>
+              <a
+                href="/resources/guides"
+                class={`nav-resource-sub${guidesSubActive ? ' active' : ''}`}
+              >
+                Guides
+              </a>
+            </div>
           </div>
         </li>
       </ul>
@@ -146,11 +162,35 @@ if (isSupabaseConfigured && supabase) {
     <div class="mobile-menu" id="mobileMenu">
       <ul class="mobile-nav-links">
         <li><a href="/" class="mobile-nav-link">Home</a></li>
-        <li><a href="/blog" class="mobile-nav-link">News</a></li>
         <li><a href="/colleges" class="mobile-nav-link">Colleges</a></li>
         <li><a href="/courses" class="mobile-nav-link">Courses</a></li>
         <li><a href="/categories/certificate-programs" class="mobile-nav-link">Certificate Programs</a></li>
-        <li><a href="/resources" class="mobile-nav-link">Resources</a></li>
+        <li>
+          <a
+            href="/resources"
+            class={`mobile-nav-link${resourcesHubActive ? ' active' : ''}`}
+          >
+            Resources
+          </a>
+          <ul class="mobile-nav-sub">
+            <li>
+              <a
+                href="/blog"
+                class={`mobile-nav-link mobile-nav-sublink${blogSubActive ? ' active' : ''}`}
+              >
+                Blog
+              </a>
+            </li>
+            <li>
+              <a
+                href="/resources/guides"
+                class={`mobile-nav-link mobile-nav-sublink${guidesSubActive ? ' active' : ''}`}
+              >
+                Guides
+              </a>
+            </li>
+          </ul>
+        </li>
       </ul>
       <a href="/submit-course" class="mobile-cta-button">Submit a Course</a>
     </div>
@@ -258,52 +298,51 @@ if (isSupabaseConfigured && supabase) {
     border-bottom-color: var(--color-primary);
   }
 
-  /* ── Dropdown ── */
-  .nav-item-dropdown {
+  /* ── Resources + Blog + Guides (always visible on desktop — no hover-only menu) ── */
+  .nav-item-resources {
     position: relative;
   }
 
-  .nav-dropdown {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-    min-width: 160px;
-    padding: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
-    transform: translateX(-50%) translateY(-4px);
-    z-index: 200;
+  .nav-resources-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: calc(var(--spacing) * 1) calc(var(--spacing) * 0.5);
   }
 
-  .nav-item-dropdown:hover .nav-dropdown,
-  .nav-item-dropdown:focus-within .nav-dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .dropdown-link {
+  .nav-resource-subs {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 0.875rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #334155;
-    text-decoration: none;
-    border-radius: 7px;
-    transition: background 0.15s, color 0.15s;
-    white-space: nowrap;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .dropdown-link:hover {
+  .nav-resource-sep {
+    color: #cbd5e1;
+    font-size: 0.75rem;
+    user-select: none;
+  }
+
+  .nav-resource-sub {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #64748b;
+    text-decoration: none;
+    padding: 0.15rem 0.2rem;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .nav-resource-sub:hover {
+    color: #1e40af;
     background: #f1f5f9;
+  }
+
+  .nav-resource-sub.active {
     color: #1e40af;
   }
 
@@ -373,6 +412,26 @@ if (isSupabaseConfigured && supabase) {
   .mobile-nav-link:hover {
     background: var(--neutral-100);
     color: var(--color-primary);
+  }
+
+  .mobile-nav-sub {
+    list-style: none;
+    margin: 0 0 0 0.5rem;
+    padding: 0 0 0 0.75rem;
+    border-left: 2px solid var(--neutral-200);
+  }
+
+  .mobile-nav-sublink {
+    font-size: 0.9375rem;
+    color: var(--neutral-600);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .mobile-nav-link.active,
+  .mobile-nav-sublink.active {
+    color: var(--color-primary);
+    font-weight: 600;
   }
 
   .mobile-cta-button {

@@ -92,11 +92,15 @@ const websiteSchema = {
 
 		<!-- WebSite Schema.org -->
 		<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+		<!-- Page-specific head (JSON-LD, extra meta) -->
+		<slot name="head" />
 	</head>
 	<body>
 		<Header />
 		<slot />
 		<Footer />
+		<slot name="scripts" />
 	</body>
 </html>
 

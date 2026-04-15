@@ -53,6 +53,30 @@ const faqSchema = {
         "@type": "Answer",
         "text": "Yes. Online students at accredited institutions qualify for the same federal financial aid as on-campus students, including Pell Grants, Federal Direct Loans, and Federal Work-Study. Complete the FAFSA at studentaid.gov to determine your eligibility."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does in-state versus out-of-state tuition still matter for online programs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many public universities still charge different rates for residents and non-residents, even for 100% online degrees. That gap can add thousands per year, so your effective cost depends on residency rules, reciprocity agreements, and whether the school offers a flat online rate. Always confirm the tuition band that applies to you before comparing schools."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are college rankings the same thing as accreditation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Accreditation is an official quality review tied to federal financial aid and credit transfer. Rankings (including ours) combine multiple factors such as cost, outcomes, and program breadth—they are editorial judgments, not government endorsements. A school can be well accredited but a poor fit for your major, schedule, or budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I use an online college ranking responsibly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Treat any ranking as a starting list, not a final decision. Cross-check accreditation in the U.S. Department of Education database, verify current tuition and fees on the school's site, and confirm that your specific program has the right programmatic accreditation if your field requires it (for example, nursing or education). Revisit costs and policies each year because they change."
+      }
     }
   ]
 };
@@ -74,7 +98,7 @@ const breadcrumbSchema = {
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yoursite.com/" },
     { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://yoursite.com/resources" },
-    { "@type": "ListItem", "position": 3, "name": "Blog", "item": "https://yoursite.com/resources/blog" },
+    { "@type": "ListItem", "position": 3, "name": "Guides", "item": "https://yoursite.com/resources/guides" },
     { "@type": "ListItem", "position": 4, "name": title }
   ]
 };
@@ -86,6 +110,7 @@ const tocItems = [
   { id: "costs", label: "Understanding Costs" },
   { id: "accreditation", label: "Accreditation Guide" },
   { id: "financial-aid", label: "Financial Aid Options" },
+  { id: "paa", label: "People Also Ask" },
   { id: "faq", label: "Frequently Asked Questions" },
 ];
 ---
@@ -96,7 +121,7 @@ const tocItems = [
   breadcrumbItems={[
     { label: "Home", href: "/" },
     { label: "Resources", href: "/resources" },
-    { label: "Blog", href: "/resources/blog" },
+    { label: "Guides", href: "/resources/guides" },
     { label: "Best Online Colleges 2026" },
   ]}
   heroLabel="Rankings"
@@ -414,6 +439,29 @@ const tocItems = [
     </ul>
 
     <p>Complete the FAFSA at <a href="https://studentaid.gov" target="_blank" rel="noopener">studentaid.gov</a> to determine your eligibility. The FAFSA opens October 1 each year for the following academic year.</p>
+
+    <h2 id="paa">People Also Ask</h2>
+
+    <details>
+      <summary>Why does in-state versus out-of-state tuition still matter for online programs?</summary>
+      <p>
+        Many public universities still charge different rates for residents and non-residents, even for 100% online degrees. That gap can add thousands per year, so your effective cost depends on residency rules, reciprocity agreements, and whether the school offers a flat online rate. Always confirm the tuition band that applies to you before comparing schools.
+      </p>
+    </details>
+
+    <details>
+      <summary>Are college rankings the same thing as accreditation?</summary>
+      <p>
+        No. Accreditation is an official quality review tied to federal financial aid and credit transfer. Rankings (including ours) combine multiple factors such as cost, outcomes, and program breadth—they are editorial judgments, not government endorsements. A school can be well accredited but a poor fit for your major, schedule, or budget.
+      </p>
+    </details>
+
+    <details>
+      <summary>How should I use an online college ranking responsibly?</summary>
+      <p>
+        Treat any ranking as a starting list, not a final decision. Cross-check accreditation in the <a href="https://ope.ed.gov/dapip/" target="_blank" rel="noopener">U.S. Department of Education database</a>, verify current tuition and fees on the school's site, and confirm that your specific program has the right programmatic accreditation if your field requires it (for example, nursing or education). Revisit costs and policies each year because they change.
+      </p>
+    </details>
 
     <h2 id="faq">Frequently Asked Questions</h2>
 

@@ -1,5 +1,6 @@
 /**
- * Resources blog (/resources/blog/*) — single source for listing + homepage "Featured education articles".
+ * Resource guides: articles live at `/resources/blog/{slug}`; the index grid is `/resources/guides`.
+ * Single source for listing + homepage "Featured education articles".
  */
 export type ResourcesBlogPost = {
   slug: string;
@@ -16,9 +17,12 @@ export type ResourcesBlogPost = {
   imageContainVariant?: 'blue' | 'white';
   /** If set, cards link here (e.g. MDX article at `/blog/...`). Otherwise `/resources/blog/{slug}`. */
   hrefOverride?: string;
-  /** When true, hide from `/resources/blog` grid (e.g. college guides hosted under `/colleges/*`). */
+  /** When true, hide from `/resources/guides` grid (e.g. college guides hosted under `/colleges/*`). */
   omitFromResourcesBlogIndex?: boolean;
 };
+
+/** Canonical listing URL for all resource guides (card grid). */
+export const resourcesGuidesIndexPath = '/resources/guides';
 
 /** Resolved URL for a Resources blog card or homepage link. */
 export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {

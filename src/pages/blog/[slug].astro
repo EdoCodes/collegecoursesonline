@@ -521,6 +521,117 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200); // Approximate
     margin: calc(var(--spacing) * 6) 0;
   }
 
+  /* Callouts, school cards, tables (long-form guides) */
+  .article-content :global(.post-callout) {
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+    border-left: 4px solid var(--color-primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  }
+  .article-content :global(.post-callout strong) {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+  .article-content :global(.post-callout p) {
+    margin-bottom: 0.75rem;
+  }
+  .article-content :global(.post-callout p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .article-content :global(.school-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0 2rem;
+  }
+  .article-content :global(.school-card) {
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .article-content :global(.school-card:hover) {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+  }
+  .article-content :global(.school-card__link) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1rem 1.125rem;
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  .article-content :global(.school-card__link:hover .school-card__title) {
+    color: var(--color-primary);
+  }
+  .article-content :global(.school-card__title) {
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: var(--neutral-900);
+    line-height: 1.35;
+  }
+  .article-content :global(.school-card__sub) {
+    font-size: 0.8125rem;
+    color: var(--neutral-600);
+    line-height: 1.4;
+  }
+  .article-content :global(.school-card__cta) {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-top: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .article-content :global(.table-wrap) {
+    overflow-x: auto;
+    margin: 1.5rem 0 2rem;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    border: 1px solid var(--neutral-200);
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  }
+  .article-content :global(.table-wrap table) {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+  .article-content :global(.table-wrap th) {
+    background: var(--neutral-100);
+    text-align: left;
+    padding: 0.875rem 1rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    border-bottom: 2px solid var(--neutral-200);
+    white-space: nowrap;
+  }
+  .article-content :global(.table-wrap td) {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--neutral-200);
+    vertical-align: top;
+    color: var(--neutral-700);
+  }
+  .article-content :global(.table-wrap tr:last-child td) {
+    border-bottom: none;
+  }
+  .article-content :global(.table-wrap a) {
+    font-weight: 600;
+  }
+
   /* Article Footer */
   .article-footer {
     padding-top: calc(var(--spacing) * 6);

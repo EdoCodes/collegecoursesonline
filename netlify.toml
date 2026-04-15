@@ -86,6 +86,17 @@
   to = "/colleges/university-of-the-people-tuition-free-degrees/"
   status = 301
 
+# Guides listing moved from /resources/blog to /resources/guides
+[[redirects]]
+  from = "/resources/blog"
+  to = "/resources/guides"
+  status = 301
+
+[[redirects]]
+  from = "/resources/blog/"
+  to = "/resources/guides/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"

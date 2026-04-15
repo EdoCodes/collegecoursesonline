@@ -1,6 +1,6 @@
 ---
 /**
- * Resources Guide — long-form shell for `/resources/blog/*` (Campus-style):
+ * Resources Guide — long-form shell for `/resources/blog/*` guides (Campus-style):
  * gradient hero, numbered TOC, author card, optional sidebar CTA, shared MDX body styles.
  * Pass JSON-LD and extra `<head>` markup via `<Fragment slot="head">` or `slot="head"` on nodes.
  */
@@ -17,7 +17,7 @@ export interface ResourcesGuideSidebarCta {
 	buttonLabel: string;
 }
 
-/** Middle segments between Home and the page title. Default: Resources → Blog. */
+/** Middle segments between Home and the page title. Default: Resources → Guides. */
 export interface ResourcesGuideBreadcrumbSegment {
 	label: string;
 	href: string;
@@ -33,7 +33,7 @@ interface Props {
 	categoryLabel?: string;
 	breadcrumbTitle: string;
 	/**
-	 * Breadcrumb after Home. Defaults to Resources → Blog for `/resources/blog/*` guides.
+	 * Breadcrumb after Home. Defaults to Resources → Guides for `/resources/blog/*` articles.
 	 * Use `[{ label: 'Colleges', href: '/colleges' }]` for college-only guides under `/colleges/*`.
 	 */
 	breadcrumbTrail?: ResourcesGuideBreadcrumbSegment[];
@@ -48,7 +48,7 @@ interface Props {
 
 const defaultBreadcrumbTrail: ResourcesGuideBreadcrumbSegment[] = [
 	{ label: 'Resources', href: '/resources' },
-	{ label: 'Blog', href: '/resources/blog' },
+	{ label: 'Guides', href: '/resources/guides' },
 ];
 
 const {

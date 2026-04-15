@@ -26,15 +26,15 @@ import Layout from '../../layouts/Layout.astro';
         </div>
         <div class="categories-grid">
 
-          <a href="/resources/blog" class="category-card featured">
+          <a href="/resources/guides" class="category-card featured">
             <div class="category-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             </div>
             <div class="category-content">
-              <span class="category-badge">Guides & Articles</span>
-              <h3>College Guides Blog</h3>
+              <span class="category-badge">Guides</span>
+              <h3>College &amp; career guides</h3>
               <p>In-depth guides on choosing colleges, understanding accreditation, financial aid, and more. Written by education experts.</p>
-              <span class="category-cta">Browse guides →</span>
+              <span class="category-cta">Browse all guides →</span>
             </div>
           </a>
 
@@ -50,18 +50,6 @@ import Layout from '../../layouts/Layout.astro';
             </div>
           </a>
 
-          <a href="/blog" class="category-card">
-            <div class="category-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            </div>
-            <div class="category-content">
-              <span class="category-badge">Blog</span>
-              <h3>Online Learning Blog</h3>
-              <p>Tips, strategies, and insights for online students — from managing your time to landing your first job after graduation.</p>
-              <span class="category-cta">Read articles →</span>
-            </div>
-          </a>
-
           <a href="/submit-course" class="category-card">
             <div class="category-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
@@ -72,47 +60,6 @@ import Layout from '../../layouts/Layout.astro';
               <p>Are you an accredited institution? Submit your online courses and programs to be featured in our directory.</p>
               <span class="category-cta">Submit a course →</span>
             </div>
-          </a>
-
-        </div>
-      </section>
-
-      <!-- Popular Guides -->
-      <section class="section section-alt">
-        <div class="section-header">
-          <h2>Most Popular Guides</h2>
-          <p>The resources our readers find most useful when researching online education.</p>
-        </div>
-        <div class="guides-list">
-
-          <a href="/resources/blog/how-to-choose-right-online-college" class="guide-item">
-            <div class="guide-number">01</div>
-            <div class="guide-content">
-              <span class="guide-tag">College Selection</span>
-              <h3>How to Choose the Right Online College</h3>
-              <p>A complete 9-step framework covering accreditation, costs, support services, and red flags to avoid.</p>
-            </div>
-            <svg class="guide-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-
-          <a href="/resources/blog/best-online-colleges-2026" class="guide-item">
-            <div class="guide-number">02</div>
-            <div class="guide-content">
-              <span class="guide-tag">Rankings</span>
-              <h3>Best Online Colleges 2026</h3>
-              <p>Our ranked list of the top 20 accredited online colleges with tuition data, program details, and student outcomes.</p>
-            </div>
-            <svg class="guide-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-
-          <a href="/resources/blog/online-degree-vs-certificate" class="guide-item">
-            <div class="guide-number">03</div>
-            <div class="guide-content">
-              <span class="guide-tag">Degree Planning</span>
-              <h3>Online Degree vs Certificate: Which Is Right for You?</h3>
-              <p>A side-by-side comparison of degrees and certificates — cost, time, career outcomes, and when to choose each.</p>
-            </div>
-            <svg class="guide-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
 
         </div>
@@ -314,89 +261,6 @@ import Layout from '../../layouts/Layout.astro';
   .category-cta {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #1e40af;
-  }
-
-  /* ── Guides List ── */
-  .guides-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    background: #e2e8f0;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid #e2e8f0;
-  }
-
-  .guide-item {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: white;
-    padding: 1.5rem 1.75rem;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.15s;
-  }
-
-  .guide-item:hover {
-    background: #f8fafc;
-  }
-
-  .guide-number {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #e2e8f0;
-    letter-spacing: -0.03em;
-    flex-shrink: 0;
-    width: 2.5rem;
-  }
-
-  .guide-item:hover .guide-number {
-    color: #bfdbfe;
-  }
-
-  .guide-content {
-    flex: 1;
-  }
-
-  .guide-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #1e40af;
-    display: inline-block;
-    margin-bottom: 0.25rem;
-  }
-
-  .guide-content h3 {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.25rem;
-    line-height: 1.3;
-  }
-
-  .guide-item:hover .guide-content h3 {
-    color: #1e40af;
-  }
-
-  .guide-content p {
-    font-size: 0.875rem;
-    color: #64748b;
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  .guide-arrow {
-    color: #94a3b8;
-    flex-shrink: 0;
-    transition: transform 0.2s, color 0.2s;
-  }
-
-  .guide-item:hover .guide-arrow {
-    transform: translateX(4px);
     color: #1e40af;
   }
 

@@ -1,80 +1,26 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-
-/** Slugs rendered only under `/resources/blog` or `/colleges` — must match `blog/[slug].astro`. */
-const RESOURCES_ONLY_SLUGS = new Set([
-	'prerequisite-courses-for-nursing-school',
-	'student-integrity-online-proctored-exams',
-	'university-of-the-people-tuition-free-degrees',
-]);
-
-const raw = await getCollection('blog');
-const posts = raw
-	.filter((p) => !p.data.draft && !RESOURCES_ONLY_SLUGS.has(p.slug))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-function readingMinutes(body: string) {
-	const words = body.trim().split(/\s+/).filter(Boolean).length;
-	return Math.max(1, Math.ceil(words / 200));
-}
 ---
 
 <Layout
 	title="News | Online College Courses"
-	description="Articles and guides on online colleges, degrees, accreditation, financial aid, and succeeding in online learning."
+	description="News and announcements. In-depth guides are listed under Resources → Guides."
 >
 	<div class="page-header">
 		<div class="container">
 			<h1>News</h1>
 			<p class="subtitle">
-				Articles and guides from our editorial team. For longer Resources guides, also see{' '}
-				<a href="/resources/blog">Resources → Blog</a> and <a href="/colleges">Colleges</a>.
+				There are no news articles published yet. For education guides, see{' '}
+				<a href="/resources/guides">Resources → Guides</a>.
 			</p>
 		</div>
 	</div>
 
 	<main class="main-content">
 		<div class="container">
-			{posts.length === 0 ? (
-				<div class="empty-state">
-					<p>No articles match this listing yet.</p>
-				</div>
-			) : (
-				<div class="posts-grid">
-					{posts.map((post) => {
-						const dateStr = post.data.pubDate.toLocaleDateString('en-US', {
-							year: 'numeric',
-							month: 'short',
-							day: 'numeric',
-						});
-						const mins = readingMinutes(post.body);
-						const label = post.data.tags[0] ?? 'Article';
-						return (
-							<a href={`/blog/${post.slug}`} class="card">
-								{post.data.image ? (
-									<div class="card-image">
-										<img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />
-									</div>
-								) : (
-									<div class="card-image card-image--placeholder" aria-hidden="true" />
-								)}
-								<div class="card-body">
-									<span class="card-label">{label}</span>
-									<h2 class="card-title">{post.data.title}</h2>
-									<p class="card-excerpt">{post.data.description}</p>
-									<div class="card-meta">
-										<span>{dateStr}</span>
-										<span class="dot">·</span>
-										<span>{mins} min read</span>
-									</div>
-									<span class="card-cta">Read article →</span>
-								</div>
-							</a>
-						);
-					})}
-				</div>
-			)}
+			<div class="empty-state" aria-live="polite">
+				<p>No news articles yet.</p>
+			</div>
 		</div>
 	</main>
 </Layout>
@@ -124,114 +70,7 @@ function readingMinutes(body: string) {
 	.empty-state {
 		text-align: center;
 		color: #64748b;
-		padding: 3rem 1rem;
-	}
-
-	.posts-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-		gap: 1.5rem;
-	}
-
-	.card {
-		display: flex;
-		flex-direction: column;
-		background: #fff;
-		border: 1px solid #e2e8f0;
-		border-radius: 12px;
-		overflow: hidden;
-		text-decoration: none;
-		color: inherit;
-		transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-		height: 100%;
-	}
-	.card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-		border-color: #2563eb;
-	}
-	.card-image {
-		width: 100%;
-		height: 200px;
-		overflow: hidden;
-		background: #f1f5f9;
-		flex-shrink: 0;
-	}
-	.card-image--placeholder {
-		background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
-	}
-	.card-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.35s ease;
-	}
-	.card:hover .card-image img {
-		transform: scale(1.06);
-	}
-
-	.card-body {
-		padding: 1.25rem 1.5rem 1.5rem;
-		display: flex;
-		flex-direction: column;
-		flex: 1;
-	}
-	.card-label {
-		font-size: 0.7rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: #2563eb;
-		margin-bottom: 0.5rem;
-		display: inline-block;
-	}
-	.card-title {
-		font-family: 'Inter', sans-serif;
-		font-size: 1.125rem;
-		font-weight: 700;
-		color: #0f172a;
-		line-height: 1.4;
-		margin-bottom: 0.625rem;
-		letter-spacing: -0.02em;
-	}
-	.card:hover .card-title {
-		color: #2563eb;
-	}
-	.card-excerpt {
-		font-size: 0.875rem;
-		color: #64748b;
-		line-height: 1.6;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		flex: 1;
-		margin-bottom: 1rem;
-	}
-	.card-meta {
-		display: flex;
-		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.8rem;
-		color: #94a3b8;
-		margin-bottom: 1rem;
-	}
-	.dot {
-		opacity: 0.5;
-	}
-	.card-cta {
-		font-size: 0.875rem;
-		font-weight: 600;
-		color: #2563eb;
-		margin-top: auto;
-	}
-	.card:hover .card-cta {
-		color: #1d4ed8;
-	}
-
-	@media (max-width: 768px) {
-		.posts-grid {
-			grid-template-columns: 1fr;
-		}
+		padding: 4rem 1rem;
+		font-size: 1.0625rem;
 	}
 </style>
