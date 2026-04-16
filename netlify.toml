@@ -97,6 +97,40 @@
   to = "/resources/guides/"
   status = 301
 
+# Retired blog posts — send old URLs to blog index
+[[redirects]]
+  from = "/blog/online-learning-success-tips"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/online-learning-success-tips/"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-choose-online-course"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-choose-online-course/"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/balance-work-family-online-learning"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/balance-work-family-online-learning/"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/best-free-online-courses"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/best-free-online-courses/"
+  to = "/blog/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"
