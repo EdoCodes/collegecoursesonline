@@ -14,6 +14,7 @@ const tags = [
   { slug: 'straighterline-introductory-algebra',     subcategory: 'Algebra',        subcategory_slug: 'algebra' },
   { slug: 'straighterline-introduction-to-statistics', subcategory: 'Statistics',   subcategory_slug: 'statistics' },
   { slug: 'straighterline-calculus-1',        subcategory: 'Calculus',              subcategory_slug: 'calculus' },
+  { slug: 'straighterline-microbiology',      subcategory: 'Biology',               subcategory_slug: 'biology' },
 ];
 
 let ok = 0, fail = 0;
