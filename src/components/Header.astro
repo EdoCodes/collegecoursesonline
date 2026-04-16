@@ -8,6 +8,8 @@ const blogSubActive = pathNorm === '/blog' || pathNorm.startsWith('/blog/');
 const guidesSubActive =
 	pathNorm.startsWith('/resources/guides') ||
 	pathNorm.startsWith('/resources/blog');
+const resourcesNavActive =
+	resourcesHubActive || blogSubActive || guidesSubActive;
 
 // Fetch categories + subcategories for mega-menu
 let menuCategories: { slug: string; name: string; subcategories: { name: string; slug: string; count: number }[] }[] = [];
@@ -114,29 +116,26 @@ if (isSupabaseConfigured && supabase) {
           </div>
         </li>
         <li><a href="/categories/certificate-programs" class={`nav-link${currentPath.includes('certificate') ? ' active' : ''}`}>Certificate Programs</a></li>
-        <li class="nav-item-resources">
-          <div class="nav-resources-desktop">
-            <a
-              href="/resources"
-              class={`nav-link${resourcesHubActive ? ' active' : ''}`}
-            >
-              Resources
+        <li class="nav-item-dropdown nav-item-dropdown--resources">
+          <a
+            href="/resources"
+            class={`nav-link${resourcesNavActive ? ' active' : ''}`}
+            aria-haspopup="true"
+          >
+            Resources
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:inline-block;margin-left:3px;vertical-align:middle;" aria-hidden="true">
+              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="nav-dropdown" role="menu" aria-label="Resources: Blog and Guides">
+            <a href="/blog" class={`dropdown-link${blogSubActive ? ' is-active' : ''}`} role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 2.5h8.5a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1v-11a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 2.5H3.5a1 1 0 00-1 1v10a1 1 0 001 1H5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6h4M7.5 9h4M7.5 12h2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Blog
             </a>
-            <div class="nav-resource-subs" role="group" aria-label="Resources: Blog and Guides">
-              <a
-                href="/blog"
-                class={`nav-resource-sub${blogSubActive ? ' active' : ''}`}
-              >
-                Blog
-              </a>
-              <span class="nav-resource-sep" aria-hidden="true">·</span>
-              <a
-                href="/resources/guides"
-                class={`nav-resource-sub${guidesSubActive ? ' active' : ''}`}
-              >
-                Guides
-              </a>
-            </div>
+            <a href="/resources/guides" class={`dropdown-link${guidesSubActive ? ' is-active' : ''}`} role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5h4l1 2h5a1 1 0 011 1v7a1 1 0 01-1 1H3a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 6.5h10M5 9h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Guides
+            </a>
           </div>
         </li>
       </ul>
@@ -168,7 +167,7 @@ if (isSupabaseConfigured && supabase) {
         <li>
           <a
             href="/resources"
-            class={`mobile-nav-link${resourcesHubActive ? ' active' : ''}`}
+            class={`mobile-nav-link${resourcesNavActive ? ' active' : ''}`}
           >
             Resources
           </a>
@@ -298,52 +297,72 @@ if (isSupabaseConfigured && supabase) {
     border-bottom-color: var(--color-primary);
   }
 
-  /* ── Resources + Blog + Guides (always visible on desktop — no hover-only menu) ── */
-  .nav-item-resources {
+  /* ── Resources dropdown (Blog + Guides) ── */
+  .nav-item-dropdown {
     position: relative;
   }
 
-  .nav-resources-desktop {
+  .nav-item-dropdown--resources .nav-dropdown {
+    min-width: 200px;
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    padding: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    z-index: 220;
+  }
+
+  /* Invisible bridge so hover is not lost between the label and the panel */
+  .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 14px;
+  }
+
+  .nav-item-dropdown:hover .nav-dropdown,
+  .nav-item-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dropdown-link {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.2rem;
-    padding: calc(var(--spacing) * 1) calc(var(--spacing) * 0.5);
-  }
-
-  .nav-resource-subs {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .nav-resource-sep {
-    color: #cbd5e1;
-    font-size: 0.75rem;
-    user-select: none;
-  }
-
-  .nav-resource-sub {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: #64748b;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #334155;
     text-decoration: none;
-    padding: 0.15rem 0.2rem;
-    border-radius: 4px;
-    transition: color 0.15s, background 0.15s;
+    border-radius: 7px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
   }
 
-  .nav-resource-sub:hover {
-    color: #1e40af;
+  .dropdown-link:hover {
     background: #f1f5f9;
+    color: #1e40af;
   }
 
-  .nav-resource-sub.active {
+  .dropdown-link.is-active {
     color: #1e40af;
+    font-weight: 600;
+    background: #eff6ff;
   }
 
   /* ── CTA Button ── */
