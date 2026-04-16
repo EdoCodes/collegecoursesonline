@@ -1,6 +1,8 @@
 /**
  * Adds Westcott Courses college + featured math course to Supabase.
  * Run with: node scripts/add-westcott.mjs
+ *
+ * Deprecated for site policy: the directory only lists StraighterLine and Sophia courses.
  */
 import { createClient } from '@supabase/supabase-js';
 

@@ -64,17 +64,6 @@
   to = "/resources/blog/study-com-vs-sophia-vs-straighterline/"
   status = 301
 
-# Removed course listing — send to Health category
-[[redirects]]
-  from = "/courses/public-health-fundamentals"
-  to = "/courses/category/health/"
-  status = 301
-
-[[redirects]]
-  from = "/courses/public-health-fundamentals/"
-  to = "/courses/category/health/"
-  status = 301
-
 # Removed blog post — send to related Resources guide
 [[redirects]]
   from = "/blog/financial-aid-scholarships-online-learning"

@@ -4,7 +4,11 @@ import ReviewsSection from '../../components/ReviewsSection.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { Course } from '../../lib/supabase';
 import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
-import { EXCLUDED_COURSE_SLUGS, filterCourses } from '../../lib/excludedCourseSlugs';
+import {
+	EXCLUDED_COURSE_SLUGS,
+	filterDirectoryCourses,
+	isAllowedCourseProvider,
+} from '../../lib/excludedCourseSlugs';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -12,14 +16,18 @@ export async function getStaticPaths() {
     return [];
   }
   
-  const { data: courses } = await supabase
-    .from('courses')
-    .select('slug');
-  
+  const { data: courses } = await supabase.from('courses').select('slug, colleges(slug)');
+
   return (
-    courses?.filter((c) => !EXCLUDED_COURSE_SLUGS.has(c.slug)).map((course) => ({
-      params: { slug: course.slug },
-    })) || []
+    courses
+      ?.filter(
+        (c) =>
+          !EXCLUDED_COURSE_SLUGS.has(c.slug) &&
+          isAllowedCourseProvider({ colleges: c.colleges as Course['colleges'] }),
+      )
+      .map((course) => ({
+        params: { slug: course.slug },
+      })) || []
   );
 }
 
@@ -48,6 +56,9 @@ if (error || !course) {
 }
 
 const typedCourse = course as Course;
+if (!isAllowedCourseProvider(typedCourse)) {
+  return Astro.redirect('/404');
+}
 const college = typedCourse.colleges;
 const category = typedCourse.course_categories;
 
@@ -69,7 +80,7 @@ const { data: relatedCoursesRaw } = await supabase
   .neq('id', course.id)
   .limit(5);
 
-const relatedCourses = filterCourses((relatedCoursesRaw || []) as Course[]).slice(0, 3);
+const relatedCourses = filterDirectoryCourses((relatedCoursesRaw || []) as Course[]).slice(0, 3);
 
 // Schema.org Course structured data
 const courseSchema = {

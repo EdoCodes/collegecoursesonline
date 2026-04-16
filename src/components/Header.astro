@@ -1,6 +1,6 @@
 ---
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { filterCourses } from '../lib/excludedCourseSlugs';
+import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
 
 const currentPath = Astro.url.pathname;
 const pathNorm = currentPath.replace(/\/$/, '') || '/';
@@ -21,7 +21,7 @@ if (isSupabaseConfigured && supabase) {
 
   for (const cat of cats || []) {
     const subMap: Record<string, number> = {};
-    for (const c of filterCourses(courses || [])) {
+    for (const c of filterDirectoryCourses(courses || [])) {
       if ((c.course_categories as any)?.slug !== cat.slug) continue;
       const sub = c.subcategory as string;
       subMap[sub] = (subMap[sub] || 0) + 1;

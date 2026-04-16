@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { filterCourses } from '../lib/excludedCourseSlugs';
+import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
 
 // Get all courses for the search dropdown
 let courses: any[] = [];
@@ -13,11 +13,11 @@ if (isSupabaseConfigured && supabase) {
       id,
       title,
       slug,
-      colleges (name)
+      colleges (name, slug)
     `)
     .order('title');
   
-  courses = filterCourses(data || []);
+  courses = filterDirectoryCourses(data || []);
 }
 
 const pageTitle = 'Rate My Course - Share Your Experience';

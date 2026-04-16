@@ -3,18 +3,20 @@ import Layout from '../../layouts/Layout.astro';
 import CourseCard from '../../components/CourseCard.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { College, Course } from '../../lib/supabase';
-import { filterCourses } from '../../lib/excludedCourseSlugs';
+import { filterDirectoryCourses } from '../../lib/excludedCourseSlugs';
+import { ALLOWED_COURSE_COLLEGE_SLUGS } from '../../lib/allowedCourseProviders';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
   if (!isSupabaseConfigured || !supabase) {
     return [];
   }
-  
+
   const { data: colleges } = await supabase
     .from('colleges')
-    .select('slug');
-  
+    .select('slug')
+    .in('slug', [...ALLOWED_COURSE_COLLEGE_SLUGS]);
+
   return colleges?.map((college) => ({
     params: { slug: college.slug },
   })) || [];
@@ -23,6 +25,10 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 if (!isSupabaseConfigured || !supabase) {
+  return Astro.redirect('/404');
+}
+
+if (slug && !ALLOWED_COURSE_COLLEGE_SLUGS.has(slug)) {
   return Astro.redirect('/404');
 }
 
@@ -50,7 +56,7 @@ const { data: courses } = await supabase
   .order('featured', { ascending: false })
   .order('created_at', { ascending: false});
 
-const coursesData = filterCourses((courses as Course[]) || []);
+const coursesData = filterDirectoryCourses((courses as Course[]) || []);
 
 // Calculate stats
 const totalCourses = coursesData.length;

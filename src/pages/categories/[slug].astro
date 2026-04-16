@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import CourseCard from '../../components/CourseCard.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { CourseCategory, Course } from '../../lib/supabase';
-import { filterCourses } from '../../lib/excludedCourseSlugs';
+import { filterDirectoryCourses } from '../../lib/excludedCourseSlugs';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -51,7 +51,7 @@ const { data: courses } = await supabase
   .order('views_count', { ascending: false })
   .order('created_at', { ascending: false });
 
-const coursesData = filterCourses((courses as Course[]) || []);
+const coursesData = filterDirectoryCourses((courses as Course[]) || []);
 
 // Calculate stats
 const totalCourses = coursesData.length;

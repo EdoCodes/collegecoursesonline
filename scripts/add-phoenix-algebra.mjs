@@ -1,6 +1,8 @@
 /**
  * Adds University of Phoenix + College Algebra course to Supabase.
  * Run with: node scripts/add-phoenix-algebra.mjs
+ *
+ * Deprecated for site policy: the directory only lists StraighterLine and Sophia courses.
  */
 import { createClient } from '@supabase/supabase-js';
 

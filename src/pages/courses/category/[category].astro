@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../../../lib/supabase';
 import { resolveCourseImageUrl } from '../../../lib/courseImageOverrides';
-import { filterCourses } from '../../../lib/excludedCourseSlugs';
+import { filterDirectoryCourses } from '../../../lib/excludedCourseSlugs';
 
 export async function getStaticPaths() {
   if (!isSupabaseConfigured || !supabase) return [];
@@ -30,7 +30,7 @@ const { data: catData } = await supabase
   .eq('slug', category)
   .single();
 
-const coursesList = filterCourses(courses || []);
+const coursesList = filterDirectoryCourses(courses || []);
 
 // Group courses by subcategory
 const grouped: Record<string, any[]> = {};
