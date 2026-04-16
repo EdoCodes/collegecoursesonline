@@ -1,11 +1,22 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import BlogCard from '../../components/blog/BlogCard.astro';
+import { getCollection } from 'astro:content';
 import { getResourcesBlogPostHref, resourcesBlogPosts } from '../../data/resourcesBlogPosts';
 
 const uopPost = resourcesBlogPosts.find(
 	(p) => p.slug === 'university-of-the-people-tuition-free-degrees',
 );
+
+/** Blog MDX guides tagged `colleges` (e.g. UF Online). Exclude UoPeople here—canonical URL is `/colleges/...`. */
+const collegeBlogGuides = (await getCollection('blog'))
+	.filter(
+		(p) =>
+			!p.data.draft &&
+			p.data.tags.includes('colleges') &&
+			p.slug !== 'university-of-the-people-tuition-free-degrees',
+	)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout
@@ -29,10 +40,11 @@ const uopPost = resourcesBlogPosts.find(
 
 	<main class="main-content">
 		<div class="container">
-			<h2 class="section-title">Featured college guide</h2>
+			<h2 class="section-title">College guides</h2>
 			<p class="section-lead">
-				Same card layout as our Resources guides—optimized for scanning programs,
-				transfer rules, and costs.
+				In-depth school guides—programs, transfer credit, tuition, and fit—plus links to
+				course listings across the site. Also listed on the{' '}
+				<a href="/blog">blog</a> with the <strong>colleges</strong> topic.
 			</p>
 			<div class="posts-grid">
 				{
@@ -52,6 +64,32 @@ const uopPost = resourcesBlogPosts.find(
 							tags={uopPost.tags}
 						/>
 					)
+				}
+				{
+					collegeBlogGuides.map((post) => {
+						const dateStr = post.data.pubDate.toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: 'short',
+							day: 'numeric',
+						});
+						const rt =
+							post.data.readTime ??
+							`${Math.max(1, Math.ceil(post.body.trim().split(/\s+/).filter(Boolean).length / 200))} min read`;
+						return (
+							<BlogCard
+								slug={post.slug}
+								href={`/blog/${post.slug}`}
+								title={post.data.title}
+								excerpt={post.data.description}
+								label="Colleges"
+								date={dateStr}
+								readingTime={rt}
+								image={post.data.image ?? '/og-image.jpg'}
+								imageAlt={post.data.title}
+								tags={post.data.tags}
+							/>
+						);
+					})
 				}
 			</div>
 			<p class="more-link">
@@ -133,7 +171,16 @@ const uopPost = resourcesBlogPosts.find(
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: 1.5rem;
-		max-width: 400px;
+		max-width: 1200px;
+	}
+
+	.section-lead a {
+		color: #2563eb;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.section-lead a:hover {
+		text-decoration: underline;
 	}
 
 	.more-link {
