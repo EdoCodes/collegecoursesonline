@@ -653,6 +653,8 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 *This section will capture lessons learned during development.*
 
+- For MDX blog posts, pair structured HTML (e.g. `div.table-wrap` > `table`, `div.school-grid` > linked cards) with `:global(...)` rules on the blog template so styling stays consistent without per-post CSS.
+
 ---
 
 ## Technical Stack Decisions
@@ -715,6 +717,42 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - ✅ Mobile responsive
 - ✅ 10+ courses with reviews
 - ✅ 10+ blog posts live
+
+---
+
+### 2026-04-07 — Homepage "Featured education articles"
+
+- Large hero card resolves to `how-to-choose-right-online-college` from `resourcesBlogPosts`; left column is the next three Resources posts excluding that slug (Campus, FAFSA, International with current data order). `npm run build` passed.
+
+### 2026-04-13 — Nursing prerequisites: Resources blog format + canonical URL
+
+- Canonical article: `/resources/blog/prerequisite-courses-for-nursing-school` (same chrome as Campus.edu-style posts; content from `src/content/blog/prerequisite-courses-for-nursing-school.mdx`).
+- `src/pages/blog/[slug].astro` excludes that slug; `src/pages/blog/prerequisite-courses-for-nursing-school.astro` issues 301/meta refresh to the Resources URL.
+- `resourcesBlogPosts` no longer uses `hrefOverride` to `/blog/...`. `npm run build` passed (118 pages).
+
+### 2026-04-13 — Reusable **Resources Guide** template
+
+- Extracted shared long-form shell + global MDX styles into `src/components/blog/ResourcesGuideLayout.astro` (named in file comment: **Resources Guide** — Campus-style hero, TOC, author card, optional sidebar CTA).
+- `prerequisite-courses-for-nursing-school.astro` is a thin wrapper: content collection + schemas + `tocItems` + `ResourcesGuideLayout`; JSON-LD uses `slot="head"` (forwarded to root `Layout`).
+
+### 2026-04-13 — Post polish: "Best Online Colleges… 2026" MDX
+
+- **`src/pages/blog/[slug].astro`:** Scoped `:global` styles for reusable MDX patterns: `.post-callout`, `.school-grid` / `.school-card` (full-card links + CTA), `.table-wrap` (responsive tables).
+- **`src/content/blog/best-online-colleges-popular-degrees-2026.mdx`:** "At a glance" callout with internal links; school list as a card grid; comparison tables in `.table-wrap` with school names linking to official sites (`target="_blank"` `rel="noopener noreferrer"`); body/FAQ links aligned with the same URLs.
+- **Verification:** `npm run build` completed successfully (124 pages).
+
+### 2026-04-13 — Resources → **Guides** subcategory
+
+- **`/resources/guides`** — New index (`src/pages/resources/guides/index.astro`): same card grid as the former Resources blog index, breadcrumb Home › Resources › Guides.
+- **`/resources/blog`** — `index.astro` issues 301/meta refresh to `/resources/guides`; **`netlify.toml`** adds 301 for `/resources/blog` and `/resources/blog/` to `/resources/guides` (listing only; article URLs stay `/resources/blog/{slug}`).
+- **Nav:** Header Resources dropdown label **Guides** (replaces Blog); mobile nested link under Resources. Footer updated. **`ResourcesGuideLayout`** default trail: Resources → Guides.
+- **Copy updates:** `resources/index`, homepage “View all guides”, News `blog/index`, `colleges/index`; JSON-LD + on-page breadcrumbs on Resources guide pages where they said “Blog”.
+- **`resourcesGuidesIndexPath`** exported from `resourcesBlogPosts.ts`. `npm run build` passed (125 pages).
+
+### 2026-04-13 — `/blog/` listing: **Blog** (no “News” header)
+
+- **`src/pages/blog/index.astro`:** Page title and hero **Blog**; breadcrumb Home › Blog; JSON-LD `BreadcrumbList`; copy distinguishes editorial posts from **Guides** at `/resources/guides`. Listing uses `getCollection('blog')` minus resource-only slugs (same as `[slug].astro`).
+- **Verification:** `npm run build` passed (125 pages). `dist/blog/index.html` has `<title>Blog | Online College Courses</title>` — no “News” in title or nav/footer for this route.
 
 ---
 
