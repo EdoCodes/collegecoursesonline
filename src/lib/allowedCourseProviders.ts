@@ -1,5 +1,9 @@
 /** Only these college slugs appear in course listings and detail pages. */
-export const ALLOWED_COURSE_COLLEGE_SLUGS = new Set<string>(['straighterline', 'sophia-learning']);
+export const ALLOWED_COURSE_COLLEGE_SLUGS = new Set<string>([
+	'straighterline',
+	'sophia-learning',
+	'study-com',
+]);
 
 export function isAllowedCourseProvider(course: {
 	colleges?: { slug?: string | null } | null;

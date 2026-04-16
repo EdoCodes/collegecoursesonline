@@ -15,9 +15,8 @@ if (!process.env.SUPABASE_SERVICE_KEY) {
 }
 
 const { data: colleges } = await supabase.from('colleges').select('id, slug');
-const allowed = new Set(
-	(colleges || []).filter((c) => c.slug === 'straighterline' || c.slug === 'sophia-learning').map((c) => c.id),
-);
+const allowedSlugs = new Set(['straighterline', 'sophia-learning', 'study-com']);
+const allowed = new Set((colleges || []).filter((c) => allowedSlugs.has(c.slug)).map((c) => c.id));
 
 const { data: courses } = await supabase.from('courses').select('id, college_id');
 const toDelete = (courses || []).filter((c) => c.college_id && !allowed.has(c.college_id)).map((c) => c.id);

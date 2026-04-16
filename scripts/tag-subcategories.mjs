@@ -15,6 +15,7 @@ const tags = [
   { slug: 'straighterline-introduction-to-statistics', subcategory: 'Statistics',   subcategory_slug: 'statistics' },
   { slug: 'straighterline-calculus-1',        subcategory: 'Calculus',              subcategory_slug: 'calculus' },
   { slug: 'straighterline-microbiology',      subcategory: 'Biology',               subcategory_slug: 'biology' },
+  { slug: 'study-com-biology-201l-anatomy-physiology-i-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
 ];
 
 let ok = 0, fail = 0;

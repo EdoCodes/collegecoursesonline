@@ -1,5 +1,5 @@
 /**
- * Seed script — colleges + categories for Supabase. Course rows are added via scripts in /scripts (StraighterLine & Sophia only).
+ * Seed script — colleges + categories for Supabase. Course rows are added via scripts in /scripts (StraighterLine, Sophia, Study.com).
  * Run with: node scripts/seed.mjs
  */
 
@@ -37,6 +37,19 @@ const colleges = [
 		popularity_score: 88,
 		ease_of_access_score: 97,
 	},
+	{
+		name: 'Study.com',
+		slug: 'study-com',
+		description:
+			'Study.com offers 220+ online college courses with ACE and NCCRS credit recommendations. College Accelerator plans include video lessons, quizzes, and proctored exams for transferable credit.',
+		website_url: 'https://www.study.com',
+		accreditation: 'ACE- and NCCRS-recommended courses',
+		accreditation_level: 'National',
+		country: 'USA',
+		featured: false,
+		popularity_score: 90,
+		ease_of_access_score: 92,
+	},
 ];
 
 const categories = [
@@ -52,13 +65,13 @@ const categories = [
 	{ name: 'Natural Sciences', slug: 'science', description: 'Biology, chemistry, physics, and environmental science.', icon: '🔬' },
 ];
 
-/** No bulk seed courses — use add-straighterline-*.mjs and add-sophia-*.mjs */
+/** No bulk seed courses — use add-straighterline-*.mjs, add-sophia-*.mjs, add-study-com-*.mjs */
 const courseDefs = [];
 
 async function seed() {
 	console.log('🌱 Starting seed...\n');
 
-	console.log('📚 Upserting colleges (StraighterLine + Sophia only)...');
+	console.log('📚 Upserting colleges (StraighterLine, Sophia, Study.com)...');
 	const { data: insertedColleges, error: collegeError } = await supabase
 		.from('colleges')
 		.upsert(colleges, { onConflict: 'slug' })
