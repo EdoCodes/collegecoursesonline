@@ -9,6 +9,11 @@ const uopPost = resourcesBlogPosts.find(
 );
 
 /** Blog MDX guides tagged `colleges` (e.g. UF Online). Exclude UoPeople here—canonical URL is `/colleges/...`. */
+/** Blog MDX guides tagged `colleges` — canonical URLs may live under `/resources/blog/`. */
+const COLLEGE_GUIDE_HREFS: Record<string, string> = {
+	'university-of-florida-online-2026-guide': '/resources/blog/university-of-florida-online-2026-guide',
+};
+
 const collegeBlogGuides = (await getCollection('blog'))
 	.filter(
 		(p) =>
@@ -75,10 +80,11 @@ const collegeBlogGuides = (await getCollection('blog'))
 						const rt =
 							post.data.readTime ??
 							`${Math.max(1, Math.ceil(post.body.trim().split(/\s+/).filter(Boolean).length / 200))} min read`;
+						const guideHref = COLLEGE_GUIDE_HREFS[post.slug] ?? `/blog/${post.slug}`;
 						return (
 							<BlogCard
 								slug={post.slug}
-								href={`/blog/${post.slug}`}
+								href={guideHref}
 								title={post.data.title}
 								excerpt={post.data.description}
 								label="Colleges"

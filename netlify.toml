@@ -165,6 +165,16 @@
   to = "/blog/"
   status = 301
 
+# UF Online guide — canonical URL matches nursing prerequisites (Resources guide layout)
+[[redirects]]
+  from = "/blog/university-of-florida-online-2026-guide"
+  to = "/resources/blog/university-of-florida-online-2026-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/university-of-florida-online-2026-guide/"
+  to = "/resources/blog/university-of-florida-online-2026-guide/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"

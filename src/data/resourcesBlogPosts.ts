@@ -72,6 +72,19 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     ],
   },
   {
+    slug: 'university-of-florida-online-2026-guide',
+    title:
+      'University of Florida Online (UF Online): 2026 Guide to Programs, Admissions & Tuition',
+    excerpt:
+      'UF Online for 2026: U.S. News rankings, 24 online majors, transfer and Florida A.A. rules, per-credit tuition, student support, and who the program fits best.',
+    label: 'Colleges',
+    date: 'Apr 17, 2026',
+    readingTime: '14 min read',
+    image:
+      'https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: ['UF Online', 'Florida', 'Online Bachelor’s', 'Transfer Students', '2026'],
+  },
+  {
     slug: 'prerequisite-courses-for-nursing-school',
     title:
       'Prerequisite Courses for Nursing School: Complete 2026 Guide for Future Nurses',

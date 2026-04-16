@@ -8,6 +8,7 @@ export async function getStaticPaths() {
     'prerequisite-courses-for-nursing-school',
     'student-integrity-online-proctored-exams',
     'university-of-the-people-tuition-free-degrees',
+    'university-of-florida-online-2026-guide',
   ]);
   return posts
     .filter((post) => !post.data.draft && !resourcesOnlySlugs.has(post.slug))

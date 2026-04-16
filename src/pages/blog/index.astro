@@ -7,11 +7,21 @@ const RESOURCES_ONLY_SLUGS = new Set([
 	'prerequisite-courses-for-nursing-school',
 	'student-integrity-online-proctored-exams',
 	'university-of-the-people-tuition-free-degrees',
+	'university-of-florida-online-2026-guide',
 ]);
+
+/** Guides hosted on `/resources/blog/...` but still shown on this index with a canonical URL. */
+const BLOG_INDEX_HREF_OVERRIDES: Record<string, string> = {
+	'university-of-florida-online-2026-guide': '/resources/blog/university-of-florida-online-2026-guide',
+};
 
 const raw = await getCollection('blog');
 const posts = raw
-	.filter((p) => !p.data.draft && !RESOURCES_ONLY_SLUGS.has(p.slug))
+	.filter(
+		(p) =>
+			!p.data.draft &&
+			(!RESOURCES_ONLY_SLUGS.has(p.slug) || BLOG_INDEX_HREF_OVERRIDES[p.slug]),
+	)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 function readingMinutes(body: string) {
@@ -68,8 +78,9 @@ const breadcrumbJsonLd = {
 						});
 						const mins = readingMinutes(post.body);
 						const label = post.data.tags[0] ?? 'Article';
+						const cardHref = BLOG_INDEX_HREF_OVERRIDES[post.slug] ?? `/blog/${post.slug}`;
 						return (
-							<a href={`/blog/${post.slug}`} class="card">
+							<a href={cardHref} class="card">
 								{post.data.image ? (
 									<div class="card-image">
 										<img src={post.data.image} alt={post.data.title} loading="lazy" decoding="async" />

@@ -1,0 +1,196 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('blog', 'university-of-florida-online-2026-guide');
+if (!entry) {
+	throw new Error('Blog entry university-of-florida-online-2026-guide not found');
+}
+
+const { Content } = await entry.render();
+const { title, description, pubDate, author, tags, image } = entry.data;
+
+const categoryLabel = entry.data.categoryLabel ?? 'Colleges';
+const authorTitle = entry.data.authorTitle ?? 'Editorial';
+const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
+const readTimeFromFrontmatter = entry.data.readTime;
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const slugPath = '/resources/blog/university-of-florida-online-2026-guide';
+const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
+
+const publishDate = pubDate.toISOString().slice(0, 10);
+const updatedDate =
+	entry.data.updatedDate != null
+		? entry.data.updatedDate.toISOString().slice(0, 10)
+		: publishDate;
+
+const wordCount = entry.body.trim().split(/\s+/).filter(Boolean).length;
+const readingTime =
+	readTimeFromFrontmatter ?? `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
+
+const ogImageUrl =
+	typeof image === 'string' && image.startsWith('http')
+		? image
+		: image
+			? new URL(image, `${site}/`).href
+			: `${site}/og-image.jpg`;
+
+const ogImageForLayout =
+	typeof image === 'string' && image.startsWith('http') ? image : image ?? '/og-image.jpg';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	image: [ogImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: {
+		'@type': 'Person',
+		name: author,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+};
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: [
+		{
+			'@type': 'Question',
+			name: 'Is UF Online the same as the University of Florida?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UF Online is the University of Florida’s fully online bachelor’s pathway. UF states that students earn the same accredited UF degree and that courses are faculty-led, consistent with UF’s on-campus programs.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'How many majors does UF Online offer?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UF Online lists 24 fully online undergraduate majors. Always confirm current major availability and prerequisites on UF Online’s official degrees page before applying.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is UF Online good for transfer students?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UF Online is structured for transfers, including lower-division and upper-division paths. Florida A.A. holders may receive up to 60 credits when requirements are met. Verify evaluation rules with UF.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'What is UF Online tuition per credit?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'For 2025–2026, UF Online publishes $129.18 per credit for Florida residents and $552.62 for non-residents (tuition plus required fees). Confirm current rates on UF Online’s tuition page.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Do UF Online transfer credits expire?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UF states that transfer credits do not expire and are evaluated for course equivalency; non-equivalent courses may count as electives when allowed.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'What GPA do you need for UF Online?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'UF publishes baseline minimum expectations (often around a 2.0 cumulative GPA in referenced materials), but competitive majors may require higher grades and specific prerequisites.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is financial aid available for UF Online?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. UF Online notes that federal, state, and institutional aid may apply for eligible students.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Is UF Online accredited?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. Degrees are awarded through the accredited University of Florida.',
+			},
+		},
+	],
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${site}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Guides', item: `${site}/resources/guides/` },
+		{ '@type': 'ListItem', position: 4, name: breadcrumbTitle, item: pageUrl },
+	],
+};
+
+/** Anchor IDs match Astro MDX default heading slugs (rehype-slug). */
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#key-takeaways', label: 'Key takeaways' },
+	{ href: '#what-is-uf-online', label: 'What is UF Online?' },
+	{ href: '#why-uf-online-stands-out-in-2026', label: 'Why UF Online stands out' },
+	{ href: '#degree-programs-and-majors', label: 'Programs & majors' },
+	{ href: '#admissions-lower-division-vs-upper-division-transfers', label: 'Admissions & transfers' },
+	{ href: '#transfer-credits-and-the-florida-aa', label: 'Transfer credits & Florida A.A.' },
+	{ href: '#tuition-and-fees-20252026', label: 'Tuition & fees (2025–2026)' },
+	{ href: '#student-support-services', label: 'Student support' },
+	{ href: '#learning-format-and-course-delivery', label: 'Learning format' },
+	{ href: '#who-uf-online-fits-best', label: 'Who it fits' },
+	{ href: '#pros-and-cons-at-a-glance', label: 'Pros & cons' },
+	{ href: '#is-uf-online-worth-it', label: 'Is it worth it?' },
+	{ href: '#faq', label: 'FAQ' },
+	{ href: '#people-also-ask', label: 'People also ask' },
+	{ href: '#sources-and-further-reading', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slugPath}
+	image={ogImageForLayout}
+	categoryLabel={categoryLabel}
+	breadcrumbTitle={breadcrumbTitle}
+	author={author}
+	authorTitle={authorTitle}
+	readingTime={readingTime}
+	updatedDate={updatedDate}
+	tags={tags}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'Explore more college & transfer guides',
+		href: '/colleges',
+		buttonLabel: 'College guides →',
+	}}
+>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+	<Content />
+</ResourcesGuideLayout>
