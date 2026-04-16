@@ -131,6 +131,40 @@
   to = "/blog/"
   status = 301
 
+# Retired blog posts (batch 2) — blog index
+[[redirects]]
+  from = "/blog/certificate-vs-degree"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/certificate-vs-degree/"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/benefits-online-learning"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/benefits-online-learning/"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/online-learning-platforms-comparison"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/online-learning-platforms-comparison/"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/accreditation-guide"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/accreditation-guide/"
+  to = "/blog/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"
