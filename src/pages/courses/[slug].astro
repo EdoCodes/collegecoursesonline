@@ -232,7 +232,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     <path d="M9 12l2 2 4-4"/>
                   </svg>
-                  <span><strong>Certificate Available</strong></span>
+                  <span><strong>Transcript available upon completion</strong></span>
                 </div>
               )}
             </div>
@@ -387,8 +387,8 @@ const pageDescription = course.short_description || course.description.slice(0, 
                 </div>
               )}
               <div class="info-item">
-                <span class="label">Certificate</span>
-                <span class="value">{course.certificate_available ? 'Yes' : 'No'}</span>
+                <span class="label">Transcript</span>
+                <span class="value">{course.certificate_available ? 'Available upon completion' : 'No'}</span>
               </div>
               <div class="info-item">
                 <span class="label">Format</span>

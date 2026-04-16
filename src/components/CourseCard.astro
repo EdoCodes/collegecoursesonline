@@ -105,12 +105,12 @@ const cardImageUrl = resolveCourseImageUrl(course.slug, course.image_url);
 			</div>
 
 			{course.certificate_available && (
-				<div class="meta-item">
+				<div class="meta-item meta-item--transcript">
 					<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
 						<path d="M6 8L7.5 9.5L10 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 						<path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
-					<span>Certificate</span>
+					<span>Transcript available upon completion</span>
 				</div>
 			)}
 		</div>
@@ -288,6 +288,16 @@ const cardImageUrl = resolveCourseImageUrl(course.slug, course.image_url);
 
 	.meta-item svg {
 		color: var(--neutral-400);
+	}
+
+	.meta-item--transcript {
+		align-items: flex-start;
+	}
+
+	.meta-item--transcript span {
+		font-size: 0.8125rem;
+		line-height: 1.35;
+		max-width: 14rem;
 	}
 
 	.ratings-section {
