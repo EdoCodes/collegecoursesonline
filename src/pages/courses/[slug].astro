@@ -4,6 +4,7 @@ import ReviewsSection from '../../components/ReviewsSection.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { Course } from '../../lib/supabase';
 import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
+import { EXCLUDED_COURSE_SLUGS, filterCourses } from '../../lib/excludedCourseSlugs';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -15,14 +16,20 @@ export async function getStaticPaths() {
     .from('courses')
     .select('slug');
   
-  return courses?.map((course) => ({
-    params: { slug: course.slug },
-  })) || [];
+  return (
+    courses?.filter((c) => !EXCLUDED_COURSE_SLUGS.has(c.slug)).map((course) => ({
+      params: { slug: course.slug },
+    })) || []
+  );
 }
 
 const { slug } = Astro.params;
 
 if (!isSupabaseConfigured || !supabase) {
+  return Astro.redirect('/404');
+}
+
+if (slug && EXCLUDED_COURSE_SLUGS.has(slug)) {
   return Astro.redirect('/404');
 }
 
@@ -51,7 +58,7 @@ const schemaImageHref = courseImageUrl.startsWith('http')
 	: new URL(courseImageUrl.replace(/^\//, ''), siteBaseHref).href;
 
 // Get related courses (same category, different course)
-const { data: relatedCourses } = await supabase
+const { data: relatedCoursesRaw } = await supabase
   .from('courses')
   .select(`
     *,
@@ -60,7 +67,9 @@ const { data: relatedCourses } = await supabase
   `)
   .eq('category_id', course.category_id)
   .neq('id', course.id)
-  .limit(3);
+  .limit(5);
+
+const relatedCourses = filterCourses((relatedCoursesRaw || []) as Course[]).slice(0, 3);
 
 // Schema.org Course structured data
 const courseSchema = {

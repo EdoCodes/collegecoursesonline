@@ -1,5 +1,6 @@
 ---
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { filterCourses } from '../lib/excludedCourseSlugs';
 
 const currentPath = Astro.url.pathname;
 const pathNorm = currentPath.replace(/\/$/, '') || '/';
@@ -16,11 +17,11 @@ let menuCategories: { slug: string; name: string; subcategories: { name: string;
 
 if (isSupabaseConfigured && supabase) {
   const { data: cats } = await supabase.from('course_categories').select('slug, name').order('name');
-  const { data: courses } = await supabase.from('courses').select('subcategory, course_categories(slug)').not('subcategory', 'is', null);
+  const { data: courses } = await supabase.from('courses').select('slug, subcategory, course_categories(slug)').not('subcategory', 'is', null);
 
   for (const cat of cats || []) {
     const subMap: Record<string, number> = {};
-    for (const c of courses || []) {
+    for (const c of filterCourses(courses || [])) {
       if ((c.course_categories as any)?.slug !== cat.slug) continue;
       const sub = c.subcategory as string;
       subMap[sub] = (subMap[sub] || 0) + 1;

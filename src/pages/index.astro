@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
 import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
+import { filterCourses } from '../lib/excludedCourseSlugs';
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
 let categories: any[] = [];
@@ -16,7 +17,7 @@ if (isSupabaseConfigured && supabase) {
 		.order('created_at', { ascending: false })
 		.limit(50);
 
-	coursesData = courses || [];
+	coursesData = filterCourses(courses || []);
 	featuredCourses = coursesData.filter(c => c.featured).slice(0, 3);
 
 	const { data: cats } = await supabase
@@ -167,18 +168,6 @@ const _staticCoursesData = [
 		certificate_available: true, credits: '4 credits',
 		created_at: '2023-12-20T00:00:00Z',
 		colleges: { name: 'University of Michigan', accreditation_level: 'Regional', popularity_score: 86, ease_of_access_score: 83 },
-		course_categories: { slug: 'health', name: 'Health & Medicine', icon: '🏥' },
-	},
-	{
-		id: '11', slug: 'public-health-fundamentals', featured: false,
-		title: 'Public Health Fundamentals',
-		short_description: 'Explore epidemiology, health policy, global disease burden, and the social determinants of health. Great for healthcare and policy careers.',
-		course_url: 'https://www.coursera.org/learn/public-health',
-		image_url: 'https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=800',
-		level: 'Beginner', price: 'Free', price_numeric: 0,
-		certificate_available: true, credits: null,
-		created_at: '2023-12-15T00:00:00Z',
-		colleges: { name: 'Johns Hopkins University (via Coursera)', accreditation_level: 'Regional', popularity_score: 90, ease_of_access_score: 91 },
 		course_categories: { slug: 'health', name: 'Health & Medicine', icon: '🏥' },
 	},
 	// ── MATHEMATICS ───────────────────────────────────────────────────────────

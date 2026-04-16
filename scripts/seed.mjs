@@ -146,16 +146,6 @@ const courseDefs = [
     duration: '10 weeks', level: 'Beginner', price: '$199', price_numeric: 199, certificate_available: true, credits: '4 credits',
   },
   {
-    college: 'jhu-coursera', category: 'health', featured: false,
-    title: 'Public Health Fundamentals',
-    slug: 'public-health-fundamentals',
-    description: 'Explore the core concepts of public health including epidemiology, biostatistics, environmental health, health policy, and the social determinants of health. Great foundation for healthcare, policy, and research careers.',
-    short_description: 'Explore epidemiology, health policy, global disease burden, and the social determinants of health. Great for healthcare and policy careers.',
-    course_url: 'https://www.coursera.org/learn/public-health',
-    image_url: 'https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=800',
-    duration: '8 weeks', level: 'Beginner', price: 'Free', price_numeric: 0, certificate_available: true, credits: null,
-  },
-  {
     college: 'mit-edx', category: 'mathematics', featured: false,
     title: 'Calculus 1: Limits & Derivatives',
     slug: 'calculus-1',

@@ -2,19 +2,20 @@
 import Layout from '../../../../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../../../../lib/supabase';
 import { resolveCourseImageUrl } from '../../../../lib/courseImageOverrides';
+import { filterCourses } from '../../../../lib/excludedCourseSlugs';
 
 export async function getStaticPaths() {
   if (!isSupabaseConfigured || !supabase) return [];
 
   const { data: courses } = await supabase
     .from('courses')
-    .select('subcategory, course_categories(slug, name)')
+    .select('slug, subcategory, course_categories(slug, name)')
     .not('subcategory', 'is', null);
 
   const paths: any[] = [];
   const seen = new Set<string>();
 
-  for (const c of courses || []) {
+  for (const c of filterCourses(courses || [])) {
     const catSlug = (c.course_categories as any)?.slug;
     const catName = (c.course_categories as any)?.name;
     const sub = c.subcategory as string;
@@ -39,7 +40,9 @@ const { data: courses } = await supabase
   .eq('subcategory', subName)
   .order('title');
 
-const filtered = (courses || []).filter(c => (c.course_categories as any)?.slug === category);
+const filtered = filterCourses(courses || []).filter(
+  c => (c.course_categories as any)?.slug === category
+);
 
 const categoryIcons: Record<string, string> = {
   business: '💼', 'computer-science': '💻', 'data-science': '📊',

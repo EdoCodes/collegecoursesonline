@@ -20,7 +20,6 @@ const tags = [
   { slug: 'sql-for-data-analysis',            subcategory: 'Data Analysis',         subcategory_slug: 'data-analysis' },
   // Health & Medicine
   { slug: 'anatomy-physiology',               subcategory: 'Anatomy & Physiology',  subcategory_slug: 'anatomy-physiology' },
-  { slug: 'public-health-fundamentals',       subcategory: 'Public Health',         subcategory_slug: 'public-health' },
   { slug: 'sophia-anatomy-physiology-1',      subcategory: 'Anatomy & Physiology',  subcategory_slug: 'anatomy-physiology' },
   { slug: 'sophia-anatomy-and-physiology-1',  subcategory: 'Anatomy & Physiology',  subcategory_slug: 'anatomy-physiology' },
   { slug: 'straighterline-anatomy-physiology-1',     subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
