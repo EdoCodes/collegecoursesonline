@@ -6,6 +6,13 @@ import type { Course } from '../lib/supabase';
 import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
 import CoursePrice from '../components/CoursePrice.astro';
 import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
+import {
+	resourcesBlogPosts,
+	type ResourcesBlogPost,
+	getResourcesBlogPostHref,
+	resourcesGuidesIndexPath,
+} from '../data/resourcesBlogPosts';
+
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
 let categories: any[] = [];
@@ -117,6 +124,25 @@ const _staticCoursesData = [
 	},
 ];
 // _staticCoursesData is kept as reference only — not used when Supabase is live
+
+// Homepage articles: left column = three guides; right = one large featured guide (see resourcesBlogPosts.ts)
+const HOW_TO_CHOOSE_SLUG = 'how-to-choose-right-online-college';
+const HOMEPAGE_FEATURED_SLUG = 'prerequisite-courses-for-nursing-school';
+
+const HOMEPAGE_SIDE_SLUGS = [
+	'campus-edu-review',
+	'fafsa-financial-aid-online-college-degrees',
+	'international-students-online-us-colleges',
+] as const;
+
+const homepageFeaturedPost =
+	resourcesBlogPosts.find((p) => p.slug === HOMEPAGE_FEATURED_SLUG) ??
+	resourcesBlogPosts.find((p) => p.slug === HOW_TO_CHOOSE_SLUG) ??
+	resourcesBlogPosts[0];
+
+const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
+	resourcesBlogPosts.find((p) => p.slug === slug),
+).filter((p): p is ResourcesBlogPost => p != null);
 ---
 
 <Layout>
@@ -161,6 +187,65 @@ const _staticCoursesData = [
 			</div>
 		</section>
 	)}
+
+	<section class="blog-section" aria-labelledby="home-featured-articles-heading">
+		<div class="container">
+			<div class="blog-header">
+				<h2 id="home-featured-articles-heading">Featured education articles</h2>
+				<a href={resourcesGuidesIndexPath} class="blog-view-all">View all guides →</a>
+			</div>
+			<div class="blog-layout">
+				<div class="blog-list">
+					{homepageSidePosts.map((post) => (
+						<a href={getResourcesBlogPostHref(post)} class="blog-list-item">
+							<div
+								class:list={[
+									'blog-list-img',
+									post.imageObjectFit === 'contain' && post.imageContainVariant === 'white' && 'blog-list-img--contain-white',
+									post.imageObjectFit === 'contain' && post.imageContainVariant === 'blue' && 'blog-list-img--contain-blue',
+								]}
+							>
+								<img src={post.image} alt={post.imageAlt ?? post.title} loading="lazy" decoding="async" />
+							</div>
+							<div class="blog-list-body">
+								<h3 class="blog-list-title">{post.title}</h3>
+								<p class="blog-list-excerpt">{post.excerpt}</p>
+							</div>
+						</a>
+					))}
+				</div>
+				<a
+					href={getResourcesBlogPostHref(homepageFeaturedPost)}
+					class:list={[
+						'blog-featured-card',
+						homepageFeaturedPost.imageObjectFit === 'contain' &&
+							homepageFeaturedPost.imageContainVariant === 'white' &&
+							'blog-featured-card--light-img',
+					]}
+				>
+					<div class="blog-featured-img">
+						<img
+							src={homepageFeaturedPost.image}
+							alt={homepageFeaturedPost.imageAlt ?? homepageFeaturedPost.title}
+							loading="lazy"
+							decoding="async"
+						/>
+						<div class="blog-featured-overlay">
+							<div class="blog-featured-body">
+								<span class="blog-featured-label">{homepageFeaturedPost.label}</span>
+								<h3 class="blog-featured-title">{homepageFeaturedPost.title}</h3>
+								<div class="blog-featured-meta">
+									<span class="blog-featured-author">by Editorial Team</span>
+									<span class="blog-featured-dot">·</span>
+									<span class="blog-featured-time">{homepageFeaturedPost.readingTime}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
 
 	<main class="main-content">
 		<div class="container">
@@ -476,6 +561,266 @@ const _staticCoursesData = [
 
 	.card-badge-price.free {
 		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	}
+
+	/* ── Featured education articles (Resources guides) ─────────────────── */
+	.blog-section {
+		padding: 4rem 0;
+		background: #fff;
+		border-top: 1px solid #f1f5f9;
+	}
+
+	.blog-header {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		margin-bottom: 1.75rem;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.blog-header h2 {
+		font-size: 1.375rem;
+		font-weight: 700;
+		color: #1e40af;
+		letter-spacing: -0.01em;
+	}
+
+	.blog-view-all {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #2563eb;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.blog-view-all:hover {
+		text-decoration: underline;
+	}
+
+	.blog-layout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		align-items: start;
+	}
+
+	.blog-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.blog-list-item {
+		display: grid;
+		grid-template-columns: 96px 1fr;
+		gap: 1rem;
+		text-decoration: none;
+		color: inherit;
+		align-items: start;
+	}
+
+	.blog-list-img {
+		width: 96px;
+		height: 72px;
+		border-radius: 8px;
+		overflow: hidden;
+		flex-shrink: 0;
+		background: #f1f5f9;
+	}
+
+	.blog-list-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.blog-list-item:hover .blog-list-img img {
+		transform: scale(1.06);
+	}
+
+	.blog-list-img--contain-white,
+	.blog-list-img--contain-blue {
+		padding: 4px;
+		box-sizing: border-box;
+	}
+
+	.blog-list-img--contain-white {
+		background: #ffffff;
+	}
+
+	.blog-list-img--contain-blue {
+		background: #eff6ff;
+	}
+
+	.blog-list-img--contain-white img,
+	.blog-list-img--contain-blue img {
+		object-fit: contain;
+	}
+
+	.blog-list-item:hover .blog-list-img--contain-white img,
+	.blog-list-item:hover .blog-list-img--contain-blue img {
+		transform: none;
+	}
+
+	.blog-list-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.blog-list-title {
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: #1e293b;
+		line-height: 1.4;
+		transition: color 0.15s;
+	}
+
+	.blog-list-item:hover .blog-list-title {
+		color: #2563eb;
+	}
+
+	.blog-list-excerpt {
+		font-size: 0.8125rem;
+		color: #64748b;
+		line-height: 1.55;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.blog-featured-card {
+		display: block;
+		text-decoration: none;
+		border-radius: 12px;
+		overflow: hidden;
+		position: relative;
+		aspect-ratio: 4/3;
+		background: #0f172a;
+	}
+
+	.blog-featured-img {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.blog-featured-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: brightness(0.55);
+		transition:
+			filter 0.3s ease,
+			transform 0.3s ease;
+	}
+
+	.blog-featured-card:hover .blog-featured-img img {
+		filter: brightness(0.45);
+		transform: scale(1.03);
+	}
+
+	.blog-featured-card--light-img {
+		background: #ffffff;
+	}
+
+	.blog-featured-card--light-img .blog-featured-img img {
+		object-fit: contain;
+		object-position: center center;
+		filter: none;
+		padding: clamp(0.75rem, 3vw, 1.5rem);
+		box-sizing: border-box;
+	}
+
+	.blog-featured-card--light-img:hover .blog-featured-img img {
+		filter: none;
+		transform: none;
+	}
+
+	.blog-featured-card--light-img .blog-featured-overlay {
+		background: linear-gradient(
+			to top,
+			rgba(15, 23, 42, 0.92) 0%,
+			rgba(15, 23, 42, 0.45) 50%,
+			transparent 75%
+		);
+	}
+
+	.blog-featured-overlay {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: flex-end;
+		padding: 1.75rem;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+	}
+
+	.blog-featured-body {
+		width: 100%;
+	}
+
+	.blog-featured-label {
+		display: inline-block;
+		background: rgba(255, 255, 255, 0.18);
+		color: #fff;
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		padding: 3px 10px;
+		border-radius: 4px;
+		margin-bottom: 0.625rem;
+		backdrop-filter: blur(4px);
+	}
+
+	.blog-featured-title {
+		font-size: 1.375rem;
+		font-weight: 800;
+		color: #ffffff;
+		line-height: 1.3;
+		letter-spacing: -0.02em;
+		margin-bottom: 0.75rem;
+	}
+
+	.blog-featured-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.blog-featured-author,
+	.blog-featured-time {
+		font-size: 0.8125rem;
+		color: rgba(255, 255, 255, 0.8);
+		font-weight: 500;
+	}
+
+	.blog-featured-dot {
+		color: rgba(255, 255, 255, 0.5);
+		font-size: 0.8rem;
+	}
+
+	@media (max-width: 900px) {
+		.blog-layout {
+			grid-template-columns: 1fr;
+		}
+		.blog-featured-card {
+			aspect-ratio: 16/9;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.blog-list-img {
+			width: 72px;
+			height: 56px;
+		}
+		.blog-list-title {
+			font-size: 0.875rem;
+		}
 	}
 
 	@media (max-width: 768px) {
