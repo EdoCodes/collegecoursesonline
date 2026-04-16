@@ -12,6 +12,8 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 		'/images/courses/sophia-anatomy-physiology-1.png',
 	'sophia-anatomy-and-physiology-1':
 		'/images/courses/sophia-anatomy-physiology-1.png',
+	'anatomy-physiology':
+		'/images/courses/anatomy-physiology.jpg',
 };
 
 export function resolveCourseImageUrl(
