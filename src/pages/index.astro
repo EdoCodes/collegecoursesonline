@@ -1021,6 +1021,9 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 		title: string;
 		brand: string;
 		category: string;
+		categorySlug: string;
+		label: string;
+		excerpt: string;
 		level: string;
 		price: string;
 		priceNumeric: number;
@@ -1037,6 +1040,9 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 		title:        el.querySelector('.card-title')?.textContent?.toLowerCase() ?? '',
 		brand:        el.querySelector('.card-brand')?.textContent?.toLowerCase() ?? '',
 		category:     el.dataset.category ?? '',
+		categorySlug: (el.dataset.category ?? '').toLowerCase(),
+		label:        el.querySelector('.card-label')?.textContent?.toLowerCase() ?? '',
+		excerpt:      el.querySelector('.card-excerpt')?.textContent?.toLowerCase() ?? '',
 		level:        el.dataset.level ?? '',
 		price:        el.dataset.price ?? '',
 		priceNumeric: parseFloat(el.dataset.price?.replace(/[^0-9.]/g, '') || '0') || 0,
@@ -1051,7 +1057,7 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 	let visibleMeta = [...cardMeta];
 
 	function applyFilters() {
-		const q     = searchInput?.value.toLowerCase() ?? '';
+		const q     = searchInput?.value.trim().toLowerCase() ?? '';
 		const cat   = categoryFilter?.value ?? '';
 		const level = levelFilter?.value ?? '';
 		const price = priceFilter?.value ?? '';
@@ -1060,7 +1066,16 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 		const sort  = sortFilter?.value ?? 'featured';
 
 		visibleMeta = cardMeta.filter(m => {
-			if (q && !m.title.includes(q) && !m.brand.includes(q)) return false;
+			if (
+				q &&
+				!m.title.includes(q) &&
+				!m.brand.includes(q) &&
+				!m.categorySlug.includes(q) &&
+				!m.label.includes(q) &&
+				!m.excerpt.includes(q)
+			) {
+				return false;
+			}
 			if (cat   && m.category     !== cat)   return false;
 			if (level && m.level        !== level) return false;
 			if (price === 'Free' && m.price !== 'Free') return false;

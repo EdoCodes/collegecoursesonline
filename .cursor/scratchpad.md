@@ -754,6 +754,19 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - **`src/pages/blog/index.astro`:** Page title and hero **Blog**; breadcrumb Home › Blog; JSON-LD `BreadcrumbList`; copy distinguishes editorial posts from **Guides** at `/resources/guides`. Listing uses `getCollection('blog')` minus resource-only slugs (same as `[slug].astro`).
 - **Verification:** `npm run build` passed (125 pages). `dist/blog/index.html` has `<title>Blog | Online College Courses</title>` — no “News” in title or nav/footer for this route.
 
+### 2026-04-13 — StraighterLine A&P I Lab: custom course card image (site-wide)
+
+- **Asset:** `public/images/courses/straighterline-anatomy-physiology-1-lab.png` (user-provided).
+- **`src/lib/courseImageOverrides.ts`:** `COURSE_IMAGE_OVERRIDES` + `resolveCourseImageUrl(slug, imageUrl, fallback?)` so Supabase `image_url` can be overridden at build time without DB migration.
+- **Wired:** `[slug].astro` (hero, Layout OG, schema, related courses — single `relatedImg` per card), `CourseCard.astro`, `index.astro` (both featured img blocks), `courses/category/[category].astro`, `courses/category/[category]/[subcategory].astro`.
+- **Verification:** `npm run build` exit 0 (118 pages).
+
+### 2026-04-16 — Homepage search: "MATH" / category keywords
+
+- **Issue:** Hero/course grid search only matched `.card-title` and `.card-brand`, so queries like **math** missed mathematics courses whose titles use words like "Algebra" or "Statistics".
+- **Fix (`src/pages/index.astro`):** Search also matches `data-category` slug (lowercased), `.card-label`, and `.card-excerpt`; query string is **trimmed**.
+- **Verification:** `npm run build` exit 0 (70 pages).
+
 ---
 
 ## End of Planning Document
