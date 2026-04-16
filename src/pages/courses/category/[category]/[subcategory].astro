@@ -2,6 +2,7 @@
 import Layout from '../../../../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../../../../lib/supabase';
 import { resolveCourseImageUrl } from '../../../../lib/courseImageOverrides';
+import CoursePrice from '../../../../components/CoursePrice.astro';
 import { filterDirectoryCourses } from '../../../../lib/excludedCourseSlugs';
 
 export async function getStaticPaths() {
@@ -86,7 +87,7 @@ const icon = categoryIcons[category] ?? '📖';
               <img src={resolveCourseImageUrl(course.slug, course.image_url)} alt={course.title} loading="lazy" />
               {course.price === 'Free'
                 ? <span class="card-badge-price free">Free</span>
-                : course.price && <span class="card-badge-price">{course.price}</span>
+                : course.price && <span class="card-badge-price"><CoursePrice price={course.price} colleges={course.colleges} courseSlug={course.slug} /></span>
               }
             </div>
             <div class="card-body">

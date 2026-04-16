@@ -1,0 +1,47 @@
+---
+import {
+	resolveCollegeSlug,
+	shouldShowStraighterLineMembership,
+} from '../lib/coursePriceDisplay';
+
+interface Props {
+	price: string;
+	/** `course.slug` — fallback when college slug is missing */
+	courseSlug?: string | null;
+	/** `course.colleges` — object or array from Supabase */
+	colleges?: unknown;
+	/** Optional if you already resolved the slug */
+	collegeSlug?: string | null;
+}
+
+const { price, courseSlug, colleges, collegeSlug: collegeSlugProp } = Astro.props;
+const collegeSlug = collegeSlugProp ?? resolveCollegeSlug(colleges);
+const isFree = price === 'Free' || !price;
+const showMembership =
+	!isFree && shouldShowStraighterLineMembership(price, collegeSlug, courseSlug);
+---
+
+{isFree ? (
+	<span>{price || ''}</span>
+) : showMembership ? (
+	<span class="course-price-line">
+		<span class="course-price-amount">{price}</span>
+		<span class="course-price-membership"> + membership</span>
+	</span>
+) : (
+	<span>{price}</span>
+)}
+
+<style is:global>
+	.course-price-line {
+		display: inline;
+	}
+
+	/* Global so parent page styles (e.g. .price font-weight) cannot break scoped matching */
+	.course-price-membership {
+		font-style: italic;
+		font-weight: 500;
+		font-family: 'Segoe Script', 'Brush Script MT', 'Lucida Handwriting', 'Apple Chancery', cursive;
+		letter-spacing: 0.03em;
+	}
+</style>

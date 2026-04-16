@@ -4,6 +4,7 @@ import ReviewsSection from '../../components/ReviewsSection.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { Course } from '../../lib/supabase';
 import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
+import CoursePrice from '../../components/CoursePrice.astro';
 import {
 	EXCLUDED_COURSE_SLUGS,
 	filterDirectoryCourses,
@@ -102,7 +103,10 @@ const courseSchema = {
     "@type": "Offer",
     "category": course.price === 'Free' ? 'Free' : 'Paid',
     "price": course.price === 'Free' ? '0' : course.price,
-    "priceCurrency": "USD"
+    "priceCurrency": "USD",
+    ...(college?.slug === 'straighterline' && course.price !== 'Free'
+      ? { description: 'Per-course fee; StraighterLine membership required' }
+      : {})
   },
   "educationalLevel": course.level,
   "timeRequired": course.duration,
@@ -239,7 +243,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
                 {course.price === 'Free' ? (
                   <span class="price free">FREE</span>
                 ) : (
-                  <span class="price">{course.price}</span>
+                  <span class="price"><CoursePrice price={course.price} colleges={course.colleges} courseSlug={course.slug} /></span>
                 )}
               </div>
               
@@ -374,7 +378,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
               </div>
               <div class="info-item">
                 <span class="label">Price</span>
-                <span class="value">{course.price}</span>
+                <span class="value"><CoursePrice price={course.price} colleges={course.colleges} courseSlug={course.slug} /></span>
               </div>
               {course.credits && (
                 <div class="info-item">
@@ -455,7 +459,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
                   <p class="related-college">{relatedCourse.colleges?.name}</p>
                   <div class="related-meta">
                     <span class="related-level">{relatedCourse.level}</span>
-                    <span class="related-price">{relatedCourse.price}</span>
+                    <span class="related-price"><CoursePrice price={relatedCourse.price} colleges={relatedCourse.colleges} courseSlug={relatedCourse.slug} /></span>
                   </div>
                 </div>
               </a>
