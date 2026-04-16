@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../../../../lib/supabase';
+import { resolveCourseImageUrl } from '../../../../lib/courseImageOverrides';
 
 export async function getStaticPaths() {
   if (!isSupabaseConfigured || !supabase) return [];
@@ -79,7 +80,7 @@ const icon = categoryIcons[category] ?? '📖';
         {filtered.map(course => (
           <a href={`/courses/${course.slug}`} class="card">
             <div class="card-image">
-              <img src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'} alt={course.title} loading="lazy" />
+              <img src={resolveCourseImageUrl(course.slug, course.image_url)} alt={course.title} loading="lazy" />
               {course.price === 'Free'
                 ? <span class="card-badge-price free">Free</span>
                 : course.price && <span class="card-badge-price">{course.price}</span>

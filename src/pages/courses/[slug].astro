@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { Course } from '../../lib/supabase';
+import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -43,6 +44,12 @@ const typedCourse = course as Course;
 const college = typedCourse.colleges;
 const category = typedCourse.course_categories;
 
+const courseImageUrl = resolveCourseImageUrl(typedCourse.slug, typedCourse.image_url);
+const siteBaseHref = Astro.site?.href ?? 'https://collegecoursesonline.netlify.app/';
+const schemaImageHref = courseImageUrl.startsWith('http')
+	? courseImageUrl
+	: new URL(courseImageUrl.replace(/^\//, ''), siteBaseHref).href;
+
 // Get related courses (same category, different course)
 const { data: relatedCourses } = await supabase
   .from('courses')
@@ -61,6 +68,7 @@ const courseSchema = {
   "@type": "Course",
   "name": course.title,
   "description": course.description,
+  "image": schemaImageHref,
   "provider": {
     "@type": "Organization",
     "name": college?.name || "Unknown Institution",
@@ -118,7 +126,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
 <Layout 
   title={pageTitle}
   description={pageDescription}
-  image={course.image_url || '/og-image.jpg'}
+  image={courseImageUrl || '/og-image.jpg'}
 >
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
@@ -242,9 +250,9 @@ const pageDescription = course.short_description || course.description.slice(0, 
 
           <!-- Course Image -->
           <div class="hero-image">
-            {course.image_url ? (
+            {courseImageUrl ? (
               <img 
-                src={course.image_url} 
+                src={courseImageUrl} 
                 alt={course.title} 
                 class="course-image"
               />
@@ -411,11 +419,13 @@ const pageDescription = course.short_description || course.description.slice(0, 
         <div class="container">
           <h2>Related Courses</h2>
           <div class="related-grid">
-            {relatedCourses.map((relatedCourse: any) => (
+            {relatedCourses.map((relatedCourse: any) => {
+              const relatedImg = resolveCourseImageUrl(relatedCourse.slug, relatedCourse.image_url);
+              return (
               <a href={`/courses/${relatedCourse.slug}`} class="related-card">
                 <div class="related-image">
-                  {relatedCourse.image_url ? (
-                    <img src={relatedCourse.image_url} alt={relatedCourse.title} />
+                  {relatedImg ? (
+                    <img src={relatedImg} alt={relatedCourse.title} />
                   ) : (
                     <div class="image-placeholder">📚</div>
                   )}
@@ -429,7 +439,8 @@ const pageDescription = course.short_description || course.description.slice(0, 
                   </div>
                 </div>
               </a>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>

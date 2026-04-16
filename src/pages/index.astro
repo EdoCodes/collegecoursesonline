@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
+import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
 let categories: any[] = [];
@@ -289,7 +290,7 @@ const _staticCoursesData = [
 						<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
 							<div class="card-image">
 								<img
-									src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
+									src={resolveCourseImageUrl(course.slug, course.image_url)}
 									alt={course.title}
 									loading="lazy"
 								/>
@@ -408,7 +409,7 @@ const _staticCoursesData = [
 					<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
 							<div class="card-image">
 								<img
-									src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
+									src={resolveCourseImageUrl(course.slug, course.image_url)}
 									alt={course.title}
 									loading="lazy"
 								/>

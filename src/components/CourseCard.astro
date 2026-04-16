@@ -1,5 +1,6 @@
-﻿---
+---
 import type { Course } from '../lib/supabase';
+import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
 
 interface Props {
 	course: Course;
@@ -8,12 +9,13 @@ interface Props {
 const { course } = Astro.props;
 const college = course.colleges;
 const category = course.course_categories;
+const cardImageUrl = resolveCourseImageUrl(course.slug, course.image_url);
 ---
 
 <article class="course-card" data-course-id={course.id}>
 	<div class="card-image">
 		<img
-			src={course.image_url || 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800'}
+			src={cardImageUrl}
 			alt={course.title}
 			loading="lazy"
 		/>
