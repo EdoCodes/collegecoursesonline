@@ -165,7 +165,7 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200); // Approximate
           </div>
         </div>
 
-        {post.data.image && (
+        {post.data.image && !post.data.hideHeroImage && (
           <div class="featured-image">
             <img src={post.data.image} alt={post.data.title} />
           </div>

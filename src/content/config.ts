@@ -17,6 +17,8 @@ const blog = defineCollection({
     /** Optional override; otherwise derived from word count in the page layout. */
     readTime: z.string().optional(),
     image: z.string().optional(),
+    /** When true, omit the large hero image under the title; image still used for cards & social meta. */
+    hideHeroImage: z.boolean().optional().default(false),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
