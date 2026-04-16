@@ -1,4 +1,10 @@
-/** College slug for StraighterLine in `colleges.slug`. */
+/**
+ * StraighterLine per-course + membership display logic.
+ * Used by `CoursePrice.astro` everywhere course price appears in the directory.
+ * New courses qualify if `colleges.slug` is straighterline or `course.slug` starts with `straighterline-`.
+ *
+ * College slug for StraighterLine in `colleges.slug`.
+ */
 export const STRAIGHTERLINE_COLLEGE_SLUG = 'straighterline';
 
 export function isStraighterLineCollege(collegeSlug: string | null | undefined): boolean {
