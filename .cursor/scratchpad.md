@@ -655,6 +655,8 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 - For MDX blog posts, pair structured HTML (e.g. `div.table-wrap` > `table`, `div.school-grid` > linked cards) with `:global(...)` rules on the blog template so styling stays consistent without per-post CSS.
 
+- **Header mega-menu (2026-04):** After switching directory filtering to `filterDirectoryCourses`, any Supabase query used for that menu must include `colleges(slug)` (or equivalent) so provider filtering can run. Without it, every row fails the filter and the Courses mega-menu appears empty. Null `subcategory` can be grouped as `General` to match category pages.
+
 ---
 
 ## Technical Stack Decisions

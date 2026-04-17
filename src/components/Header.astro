@@ -17,13 +17,15 @@ let menuCategories: { slug: string; name: string; subcategories: { name: string;
 
 if (isSupabaseConfigured && supabase) {
   const { data: cats } = await supabase.from('course_categories').select('slug, name').order('name');
-  const { data: courses } = await supabase.from('courses').select('slug, subcategory, course_categories(slug)').not('subcategory', 'is', null);
+  const { data: courses } = await supabase
+    .from('courses')
+    .select('slug, subcategory, course_categories(slug), colleges(slug)');
 
   for (const cat of cats || []) {
     const subMap: Record<string, number> = {};
     for (const c of filterDirectoryCourses(courses || [])) {
       if ((c.course_categories as any)?.slug !== cat.slug) continue;
-      const sub = c.subcategory as string;
+      const sub = (c.subcategory as string | null)?.trim() || 'General';
       subMap[sub] = (subMap[sub] || 0) + 1;
     }
     const subcategories = Object.entries(subMap)

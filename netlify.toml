@@ -175,6 +175,17 @@
   to = "/resources/blog/university-of-florida-online-2026-guide/"
   status = 301
 
+# Duplicate course URL → canonical Sophia A&P I
+[[redirects]]
+  from = "/courses/sophia-anatomy-and-physiology-1"
+  to = "/courses/sophia-anatomy-physiology-1/"
+  status = 301
+
+[[redirects]]
+  from = "/courses/sophia-anatomy-and-physiology-1/"
+  to = "/courses/sophia-anatomy-physiology-1/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"

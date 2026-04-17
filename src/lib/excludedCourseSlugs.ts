@@ -3,7 +3,10 @@ import { filterAllowedProviderCourses, isAllowedCourseProvider } from './allowed
 /**
  * Slugs removed from the directory but possibly still present in DB until migration runs.
  */
-export const EXCLUDED_COURSE_SLUGS = new Set<string>([]);
+export const EXCLUDED_COURSE_SLUGS = new Set<string>([
+	// Duplicate of sophia-anatomy-physiology-1 (canonical)
+	'sophia-anatomy-and-physiology-1',
+]);
 
 export function filterCourses<T extends { slug: string }>(courses: T[] | null | undefined): T[] {
 	if (!courses?.length) return [];

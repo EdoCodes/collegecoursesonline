@@ -7,7 +7,6 @@ const sb = createClient(
 // StraighterLine + Sophia Learning courses only
 const tags = [
   { slug: 'sophia-anatomy-physiology-1',      subcategory: 'Anatomy & Physiology',  subcategory_slug: 'anatomy-physiology' },
-  { slug: 'sophia-anatomy-and-physiology-1',  subcategory: 'Anatomy & Physiology',  subcategory_slug: 'anatomy-physiology' },
   { slug: 'straighterline-anatomy-physiology-1',     subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'straighterline-anatomy-physiology-1-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'straighterline-anatomy-physiology-2-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },

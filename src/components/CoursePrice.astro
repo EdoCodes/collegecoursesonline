@@ -5,6 +5,7 @@
  * (including new DB rows) as long as listings import this component.
  */
 import {
+	displayPriceForCourse,
 	resolveCollegeSlug,
 	shouldShowStraighterLineMembership,
 } from '../lib/coursePriceDisplay';
@@ -21,20 +22,21 @@ interface Props {
 
 const { price, courseSlug, colleges, collegeSlug: collegeSlugProp } = Astro.props;
 const collegeSlug = collegeSlugProp ?? resolveCollegeSlug(colleges);
-const isFree = price === 'Free' || !price;
+const displayPrice = displayPriceForCourse(price, collegeSlug);
+const isFree = displayPrice === 'Free' || !displayPrice;
 const showMembership =
 	!isFree && shouldShowStraighterLineMembership(price, collegeSlug, courseSlug);
 ---
 
 {isFree ? (
-	<span>{price || ''}</span>
+	<span>{displayPrice || ''}</span>
 ) : showMembership ? (
 	<span class="course-price-line">
-		<span class="course-price-amount">{price}</span>
+		<span class="course-price-amount">{displayPrice}</span>
 		<span class="course-price-membership"> + membership</span>
 	</span>
 ) : (
-	<span>{price}</span>
+	<span>{displayPrice}</span>
 )}
 
 <style is:global>

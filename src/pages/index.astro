@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { Course } from '../lib/supabase';
 import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
+import { displayPriceForCourse, resolveCollegeSlug } from '../lib/coursePriceDisplay';
 import CoursePrice from '../components/CoursePrice.astro';
 import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
 import {
@@ -81,12 +82,13 @@ const _staticCoursesData = [
 		slug: 'sophia-anatomy-physiology-1',
 		featured: true,
 		title: 'Anatomy and Physiology I',
-		short_description: 'ACE & DEAC-recommended A&P I — 3 credits, self-paced, free trial.',
+		short_description:
+			'ACE & DEAC-recommended A&P I — 3 credits, self-paced. $99/month membership.',
 		course_url: 'https://www.sophia.org/online-courses/science/anatomy-and-physiology-i/',
 		image_url: '/images/courses/sophia-anatomy-physiology-1.png',
 		level: 'Introductory',
-		price: 'Free trial',
-		price_numeric: 0,
+		price: '$99',
+		price_numeric: 99,
 		certificate_available: true,
 		credits: '3 credits (ACE & DEAC-recommended)',
 		created_at: '2024-03-02T00:00:00Z',
@@ -157,7 +159,7 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 				</div>
 				<div class="unified-grid">
 					{featuredCourses.map(course => (
-						<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+						<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
 							<div class="card-image">
 								<img
 									src={resolveCourseImageUrl(course.slug, course.image_url)}
@@ -335,7 +337,7 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 			<section class="courses-section">
 				<div class="courses-grid" id="coursesGrid">
 				{coursesData.map(course => (
-					<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={course.price} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+					<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
 							<div class="card-image">
 								<img
 									src={resolveCourseImageUrl(course.slug, course.image_url)}
