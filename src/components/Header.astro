@@ -1,6 +1,10 @@
 ---
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
+import { FALLBACK_COURSE_CATEGORIES } from '../lib/courseCategoryFallbacks';
+
+type MegaSub = { name: string; slug: string; count?: number; href?: string };
+type MegaCat = { slug: string; name: string; subcategories: MegaSub[] };
 
 const currentPath = Astro.url.pathname;
 const pathNorm = currentPath.replace(/\/$/, '') || '/';
@@ -13,7 +17,7 @@ const resourcesNavActive =
 	resourcesHubActive || blogSubActive || guidesSubActive;
 
 // Fetch categories + subcategories for mega-menu
-let menuCategories: { slug: string; name: string; subcategories: { name: string; slug: string; count: number }[] }[] = [];
+let menuCategories: MegaCat[] = [];
 
 if (isSupabaseConfigured && supabase) {
   const { data: cats } = await supabase.from('course_categories').select('slug, name').order('name');
@@ -28,7 +32,7 @@ if (isSupabaseConfigured && supabase) {
       const sub = (c.subcategory as string | null)?.trim() || 'General';
       subMap[sub] = (subMap[sub] || 0) + 1;
     }
-    const subcategories = Object.entries(subMap)
+    const subcategories: MegaSub[] = Object.entries(subMap)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([name, count]) => ({
         name,
@@ -39,6 +43,21 @@ if (isSupabaseConfigured && supabase) {
       menuCategories.push({ slug: cat.slug, name: cat.name, subcategories });
     }
   }
+}
+
+// Deploy previews often build without Supabase env — still show a useful menu
+if (menuCategories.length === 0) {
+  menuCategories = FALLBACK_COURSE_CATEGORIES.map((c) => ({
+    slug: c.slug,
+    name: c.name,
+    subcategories: [
+      {
+        name: `All ${c.name} courses`,
+        slug: 'all',
+        href: `/courses/category/${c.slug}`,
+      },
+    ],
+  }));
 }
 ---
 
@@ -103,7 +122,7 @@ if (isSupabaseConfigured && supabase) {
                     <ul class="mega-sub-list">
                       {cat.subcategories.map(sub => (
                         <li>
-                          <a href={`/courses/category/${cat.slug}/${sub.slug}`} class="mega-sub-link">
+                          <a href={sub.href ?? `/courses/category/${cat.slug}/${sub.slug}`} class="mega-sub-link">
                             {sub.name}
                           </a>
                         </li>

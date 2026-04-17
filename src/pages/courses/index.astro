@@ -1,0 +1,688 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { supabase, isSupabaseConfigured } from '../../lib/supabase';
+import type { Course } from '../../lib/supabase';
+import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
+import { displayPriceForCourse, resolveCollegeSlug } from '../../lib/coursePriceDisplay';
+import CoursePrice from '../../components/CoursePrice.astro';
+import { filterDirectoryCourses } from '../../lib/excludedCourseSlugs';
+import { FALLBACK_COURSE_CATEGORIES } from '../../lib/courseCategoryFallbacks';
+
+let coursesData: Course[] = [];
+let categories: { slug: string; name: string; icon?: string }[] = [];
+
+if (isSupabaseConfigured && supabase) {
+	const { data: courses } = await supabase
+		.from('courses')
+		.select(`*, colleges (*), course_categories (*)`)
+		.order('featured', { ascending: false })
+		.order('created_at', { ascending: false })
+		.limit(50);
+
+	coursesData = filterDirectoryCourses(courses || []);
+
+	const { data: cats } = await supabase.from('course_categories').select('*').order('name');
+
+	categories = cats || [];
+}
+
+if (categories.length === 0) {
+	categories = [...FALLBACK_COURSE_CATEGORIES];
+}
+---
+
+<Layout
+	title="Browse online courses | College Courses Online"
+	description="Search and filter accredited online college courses from StraighterLine, Sophia Learning, and Study.com."
+	canonical="/courses"
+>
+	<div class="page-hero">
+		<div class="container">
+			<nav class="breadcrumb">
+				<a href="/">Home</a>
+				<span>›</span>
+				<span>Courses</span>
+			</nav>
+			<div class="hero-content">
+				<span class="hero-icon" aria-hidden="true">📚</span>
+				<div>
+					<h1>Browse online courses</h1>
+					<p>Filter by subject, level, price, and more — same directory as our homepage.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<main class="main-content">
+		<div class="container">
+			<section class="filters-section">
+				<div class="filters-header">
+					<h2>All courses</h2>
+					<div class="results-count" id="resultsCount">
+						Showing <span id="courseCount">{coursesData.length}</span> courses
+					</div>
+				</div>
+
+				<div class="search-box">
+					<svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+						<circle cx="9" cy="9" r="5" stroke="currentColor" stroke-width="2" />
+						<path d="M13 13L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+					</svg>
+					<input
+						type="text"
+						id="searchInput"
+						placeholder="Search for courses (e.g., Algebra, Computer Science)..."
+						class="search-input"
+					/>
+				</div>
+
+				<div class="filters">
+					<div class="filter-group">
+						<label for="categoryFilter">Subject</label>
+						<select id="categoryFilter" class="filter-select">
+							<option value="">All Subjects</option>
+							{categories?.map((cat) => (
+								<option value={cat.slug}>
+									{cat.icon} {cat.name}
+								</option>
+							))}
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="sortFilter">Sort By</label>
+						<select id="sortFilter" class="filter-select">
+							<option value="featured">Featured</option>
+							<option value="popularity">Popularity</option>
+							<option value="price-low">Price: Low to High</option>
+							<option value="price-high">Price: High to Low</option>
+							<option value="ease">Ease of Access</option>
+							<option value="accreditation">Accreditation</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="levelFilter">Level</label>
+						<select id="levelFilter" class="filter-select">
+							<option value="">All Levels</option>
+							<option value="Beginner">Beginner</option>
+							<option value="Intermediate">Intermediate</option>
+							<option value="Advanced">Advanced</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="priceFilter">Price</label>
+						<select id="priceFilter" class="filter-select">
+							<option value="">All Prices</option>
+							<option value="Free">Free Only</option>
+							<option value="Paid">Paid</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="certificateFilter">Transcript</label>
+						<select id="certificateFilter" class="filter-select">
+							<option value="">All</option>
+							<option value="true">Transcript available upon completion</option>
+						</select>
+					</div>
+
+					<div class="filter-group">
+						<label for="accreditationFilter">Accreditation</label>
+						<select id="accreditationFilter" class="filter-select">
+							<option value="">All Types</option>
+							<option value="Regional">Regional</option>
+							<option value="National">National</option>
+							<option value="International">International</option>
+						</select>
+					</div>
+				</div>
+			</section>
+
+			<section class="courses-section">
+				<div class="courses-grid" id="coursesGrid">
+					{coursesData.map((course) => (
+						<a
+							href={`/courses/${course.slug}`}
+							class="card"
+							data-course-id={course.id}
+							data-category={course.course_categories?.slug}
+							data-level={course.level}
+							data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))}
+							data-certificate={course.certificate_available}
+							data-accreditation={course.colleges?.accreditation_level}
+							data-popularity={course.colleges?.popularity_score}
+							data-ease={course.colleges?.ease_of_access_score}
+							data-featured={course.featured}
+							data-created={course.created_at}
+						>
+							<div class="card-image">
+								<img
+									src={resolveCourseImageUrl(course.slug, course.image_url)}
+									alt={course.title}
+									loading="lazy"
+								/>
+								{course.price === 'Free' ? (
+									<span class="card-badge-price free">Free</span>
+								) : (
+									course.price && (
+										<span class="card-badge-price">
+											<CoursePrice price={course.price} colleges={course.colleges} courseSlug={course.slug} />
+										</span>
+									)
+								)}
+							</div>
+							<div class="card-body">
+								<span class="card-label">
+									{course.course_categories
+										? `${course.course_categories.icon ?? ''} ${course.course_categories.name}`
+										: 'Course'}
+								</span>
+								<h3 class="card-title">{course.title}</h3>
+								{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
+								<p class="card-excerpt">
+									{course.short_description || course.description?.slice(0, 160)}
+								</p>
+								<span class="card-cta">View program →</span>
+							</div>
+						</a>
+					))}
+				</div>
+
+				<div class="no-results" id="noResults" style="display: none;">
+					<svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+						<circle cx="60" cy="60" r="50" fill="#f5f5f5" />
+						<path
+							d="M45 50C45 47.2386 47.2386 45 50 45H70C72.7614 45 75 47.2386 75 50V70C75 72.7614 72.7614 75 70 75H50C47.2386 75 45 72.7614 45 70V50Z"
+							stroke="#a3a3a3"
+							stroke-width="3"
+						/>
+						<circle cx="55" cy="57" r="3" fill="#a3a3a3" />
+						<circle cx="65" cy="57" r="3" fill="#a3a3a3" />
+						<path
+							d="M52 67C52 67 56 63 60 63C64 63 68 67 68 67"
+							stroke="#a3a3a3"
+							stroke-width="3"
+							stroke-linecap="round"
+						/>
+					</svg>
+					<h3>No courses found</h3>
+					<p>Try adjusting your filters or search terms</p>
+				</div>
+			</section>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.page-hero {
+		background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+		color: white;
+		padding: 3rem 0 2.5rem;
+	}
+	.container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+	.breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		margin-bottom: 1.5rem;
+		opacity: 0.85;
+	}
+	.breadcrumb a {
+		color: white;
+		text-decoration: none;
+	}
+	.breadcrumb a:hover {
+		text-decoration: underline;
+	}
+	.breadcrumb span {
+		opacity: 0.6;
+	}
+	.hero-content {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+	}
+	.hero-icon {
+		font-size: 3rem;
+		line-height: 1;
+	}
+	.hero-content h1 {
+		font-size: 2.25rem;
+		font-weight: 800;
+		margin-bottom: 0.35rem;
+		letter-spacing: -0.03em;
+	}
+	.hero-content p {
+		font-size: 1rem;
+		opacity: 0.85;
+	}
+
+	.main-content {
+		padding: calc(var(--spacing) * 8) 0;
+		min-height: 50vh;
+	}
+
+	.filters-section {
+		margin-bottom: calc(var(--spacing) * 5);
+	}
+
+	.search-box {
+		position: relative;
+		margin-bottom: calc(var(--spacing) * 3);
+	}
+
+	.search-icon {
+		position: absolute;
+		left: calc(var(--spacing) * 2);
+		top: 50%;
+		transform: translateY(-50%);
+		color: var(--neutral-400);
+		pointer-events: none;
+	}
+
+	.search-input {
+		width: 100%;
+		padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 2.5) calc(var(--spacing) * 2.5) calc(var(--spacing) * 6);
+		border: 2px solid var(--neutral-200);
+		border-radius: calc(var(--border-radius) * 1.25);
+		font-size: 1.125rem;
+		color: var(--neutral-800);
+		background: white;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	}
+
+	.search-input:hover {
+		border-color: var(--color-primary-light);
+		box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08);
+	}
+
+	.search-input:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 4px 16px rgba(30, 64, 175, 0.15), 0 0 0 4px rgba(30, 64, 175, 0.1);
+	}
+
+	.search-input::placeholder {
+		color: var(--neutral-400);
+	}
+
+	.filters-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: calc(var(--spacing) * 3);
+		flex-wrap: wrap;
+		gap: calc(var(--spacing) * 2);
+	}
+
+	.filters-header h2 {
+		font-size: 2rem;
+		color: var(--neutral-900);
+	}
+
+	.results-count {
+		font-size: 1rem;
+		color: var(--neutral-600);
+	}
+
+	#courseCount {
+		font-weight: 600;
+		color: var(--color-primary);
+	}
+
+	.filters {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: calc(var(--spacing) * 2);
+		padding: calc(var(--spacing) * 4);
+		background: white;
+		border-radius: calc(var(--border-radius) * 1.25);
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+		border: 1px solid var(--neutral-100);
+	}
+
+	.filter-group label {
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--neutral-700);
+		margin-bottom: calc(var(--spacing) * 1);
+	}
+
+	.filter-select {
+		width: 100%;
+		padding: calc(var(--spacing) * 1.75);
+		border: 2px solid var(--neutral-200);
+		border-radius: calc(var(--border-radius) * 0.75);
+		font-size: 1rem;
+		color: var(--neutral-800);
+		background: white;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		cursor: pointer;
+	}
+
+	.filter-select:hover {
+		border-color: var(--color-primary-light);
+		box-shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
+	}
+
+	.filter-select:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 2px 12px rgba(30, 64, 175, 0.12), 0 0 0 3px rgba(30, 64, 175, 0.1);
+	}
+
+	.courses-section {
+		position: relative;
+	}
+
+	.courses-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 1.5rem;
+		margin-bottom: calc(var(--spacing) * 5);
+	}
+
+	.no-results {
+		text-align: center;
+		padding: calc(var(--spacing) * 10) 0;
+	}
+
+	.no-results svg {
+		margin: 0 auto calc(var(--spacing) * 3);
+	}
+
+	.no-results h3 {
+		font-size: 1.5rem;
+		color: var(--neutral-700);
+		margin-bottom: calc(var(--spacing) * 1);
+	}
+
+	.no-results p {
+		font-size: 1rem;
+		color: var(--neutral-500);
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+		height: 100%;
+	}
+
+	.card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+		border-color: #2563eb;
+	}
+
+	.card-image {
+		position: relative;
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background: #f1f5f9;
+		flex-shrink: 0;
+	}
+
+	.card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.35s ease;
+	}
+
+	.card:hover .card-image img {
+		transform: scale(1.06);
+	}
+
+	.card-body {
+		padding: 1.25rem 1.5rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.card-label {
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #2563eb;
+		margin-bottom: 0.5rem;
+		display: inline-block;
+	}
+
+	.card-title {
+		font-family: 'Inter', sans-serif;
+		font-size: 1.125rem;
+		font-weight: 700;
+		color: #0f172a;
+		line-height: 1.4;
+		margin-bottom: 0.625rem;
+		letter-spacing: -0.02em;
+	}
+
+	.card:hover .card-title {
+		color: #2563eb;
+	}
+
+	.card-brand {
+		font-size: 0.85rem;
+		color: #94a3b8;
+		margin-bottom: 0.625rem;
+		font-weight: 500;
+	}
+
+	.card-excerpt {
+		font-size: 0.875rem;
+		color: #334155;
+		line-height: 1.6;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		flex: 1;
+		margin-bottom: 1rem;
+	}
+
+	.card-cta {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #2563eb;
+		transition: color 0.2s;
+		margin-top: auto;
+	}
+
+	.card:hover .card-cta {
+		color: #1d4ed8;
+	}
+
+	.card-badge-price {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		padding: 4px 10px;
+		background: rgba(15, 23, 42, 0.8);
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 700;
+		border-radius: 6px;
+		backdrop-filter: blur(8px);
+	}
+
+	.card-badge-price.free {
+		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	}
+
+	@media (max-width: 768px) {
+		.hero-content h1 {
+			font-size: 1.75rem;
+		}
+		.filters-header h2 {
+			font-size: 1.5rem;
+		}
+		.filters {
+			grid-template-columns: 1fr;
+		}
+		.main-content {
+			padding: calc(var(--spacing) * 5) 0;
+		}
+		.courses-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	const coursesGrid = document.getElementById('coursesGrid') as HTMLElement | null;
+	const noResults = document.getElementById('noResults') as HTMLElement | null;
+	const courseCount = document.getElementById('courseCount') as HTMLElement | null;
+
+	const searchInput = document.getElementById('searchInput') as HTMLInputElement | null;
+	const categoryFilter = document.getElementById('categoryFilter') as HTMLSelectElement | null;
+	const sortFilter = document.getElementById('sortFilter') as HTMLSelectElement | null;
+	const levelFilter = document.getElementById('levelFilter') as HTMLSelectElement | null;
+	const priceFilter = document.getElementById('priceFilter') as HTMLSelectElement | null;
+	const certificateFilter = document.getElementById('certificateFilter') as HTMLSelectElement | null;
+	const accreditationFilter = document.getElementById('accreditationFilter') as HTMLSelectElement | null;
+
+	const allCards = Array.from(coursesGrid?.querySelectorAll<HTMLElement>('.card') ?? []);
+
+	interface CardMeta {
+		el: HTMLElement;
+		title: string;
+		brand: string;
+		category: string;
+		categorySlug: string;
+		label: string;
+		excerpt: string;
+		level: string;
+		price: string;
+		priceNumeric: number;
+		certificate: boolean;
+		accreditation: string;
+		popularity: number;
+		ease: number;
+		featured: boolean;
+		created: number;
+	}
+
+	const cardMeta: CardMeta[] = allCards.map((el) => ({
+		el,
+		title: el.querySelector('.card-title')?.textContent?.toLowerCase() ?? '',
+		brand: el.querySelector('.card-brand')?.textContent?.toLowerCase() ?? '',
+		category: el.dataset.category ?? '',
+		categorySlug: (el.dataset.category ?? '').toLowerCase(),
+		label: el.querySelector('.card-label')?.textContent?.toLowerCase() ?? '',
+		excerpt: el.querySelector('.card-excerpt')?.textContent?.toLowerCase() ?? '',
+		level: el.dataset.level ?? '',
+		price: el.dataset.price ?? '',
+		priceNumeric: parseFloat(el.dataset.price?.replace(/[^0-9.]/g, '') || '0') || 0,
+		certificate: el.dataset.certificate === 'true',
+		accreditation: el.dataset.accreditation ?? '',
+		popularity: parseFloat(el.dataset.popularity ?? '0'),
+		ease: parseFloat(el.dataset.ease ?? '0'),
+		featured: el.dataset.featured === 'true',
+		created: new Date(el.dataset.created ?? 0).getTime(),
+	}));
+
+	let visibleMeta = [...cardMeta];
+
+	function applyFilters() {
+		const q = searchInput?.value.trim().toLowerCase() ?? '';
+		const cat = categoryFilter?.value ?? '';
+		const level = levelFilter?.value ?? '';
+		const price = priceFilter?.value ?? '';
+		const cert = certificateFilter?.value ?? '';
+		const accr = accreditationFilter?.value ?? '';
+		const sort = sortFilter?.value ?? 'featured';
+
+		visibleMeta = cardMeta.filter((m) => {
+			if (
+				q &&
+				!m.title.includes(q) &&
+				!m.brand.includes(q) &&
+				!m.categorySlug.includes(q) &&
+				!m.label.includes(q) &&
+				!m.excerpt.includes(q)
+			) {
+				return false;
+			}
+			if (cat && m.category !== cat) return false;
+			if (level && m.level !== level) return false;
+			if (price === 'Free' && m.price !== 'Free') return false;
+			if (price === 'Paid' && m.price === 'Free') return false;
+			if (cert && !m.certificate) return false;
+			if (accr && m.accreditation !== accr) return false;
+			return true;
+		});
+
+		const accOrder: Record<string, number> = { Regional: 3, National: 2, International: 1 };
+		visibleMeta.sort((a, b) => {
+			switch (sort) {
+				case 'popularity':
+					return b.popularity - a.popularity;
+				case 'price-low':
+					return a.priceNumeric - b.priceNumeric;
+				case 'price-high':
+					return b.priceNumeric - a.priceNumeric;
+				case 'ease':
+					return b.ease - a.ease;
+				case 'accreditation':
+					return (accOrder[b.accreditation] ?? 0) - (accOrder[a.accreditation] ?? 0);
+				default:
+					if (b.featured !== a.featured) return b.featured ? 1 : -1;
+					return b.created - a.created;
+			}
+		});
+
+		render();
+	}
+
+	function render() {
+		const visibleSet = new Set(visibleMeta.map((m) => m.el));
+
+		if (courseCount) courseCount.textContent = visibleMeta.length.toString();
+
+		if (visibleMeta.length === 0) {
+			if (coursesGrid) coursesGrid.style.display = 'none';
+			if (noResults) noResults.style.display = 'block';
+			return;
+		}
+
+		if (coursesGrid) coursesGrid.style.display = 'grid';
+		if (noResults) noResults.style.display = 'none';
+
+		visibleMeta.forEach((m) => coursesGrid?.appendChild(m.el));
+
+		allCards.forEach((el) => {
+			(el as HTMLElement).style.display = visibleSet.has(el) ? 'flex' : 'none';
+		});
+	}
+
+	searchInput?.addEventListener('input', applyFilters);
+	categoryFilter?.addEventListener('change', applyFilters);
+	sortFilter?.addEventListener('change', applyFilters);
+	levelFilter?.addEventListener('change', applyFilters);
+	priceFilter?.addEventListener('change', applyFilters);
+	certificateFilter?.addEventListener('change', applyFilters);
+	accreditationFilter?.addEventListener('change', applyFilters);
+</script>

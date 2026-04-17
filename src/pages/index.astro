@@ -7,6 +7,7 @@ import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
 import { displayPriceForCourse, resolveCollegeSlug } from '../lib/coursePriceDisplay';
 import CoursePrice from '../components/CoursePrice.astro';
 import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
+import { FALLBACK_COURSE_CATEGORIES } from '../lib/courseCategoryFallbacks';
 import {
 	resourcesBlogPosts,
 	type ResourcesBlogPost,
@@ -39,18 +40,7 @@ if (isSupabaseConfigured && supabase) {
 
 // Fallback static categories (shown in filter even if Supabase is empty)
 if (categories.length === 0) {
-	categories = [
-	{ slug: 'business',        name: 'Business',          icon: '💼' },
-	{ slug: 'computer-science',name: 'Computer Science',  icon: '💻' },
-	{ slug: 'data-science',    name: 'Data Science',      icon: '📊' },
-	{ slug: 'education',       name: 'Education',         icon: '🎓' },
-	{ slug: 'engineering',     name: 'Engineering',       icon: '⚙️' },
-	{ slug: 'health',          name: 'Health & Medicine', icon: '🏥' },
-	{ slug: 'humanities',      name: 'Humanities',        icon: '📚' },
-	{ slug: 'mathematics',     name: 'Mathematics',       icon: '➗' },
-	{ slug: 'psychology',      name: 'Psychology',        icon: '🧠' },
-	{ slug: 'science',         name: 'Natural Sciences',  icon: '🔬' },
-	];
+	categories = [...FALLBACK_COURSE_CATEGORIES];
 }
 
 const _staticCoursesData = [
