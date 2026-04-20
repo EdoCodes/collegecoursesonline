@@ -17,6 +17,7 @@ const tags = [
   { slug: 'study-com-biology-201l-anatomy-physiology-i-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'study-com-algebra', subcategory: 'Algebra', subcategory_slug: 'algebra' },
   { slug: 'study-com-statistics', subcategory: 'Statistics', subcategory_slug: 'statistics' },
+  { slug: 'study-com-sociology', subcategory: 'Sociology', subcategory_slug: 'sociology' },
 ];
 
 let ok = 0, fail = 0;
