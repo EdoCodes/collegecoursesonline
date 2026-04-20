@@ -19,6 +19,7 @@ const tags = [
   { slug: 'study-com-statistics', subcategory: 'Statistics', subcategory_slug: 'statistics' },
   { slug: 'study-com-sociology', subcategory: 'Sociology', subcategory_slug: 'sociology' },
   { slug: 'study-com-psychology-101', subcategory: 'Psychology 101', subcategory_slug: 'psychology-101' },
+  { slug: 'study-com-general-chemistry', subcategory: 'General Chemistry', subcategory_slug: 'general-chemistry' },
 ];
 
 let ok = 0, fail = 0;
