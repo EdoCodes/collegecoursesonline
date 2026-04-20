@@ -21,6 +21,7 @@ const tags = [
   { slug: 'study-com-psychology-101', subcategory: 'Psychology 101', subcategory_slug: 'psychology-101' },
   { slug: 'study-com-general-chemistry', subcategory: 'General Chemistry', subcategory_slug: 'general-chemistry' },
   { slug: 'study-com-western-civilization', subcategory: 'Western Civilization', subcategory_slug: 'western-civilization' },
+  { slug: 'study-com-college-composition', subcategory: 'College Composition', subcategory_slug: 'college-composition' },
 ];
 
 let ok = 0, fail = 0;
