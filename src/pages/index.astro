@@ -6,7 +6,7 @@ import type { Course } from '../lib/supabase';
 import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
 import { displayPriceForCourse, resolveCollegeSlug } from '../lib/coursePriceDisplay';
 import CoursePrice from '../components/CoursePrice.astro';
-import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
+import { fetchDirectoryCourseList } from '../lib/fetchDirectoryCourseList';
 import { FALLBACK_COURSE_CATEGORIES } from '../lib/courseCategoryFallbacks';
 import {
 	resourcesBlogPosts,
@@ -20,14 +20,7 @@ let featuredCourses: Course[] = [];
 let categories: any[] = [];
 
 if (isSupabaseConfigured && supabase) {
-	const { data: courses } = await supabase
-		.from('courses')
-		.select(`*, colleges (*), course_categories (*)`)
-		.order('featured', { ascending: false })
-		.order('created_at', { ascending: false })
-		.limit(50);
-
-	coursesData = filterDirectoryCourses(courses || []);
+	coursesData = await fetchDirectoryCourseList(supabase, 50);
 	featuredCourses = coursesData.filter(c => c.featured).slice(0, 3);
 
 	const { data: cats } = await supabase
