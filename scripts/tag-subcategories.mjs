@@ -18,6 +18,7 @@ const tags = [
   { slug: 'study-com-algebra', subcategory: 'Algebra', subcategory_slug: 'algebra' },
   { slug: 'study-com-statistics', subcategory: 'Statistics', subcategory_slug: 'statistics' },
   { slug: 'study-com-sociology', subcategory: 'Sociology', subcategory_slug: 'sociology' },
+  { slug: 'study-com-psychology-101', subcategory: 'Psychology 101', subcategory_slug: 'psychology-101' },
 ];
 
 let ok = 0, fail = 0;
