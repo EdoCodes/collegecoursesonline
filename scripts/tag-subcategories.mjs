@@ -16,6 +16,7 @@ const tags = [
   { slug: 'straighterline-microbiology',      subcategory: 'Biology',               subcategory_slug: 'biology' },
   { slug: 'study-com-biology-201l-anatomy-physiology-i-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'study-com-algebra', subcategory: 'Algebra', subcategory_slug: 'algebra' },
+  { slug: 'study-com-statistics', subcategory: 'Statistics', subcategory_slug: 'statistics' },
 ];
 
 let ok = 0, fail = 0;
