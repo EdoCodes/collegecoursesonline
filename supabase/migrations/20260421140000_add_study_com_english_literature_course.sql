@@ -1,5 +1,5 @@
 -- Study.com English Literature — https://study.com/academy/course/english-literature.html
--- Category: Humanities. Card image: /images/courses/study-com-english-literature.jpg
+-- Category: Humanities. Card image: /images/courses/study-com-english-literature.png
 
 INSERT INTO courses (
   college_id,
@@ -27,7 +27,7 @@ SELECT
   $DESC$Study.com English Literature surveys major British and American authors, poetic and narrative forms, drama, rhetoric, literary movements, close reading, and contextual interpretation from early periods through the modern era. Video lessons, readings, practice, and assessments suit a college-level introductory literature survey. Credit is earned through the College Accelerator plan; courses carry ACE and NCCRS recommendations. Always confirm transfer with your receiving institution.$DESC$,
   'ACE/NCCRS-recommended English Literature survey on Study.com — poetry, prose, drama, and critical reading. College Accelerator subscription. Verify transfer at your school.',
   'https://study.com/academy/course/english-literature.html',
-  '/images/courses/study-com-english-literature.jpg',
+  '/images/courses/study-com-english-literature.png',
   'Self-paced',
   'Introductory',
   '$95/mo',

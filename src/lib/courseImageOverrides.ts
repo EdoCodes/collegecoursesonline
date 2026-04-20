@@ -22,7 +22,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'study-com-general-chemistry': '/images/courses/study-com-general-chemistry.png',
 	'study-com-western-civilization': '/images/courses/study-com-western-civilization.png',
 	'study-com-college-composition': '/images/courses/study-com-college-composition.jpg',
-	'study-com-english-literature': '/images/courses/study-com-english-literature.jpg',
+	'study-com-english-literature': '/images/courses/study-com-english-literature.png',
 };
 
 export function resolveCourseImageUrl(

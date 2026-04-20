@@ -772,7 +772,7 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 ### 2026-04-17 — Study.com English Literature course card
 
 - **Slug:** `study-com-english-literature` · **URL:** https://study.com/academy/course/english-literature.html · **Category:** humanities · **Subcategory:** English Literature (`/courses/category/humanities/english-literature/` after DB sync).
-- **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.jpg`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`.
+- **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.png`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`, `20260422120000_study_com_english_literature_png_card_image.sql`.
 - **Verification:** `npm run build` exit 0.
 
 ---

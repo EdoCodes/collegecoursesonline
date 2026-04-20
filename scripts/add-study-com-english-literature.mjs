@@ -41,7 +41,7 @@ const { data, error } = await supabase
 			short_description:
 				'ACE/NCCRS-recommended English Literature survey on Study.com — poetry, prose, drama, and critical reading. College Accelerator subscription. Verify transfer at your school.',
 			course_url: 'https://study.com/academy/course/english-literature.html',
-			image_url: '/images/courses/study-com-english-literature.jpg',
+			image_url: '/images/courses/study-com-english-literature.png',
 			duration: 'Self-paced',
 			level: 'Introductory',
 			price: '$95/mo',
