@@ -20,6 +20,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'study-com-sociology': '/images/courses/study-com-sociology.png',
 	'study-com-psychology-101': '/images/courses/study-com-psychology-101.png',
 	'study-com-general-chemistry': '/images/courses/study-com-general-chemistry.png',
+	'study-com-western-civilization': '/images/courses/study-com-western-civilization.png',
 };
 
 export function resolveCourseImageUrl(
