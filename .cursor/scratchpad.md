@@ -769,6 +769,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - **Fix (`src/pages/index.astro`):** Search also matches `data-category` slug (lowercased), `.card-label`, and `.card-excerpt`; query string is **trimmed**.
 - **Verification:** `npm run build` exit 0 (70 pages).
 
+### 2026-04-17 — Study.com English Literature course card
+
+- **Slug:** `study-com-english-literature` · **URL:** https://study.com/academy/course/english-literature.html · **Category:** humanities · **Subcategory:** English Literature (`/courses/category/humanities/english-literature/` after DB sync).
+- **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.jpg`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`.
+- **Verification:** `npm run build` exit 0.
+
 ---
 
 ## End of Planning Document

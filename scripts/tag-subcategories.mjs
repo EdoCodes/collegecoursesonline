@@ -22,6 +22,7 @@ const tags = [
   { slug: 'study-com-general-chemistry', subcategory: 'General Chemistry', subcategory_slug: 'general-chemistry' },
   { slug: 'study-com-western-civilization', subcategory: 'Western Civilization', subcategory_slug: 'western-civilization' },
   { slug: 'study-com-college-composition', subcategory: 'College Composition', subcategory_slug: 'college-composition' },
+  { slug: 'study-com-english-literature', subcategory: 'English Literature', subcategory_slug: 'english-literature' },
 ];
 
 let ok = 0, fail = 0;
