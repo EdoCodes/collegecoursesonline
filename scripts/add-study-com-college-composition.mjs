@@ -41,8 +41,7 @@ const { data, error } = await supabase
 			short_description:
 				'ACE/NCCRS-recommended college composition on Study.com — drafting, rhetoric, research, and revision. College Accelerator subscription. Verify transfer at your school.',
 			course_url: 'https://study.com/academy/course/college-composition-writing-course.html',
-			image_url:
-				'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800',
+			image_url: '/images/courses/study-com-college-composition.jpg',
 			duration: 'Self-paced',
 			level: 'Introductory',
 			price: '$95/mo',

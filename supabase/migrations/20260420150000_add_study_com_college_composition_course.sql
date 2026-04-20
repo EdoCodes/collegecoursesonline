@@ -27,7 +27,7 @@ SELECT
   $DESC$Study.com College Composition & Writing develops academic writing practices: drafting and revising essays, thesis-driven arguments, citation and synthesis, rhetoric and audience, grammar and style, research basics, and common college writing formats. Video lessons, prompts, practice, and feedback-oriented assessments fit a freshman composition–style course. Credit is earned through the College Accelerator plan; courses carry ACE and NCCRS recommendations. Always confirm transfer with your receiving institution.$DESC$,
   'ACE/NCCRS-recommended college composition on Study.com — drafting, rhetoric, research, and revision. College Accelerator subscription. Verify transfer at your school.',
   'https://study.com/academy/course/college-composition-writing-course.html',
-  'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800',
+  '/images/courses/study-com-college-composition.jpg',
   'Self-paced',
   'Introductory',
   '$95/mo',
