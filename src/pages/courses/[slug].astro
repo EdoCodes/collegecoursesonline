@@ -11,6 +11,7 @@ import {
 	isAllowedCourseProvider,
 } from '../../lib/excludedCourseSlugs';
 import { displayPriceForCourse } from '../../lib/coursePriceDisplay';
+import { RELATED_ALTERNATIVE_FIRST, inferredSubcategory } from '../../lib/relatedCourses';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -70,19 +71,50 @@ const schemaImageHref = courseImageUrl.startsWith('http')
 	? courseImageUrl
 	: new URL(courseImageUrl.replace(/^\//, ''), siteBaseHref).href;
 
-// Get related courses (same category, different course)
-const { data: relatedCoursesRaw } = await supabase
-  .from('courses')
-  .select(`
-    *,
-    colleges (*),
-    course_categories (*)
-  `)
-  .eq('category_id', course.category_id)
-  .neq('id', course.id)
-  .limit(5);
+// Related: pinned cross-provider alternatives first, then same topic (subcategory) when known — avoids unrelated math cards (e.g. Algebra) on Statistics pages.
+const topicSub = inferredSubcategory(typedCourse.slug, typedCourse as Course & { subcategory?: string | null });
+const pinSlugs = RELATED_ALTERNATIVE_FIRST[typedCourse.slug] ?? [];
+const usedIds = new Set<string>([typedCourse.id]);
+let relatedCourses: Course[] = [];
 
-const relatedCourses = filterDirectoryCourses((relatedCoursesRaw || []) as Course[]).slice(0, 3);
+if (pinSlugs.length) {
+	const { data: pinnedRows } = await supabase
+		.from('courses')
+		.select(`*, colleges (*), course_categories (*)`)
+		.in('slug', pinSlugs);
+	const pinned = filterDirectoryCourses((pinnedRows || []) as Course[]);
+	const rank = new Map(pinSlugs.map((s, i) => [s, i]));
+	pinned.sort((a, b) => (rank.get(a.slug) ?? 99) - (rank.get(b.slug) ?? 99));
+	for (const c of pinned) {
+		if (relatedCourses.length >= 3) break;
+		relatedCourses.push(c);
+		usedIds.add(c.id);
+	}
+}
+
+const needMore = 3 - relatedCourses.length;
+if (needMore > 0) {
+	const { data: poolRaw } = await supabase
+		.from('courses')
+		.select(`*, colleges (*), course_categories (*)`)
+		.eq('category_id', typedCourse.category_id)
+		.neq('id', typedCourse.id)
+		.limit(60);
+
+	let pool = filterDirectoryCourses((poolRaw || []) as Course[]).filter((c) => !usedIds.has(c.id));
+
+	if (topicSub) {
+		pool = pool.filter((c) => ((c as { subcategory?: string | null }).subcategory || '').trim() === topicSub);
+	}
+
+	for (const c of pool) {
+		if (relatedCourses.length >= 3) break;
+		relatedCourses.push(c);
+		usedIds.add(c.id);
+	}
+}
+
+relatedCourses = relatedCourses.slice(0, 3);
 
 const listedPrice = displayPriceForCourse(course.price, college?.slug);
 const offerIsFree = listedPrice === 'Free' || !listedPrice;
@@ -447,7 +479,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
     {relatedCourses && relatedCourses.length > 0 && (
       <section class="related-section">
         <div class="container">
-          <h2>Related Courses</h2>
+          <h2>{pinSlugs.length > 0 ? 'Compare with' : 'Related Courses'}</h2>
           <div class="related-grid">
             {relatedCourses.map((relatedCourse: any) => {
               const relatedImg = resolveCourseImageUrl(relatedCourse.slug, relatedCourse.image_url);
