@@ -4,6 +4,12 @@ import type { Course } from './supabase';
 export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	'straighterline-introduction-to-statistics': ['study-com-statistics'],
 	'study-com-statistics': ['straighterline-introduction-to-statistics'],
+	'study-com-biology-201l-anatomy-physiology-i-with-lab': [
+		'study-com-biology-202l-anatomy-physiology-ii-with-lab',
+	],
+	'study-com-biology-202l-anatomy-physiology-ii-with-lab': [
+		'study-com-biology-201l-anatomy-physiology-i-with-lab',
+	],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */
