@@ -775,6 +775,11 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.png`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`, `20260422120000_study_com_english_literature_png_card_image.sql`.
 - **Verification:** `npm run build` exit 0.
 
+### 2026-04-23 — Study.com Analyzing and Interpreting Literature
+
+- **Slug:** `study-com-analyzing-and-interpreting-literature` · **URL:** https://study.com/academy/course/analyzing-and-interpreting-literature.html · **Image:** Pexels Ece K. **15962831** → `study-com-analyzing-and-interpreting-literature.png` · **Subcategory:** Analyzing and Interpreting Literature.
+- **Migration** `20260423160000_...` includes `learning_outcomes` + `general_education_note` (run `20260423120000` add columns first if needed).
+
 ### 2026-04-23 — Course detail: DB-backed learning outcomes + gen-ed note
 
 - **`courses.learning_outcomes`** (newline-separated bullets), **`courses.general_education_note`** (paragraph).
