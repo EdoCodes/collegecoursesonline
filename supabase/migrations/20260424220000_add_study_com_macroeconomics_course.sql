@@ -1,5 +1,5 @@
 -- Study.com Macroeconomics — https://study.com/academy/course/macroeconomics-course.html
--- Category: Business. Card image: /images/courses/study-com-macroeconomics.png
+-- Category: Business. Card image: /images/courses/study-com-macroeconomics.png (bundled PNG updated in repo; path unchanged)
 
 ALTER TABLE courses
   ADD COLUMN IF NOT EXISTS learning_outcomes text,
