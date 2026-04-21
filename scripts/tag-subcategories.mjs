@@ -30,6 +30,7 @@ const tags = [
   { slug: 'study-com-american-literature', subcategory: 'American Literature', subcategory_slug: 'american-literature' },
   { slug: 'study-com-us-history-i', subcategory: 'US History I', subcategory_slug: 'us-history-i' },
   { slug: 'study-com-introduction-to-biology', subcategory: 'Introduction to Biology', subcategory_slug: 'introduction-to-biology' },
+  { slug: 'study-com-macroeconomics', subcategory: 'Macroeconomics', subcategory_slug: 'macroeconomics' },
 ];
 
 let ok = 0, fail = 0;
