@@ -775,6 +775,13 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.png`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`, `20260422120000_study_com_english_literature_png_card_image.sql`.
 - **Verification:** `npm run build` exit 0.
 
+### 2026-04-23 — Course detail: DB-backed learning outcomes + gen-ed note
+
+- **`courses.learning_outcomes`** (newline-separated bullets), **`courses.general_education_note`** (paragraph).
+- **`src/lib/courseLearningContent.ts`:** parse + default bullets when empty.
+- **`courses/[slug].astro`:** sections “General education & majors” (when note set) + “What You’ll Learn”; Course JSON-LD **`teaches`** when custom outcomes exist.
+- Migration **`20260423120000_course_learning_outcomes_gen_ed.sql`** seeds Public Speaking, English Literature, College Composition.
+
 ### 2026-04-22 — Study.com Public Speaking course card
 
 - **Slug:** `study-com-public-speaking` · **URL:** https://study.com/academy/course/public-speaking-course.html · **Humanities / Public Speaking** · Image: Pexels Henri Mathieu **8345978** → `study-com-public-speaking.png`.

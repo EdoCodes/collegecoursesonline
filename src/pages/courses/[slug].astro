@@ -12,6 +12,7 @@ import {
 } from '../../lib/excludedCourseSlugs';
 import { displayPriceForCourse } from '../../lib/coursePriceDisplay';
 import { RELATED_ALTERNATIVE_FIRST, inferredSubcategory } from '../../lib/relatedCourses';
+import { parseLearningOutcomes, DEFAULT_LEARNING_OUTCOMES } from '../../lib/courseLearningContent';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -121,7 +122,12 @@ const offerIsFree = listedPrice === 'Free' || !listedPrice;
 const offerPriceValue =
   offerIsFree ? '0' : (listedPrice.replace(/[^0-9.]/g, '') || listedPrice);
 
-// Schema.org Course structured data
+const learningOutcomeItems = parseLearningOutcomes(typedCourse.learning_outcomes);
+const displayLearningOutcomes =
+  learningOutcomeItems.length > 0 ? learningOutcomeItems : DEFAULT_LEARNING_OUTCOMES;
+const genEdNote = typedCourse.general_education_note?.trim() ?? '';
+
+// Schema.org Course structured data (teaches = custom outcomes when present)
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
@@ -149,6 +155,7 @@ const courseSchema = {
   "educationalLevel": course.level,
   "timeRequired": course.duration,
   "coursePrerequisites": "None specified",
+  ...(learningOutcomeItems.length ? { teaches: learningOutcomeItems } : {}),
 };
 
 // Breadcrumb JSON-LD matches visible nav: Home → Category → Course (Google prefers parity with on-page breadcrumbs)
@@ -346,14 +353,24 @@ const pageDescription = course.short_description || course.description.slice(0, 
             </div>
           </section>
 
-          <!-- What You'll Learn (Placeholder) -->
+          {genEdNote && (
+            <section class="content-section gen-ed-section" aria-labelledby="gen-ed-heading">
+              <h2 id="gen-ed-heading">General education &amp; majors</h2>
+              <p class="gen-ed-disclaimer">
+                Degree requirements differ by college and catalog year; always verify gen-ed rules and transfer credit with your advisor.
+              </p>
+              <div class="gen-ed-callout">
+                <p class="gen-ed-note">{genEdNote}</p>
+              </div>
+            </section>
+          )}
+
           <section class="content-section">
-            <h2>What You'll Learn</h2>
+            <h2>What You&apos;ll Learn</h2>
             <ul class="learning-outcomes">
-              <li>Comprehensive understanding of the subject matter</li>
-              <li>Practical skills applicable to real-world scenarios</li>
-              <li>Expert guidance from experienced instructors</li>
-              <li>Access to course materials and resources</li>
+              {displayLearningOutcomes.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -744,6 +761,30 @@ const pageDescription = course.short_description || course.description.slice(0, 
     font-size: 1.125rem;
     line-height: 1.8;
     color: var(--neutral-700);
+  }
+
+  .gen-ed-disclaimer {
+    font-size: 0.9375rem;
+    color: var(--neutral-600);
+    margin: calc(var(--spacing) * -1) 0 calc(var(--spacing) * 3);
+    line-height: 1.55;
+    max-width: 52rem;
+  }
+
+  .gen-ed-callout {
+    padding: calc(var(--spacing) * 3);
+    border-radius: calc(var(--border-radius));
+    border: 1px solid rgba(37, 99, 235, 0.22);
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+    box-shadow: 0 1px 3px rgba(30, 64, 175, 0.06);
+    max-width: 52rem;
+  }
+
+  .gen-ed-note {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--neutral-800);
   }
 
   .learning-outcomes {

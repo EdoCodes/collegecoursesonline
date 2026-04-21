@@ -53,6 +53,10 @@ export type Course = {
   views_count: number;
   created_at: string;
   updated_at: string;
+  /** Newline-separated bullets for the course detail page */
+  learning_outcomes?: string | null;
+  /** Typical gen-ed fit and majors; institution-specific rules always vary */
+  general_education_note?: string | null;
   colleges?: College;
   course_categories?: CourseCategory;
 };
