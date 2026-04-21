@@ -26,6 +26,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'study-com-public-speaking': '/images/courses/study-com-public-speaking.png',
 	'study-com-analyzing-and-interpreting-literature':
 		'/images/courses/study-com-analyzing-and-interpreting-literature.png',
+	'study-com-biology-106-pathophysiology': '/images/courses/study-com-biology-106-pathophysiology.png',
 };
 
 export function resolveCourseImageUrl(

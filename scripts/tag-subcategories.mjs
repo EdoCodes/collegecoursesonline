@@ -25,6 +25,7 @@ const tags = [
   { slug: 'study-com-english-literature', subcategory: 'English Literature', subcategory_slug: 'english-literature' },
   { slug: 'study-com-public-speaking', subcategory: 'Public Speaking', subcategory_slug: 'public-speaking' },
   { slug: 'study-com-analyzing-and-interpreting-literature', subcategory: 'Analyzing and Interpreting Literature', subcategory_slug: 'analyzing-and-interpreting-literature' },
+  { slug: 'study-com-biology-106-pathophysiology', subcategory: 'Pathophysiology', subcategory_slug: 'pathophysiology' },
 ];
 
 let ok = 0, fail = 0;
