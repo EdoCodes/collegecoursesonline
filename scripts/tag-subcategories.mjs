@@ -23,6 +23,7 @@ const tags = [
   { slug: 'study-com-western-civilization', subcategory: 'Western Civilization', subcategory_slug: 'western-civilization' },
   { slug: 'study-com-college-composition', subcategory: 'College Composition', subcategory_slug: 'college-composition' },
   { slug: 'study-com-english-literature', subcategory: 'English Literature', subcategory_slug: 'english-literature' },
+  { slug: 'study-com-public-speaking', subcategory: 'Public Speaking', subcategory_slug: 'public-speaking' },
 ];
 
 let ok = 0, fail = 0;

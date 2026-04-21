@@ -775,6 +775,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.png`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`, `20260422120000_study_com_english_literature_png_card_image.sql`.
 - **Verification:** `npm run build` exit 0.
 
+### 2026-04-22 — Study.com Public Speaking course card
+
+- **Slug:** `study-com-public-speaking` · **URL:** https://study.com/academy/course/public-speaking-course.html · **Humanities / Public Speaking** · Image: Pexels Henri Mathieu **8345978** → `study-com-public-speaking.png`.
+- **Files:** `supabase/migrations/20260422180000_add_study_com_public_speaking_course.sql`, `scripts/add-study-com-public-speaking.mjs`, overrides + `tag-subcategories.mjs`.
+- **Verification:** `npm run build` exit 0.
+
 ---
 
 ## End of Planning Document
