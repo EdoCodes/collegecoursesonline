@@ -34,6 +34,8 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 		'/images/courses/study-com-biology-202l-anatomy-physiology-ii-with-lab.png',
 	'study-com-macroeconomics': '/images/courses/study-com-macroeconomics.png',
 	'study-com-microeconomics': '/images/courses/study-com-microeconomics.png',
+	'study-com-economics-201-intermediate-microeconomics':
+		'/images/courses/study-com-economics-201-intermediate-microeconomics.png',
 };
 
 export function resolveCourseImageUrl(

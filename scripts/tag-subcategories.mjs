@@ -32,6 +32,7 @@ const tags = [
   { slug: 'study-com-introduction-to-biology', subcategory: 'Introduction to Biology', subcategory_slug: 'introduction-to-biology' },
   { slug: 'study-com-macroeconomics', subcategory: 'Macroeconomics', subcategory_slug: 'macroeconomics' },
   { slug: 'study-com-microeconomics', subcategory: 'Microeconomics', subcategory_slug: 'microeconomics' },
+  { slug: 'study-com-economics-201-intermediate-microeconomics', subcategory: 'Intermediate Microeconomics', subcategory_slug: 'intermediate-microeconomics' },
 ];
 
 let ok = 0, fail = 0;
