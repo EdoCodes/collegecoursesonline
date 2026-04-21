@@ -28,6 +28,7 @@ const tags = [
   { slug: 'study-com-biology-106-pathophysiology', subcategory: 'Pathophysiology', subcategory_slug: 'pathophysiology' },
   { slug: 'study-com-american-literature', subcategory: 'American Literature', subcategory_slug: 'american-literature' },
   { slug: 'study-com-us-history-i', subcategory: 'US History I', subcategory_slug: 'us-history-i' },
+  { slug: 'study-com-introduction-to-biology', subcategory: 'Introduction to Biology', subcategory_slug: 'introduction-to-biology' },
 ];
 
 let ok = 0, fail = 0;
