@@ -19,6 +19,7 @@ const tags = [
   { slug: 'study-com-algebra', subcategory: 'Algebra', subcategory_slug: 'algebra' },
   { slug: 'study-com-precalculus', subcategory: 'Precalculus', subcategory_slug: 'precalculus' },
   { slug: 'study-com-calculus', subcategory: 'Calculus', subcategory_slug: 'calculus' },
+  { slug: 'study-com-nursing-301-nursing-informatics', subcategory: 'Nursing Informatics', subcategory_slug: 'nursing-informatics' },
   { slug: 'study-com-statistics', subcategory: 'Statistics', subcategory_slug: 'statistics' },
   { slug: 'study-com-sociology', subcategory: 'Sociology', subcategory_slug: 'sociology' },
   { slug: 'study-com-psychology-101', subcategory: 'Psychology 101', subcategory_slug: 'psychology-101' },
