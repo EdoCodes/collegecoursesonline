@@ -16,6 +16,7 @@ const tags = [
   { slug: 'straighterline-managerial-accounting', subcategory: 'Managerial Accounting', subcategory_slug: 'managerial-accounting' },
   { slug: 'straighterline-microeconomics', subcategory: 'Microeconomics', subcategory_slug: 'microeconomics' },
   { slug: 'straighterline-medical-terminology', subcategory: 'Medical Terminology', subcategory_slug: 'medical-terminology' },
+  { slug: 'straighterline-early-childhood-development', subcategory: 'Early Childhood Education', subcategory_slug: 'early-childhood-education' },
   { slug: 'straighterline-microbiology',      subcategory: 'Biology',               subcategory_slug: 'biology' },
   { slug: 'study-com-biology-201l-anatomy-physiology-i-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'study-com-biology-202l-anatomy-physiology-ii-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },

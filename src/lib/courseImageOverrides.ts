@@ -18,6 +18,8 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'straighterline-managerial-accounting': '/images/courses/straighterline-managerial-accounting.png',
 	'straighterline-microeconomics': '/images/courses/straighterline-microeconomics.png',
 	'straighterline-medical-terminology': '/images/courses/straighterline-medical-terminology.png',
+	'straighterline-early-childhood-development':
+		'/images/courses/straighterline-early-childhood-development.png',
 	'study-com-algebra': '/images/courses/study-com-algebra.png',
 	'study-com-precalculus': '/images/courses/study-com-precalculus.jpg',
 	'study-com-calculus': '/images/courses/study-com-calculus.jpg',
