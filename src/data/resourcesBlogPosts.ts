@@ -54,10 +54,9 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
   },
   {
     slug: 'el-camino-college-radiologic-technology-online-guide',
-    title:
-      'El Camino College (ECC): Radiologic Technology, History, South Bay Guide & FAQs',
+    title: 'Hybrid Radiologic Technology at ECC | El Camino College',
     excerpt:
-      'Torrance’s El Camino College—enrollment, 1947 history, Brian Wilson alumni story, online education reality, and what ECC’s Radiologic Technology program actually includes (hybrid/clinical vs. “fully online BSc”).',
+      'Hybrid radiologic technology at ECC: online classes plus labs and clinicals in Torrance—program length, JRCERT, ARRT prep context, and FAQs. Not a fully online bachelor’s.',
     label: 'Colleges',
     date: 'Apr 17, 2026',
     readingTime: '14 min read',
