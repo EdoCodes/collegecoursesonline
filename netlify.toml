@@ -175,6 +175,16 @@
   to = "/resources/blog/university-of-florida-online-2026-guide/"
   status = 301
 
+# El Camino guide — slug updated for respiratory-care bachelor’s focus
+[[redirects]]
+  from = "/colleges/el-camino-college-radiologic-technology-online-guide"
+  to = "/colleges/bsc-respiratory-care-online-ecc/"
+  status = 301
+[[redirects]]
+  from = "/colleges/el-camino-college-radiologic-technology-online-guide/"
+  to = "/colleges/bsc-respiratory-care-online-ecc/"
+  status = 301
+
 # Duplicate course URL → canonical Sophia A&P I
 [[redirects]]
   from = "/courses/sophia-anatomy-and-physiology-1"

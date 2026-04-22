@@ -53,26 +53,27 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     omitFromResourcesBlogIndex: true,
   },
   {
-    slug: 'el-camino-college-radiologic-technology-online-guide',
-    title: 'Hybrid Radiologic Technology at ECC | El Camino College',
+    slug: 'bsc-respiratory-care-online-ecc',
+    title:
+      'Get Your BSc in Respiratory Care Online at ECC: El Camino College History, Programs, and Career Paths',
     excerpt:
-      'Hybrid radiologic technology at ECC: online classes plus labs and clinicals in Torrance—program length, JRCERT, ARRT prep context, and FAQs. Not a fully online bachelor’s.',
+      'Online B.S. in Respiratory Care at El Camino College (first bachelor’s at ECC), plus hybrid A.S. Radiologic Technology—admission, costs, South Bay history, Brian Wilson alumni, FAQs. Official ECC links.',
     label: 'Colleges',
-    date: 'Apr 17, 2026',
-    readingTime: '14 min read',
+    date: 'Apr 22, 2026',
+    readingTime: '18 min read',
     image:
-      'https://images.pexels.com/photos/7088482/pexels-photo-7088482.jpeg?auto=compress&cs=tinysrgb&w=800',
+      'https://images.pexels.com/photos/7579834/pexels-photo-7579834.jpeg?auto=compress&cs=tinysrgb&w=800',
     imageAlt:
-      'Medical imaging and health-care training context—stethoscope and clinical workspace (representative stock image).',
+      'Health-care and respiratory care training context—clinical workspace (representative stock image).',
     tags: [
       'El Camino College',
+      'Respiratory Care',
+      'Online bachelor’s',
       'Radiologic Technology',
-      'California',
-      'Community College',
       'Torrance',
       '2026',
     ],
-    hrefOverride: '/colleges/el-camino-college-radiologic-technology-online-guide',
+    hrefOverride: '/colleges/bsc-respiratory-care-online-ecc',
     omitFromResourcesBlogIndex: true,
   },
   {

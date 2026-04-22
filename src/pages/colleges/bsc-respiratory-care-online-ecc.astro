@@ -4,9 +4,9 @@ import ResourcesGuideLayout, {
 } from '../../components/blog/ResourcesGuideLayout.astro';
 import { getEntry } from 'astro:content';
 
-const entry = await getEntry('blog', 'el-camino-college-radiologic-technology-online-guide');
+const entry = await getEntry('blog', 'bsc-respiratory-care-online-ecc');
 if (!entry) {
-	throw new Error('Blog entry el-camino-college-radiologic-technology-online-guide not found');
+	throw new Error('Blog entry bsc-respiratory-care-online-ecc not found');
 }
 
 const { Content } = await entry.render();
@@ -18,7 +18,7 @@ const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
 const readTimeFromFrontmatter = entry.data.readTime;
 
 const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
-const slugPath = '/colleges/el-camino-college-radiologic-technology-online-guide';
+const slugPath = '/colleges/bsc-respiratory-care-online-ecc';
 const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
 
 const publishDate = pubDate.toISOString().slice(0, 10);
@@ -74,50 +74,58 @@ const faqSchema = {
 	mainEntity: [
 		{
 			'@type': 'Question',
-			name: 'Is El Camino College in Torrance a good school?',
+			name: 'Does El Camino College offer an online bachelor’s degree?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'El Camino College is widely regarded as a strong California community college for affordable tuition, transfer preparation, and career programs. Match “good” to your goals—completion support, transfer articulation for your major, and services you will use—and confirm details with ECC counseling.',
+				text: 'Yes. El Camino College offers a Bachelor of Science in Respiratory Care described as an online-format accelerated bachelor’s for qualified applicants. Confirm current details on ECC’s official bachelor’s program page.',
 			},
 		},
 		{
 			'@type': 'Question',
-			name: 'Does El Camino College offer a fully online radiology degree?',
+			name: 'Is ECC’s respiratory care bachelor’s fully online?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'No. ECC delivers Radiologic Technology as a hybrid program: some coursework may be online or flexible, but labs and clinical rotations require in-person hours. ECC publishes associate and certificate outcomes for this pathway—not a stand-alone bachelor’s (B.S./BSc) completed solely at ECC.',
+				text: 'ECC describes the bachelor’s as an online-format program using eight-week terms across three semesters. Confirm any orientation or other requirements directly with ECC before enrolling.',
 			},
 		},
 		{
 			'@type': 'Question',
-			name: 'Did Brian Wilson from the Beach Boys go to El Camino College?',
+			name: 'Does El Camino College offer radiology or radiologic technology?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'Yes. ECC highlights Brian Wilson among notable alumni in its Distinguished Alumni materials.',
+				text: 'ECC offers Radiologic Technology at the associate level—a hybrid pathway with some remote coursework components plus required in-person labs and clinical training—not a bachelor’s in radiology completed fully online at ECC.',
 			},
 		},
 		{
 			'@type': 'Question',
-			name: 'What is El Camino College known for?',
+			name: 'What is El Camino College’s first bachelor’s degree?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'ECC is known for accessible tuition, large enrollment, transfer pathways, career education, and regional South Bay reach—including health-care training such as Radiologic Technology.',
+				text: 'ECC’s first bachelor’s program is the Bachelor of Science in Respiratory Care, launched with a Fall 2023 cohort per ECC news materials.',
 			},
 		},
 		{
 			'@type': 'Question',
-			name: 'How old is El Camino College?',
+			name: 'Who can apply to ECC’s B.S. in Respiratory Care?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'El Camino College was founded in 1947.',
+				text: 'Applicants must meet ECC’s published prerequisites—including accredited respiratory care associate preparation and COARC-related expectations plus general-education progress—listed on ECC’s respiratory care admission page.',
 			},
 		},
 		{
 			'@type': 'Question',
-			name: 'What does ECC’s Radiologic Technology program include?',
+			name: 'Does ECC offer other flexible health-care programs?',
 			acceptedAnswer: {
 				'@type': 'Answer',
-				text: 'ECC describes a roughly 26-month sequence with coursework, labs, and clinical education aligned with professional imaging standards; accreditation is listed through JRCERT. Confirm prerequisites, clinical sites, and ARRT eligibility rules directly with ECC.',
+				text: 'Yes. Beyond the respiratory-care bachelor’s, ECC offers programs such as Radiologic Technology in a hybrid format with remote components and required in-person clinical education.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Did Brian Wilson go to El Camino College?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. Brian Wilson is documented among ECC’s notable alumni in college materials.',
 			},
 		},
 	],
@@ -136,13 +144,15 @@ const breadcrumbSchema = {
 const tocItems: ResourcesGuideTocItem[] = [
 	{ href: '#summary', label: 'Quick Summary' },
 	{ href: '#in-this-guide', label: 'In this guide' },
-	{ href: '#radiologic-technology-at-el-camino-college', label: 'Radiologic Technology at ECC' },
-	{ href: '#what-is-el-camino-college', label: 'What is El Camino College?' },
-	{ href: '#a-brief-history-of-ecc', label: 'History of ECC' },
+	{ href: '#why-el-camino-college-stands-out', label: 'Why ECC stands out' },
+	{ href: '#el-camino-college-history', label: 'ECC history' },
 	{ href: '#ecc-today', label: 'ECC today' },
-	{ href: '#ecc-hybrid-radiologic-pathway-online', label: 'Hybrid vs. fully online' },
-	{ href: '#notable-alumni-including-brian-wilson', label: 'Notable alumni' },
-	{ href: '#interesting-el-camino-college-facts', label: 'ECC facts' },
+	{ href: '#online-bs-in-respiratory-care', label: 'B.S. Respiratory Care' },
+	{ href: '#who-should-consider-this-program', label: 'Who should apply' },
+	{ href: '#hybrid-as-in-radiologic-technology', label: 'Hybrid Radiologic Technology' },
+	{ href: '#cost-and-format', label: 'Cost & format' },
+	{ href: '#why-health-care-students-choose-ecc', label: 'Why choose ECC' },
+	{ href: '#interesting-facts-about-ecc', label: 'ECC facts' },
 	{ href: '#people-also-ask', label: 'People Also Ask' },
 	{ href: '#sources', label: 'Sources' },
 ];

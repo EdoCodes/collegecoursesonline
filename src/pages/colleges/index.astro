@@ -8,7 +8,7 @@ const uopPost = resourcesBlogPosts.find(
 	(p) => p.slug === 'university-of-the-people-tuition-free-degrees',
 );
 const elCaminoPost = resourcesBlogPosts.find(
-	(p) => p.slug === 'el-camino-college-radiologic-technology-online-guide',
+	(p) => p.slug === 'bsc-respiratory-care-online-ecc',
 );
 
 /** Blog MDX guides tagged `colleges` (e.g. UF Online). Exclude UoPeople here—canonical URL is `/colleges/...`. */
@@ -23,7 +23,7 @@ const collegeBlogGuides = (await getCollection('blog'))
 			!p.data.draft &&
 			p.data.tags.includes('colleges') &&
 			p.slug !== 'university-of-the-people-tuition-free-degrees' &&
-			p.slug !== 'el-camino-college-radiologic-technology-online-guide',
+			p.slug !== 'bsc-respiratory-care-online-ecc',
 	)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
