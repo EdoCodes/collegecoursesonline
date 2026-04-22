@@ -1064,8 +1064,8 @@ const breadcrumbSchema = {
 
   /* ── Article Content ── */
   .article-content section {
-    margin-bottom: 3.5rem;
-    padding-bottom: 3.5rem;
+    margin-bottom: 3.75rem;
+    padding-bottom: 3.75rem;
     border-bottom: 1px solid #f1f5f9;
   }
   .article-content section:last-child { border-bottom: none; }
@@ -1082,15 +1082,25 @@ const breadcrumbSchema = {
     font-weight: 800;
     color: #0f172a;
     letter-spacing: -0.03em;
-    margin-bottom: 1.25rem;
-    line-height: 1.25;
+    margin-bottom: 1.35rem;
+    line-height: 1.28;
+    scroll-margin-top: 5rem;
+    transition: color 0.18s ease;
+  }
+  .article-content h2:hover {
+    color: #2563eb;
   }
   .article-content h3 {
     font-size: 1.2rem;
     font-weight: 700;
     color: #0f172a;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    scroll-margin-top: 5rem;
+    transition: color 0.18s ease;
+  }
+  .article-content h3:hover {
+    color: #2563eb;
   }
   .article-content h4 {
     font-size: 1rem;
@@ -1100,15 +1110,15 @@ const breadcrumbSchema = {
   }
   .article-content p {
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.85;
     color: #334155;
-    margin-bottom: 1rem;
+    margin-bottom: 1.35rem;
   }
   .article-intro {
     font-size: 1.125rem !important;
-    line-height: 1.8 !important;
+    line-height: 1.85 !important;
     color: #1e293b !important;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.75rem;
   }
 
   /* ── Quick Summary ── */
