@@ -1033,9 +1033,10 @@ const tocItems = [
     </p>
   </ArticleProse>
   </div>
-
-  <script is:inline src="/js/glossary-acronym-search.js" defer slot="scripts"></script>
 </BlogArticleLayout>
+
+<!-- Page-level script (not inside layout slots — Astro omits scripts from slot HTML). -->
+<script is:inline src="/js/glossary-acronym-search.js"></script>
 
 <style>
   .glossary-acronym-search {
@@ -1230,6 +1231,10 @@ const tocItems = [
 
   .glossary-page-body .data-table tbody tr {
     scroll-margin-top: 5rem;
+  }
+
+  .glossary-page-body .data-table tbody tr.glossary-row-dimmed td {
+    opacity: 0.18;
   }
 
   .data-table tr:last-child td {

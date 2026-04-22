@@ -1,6 +1,6 @@
 /**
- * Academic abbreviations glossary: filter rows, anchors, scroll to match.
- * Loaded from Layout scripts slot (inline scripts in Astro slots are stripped).
+ * Academic abbreviations glossary: dim non-matches, anchors, scroll to best match.
+ * Loaded from page-level <script src> on academic-abbreviations (not in Astro slots).
  */
 (function () {
   function initGlossaryAcronymSearch() {
@@ -179,7 +179,7 @@
         }
         var result = apply();
         if (result.bestHit && result.n > 0) scrollHitIntoViewRobust(result.bestHit);
-      }, 400);
+      }, 250);
     });
 
     input.addEventListener('keydown', function (e) {
