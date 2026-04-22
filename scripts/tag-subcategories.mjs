@@ -39,6 +39,7 @@ const tags = [
   { slug: 'study-com-science-of-nutrition', subcategory: 'Nutrition', subcategory_slug: 'nutrition' },
   { slug: 'study-com-business-114-business-statistics', subcategory: 'Business Statistics', subcategory_slug: 'business-statistics' },
   { slug: 'study-com-intro-to-business', subcategory: 'Introduction to Business', subcategory_slug: 'introduction-to-business' },
+  { slug: 'study-com-financial-accounting', subcategory: 'Financial Accounting', subcategory_slug: 'financial-accounting' },
   { slug: 'study-com-intro-to-physics', subcategory: 'Introduction to Physics', subcategory_slug: 'introduction-to-physics' },
   { slug: 'study-com-physics-111-physics-i', subcategory: 'Physics I', subcategory_slug: 'physics-i' },
   { slug: 'study-com-physics-112-physics-ii', subcategory: 'Physics II', subcategory_slug: 'physics-ii' },
