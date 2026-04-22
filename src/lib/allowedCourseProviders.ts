@@ -3,6 +3,7 @@ export const ALLOWED_COURSE_COLLEGE_SLUGS = new Set<string>([
 	'straighterline',
 	'sophia-learning',
 	'study-com',
+	'chabot-college',
 ]);
 
 export function isAllowedCourseProvider(course: {

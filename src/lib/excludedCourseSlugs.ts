@@ -13,7 +13,7 @@ export function filterCourses<T extends { slug: string }>(courses: T[] | null | 
 	return courses.filter((c) => !EXCLUDED_COURSE_SLUGS.has(c.slug));
 }
 
-/** Listings + static paths: exclude removed slugs and only StraighterLine / Sophia Learning. */
+/** Listings + static paths: exclude removed slugs; allowed providers in `allowedCourseProviders`. */
 export function filterDirectoryCourses<
 	T extends { slug: string; colleges?: { slug?: string | null } | null },
 >(courses: T[] | null | undefined): T[] {
