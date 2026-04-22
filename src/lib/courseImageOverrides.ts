@@ -15,6 +15,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'straighterline-microbiology':
 		'/images/courses/straighterline-microbiology.jpg',
 	'straighterline-calculus-1': '/images/courses/straighterline-calculus-1.png',
+	'straighterline-managerial-accounting': '/images/courses/straighterline-managerial-accounting.png',
 	'study-com-algebra': '/images/courses/study-com-algebra.png',
 	'study-com-precalculus': '/images/courses/study-com-precalculus.jpg',
 	'study-com-calculus': '/images/courses/study-com-calculus.jpg',
