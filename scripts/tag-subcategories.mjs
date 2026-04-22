@@ -35,6 +35,7 @@ const tags = [
   { slug: 'study-com-economics-201-intermediate-microeconomics', subcategory: 'Intermediate Microeconomics', subcategory_slug: 'intermediate-microeconomics' },
   { slug: 'study-com-science-of-nutrition', subcategory: 'Nutrition', subcategory_slug: 'nutrition' },
   { slug: 'study-com-business-114-business-statistics', subcategory: 'Business Statistics', subcategory_slug: 'business-statistics' },
+  { slug: 'study-com-intro-to-business', subcategory: 'Introduction to Business', subcategory_slug: 'introduction-to-business' },
 ];
 
 let ok = 0, fail = 0;
