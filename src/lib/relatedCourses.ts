@@ -28,6 +28,8 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	],
 	'study-com-physics-111l-physics-i-with-lab': ['study-com-physics-111-physics-i'],
 	'study-com-physics-112-physics-ii': ['study-com-physics-111-physics-i'],
+	'study-com-algebra': ['study-com-precalculus'],
+	'study-com-precalculus': ['study-com-algebra'],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */
