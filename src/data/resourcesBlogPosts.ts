@@ -32,10 +32,9 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
     slug: 'academic-acronyms-glossary',
-    title:
-      'Academic Acronyms Glossary: Degree, Nursing, IT, and Accreditation Terms',
+    title: 'Glossary of Academic Abbreviations',
     excerpt:
-      'Explore a complete academic acronyms glossary covering degree abbreviations, nursing acronyms, IT terms, and accreditation language used across U.S. higher education.',
+      'Degree, nursing, and IT shorthand plus accreditation terms—with links to official accrediting organizations where applicable.',
     label: 'Glossary',
     date: 'Apr 17, 2026',
     readingTime: '14 min read',

@@ -1,21 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import {
-	resourcesBlogPosts,
-	getResourcesBlogPostHref,
-	type ResourcesBlogPost,
-} from '../../data/resourcesBlogPosts';
-
-/** Standalone Astro pages not in `src/content/blog` but listed on `/blog`. */
-const BLOG_INDEX_EXTRA_SLUGS = ['academic-acronyms-glossary'] as const;
-
-const extraBlogCards: ResourcesBlogPost[] = BLOG_INDEX_EXTRA_SLUGS.map((slug) =>
-	resourcesBlogPosts.find((p) => p.slug === slug),
-).filter(
-	(p): p is ResourcesBlogPost =>
-		p != null && !p.omitFromResourcesBlogIndex,
-);
 
 /** Slugs rendered only under `/resources/blog` or `/colleges` — must match `blog/[slug].astro`. */
 const RESOURCES_ONLY_SLUGS = new Set([
@@ -81,35 +66,12 @@ const breadcrumbJsonLd = {
 
 	<main class="main-content">
 		<div class="container">
-			{posts.length === 0 && extraBlogCards.length === 0 ? (
+			{posts.length === 0 ? (
 				<div class="empty-state">
 					<p>No articles yet.</p>
 				</div>
 			) : (
 				<div class="posts-grid">
-					{extraBlogCards.map((post) => (
-						<a href={getResourcesBlogPostHref(post)} class="card">
-							<div class="card-image">
-								<img
-									src={post.image}
-									alt={post.imageAlt ?? post.title}
-									loading="lazy"
-									decoding="async"
-								/>
-							</div>
-							<div class="card-body">
-								<span class="card-label">{post.label}</span>
-								<h2 class="card-title">{post.title}</h2>
-								<p class="card-excerpt">{post.excerpt}</p>
-								<div class="card-meta">
-									<span>{post.date}</span>
-									<span class="dot">·</span>
-									<span>{post.readingTime}</span>
-								</div>
-								<span class="card-cta">Read article →</span>
-							</div>
-						</a>
-					))}
 					{posts.map((post) => {
 						const dateStr = post.data.pubDate.toLocaleDateString('en-US', {
 							year: 'numeric',

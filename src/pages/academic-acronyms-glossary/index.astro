@@ -2,10 +2,9 @@
 import BlogArticleLayout from '../../components/blog/BlogArticleLayout.astro';
 import ArticleProse from '../../components/blog/ArticleProse.astro';
 
-const title =
-  'Academic Acronyms Glossary: Degree, Nursing, IT, and Accreditation Terms';
+const title = 'Glossary of Academic Abbreviations';
 const description =
-  'Explore a complete academic acronyms glossary covering degree abbreviations, nursing acronyms, IT terms, and accreditation language used across U.S. higher education.';
+  'Scan degree abbreviations, nursing and IT acronyms, and U.S. higher-education accreditation terms—with links to official accrediting bodies where applicable.';
 const publishDate = '2026-04-17';
 const updatedDate = '2026-04-17';
 const author = 'Editorial Team';
@@ -127,7 +126,7 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 4,
-      name: 'Academic acronyms glossary',
+      name: 'Glossary of Academic Abbreviations',
       item: pageUrl,
     },
   ],
@@ -150,11 +149,15 @@ const tocItems = [
     { label: 'Home', href: '/' },
     { label: 'Resources', href: '/resources' },
     { label: 'Glossary', href: '/resources/glossary' },
-    { label: 'Academic acronyms glossary' },
+    { label: 'Abbreviations glossary' },
   ]}
   heroLabel="Glossary"
   heroSubtitle={description}
-  updatedDate={`Updated ${updatedDate}`}
+  updatedDate={new Date(updatedDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })}
   readingTime={readingTime}
   author={author}
   tags={[
@@ -640,10 +643,21 @@ const tocItems = [
       <h2>Accreditation acronyms</h2>
       <p>
         Accreditation acronyms are essential in higher education because they signal whether a school
-        or program meets recognized quality standards. These acronyms are often tied to the U.S.
-        Department of Education or the Council for Higher Education Accreditation, and some are
-        specifically programmatic accreditors for fields like nursing, business, engineering, or allied
-        health.
+        or program meets recognized quality standards. These acronyms are often tied to the
+        <a
+          href="https://www.ed.gov/"
+          class="link-external"
+          target="_blank"
+          rel="noopener noreferrer">U.S. Department of Education</a
+        >
+        or the
+        <a
+          href="https://www.chea.org/"
+          class="link-external"
+          target="_blank"
+          rel="noopener noreferrer">Council for Higher Education Accreditation (CHEA)</a
+        >, and some are programmatic accreditors for fields like nursing, business, engineering, or
+        allied health.
       </p>
 
       <div class="data-table">
@@ -658,102 +672,185 @@ const tocItems = [
           <tbody>
             <tr>
               <td>CHEA</td>
-              <td>Council for Higher Education Accreditation</td>
+              <td>
+                <a href="https://www.chea.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Council for Higher Education Accreditation</a
+                >
+              </td>
               <td>Recognizes accrediting organizations.</td>
             </tr>
             <tr>
               <td>USDE</td>
-              <td>U.S. Department of Education</td>
+              <td>
+                <a href="https://www.ed.gov/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >U.S. Department of Education</a
+                >
+              </td>
               <td>Federal recognition authority for accreditors.</td>
             </tr>
             <tr>
               <td>ABET</td>
-              <td>Accreditation Board for Engineering and Technology</td>
+              <td>
+                <a href="https://www.abet.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Accreditation Board for Engineering and Technology</a
+                >
+              </td>
               <td>Engineering and computing programs.</td>
             </tr>
             <tr>
               <td>AACSB</td>
-              <td>Association to Advance Collegiate Schools of Business</td>
+              <td>
+                <a href="https://www.aacsb.edu/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Association to Advance Collegiate Schools of Business</a
+                >
+              </td>
               <td>Business school accreditation.</td>
             </tr>
             <tr>
               <td>ACBSP</td>
-              <td>Accreditation Council for Business Schools and Programs</td>
+              <td>
+                <a href="https://www.acbsp.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Accreditation Council for Business Schools and Programs</a
+                >
+              </td>
               <td>Business program accreditation.</td>
             </tr>
             <tr>
               <td>ACEN</td>
-              <td>Accreditation Commission for Education in Nursing</td>
+              <td>
+                <a href="https://www.acenursing.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Accreditation Commission for Education in Nursing</a
+                >
+              </td>
               <td>Nursing program accreditation.</td>
             </tr>
             <tr>
               <td>CCNE</td>
-              <td>Commission on Collegiate Nursing Education</td>
+              <td>
+                <a
+                  href="https://www.aacnnursing.org/ccne-accreditation"
+                  class="link-external"
+                  target="_blank"
+                  rel="noopener noreferrer">Commission on Collegiate Nursing Education</a
+                >
+              </td>
               <td>Nursing program accreditation.</td>
             </tr>
             <tr>
               <td>CAAHEP</td>
-              <td>Commission on Accreditation of Allied Health Education Programs</td>
+              <td>
+                <a href="https://www.caahep.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Commission on Accreditation of Allied Health Education Programs</a
+                >
+              </td>
               <td>Allied health programs.</td>
             </tr>
             <tr>
               <td>CAPTE</td>
-              <td>Commission on Accreditation in Physical Therapy Education</td>
+              <td>
+                <a href="https://www.capteonline.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Commission on Accreditation in Physical Therapy Education</a
+                >
+              </td>
               <td>Physical therapy programs.</td>
             </tr>
             <tr>
               <td>CODA</td>
-              <td>Commission on Dental Accreditation</td>
+              <td>
+                <a href="https://www.ada.org/en/coda" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Commission on Dental Accreditation</a
+                >
+              </td>
               <td>Dental programs.</td>
             </tr>
             <tr>
               <td>CAEP</td>
-              <td>Council for the Accreditation of Educator Preparation</td>
+              <td>
+                <a href="https://caepnet.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Council for the Accreditation of Educator Preparation</a
+                >
+              </td>
               <td>Teacher education programs.</td>
             </tr>
             <tr>
               <td>NAACLS</td>
-              <td>National Accrediting Agency for Clinical Laboratory Sciences</td>
+              <td>
+                <a href="https://www.naacls.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >National Accrediting Agency for Clinical Laboratory Sciences</a
+                >
+              </td>
               <td>Lab science programs.</td>
             </tr>
             <tr>
               <td>JRCERT</td>
-              <td>Joint Review Committee on Education in Radiologic Technology</td>
+              <td>
+                <a href="https://www.jrcert.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Joint Review Committee on Education in Radiologic Technology</a
+                >
+              </td>
               <td>Radiologic technology programs.</td>
             </tr>
             <tr>
               <td>COARC</td>
-              <td>Commission on Accreditation for Respiratory Care</td>
+              <td>
+                <a href="https://www.coarc.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Commission on Accreditation for Respiratory Care</a
+                >
+              </td>
               <td>Respiratory care programs.</td>
             </tr>
             <tr>
               <td>ACOTE</td>
-              <td>Accreditation Council for Occupational Therapy Education</td>
+              <td>
+                <a href="https://www.acoteonline.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Accreditation Council for Occupational Therapy Education</a
+                >
+              </td>
               <td>Occupational therapy programs.</td>
             </tr>
             <tr>
               <td>ARC-PA</td>
-              <td>Accreditation Review Commission on Education for the Physician Assistant</td>
+              <td>
+                <a href="https://www.arc-pa.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Accreditation Review Commission on Education for the Physician Assistant</a
+                >
+              </td>
               <td>Physician assistant programs.</td>
             </tr>
             <tr>
               <td>CACREP</td>
-              <td>Council for Accreditation of Counseling and Related Educational Programs</td>
+              <td>
+                <a href="https://www.cacrep.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Council for Accreditation of Counseling and Related Educational Programs</a
+                >
+              </td>
               <td>Counseling programs.</td>
             </tr>
             <tr>
               <td>NASM</td>
-              <td>National Association of Schools of Music</td>
+              <td>
+                <a href="https://nasm.arts-accredit.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >National Association of Schools of Music</a
+                >
+              </td>
               <td>Music programs.</td>
             </tr>
             <tr>
               <td>NASAD</td>
-              <td>National Association of Schools of Art and Design</td>
+              <td>
+                <a href="https://nasad.arts-accredit.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >National Association of Schools of Art and Design</a
+                >
+              </td>
               <td>Art and design programs.</td>
             </tr>
             <tr>
               <td>CEA</td>
-              <td>Commission on English Language Program Accreditation</td>
+              <td>
+                <a href="https://cea-accredit.org/" class="link-external" target="_blank" rel="noopener noreferrer"
+                  >Commission on English Language Program Accreditation</a
+                >
+              </td>
               <td>English language programs.</td>
             </tr>
           </tbody>
@@ -786,36 +883,80 @@ const tocItems = [
 
     <section id="faq">
       <h2>FAQ</h2>
+      <div class="section-label">FAQ</div>
 
-      <h3>What does ASN mean?</h3>
-      <p>ASN usually means Associate of Science in Nursing.</p>
-
-      <h3>What does BSN mean?</h3>
-      <p>BSN means Bachelor of Science in Nursing.</p>
-
-      <h3>What does ASc mean?</h3>
-      <p>ASc is a variant abbreviation for Associate of Science.</p>
-
-      <h3>What does BSc mean?</h3>
-      <p>BSc means Bachelor of Science.</p>
-
-      <h3>What is CHEA?</h3>
-      <p>CHEA is the Council for Higher Education Accreditation.</p>
-
-      <h3>What is ABET?</h3>
-      <p>ABET is the Accreditation Board for Engineering and Technology.</p>
-
-      <h3>What is the difference between accreditation and a degree abbreviation?</h3>
-      <p>
-        A degree abbreviation identifies an academic credential, while accreditation tells you whether
-        a school or program meets recognized quality standards.
-      </p>
-
-      <h3>Are all acronym forms used the same way everywhere?</h3>
-      <p>
-        No. Some acronyms vary by school, country, or style guide, so it is best to follow the
-        preferred form used by the institution or publication.
-      </p>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What does ASN mean?</summary>
+          <div class="faq-answer">
+            <p>ASN usually means Associate of Science in Nursing.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What does BSN mean?</summary>
+          <div class="faq-answer">
+            <p>BSN means Bachelor of Science in Nursing.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What does ASc mean?</summary>
+          <div class="faq-answer">
+            <p>ASc is a variant abbreviation for Associate of Science.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What does BSc mean?</summary>
+          <div class="faq-answer">
+            <p>BSc means Bachelor of Science.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What is CHEA?</summary>
+          <div class="faq-answer">
+            <p>
+              CHEA is the{' '}
+              <a
+                href="https://www.chea.org/"
+                class="link-external"
+                target="_blank"
+                rel="noopener noreferrer">Council for Higher Education Accreditation</a
+              >.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What is ABET?</summary>
+          <div class="faq-answer">
+            <p>
+              ABET is the{' '}
+              <a
+                href="https://www.abet.org/"
+                class="link-external"
+                target="_blank"
+                rel="noopener noreferrer">Accreditation Board for Engineering and Technology</a
+              >.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What is the difference between accreditation and a degree abbreviation?</summary>
+          <div class="faq-answer">
+            <p>
+              A degree abbreviation identifies an academic credential, while accreditation tells you whether
+              a school or program meets recognized quality standards.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Are all acronym forms used the same way everywhere?</summary>
+          <div class="faq-answer">
+            <p>
+              No. Some acronyms vary by school, country, or style guide, so it is best to follow the
+              preferred form used by the institution or publication.
+            </p>
+          </div>
+        </details>
+      </div>
     </section>
 
     <section id="related-resources">
@@ -842,7 +983,10 @@ const tocItems = [
           >
         </li>
         <li>
-          <a href="/resources/guides">More education guides and glossary-style articles</a>
+          <a href="/resources/glossary">More glossary articles</a>
+        </li>
+        <li>
+          <a href="/resources/guides">More education guides</a>
         </li>
       </ul>
     </section>
@@ -888,5 +1032,15 @@ const tocItems = [
   }
   .data-table tr:nth-child(even) td {
     background: #f8fafc;
+  }
+
+  :global(.article-prose) .data-table a.link-external {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  :global(.article-prose) .data-table a.link-external:hover {
+    color: #1d4ed8;
   }
 </style>
