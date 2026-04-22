@@ -31,6 +31,12 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	'study-com-algebra': ['study-com-precalculus'],
 	'study-com-precalculus': ['study-com-calculus', 'study-com-algebra'],
 	'study-com-calculus': ['study-com-precalculus'],
+	'study-com-philosophy-101-intro-to-philosophy': [
+		'study-com-philosophy-103-ethics-theory-practice',
+	],
+	'study-com-philosophy-103-ethics-theory-practice': [
+		'study-com-philosophy-101-intro-to-philosophy',
+	],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */
