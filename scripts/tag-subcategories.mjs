@@ -23,6 +23,7 @@ const tags = [
   { slug: 'straighterline-information-technology-fundamentals', subcategory: 'Information Technology', subcategory_slug: 'information-technology' },
   { slug: 'straighterline-spanish-i', subcategory: 'Spanish', subcategory_slug: 'spanish' },
   { slug: 'straighterline-microbiology',      subcategory: 'Biology',               subcategory_slug: 'biology' },
+  { slug: 'straighterline-microbiology-lab', subcategory: 'Microbiology Lab', subcategory_slug: 'microbiology-lab' },
   { slug: 'study-com-biology-201l-anatomy-physiology-i-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'study-com-biology-202l-anatomy-physiology-ii-with-lab', subcategory: 'Anatomy & Physiology', subcategory_slug: 'anatomy-physiology' },
   { slug: 'study-com-algebra', subcategory: 'Algebra', subcategory_slug: 'algebra' },
