@@ -41,6 +41,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 		'/images/courses/study-com-business-114-business-statistics.png',
 	'study-com-intro-to-business': '/images/courses/study-com-intro-to-business.jpg',
 	'study-com-intro-to-physics': '/images/courses/study-com-intro-to-physics.jpg',
+	'study-com-physics-111-physics-i': '/images/courses/study-com-physics-111-physics-i.jpg',
 };
 
 export function resolveCourseImageUrl(

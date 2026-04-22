@@ -20,6 +20,8 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 		'study-com-economics-201-intermediate-microeconomics',
 	],
 	'study-com-economics-201-intermediate-microeconomics': ['study-com-microeconomics'],
+	'study-com-intro-to-physics': ['study-com-physics-111-physics-i'],
+	'study-com-physics-111-physics-i': ['study-com-intro-to-physics'],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */

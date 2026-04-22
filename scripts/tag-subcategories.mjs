@@ -37,6 +37,7 @@ const tags = [
   { slug: 'study-com-business-114-business-statistics', subcategory: 'Business Statistics', subcategory_slug: 'business-statistics' },
   { slug: 'study-com-intro-to-business', subcategory: 'Introduction to Business', subcategory_slug: 'introduction-to-business' },
   { slug: 'study-com-intro-to-physics', subcategory: 'Introduction to Physics', subcategory_slug: 'introduction-to-physics' },
+  { slug: 'study-com-physics-111-physics-i', subcategory: 'Physics I', subcategory_slug: 'physics-i' },
 ];
 
 let ok = 0, fail = 0;
