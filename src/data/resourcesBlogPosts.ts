@@ -41,7 +41,7 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     image:
       'https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg?auto=compress&cs=tinysrgb&w=800',
     tags: ['Glossary', 'Degrees', 'Nursing', 'IT', 'Accreditation', '2026'],
-    hrefOverride: '/academic-acronyms-glossary/',
+    hrefOverride: '/resources/glossary/academic-abbreviations/',
   },
   {
     slug: 'university-of-the-people-tuition-free-degrees',

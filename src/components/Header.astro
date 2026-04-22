@@ -11,7 +11,8 @@ const pathNorm = currentPath.replace(/\/$/, '') || '/';
 const resourcesHubActive = pathNorm === '/resources';
 const blogSubActive = pathNorm === '/blog' || pathNorm.startsWith('/blog/');
 const glossarySubActive =
-	pathNorm.startsWith('/resources/glossary') || pathNorm.startsWith('/academic-acronyms-glossary');
+	pathNorm.startsWith('/resources/glossary') ||
+	pathNorm.startsWith('/academic-acronyms-glossary');
 const guidesSubActive =
 	pathNorm.startsWith('/resources/guides') || pathNorm.startsWith('/resources/blog');
 const resourcesNavActive =
@@ -150,18 +151,22 @@ if (menuCategories.length === 0) {
               <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
-          <div class="nav-dropdown" role="menu" aria-label="Resources: Blog, Guides, and Glossary">
-            <a href="/blog" class={`dropdown-link${blogSubActive ? ' is-active' : ''}`} role="menuitem">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 2.5h8.5a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1v-11a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 2.5H3.5a1 1 0 00-1 1v10a1 1 0 001 1H5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6h4M7.5 9h4M7.5 12h2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              Blog
+          <div class="nav-dropdown" role="menu" aria-label="Resources: Glossary, Guides, and Blog">
+            <a
+              href="/resources/glossary/academic-abbreviations/"
+              class={`dropdown-link${glossarySubActive ? ' is-active' : ''}`}
+              role="menuitem"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 2.5h8a1 1 0 011 1v2.5a1 1 0 01-.25.664L10 8l2.75 3.336A1 1 0 0112.75 12v2.5a1 1 0 01-1 1H4a1 1 0 01-1-1V12a1 1 0 01.25-.664L6 8 4.25 6.664A1 1 0 014 6V3.5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 5h4M6 8h4M6 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Glossary
             </a>
             <a href="/resources/guides" class={`dropdown-link${guidesSubActive ? ' is-active' : ''}`} role="menuitem">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5h4l1 2h5a1 1 0 011 1v7a1 1 0 01-1 1H3a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 6.5h10M5 9h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               Guides
             </a>
-            <a href="/resources/glossary" class={`dropdown-link${glossarySubActive ? ' is-active' : ''}`} role="menuitem">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 2.5h8a1 1 0 011 1v2.5a1 1 0 01-.25.664L10 8l2.75 3.336A1 1 0 0112.75 12v2.5a1 1 0 01-1 1H4a1 1 0 01-1-1V12a1 1 0 01.25-.664L6 8 4.25 6.664A1 1 0 014 6V3.5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 5h4M6 8h4M6 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              Glossary
+            <a href="/blog" class={`dropdown-link${blogSubActive ? ' is-active' : ''}`} role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 2.5h8.5a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1v-11a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 2.5H3.5a1 1 0 00-1 1v10a1 1 0 001 1H5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6h4M7.5 9h4M7.5 12h2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              Blog
             </a>
           </div>
         </li>
@@ -201,10 +206,10 @@ if (menuCategories.length === 0) {
           <ul class="mobile-nav-sub">
             <li>
               <a
-                href="/blog"
-                class={`mobile-nav-link mobile-nav-sublink${blogSubActive ? ' active' : ''}`}
+                href="/resources/glossary/academic-abbreviations/"
+                class={`mobile-nav-link mobile-nav-sublink${glossarySubActive ? ' active' : ''}`}
               >
-                Blog
+                Glossary
               </a>
             </li>
             <li>
@@ -217,10 +222,10 @@ if (menuCategories.length === 0) {
             </li>
             <li>
               <a
-                href="/resources/glossary"
-                class={`mobile-nav-link mobile-nav-sublink${glossarySubActive ? ' active' : ''}`}
+                href="/blog"
+                class={`mobile-nav-link mobile-nav-sublink${blogSubActive ? ' active' : ''}`}
               >
-                Glossary
+                Blog
               </a>
             </li>
           </ul>
