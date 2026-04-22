@@ -20,6 +20,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'straighterline-medical-terminology': '/images/courses/straighterline-medical-terminology.png',
 	'straighterline-early-childhood-development':
 		'/images/courses/straighterline-early-childhood-development.png',
+	'straighterline-english-composition-i': '/images/courses/straighterline-english-composition-i.jpg',
 	'study-com-algebra': '/images/courses/study-com-algebra.png',
 	'study-com-precalculus': '/images/courses/study-com-precalculus.jpg',
 	'study-com-calculus': '/images/courses/study-com-calculus.jpg',
