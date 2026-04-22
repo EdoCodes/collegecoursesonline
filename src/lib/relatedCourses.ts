@@ -16,9 +16,11 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	],
 	'study-com-macroeconomics': ['study-com-microeconomics'],
 	'study-com-microeconomics': [
+		'straighterline-microeconomics',
 		'study-com-macroeconomics',
 		'study-com-economics-201-intermediate-microeconomics',
 	],
+	'straighterline-microeconomics': ['study-com-microeconomics', 'study-com-macroeconomics'],
 	'study-com-economics-201-intermediate-microeconomics': ['study-com-microeconomics'],
 	'study-com-intro-to-physics': ['study-com-physics-111-physics-i'],
 	'study-com-physics-111-physics-i': [
