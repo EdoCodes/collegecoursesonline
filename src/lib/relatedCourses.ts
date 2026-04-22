@@ -45,6 +45,8 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 		'study-com-intro-to-business',
 	],
 	'straighterline-managerial-accounting': ['study-com-financial-accounting'],
+	'straighterline-medical-terminology': ['straighterline-anatomy-physiology-1'],
+	'straighterline-anatomy-physiology-1': ['straighterline-medical-terminology'],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */
