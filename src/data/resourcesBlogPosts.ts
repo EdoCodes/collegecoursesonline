@@ -47,7 +47,7 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
       'online learning trends',
       '2026',
     ],
-    hrefOverride: '/blog/online-college-enrollment-after-pandemic',
+    hrefOverride: '/resources/blog/online-college-enrollment-after-pandemic',
   },
   {
     slug: 'academic-acronyms-glossary',

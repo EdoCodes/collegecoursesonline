@@ -10,6 +10,7 @@ export async function getStaticPaths() {
     'university-of-the-people-tuition-free-degrees',
     'university-of-florida-online-2026-guide',
     'bsc-respiratory-care-online-ecc',
+    'online-college-enrollment-after-pandemic',
   ]);
   return posts
     .filter((post) => !post.data.draft && !resourcesOnlySlugs.has(post.slug))
