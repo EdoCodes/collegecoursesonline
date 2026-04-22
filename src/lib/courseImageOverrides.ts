@@ -36,6 +36,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'study-com-microeconomics': '/images/courses/study-com-microeconomics.png',
 	'study-com-economics-201-intermediate-microeconomics':
 		'/images/courses/study-com-economics-201-intermediate-microeconomics.png',
+	'study-com-science-of-nutrition': '/images/courses/study-com-science-of-nutrition.png',
 };
 
 export function resolveCourseImageUrl(
