@@ -35,6 +35,10 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	'study-com-calculus': ['study-com-precalculus'],
 	'study-com-philosophy-101-intro-to-philosophy': [
 		'study-com-philosophy-103-ethics-theory-practice',
+		'straighterline-introduction-to-religious-studies',
+	],
+	'straighterline-introduction-to-religious-studies': [
+		'study-com-philosophy-101-intro-to-philosophy',
 	],
 	'study-com-philosophy-103-ethics-theory-practice': [
 		'study-com-philosophy-101-intro-to-philosophy',
