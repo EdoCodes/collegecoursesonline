@@ -24,6 +24,8 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'straighterline-english-composition-ii': '/images/courses/straighterline-english-composition-ii.jpg',
 	'straighterline-introduction-to-religious-studies':
 		'/images/courses/straighterline-introduction-to-religious-studies.jpg',
+	'straighterline-information-technology-fundamentals':
+		'/images/courses/straighterline-information-technology-fundamentals.jpg',
 	'study-com-algebra': '/images/courses/study-com-algebra.png',
 	'study-com-precalculus': '/images/courses/study-com-precalculus.jpg',
 	'study-com-calculus': '/images/courses/study-com-calculus.jpg',
