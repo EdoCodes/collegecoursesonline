@@ -17,6 +17,7 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 	'straighterline-calculus-1': '/images/courses/straighterline-calculus-1.png',
 	'study-com-algebra': '/images/courses/study-com-algebra.png',
 	'study-com-precalculus': '/images/courses/study-com-precalculus.jpg',
+	'study-com-calculus': '/images/courses/study-com-calculus.jpg',
 	'study-com-statistics': '/images/courses/study-com-statistics.png',
 	'study-com-sociology': '/images/courses/study-com-sociology.png',
 	'study-com-psychology-101': '/images/courses/study-com-psychology-101.png',
