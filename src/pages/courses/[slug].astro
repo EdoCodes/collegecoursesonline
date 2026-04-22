@@ -13,6 +13,7 @@ import {
 import { displayPriceForCourse } from '../../lib/coursePriceDisplay';
 import { RELATED_ALTERNATIVE_FIRST, inferredSubcategory } from '../../lib/relatedCourses';
 import { parseLearningOutcomes, DEFAULT_LEARNING_OUTCOMES } from '../../lib/courseLearningContent';
+import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -236,7 +237,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
             <h1 class="course-title">{course.title}</h1>
             
             {course.short_description && (
-              <p class="course-subtitle">{course.short_description}</p>
+              <p class="course-subtitle" set:html={linkAceNccrsHtml(course.short_description)} />
             )}
 
             <!-- Course Meta Info -->
@@ -349,7 +350,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
           <section class="content-section">
             <h2>About This Course</h2>
             <div class="description-content">
-              <p>{course.description}</p>
+              <p set:html={linkAceNccrsHtml(course.description)} />
             </div>
           </section>
 
@@ -360,7 +361,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
                 Degree requirements differ by college and catalog year; always verify gen-ed rules and transfer credit with your advisor.
               </p>
               <div class="gen-ed-callout">
-                <p class="gen-ed-note">{genEdNote}</p>
+                <p class="gen-ed-note" set:html={linkAceNccrsHtml(genEdNote)} />
               </div>
             </section>
           )}
@@ -369,7 +370,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
             <h2>What You&apos;ll Learn</h2>
             <ul class="learning-outcomes">
               {displayLearningOutcomes.map((item) => (
-                <li>{item}</li>
+                <li set:html={linkAceNccrsHtml(item)} />
               ))}
             </ul>
           </section>
@@ -383,13 +384,13 @@ const pageDescription = course.short_description || course.description.slice(0, 
                   <img src={college.logo_url} alt={college.name} class="college-logo" />
                 )}
                 <div class="college-details">
-                  <p>{college.description || 'A leading institution offering quality online education.'}</p>
+                  <p set:html={linkAceNccrsHtml(college.description || 'A leading institution offering quality online education.')} />
                   
                   <div class="college-stats">
                     {college.accreditation && (
                       <div class="stat-item">
                         <strong>Accreditation:</strong>
-                        <span>{college.accreditation}</span>
+                        <span set:html={linkAceNccrsHtml(college.accreditation)} />
                       </div>
                     )}
                     {college.country && (
@@ -440,7 +441,7 @@ const pageDescription = course.short_description || course.description.slice(0, 
               {course.credits && (
                 <div class="info-item">
                   <span class="label">Credits</span>
-                  <span class="value">{course.credits}</span>
+                  <span class="value" set:html={linkAceNccrsHtml(course.credits)} />
                 </div>
               )}
               <div class="info-item">

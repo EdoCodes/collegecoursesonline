@@ -14,6 +14,7 @@ import {
 	getResourcesBlogPostHref,
 	resourcesGuidesIndexPath,
 } from '../data/resourcesBlogPosts';
+import { linkAceNccrsHtml } from '../lib/linkAceNccrs';
 
 let coursesData: Course[] = [];
 let featuredCourses: Course[] = [];
@@ -142,7 +143,11 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 				</div>
 				<div class="unified-grid">
 					{featuredCourses.map(course => (
-						<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+						<article class="card card--has-overlay" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+							<a href={`/courses/${course.slug}`} class="card-cover" aria-label={`View course: ${course.title}`}>
+								<span class="sr-only">View course: {course.title}</span>
+							</a>
+							<div class="card-front">
 							<div class="card-image">
 								<img
 									src={resolveCourseImageUrl(course.slug, course.image_url)}
@@ -161,12 +166,11 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 								</span>
 								<h3 class="card-title">{course.title}</h3>
 								{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
-								<p class="card-excerpt">
-									{course.short_description || course.description?.slice(0, 160)}
-								</p>
+								<p class="card-excerpt" set:html={linkAceNccrsHtml(course.short_description || course.description?.slice(0, 160) || '')} />
 								<span class="card-cta">Visit course provider website →</span>
 							</div>
-						</a>
+							</div>
+						</article>
 					))}
 				</div>
 			</div>
@@ -320,7 +324,11 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 			<section class="courses-section">
 				<div class="courses-grid" id="coursesGrid">
 				{coursesData.map(course => (
-					<a href={`/courses/${course.slug}`} class="card" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+					<article class="card card--has-overlay" data-course-id={course.id} data-category={course.course_categories?.slug} data-level={course.level} data-price={displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges))} data-certificate={course.certificate_available} data-accreditation={course.colleges?.accreditation_level} data-popularity={course.colleges?.popularity_score} data-ease={course.colleges?.ease_of_access_score} data-featured={course.featured} data-created={course.created_at}>
+							<a href={`/courses/${course.slug}`} class="card-cover" aria-label={`View course: ${course.title}`}>
+								<span class="sr-only">View course: {course.title}</span>
+							</a>
+							<div class="card-front">
 							<div class="card-image">
 								<img
 									src={resolveCourseImageUrl(course.slug, course.image_url)}
@@ -338,12 +346,11 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 								</span>
 								<h3 class="card-title">{course.title}</h3>
 								{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
-								<p class="card-excerpt">
-									{course.short_description || course.description?.slice(0, 160)}
-								</p>
+								<p class="card-excerpt" set:html={linkAceNccrsHtml(course.short_description || course.description?.slice(0, 160) || '')} />
 								<span class="card-cta">Visit course provider website →</span>
 							</div>
-						</a>
+							</div>
+						</article>
 					))}
 				</div>
 
@@ -392,6 +399,13 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 		color: inherit;
 		transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 		height: 100%;
+	}
+
+	.card--has-overlay .card-front {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		min-height: 0;
 	}
 
 	.card:hover {

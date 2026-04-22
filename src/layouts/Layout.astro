@@ -236,6 +236,48 @@ const websiteSchema = {
 		color: var(--color-primary-dark);
 	}
 
+	/* Study.com ACE / NCCRS explainer — used where linkAceNccrsHtml() outputs these links */
+	a.ace-nccrs-credit-link {
+		color: #2563eb;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+	a.ace-nccrs-credit-link:hover {
+		color: #1d4ed8;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	/* Directory cards: invisible stretch-link below content; ACE/NCCRS links stay above and clickable */
+	.card--has-overlay {
+		position: relative;
+	}
+	.card--has-overlay .card-cover {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+	.card--has-overlay .card-front {
+		position: relative;
+		z-index: 1;
+		pointer-events: none;
+	}
+	.card--has-overlay .card-front a.ace-nccrs-credit-link {
+		pointer-events: auto;
+		position: relative;
+		z-index: 2;
+	}
+
 	button {
 		font-family: var(--font-primary);
 		cursor: pointer;

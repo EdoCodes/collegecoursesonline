@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CourseCard from '../../components/CourseCard.astro';
+import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { College, Course } from '../../lib/supabase';
 import { filterDirectoryCourses } from '../../lib/excludedCourseSlugs';
@@ -251,7 +252,7 @@ const pageDescription = college.description || `Explore ${totalCourses} online c
             <section class="content-section">
               <h2>About {college.name}</h2>
               <div class="about-content">
-                <p>{college.description}</p>
+                <p set:html={linkAceNccrsHtml(college.description)} />
               </div>
             </section>
           )}
@@ -310,7 +311,7 @@ const pageDescription = college.description || `Explore ${totalCourses} online c
               {college.accreditation && (
                 <div class="info-item">
                   <span class="label">Accreditation</span>
-                  <span class="value">{college.accreditation}</span>
+                  <span class="value" set:html={linkAceNccrsHtml(college.accreditation)} />
                 </div>
               )}
               

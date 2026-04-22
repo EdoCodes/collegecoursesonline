@@ -1,6 +1,7 @@
 ---
 import type { Course } from '../lib/supabase';
 import { resolveCourseImageUrl } from '../lib/courseImageOverrides';
+import { linkAceNccrsHtml } from '../lib/linkAceNccrs';
 import CoursePrice from './CoursePrice.astro';
 
 interface Props {
@@ -11,6 +12,9 @@ const { course } = Astro.props;
 const college = course.colleges;
 const category = course.course_categories;
 const cardImageUrl = resolveCourseImageUrl(course.slug, course.image_url);
+const descriptionHtml = linkAceNccrsHtml(
+	course.short_description || `${course.description.slice(0, 120)}...`,
+);
 ---
 
 <article class="course-card" data-course-id={course.id}>
@@ -56,9 +60,7 @@ const cardImageUrl = resolveCourseImageUrl(course.slug, course.image_url);
 			</a>
 		</h3>
 
-		<p class="course-description">
-			{course.short_description || course.description.slice(0, 120) + '...'}
-		</p>
+		<p class="course-description" set:html={descriptionHtml} />
 
 		{college && (
 			<div class="ratings-section">

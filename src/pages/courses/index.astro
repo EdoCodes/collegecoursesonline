@@ -7,6 +7,7 @@ import { displayPriceForCourse, resolveCollegeSlug } from '../../lib/coursePrice
 import CoursePrice from '../../components/CoursePrice.astro';
 import { fetchDirectoryCourseList } from '../../lib/fetchDirectoryCourseList';
 import { FALLBACK_COURSE_CATEGORIES } from '../../lib/courseCategoryFallbacks';
+import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
 
 let coursesData: Course[] = [];
 let categories: { slug: string; name: string; icon?: string }[] = [];
@@ -136,9 +137,8 @@ if (categories.length === 0) {
 			<section class="courses-section">
 				<div class="courses-grid" id="coursesGrid">
 					{coursesData.map((course) => (
-						<a
-							href={`/courses/${course.slug}`}
-							class="card"
+						<article
+							class="card card--has-overlay"
 							data-course-id={course.id}
 							data-category={course.course_categories?.slug}
 							data-level={course.level}
@@ -150,6 +150,10 @@ if (categories.length === 0) {
 							data-featured={course.featured}
 							data-created={course.created_at}
 						>
+							<a href={`/courses/${course.slug}`} class="card-cover" aria-label={`View course: ${course.title}`}>
+								<span class="sr-only">View course: {course.title}</span>
+							</a>
+							<div class="card-front">
 							<div class="card-image">
 								<img
 									src={resolveCourseImageUrl(course.slug, course.image_url)}
@@ -174,12 +178,11 @@ if (categories.length === 0) {
 								</span>
 								<h3 class="card-title">{course.title}</h3>
 								{course.colleges && <p class="card-brand">{course.colleges.name}</p>}
-								<p class="card-excerpt">
-									{course.short_description || course.description?.slice(0, 160)}
-								</p>
+								<p class="card-excerpt" set:html={linkAceNccrsHtml(course.short_description || course.description?.slice(0, 160) || '')} />
 								<span class="card-cta">Visit course provider website →</span>
 							</div>
-						</a>
+							</div>
+						</article>
 					))}
 				</div>
 
@@ -418,6 +421,13 @@ if (categories.length === 0) {
 			box-shadow 0.2s ease,
 			border-color 0.2s ease;
 		height: 100%;
+	}
+
+	.card--has-overlay .card-front {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		min-height: 0;
 	}
 
 	.card:hover {

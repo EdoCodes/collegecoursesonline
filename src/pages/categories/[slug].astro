@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CourseCard from '../../components/CourseCard.astro';
+import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import type { CourseCategory, Course } from '../../lib/supabase';
 import { filterDirectoryCourses } from '../../lib/excludedCourseSlugs';
@@ -133,7 +134,7 @@ const pageDescription = category.description || `Explore ${totalCourses} online 
           <h1 class="category-title">{category.name} Courses</h1>
           
           {category.description && (
-            <p class="category-description">{category.description}</p>
+            <p class="category-description" set:html={linkAceNccrsHtml(category.description)} />
           )}
 
           <!-- Stats Bar -->

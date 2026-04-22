@@ -4,6 +4,7 @@ import { supabase, isSupabaseConfigured } from '../../../lib/supabase';
 import { resolveCourseImageUrl } from '../../../lib/courseImageOverrides';
 import CoursePrice from '../../../components/CoursePrice.astro';
 import { filterDirectoryCourses } from '../../../lib/excludedCourseSlugs';
+import { linkAceNccrsHtml } from '../../../lib/linkAceNccrs';
 
 export async function getStaticPaths() {
   if (!isSupabaseConfigured || !supabase) return [];
@@ -94,7 +95,11 @@ const icon = categoryIcons[category] ?? '📖';
           </div>
           <div class="courses-grid">
             {grouped[sub].map(course => (
-              <a href={`/courses/${course.slug}`} class="card">
+              <article class="card card--has-overlay">
+                <a href={`/courses/${course.slug}`} class="card-cover" aria-label={`View course: ${course.title}`}>
+                  <span class="sr-only">View course: {course.title}</span>
+                </a>
+                <div class="card-front">
                 <div class="card-image">
                   <img src={resolveCourseImageUrl(course.slug, course.image_url)} alt={course.title} loading="lazy" />
                   {course.price === 'Free'
@@ -106,10 +111,11 @@ const icon = categoryIcons[category] ?? '📖';
                   <span class="card-label">{icon} {sub}</span>
                   <h3 class="card-title">{course.title}</h3>
                   {course.colleges && <p class="card-brand">{course.colleges.name}</p>}
-                  <p class="card-excerpt">{course.short_description || course.description?.slice(0, 160)}</p>
+                  <p class="card-excerpt" set:html={linkAceNccrsHtml(course.short_description || course.description?.slice(0, 160) || '')} />
                   <span class="card-cta">Visit course provider website →</span>
                 </div>
-              </a>
+                </div>
+              </article>
             ))}
           </div>
         </section>
@@ -189,6 +195,9 @@ const icon = categoryIcons[category] ?? '📖';
     text-decoration: none; color: inherit;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     height: 100%;
+  }
+  .card--has-overlay .card-front {
+    display: flex; flex-direction: column; flex: 1; min-height: 0;
   }
   .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.10); border-color: #2563eb; }
   .card-image { position: relative; width: 100%; height: 200px; overflow: hidden; background: #f1f5f9; flex-shrink: 0; }
