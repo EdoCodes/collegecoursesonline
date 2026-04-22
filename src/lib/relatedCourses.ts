@@ -3,7 +3,11 @@ import type { Course } from './supabase';
 /** Cross-provider equivalents (shown first): stats ↔ stats, not generic “same category”. */
 export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	'straighterline-introduction-to-statistics': ['study-com-statistics'],
-	'study-com-statistics': ['straighterline-introduction-to-statistics'],
+	'study-com-statistics': [
+		'straighterline-introduction-to-statistics',
+		'study-com-business-114-business-statistics',
+	],
+	'study-com-business-114-business-statistics': ['study-com-statistics'],
 	'study-com-biology-201l-anatomy-physiology-i-with-lab': [
 		'study-com-biology-202l-anatomy-physiology-ii-with-lab',
 	],
