@@ -31,6 +31,20 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'academic-acronyms-glossary',
+    title:
+      'Academic Acronyms Glossary: Degree, Nursing, IT, and Accreditation Terms',
+    excerpt:
+      'Explore a complete academic acronyms glossary covering degree abbreviations, nursing acronyms, IT terms, and accreditation language used across U.S. higher education.',
+    label: 'Glossary',
+    date: 'Apr 17, 2026',
+    readingTime: '14 min read',
+    image:
+      'https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: ['Glossary', 'Degrees', 'Nursing', 'IT', 'Accreditation', '2026'],
+    hrefOverride: '/academic-acronyms-glossary/',
+  },
+  {
     slug: 'university-of-the-people-tuition-free-degrees',
     title:
       'University of the People: Tuition-Free Accredited Online Degrees, Programs, Transfer Credits, and FAQs',

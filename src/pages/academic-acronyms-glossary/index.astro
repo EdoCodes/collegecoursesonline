@@ -1,0 +1,892 @@
+---
+import BlogArticleLayout from '../../components/blog/BlogArticleLayout.astro';
+import ArticleProse from '../../components/blog/ArticleProse.astro';
+
+const title =
+  'Academic Acronyms Glossary: Degree, Nursing, IT, and Accreditation Terms';
+const description =
+  'Explore a complete academic acronyms glossary covering degree abbreviations, nursing acronyms, IT terms, and accreditation language used across U.S. higher education.';
+const publishDate = '2026-04-17';
+const updatedDate = '2026-04-17';
+const author = 'Editorial Team';
+const readingTime = '14 min read';
+const canonicalPath = '/academic-acronyms-glossary/';
+const heroImageUrl =
+  'https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg?auto=compress&cs=tinysrgb&w=1200';
+
+const siteOrigin = (Astro.site?.href ?? 'https://collegecoursesonline.netlify.app/').replace(
+  /\/$/,
+  ''
+);
+const pageUrl = new URL(canonicalPath, `${siteOrigin}/`).href;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What does ASN mean?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ASN usually means Associate of Science in Nursing.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What does BSN mean?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'BSN means Bachelor of Science in Nursing.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What does ASc mean?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ASc is a variant abbreviation for Associate of Science.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What does BSc mean?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'BSc means Bachelor of Science.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is CHEA?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CHEA is the Council for Higher Education Accreditation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is ABET?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ABET is the Accreditation Board for Engineering and Technology.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between accreditation and a degree abbreviation?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A degree abbreviation identifies an academic credential, while accreditation tells you whether a school or program meets recognized quality standards.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are all acronym forms used the same way everywhere?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Some acronyms vary by school, country, or style guide, so it is best to follow the preferred form used by the institution or publication.',
+      },
+    },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: publishDate,
+  dateModified: updatedDate,
+  author: { '@type': 'Organization', name: 'College Courses Online Editorial Team' },
+  publisher: { '@type': 'Organization', name: 'College Courses Online' },
+  image: heroImageUrl,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': pageUrl,
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteOrigin}/` },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Resources',
+      item: `${siteOrigin}/resources`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Glossary',
+      item: `${siteOrigin}/resources/glossary`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: 'Academic acronyms glossary',
+      item: pageUrl,
+    },
+  ],
+};
+
+const tocItems = [
+  { id: 'degree-abbreviations', label: 'Degree abbreviations' },
+  { id: 'nursing-acronyms', label: 'Nursing acronyms' },
+  { id: 'it-acronyms', label: 'IT acronyms' },
+  { id: 'accreditation-acronyms', label: 'Accreditation acronyms' },
+  { id: 'how-to-use-these-acronyms', label: 'How to use these acronyms' },
+  { id: 'faq', label: 'FAQ' },
+];
+---
+
+<BlogArticleLayout
+  title={title}
+  description={description}
+  breadcrumbItems={[
+    { label: 'Home', href: '/' },
+    { label: 'Resources', href: '/resources' },
+    { label: 'Glossary', href: '/resources/glossary' },
+    { label: 'Academic acronyms glossary' },
+  ]}
+  heroLabel="Glossary"
+  heroSubtitle={description}
+  updatedDate={`Updated ${updatedDate}`}
+  readingTime={readingTime}
+  author={author}
+  tags={[
+    'Glossary',
+    'Degrees',
+    'Nursing',
+    'Information technology',
+    'Accreditation',
+    'Higher education',
+  ]}
+  heroImage={heroImageUrl}
+  image={heroImageUrl}
+  tocItems={tocItems}
+  canonical={canonicalPath}
+>
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <ArticleProse>
+    <p class="article-intro">
+      Academic acronyms can be confusing because colleges, universities, accrediting agencies, and
+      professional fields often use different shorthand for the same type of credential or program.
+      This glossary brings together common degree abbreviations, nursing acronyms, IT terms, and
+      accreditation language in one easy-to-scan reference.
+    </p>
+
+    <section id="degree-abbreviations">
+      <h2>Degree abbreviations</h2>
+      <p>
+        These are some of the most common academic degree abbreviations used in the United States.
+        Some schools and style guides use slightly different punctuation or formatting, but the
+        meanings are generally consistent.
+      </p>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Acronym</th>
+              <th scope="col">Meaning</th>
+              <th scope="col">Common use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AA</td>
+              <td>Associate of Arts</td>
+              <td>Two-year degree in liberal arts or humanities.</td>
+            </tr>
+            <tr>
+              <td>AAS</td>
+              <td>Associate of Applied Science</td>
+              <td>Career-focused associate degree.</td>
+            </tr>
+            <tr>
+              <td>ADN</td>
+              <td>Associate Degree in Nursing</td>
+              <td>Entry-level nursing degree.</td>
+            </tr>
+            <tr>
+              <td>ASN</td>
+              <td>Associate of Science in Nursing</td>
+              <td>Nursing-focused associate degree.</td>
+            </tr>
+            <tr>
+              <td>AS</td>
+              <td>Associate of Science</td>
+              <td>Two-year degree in science or technical fields.</td>
+            </tr>
+            <tr>
+              <td>ASc</td>
+              <td>Associate of Science</td>
+              <td>Variant styling used by some schools.</td>
+            </tr>
+            <tr>
+              <td>BA</td>
+              <td>Bachelor of Arts</td>
+              <td>Undergraduate degree in liberal arts.</td>
+            </tr>
+            <tr>
+              <td>BS</td>
+              <td>Bachelor of Science</td>
+              <td>Undergraduate degree in science or technical fields.</td>
+            </tr>
+            <tr>
+              <td>BSc</td>
+              <td>Bachelor of Science</td>
+              <td>Common alternate styling, often used internationally and sometimes in U.S. writing.</td>
+            </tr>
+            <tr>
+              <td>BSN</td>
+              <td>Bachelor of Science in Nursing</td>
+              <td>Standard pre-licensure nursing degree.</td>
+            </tr>
+            <tr>
+              <td>BBA</td>
+              <td>Bachelor of Business Administration</td>
+              <td>Business-focused undergraduate degree.</td>
+            </tr>
+            <tr>
+              <td>BFA</td>
+              <td>Bachelor of Fine Arts</td>
+              <td>Arts-focused undergraduate degree.</td>
+            </tr>
+            <tr>
+              <td>BE / BEng</td>
+              <td>Bachelor of Engineering</td>
+              <td>Engineering-focused undergraduate degree.</td>
+            </tr>
+            <tr>
+              <td>MA</td>
+              <td>Master of Arts</td>
+              <td>Graduate degree in arts or humanities.</td>
+            </tr>
+            <tr>
+              <td>MS</td>
+              <td>Master of Science</td>
+              <td>Graduate degree in science or technical fields.</td>
+            </tr>
+            <tr>
+              <td>MBA</td>
+              <td>Master of Business Administration</td>
+              <td>Professional graduate business degree.</td>
+            </tr>
+            <tr>
+              <td>MEd</td>
+              <td>Master of Education</td>
+              <td>Graduate degree in education.</td>
+            </tr>
+            <tr>
+              <td>MSN</td>
+              <td>Master of Science in Nursing</td>
+              <td>Graduate nursing degree.</td>
+            </tr>
+            <tr>
+              <td>MHA</td>
+              <td>Master of Health Administration</td>
+              <td>Graduate healthcare leadership degree.</td>
+            </tr>
+            <tr>
+              <td>MPH</td>
+              <td>Master of Public Health</td>
+              <td>Graduate public health degree.</td>
+            </tr>
+            <tr>
+              <td>PhD</td>
+              <td>Doctor of Philosophy</td>
+              <td>Research doctorate.</td>
+            </tr>
+            <tr>
+              <td>EdD</td>
+              <td>Doctor of Education</td>
+              <td>Practice-focused education doctorate.</td>
+            </tr>
+            <tr>
+              <td>DNP</td>
+              <td>Doctor of Nursing Practice</td>
+              <td>Clinical nursing doctorate.</td>
+            </tr>
+            <tr>
+              <td>JD</td>
+              <td>Juris Doctor</td>
+              <td>Professional law degree.</td>
+            </tr>
+            <tr>
+              <td>MD</td>
+              <td>Doctor of Medicine</td>
+              <td>Professional medical degree.</td>
+            </tr>
+            <tr>
+              <td>DDS</td>
+              <td>Doctor of Dental Surgery</td>
+              <td>Professional dental degree.</td>
+            </tr>
+            <tr>
+              <td>DMD</td>
+              <td>Doctor of Dental Medicine</td>
+              <td>Professional dental degree.</td>
+            </tr>
+            <tr>
+              <td>PharmD</td>
+              <td>Doctor of Pharmacy</td>
+              <td>Professional pharmacy degree.</td>
+            </tr>
+            <tr>
+              <td>PsyD</td>
+              <td>Doctor of Psychology</td>
+              <td>Practice-focused psychology doctorate.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Why degree abbreviations matter</h3>
+      <p>
+        Degree abbreviations help students, employers, and schools quickly identify educational level
+        and discipline. They are especially useful in resumes, faculty bios, admissions pages, and
+        academic directories. Because some abbreviations vary by institution, it is a good idea to
+        use the style preferred by the school or publisher.
+      </p>
+    </section>
+
+    <section id="nursing-acronyms">
+      <h2>Nursing acronyms</h2>
+      <p>
+        Nursing acronyms are widely searched because many students compare entry points, licensure
+        pathways, and advanced practice options. These terms are important because they separate
+        educational degrees from professional credentials and job roles.
+      </p>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Acronym</th>
+              <th scope="col">Meaning</th>
+              <th scope="col">Common use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>RN</td>
+              <td>Registered Nurse</td>
+              <td>Licensed nursing professional.</td>
+            </tr>
+            <tr>
+              <td>LPN</td>
+              <td>Licensed Practical Nurse</td>
+              <td>Practical or vocational nursing role.</td>
+            </tr>
+            <tr>
+              <td>LVN</td>
+              <td>Licensed Vocational Nurse</td>
+              <td>Equivalent to LPN in some states.</td>
+            </tr>
+            <tr>
+              <td>APRN</td>
+              <td>Advanced Practice Registered Nurse</td>
+              <td>Advanced nursing role umbrella term.</td>
+            </tr>
+            <tr>
+              <td>NP</td>
+              <td>Nurse Practitioner</td>
+              <td>Advanced practice role.</td>
+            </tr>
+            <tr>
+              <td>CNM</td>
+              <td>Certified Nurse Midwife</td>
+              <td>Advanced practice specialization.</td>
+            </tr>
+            <tr>
+              <td>CRNA</td>
+              <td>Certified Registered Nurse Anesthetist</td>
+              <td>Advanced anesthesia role.</td>
+            </tr>
+            <tr>
+              <td>CNA</td>
+              <td>Certified Nursing Assistant</td>
+              <td>Entry-level patient care role.</td>
+            </tr>
+            <tr>
+              <td>ADN</td>
+              <td>Associate Degree in Nursing</td>
+              <td>Common RN pathway.</td>
+            </tr>
+            <tr>
+              <td>ASN</td>
+              <td>Associate of Science in Nursing</td>
+              <td>Common RN pathway.</td>
+            </tr>
+            <tr>
+              <td>BSN</td>
+              <td>Bachelor of Science in Nursing</td>
+              <td>Preferred nursing degree in many healthcare settings.</td>
+            </tr>
+            <tr>
+              <td>MSN</td>
+              <td>Master of Science in Nursing</td>
+              <td>Graduate-level nursing degree.</td>
+            </tr>
+            <tr>
+              <td>DNP</td>
+              <td>Doctor of Nursing Practice</td>
+              <td>Highest clinical nursing degree in many settings.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Nursing degree hierarchy</h3>
+      <p>
+        Many students begin with an associate-level nursing degree and later move into a BSN or MSN
+        pathway. Employers may prefer a BSN for leadership, hospital, or specialty roles, while
+        graduate degrees such as MSN and DNP support advanced practice and teaching. For search
+        visibility, it helps to include both the acronym and the full title in the same entry.
+      </p>
+    </section>
+
+    <section id="it-acronyms">
+      <h2>IT acronyms</h2>
+      <p>
+        The IT field is full of acronyms, and many of them show up in academic programs,
+        certifications, and job descriptions. This section works well for students studying
+        information technology, computer science, cybersecurity, and related fields.
+      </p>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Acronym</th>
+              <th scope="col">Meaning</th>
+              <th scope="col">Common use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>IT</td>
+              <td>Information Technology</td>
+              <td>Broad field covering systems and support.</td>
+            </tr>
+            <tr>
+              <td>CS</td>
+              <td>Computer Science</td>
+              <td>Academic and technical field.</td>
+            </tr>
+            <tr>
+              <td>IS</td>
+              <td>Information Systems</td>
+              <td>Business and technology integration field.</td>
+            </tr>
+            <tr>
+              <td>MIS</td>
+              <td>Management Information Systems</td>
+              <td>Business-tech systems discipline.</td>
+            </tr>
+            <tr>
+              <td>AI</td>
+              <td>Artificial Intelligence</td>
+              <td>Machine-driven intelligent systems.</td>
+            </tr>
+            <tr>
+              <td>ML</td>
+              <td>Machine Learning</td>
+              <td>Subfield of AI.</td>
+            </tr>
+            <tr>
+              <td>API</td>
+              <td>Application Programming Interface</td>
+              <td>Software-to-software communication layer.</td>
+            </tr>
+            <tr>
+              <td>UI</td>
+              <td>User Interface</td>
+              <td>Visual interface for users.</td>
+            </tr>
+            <tr>
+              <td>UX</td>
+              <td>User Experience</td>
+              <td>Overall user interaction experience.</td>
+            </tr>
+            <tr>
+              <td>SaaS</td>
+              <td>Software as a Service</td>
+              <td>Cloud-delivered software model.</td>
+            </tr>
+            <tr>
+              <td>PaaS</td>
+              <td>Platform as a Service</td>
+              <td>Cloud platform service model.</td>
+            </tr>
+            <tr>
+              <td>IaaS</td>
+              <td>Infrastructure as a Service</td>
+              <td>Cloud infrastructure model.</td>
+            </tr>
+            <tr>
+              <td>DNS</td>
+              <td>Domain Name System</td>
+              <td>Translates domain names to IP addresses.</td>
+            </tr>
+            <tr>
+              <td>VPN</td>
+              <td>Virtual Private Network</td>
+              <td>Secure remote network access.</td>
+            </tr>
+            <tr>
+              <td>SSO</td>
+              <td>Single Sign-On</td>
+              <td>One login across multiple systems.</td>
+            </tr>
+            <tr>
+              <td>MFA</td>
+              <td>Multi-Factor Authentication</td>
+              <td>Authentication using more than one factor.</td>
+            </tr>
+            <tr>
+              <td>IAM</td>
+              <td>Identity and Access Management</td>
+              <td>Access control and identity governance.</td>
+            </tr>
+            <tr>
+              <td>LDAP</td>
+              <td>Lightweight Directory Access Protocol</td>
+              <td>Directory access protocol.</td>
+            </tr>
+            <tr>
+              <td>JSON</td>
+              <td>JavaScript Object Notation</td>
+              <td>Common data format.</td>
+            </tr>
+            <tr>
+              <td>XML</td>
+              <td>Extensible Markup Language</td>
+              <td>Structured data format.</td>
+            </tr>
+            <tr>
+              <td>HTTP</td>
+              <td>Hypertext Transfer Protocol</td>
+              <td>Core web communication protocol.</td>
+            </tr>
+            <tr>
+              <td>HTTPS</td>
+              <td>Hypertext Transfer Protocol Secure</td>
+              <td>Encrypted web communication.</td>
+            </tr>
+            <tr>
+              <td>SQL</td>
+              <td>Structured Query Language</td>
+              <td>Database query language.</td>
+            </tr>
+            <tr>
+              <td>DevOps</td>
+              <td>Development and Operations</td>
+              <td>Software delivery approach.</td>
+            </tr>
+            <tr>
+              <td>CI/CD</td>
+              <td>Continuous Integration / Continuous Delivery</td>
+              <td>Automated build and release pipeline.</td>
+            </tr>
+            <tr>
+              <td>SOC</td>
+              <td>Security Operations Center</td>
+              <td>Security monitoring team or facility.</td>
+            </tr>
+            <tr>
+              <td>EDR</td>
+              <td>Endpoint Detection and Response</td>
+              <td>Endpoint security technology.</td>
+            </tr>
+            <tr>
+              <td>SIEM</td>
+              <td>Security Information and Event Management</td>
+              <td>Security log monitoring and analysis.</td>
+            </tr>
+            <tr>
+              <td>ITSM</td>
+              <td>IT Service Management</td>
+              <td>Framework for IT service delivery.</td>
+            </tr>
+            <tr>
+              <td>ITIL</td>
+              <td>Information Technology Infrastructure Library</td>
+              <td>IT service management framework.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>IT acronyms in academic writing</h3>
+      <p>
+        IT acronyms work best when they are introduced on first use in a page or article. After
+        that, the acronym can be used alone if the audience is technical or already familiar with the
+        topic. For general readers, the full term should remain visible at least once per section.
+      </p>
+    </section>
+
+    <section id="accreditation-acronyms">
+      <h2>Accreditation acronyms</h2>
+      <p>
+        Accreditation acronyms are essential in higher education because they signal whether a school
+        or program meets recognized quality standards. These acronyms are often tied to the U.S.
+        Department of Education or the Council for Higher Education Accreditation, and some are
+        specifically programmatic accreditors for fields like nursing, business, engineering, or allied
+        health.
+      </p>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Acronym</th>
+              <th scope="col">Meaning</th>
+              <th scope="col">Common use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CHEA</td>
+              <td>Council for Higher Education Accreditation</td>
+              <td>Recognizes accrediting organizations.</td>
+            </tr>
+            <tr>
+              <td>USDE</td>
+              <td>U.S. Department of Education</td>
+              <td>Federal recognition authority for accreditors.</td>
+            </tr>
+            <tr>
+              <td>ABET</td>
+              <td>Accreditation Board for Engineering and Technology</td>
+              <td>Engineering and computing programs.</td>
+            </tr>
+            <tr>
+              <td>AACSB</td>
+              <td>Association to Advance Collegiate Schools of Business</td>
+              <td>Business school accreditation.</td>
+            </tr>
+            <tr>
+              <td>ACBSP</td>
+              <td>Accreditation Council for Business Schools and Programs</td>
+              <td>Business program accreditation.</td>
+            </tr>
+            <tr>
+              <td>ACEN</td>
+              <td>Accreditation Commission for Education in Nursing</td>
+              <td>Nursing program accreditation.</td>
+            </tr>
+            <tr>
+              <td>CCNE</td>
+              <td>Commission on Collegiate Nursing Education</td>
+              <td>Nursing program accreditation.</td>
+            </tr>
+            <tr>
+              <td>CAAHEP</td>
+              <td>Commission on Accreditation of Allied Health Education Programs</td>
+              <td>Allied health programs.</td>
+            </tr>
+            <tr>
+              <td>CAPTE</td>
+              <td>Commission on Accreditation in Physical Therapy Education</td>
+              <td>Physical therapy programs.</td>
+            </tr>
+            <tr>
+              <td>CODA</td>
+              <td>Commission on Dental Accreditation</td>
+              <td>Dental programs.</td>
+            </tr>
+            <tr>
+              <td>CAEP</td>
+              <td>Council for the Accreditation of Educator Preparation</td>
+              <td>Teacher education programs.</td>
+            </tr>
+            <tr>
+              <td>NAACLS</td>
+              <td>National Accrediting Agency for Clinical Laboratory Sciences</td>
+              <td>Lab science programs.</td>
+            </tr>
+            <tr>
+              <td>JRCERT</td>
+              <td>Joint Review Committee on Education in Radiologic Technology</td>
+              <td>Radiologic technology programs.</td>
+            </tr>
+            <tr>
+              <td>COARC</td>
+              <td>Commission on Accreditation for Respiratory Care</td>
+              <td>Respiratory care programs.</td>
+            </tr>
+            <tr>
+              <td>ACOTE</td>
+              <td>Accreditation Council for Occupational Therapy Education</td>
+              <td>Occupational therapy programs.</td>
+            </tr>
+            <tr>
+              <td>ARC-PA</td>
+              <td>Accreditation Review Commission on Education for the Physician Assistant</td>
+              <td>Physician assistant programs.</td>
+            </tr>
+            <tr>
+              <td>CACREP</td>
+              <td>Council for Accreditation of Counseling and Related Educational Programs</td>
+              <td>Counseling programs.</td>
+            </tr>
+            <tr>
+              <td>NASM</td>
+              <td>National Association of Schools of Music</td>
+              <td>Music programs.</td>
+            </tr>
+            <tr>
+              <td>NASAD</td>
+              <td>National Association of Schools of Art and Design</td>
+              <td>Art and design programs.</td>
+            </tr>
+            <tr>
+              <td>CEA</td>
+              <td>Commission on English Language Program Accreditation</td>
+              <td>English language programs.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Accreditation language to know</h3>
+      <p>
+        Use <strong>institutional accreditation</strong> when the accreditor reviews an entire
+        college or university. Use <strong>programmatic accreditation</strong> when the accreditor
+        reviews a specific program such as nursing, engineering, or counseling. Some schools highlight
+        both because institutional accreditation and program accreditation serve different purposes.
+      </p>
+    </section>
+
+    <section id="how-to-use-these-acronyms">
+      <h2>How to use these acronyms</h2>
+      <p>
+        When writing for a general audience, define the acronym on first mention and then use the
+        short form afterward. That keeps the content readable while still making it searchable. For
+        example, write “Bachelor of Science in Nursing (BSN)” the first time and “BSN” afterward.
+      </p>
+      <p>
+        For SEO, the best approach is to place the acronym in an H2 or H3 heading, then add a short
+        definition and a plain-English explanation. This improves scanability and gives each acronym
+        a strong chance to rank independently in search results. It also makes the page easy to reuse
+        as a hub or sitemap-style glossary.
+      </p>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+
+      <h3>What does ASN mean?</h3>
+      <p>ASN usually means Associate of Science in Nursing.</p>
+
+      <h3>What does BSN mean?</h3>
+      <p>BSN means Bachelor of Science in Nursing.</p>
+
+      <h3>What does ASc mean?</h3>
+      <p>ASc is a variant abbreviation for Associate of Science.</p>
+
+      <h3>What does BSc mean?</h3>
+      <p>BSc means Bachelor of Science.</p>
+
+      <h3>What is CHEA?</h3>
+      <p>CHEA is the Council for Higher Education Accreditation.</p>
+
+      <h3>What is ABET?</h3>
+      <p>ABET is the Accreditation Board for Engineering and Technology.</p>
+
+      <h3>What is the difference between accreditation and a degree abbreviation?</h3>
+      <p>
+        A degree abbreviation identifies an academic credential, while accreditation tells you whether
+        a school or program meets recognized quality standards.
+      </p>
+
+      <h3>Are all acronym forms used the same way everywhere?</h3>
+      <p>
+        No. Some acronyms vary by school, country, or style guide, so it is best to follow the
+        preferred form used by the institution or publication.
+      </p>
+    </section>
+
+    <section id="related-resources">
+      <h2>Related resources</h2>
+      <ul>
+        <li>
+          <a href="/resources/blog/most-affordable-online-bachelors-degrees-2026"
+            >Academic degree pathways and online bachelor’s programs</a
+          >
+        </li>
+        <li>
+          <a href="/resources/blog/prerequisite-courses-for-nursing-school"
+            >Nursing degree prerequisites and planning</a
+          >
+        </li>
+        <li>
+          <a href="/resources/blog/study-com-vs-sophia-vs-straighterline"
+            >Online credit platforms for IT and gen-ed courses</a
+          >
+        </li>
+        <li>
+          <a href="/resources/blog/how-to-choose-right-online-college"
+            >Accreditation and choosing an online college</a
+          >
+        </li>
+        <li>
+          <a href="/resources/guides">More education guides and glossary-style articles</a>
+        </li>
+      </ul>
+    </section>
+
+    <p>
+      <strong>Editorial note:</strong> This page works best as a glossary hub, with each acronym linked
+      to either a dedicated definition page or an anchored section on the same page. That structure
+      supports SEO, internal linking, and user navigation at the same time.
+    </p>
+  </ArticleProse>
+</BlogArticleLayout>
+
+<style>
+  .data-table {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .data-table th {
+    background: #1e40af;
+    color: white;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    vertical-align: top;
+  }
+
+  .data-table tr:last-child td {
+    border-bottom: none;
+  }
+  .data-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+</style>

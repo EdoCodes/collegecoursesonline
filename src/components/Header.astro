@@ -12,7 +12,9 @@ const resourcesHubActive = pathNorm === '/resources';
 const blogSubActive = pathNorm === '/blog' || pathNorm.startsWith('/blog/');
 const guidesSubActive =
 	pathNorm.startsWith('/resources/guides') ||
-	pathNorm.startsWith('/resources/blog');
+	pathNorm.startsWith('/resources/blog') ||
+	pathNorm.startsWith('/resources/glossary') ||
+	pathNorm.startsWith('/academic-acronyms-glossary');
 const resourcesNavActive =
 	resourcesHubActive || blogSubActive || guidesSubActive;
 

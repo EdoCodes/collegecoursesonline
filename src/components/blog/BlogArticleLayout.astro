@@ -12,6 +12,8 @@ interface Props {
   author?: string;
   tags?: string[];
   heroImage?: string;
+  /** Open Graph / Twitter image (defaults in Layout if omitted). */
+  image?: string;
   tocItems?: { id: string; label: string }[];
   canonical?: string;
 }
@@ -27,12 +29,13 @@ const {
   author = 'Editorial Team',
   tags = [],
   heroImage,
+  image,
   tocItems = [],
   canonical,
 } = Astro.props;
 ---
 
-<Layout title={title} description={description} type="article" canonical={canonical}>
+<Layout title={title} description={description} type="article" canonical={canonical} image={image}>
   <slot name="schema" />
 
   <!-- Breadcrumb -->

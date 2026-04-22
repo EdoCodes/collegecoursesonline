@@ -1,0 +1,263 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import {
+  resourcesBlogPosts,
+  getResourcesBlogPostHref,
+} from '../../../data/resourcesBlogPosts';
+
+const glossaryPosts = resourcesBlogPosts.filter((p) => p.label === 'Glossary');
+---
+
+<Layout
+  title="Glossary | Online College Courses Resources"
+  description="Quick-reference glossaries for academic terms: degree abbreviations, nursing and IT acronyms, accreditation language, and more."
+>
+  <div class="page-header">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span>›</span>
+        <a href="/resources">Resources</a>
+        <span>›</span>
+        <span>Glossary</span>
+      </nav>
+      <h1>Glossary</h1>
+      <p class="subtitle">
+        Plain-English definitions and acronym lists you can scan fast—degrees, nursing, technology,
+        accreditation, and related higher-education vocabulary.
+      </p>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="container">
+      <div class="posts-grid">
+        {glossaryPosts.map((post) => (
+          <a href={getResourcesBlogPostHref(post)} class="card">
+            <div
+              class:list={[
+                'card-image',
+                post.imageObjectFit === 'contain' && 'card-image--contain',
+                post.imageContainVariant === 'blue' && 'card-image--contain-blue',
+                post.imageContainVariant === 'white' && 'card-image--contain-white',
+              ]}
+            >
+              <img
+                src={post.image}
+                alt={post.imageAlt ?? post.title}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="card-body">
+              <span class="card-label">{post.label}</span>
+              <h2 class="card-title">{post.title}</h2>
+              <p class="card-excerpt">{post.excerpt}</p>
+              <div class="card-footer">
+                <div class="card-tags">
+                  {post.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+                <div class="card-meta">
+                  <span>{post.date}</span>
+                  <span class="dot">·</span>
+                  <span>{post.readingTime}</span>
+                </div>
+              </div>
+              <span class="card-cta">Open glossary →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p class="back-link">
+        <a href="/resources/guides">Browse all guides</a>
+        <span class="dot">·</span>
+        <a href="/resources">Resources home</a>
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #0284c7 100%);
+    color: white;
+    padding: 3rem 0 2.5rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: white;
+  }
+  .breadcrumb span:last-child {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .page-header h1 {
+    color: white;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.625rem;
+  }
+
+  .subtitle {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  .main-content {
+    padding: 3rem 0 5rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.12);
+  }
+
+  .card-image {
+    aspect-ratio: 16 / 10;
+    background: #f1f5f9;
+    overflow: hidden;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card-image--contain {
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-image--contain img {
+    object-fit: contain;
+  }
+  .card-image--contain-blue {
+    background: linear-gradient(145deg, #1e3a8a 0%, #1d4ed8 100%);
+  }
+  .card-image--contain-white {
+    background: #fff;
+  }
+
+  .card-body {
+    padding: 1.35rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+  }
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.35;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .card-excerpt {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 1rem;
+    flex: 1;
+  }
+  .card-footer {
+    margin-bottom: 0.75rem;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .tag {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: #475569;
+  }
+  .card-meta {
+    font-size: 0.8125rem;
+    color: #94a3b8;
+  }
+  .dot {
+    margin: 0 0.35rem;
+    opacity: 0.7;
+  }
+  .card-cta {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2563eb;
+  }
+  .card:hover .card-cta {
+    text-decoration: underline;
+  }
+
+  .back-link {
+    margin-top: 2.5rem;
+    font-size: 0.9375rem;
+    color: #64748b;
+  }
+  .back-link a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .back-link a:hover {
+    text-decoration: underline;
+  }
+</style>
