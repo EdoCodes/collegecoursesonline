@@ -179,6 +179,7 @@ const tocItems = [
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
+  <div class="glossary-page-body">
   <ArticleProse>
     <p class="article-intro">
       Academic acronyms can be confusing because colleges, universities, accrediting agencies, and
@@ -883,7 +884,6 @@ const tocItems = [
 
     <section id="faq">
       <h2>FAQ</h2>
-      <div class="section-label">FAQ</div>
 
       <div class="faq-list">
         <details class="faq-item">
@@ -991,15 +991,91 @@ const tocItems = [
       </ul>
     </section>
 
-    <p>
+    <p class="editorial-note">
       <strong>Editorial note:</strong> This page works best as a glossary hub, with each acronym linked
       to either a dedicated definition page or an anchored section on the same page. That structure
       supports SEO, internal linking, and user navigation at the same time.
     </p>
   </ArticleProse>
+  </div>
 </BlogArticleLayout>
 
 <style>
+  /* Roomier vertical rhythm + heading hover (glossary page only; headings stay real h2/h3 for SEO) */
+  .glossary-page-body :global(.article-prose) section {
+    margin-bottom: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .glossary-page-body :global(.article-prose) h2 {
+    margin-bottom: 1.35rem;
+    transition: color 0.18s ease;
+    scroll-margin-top: 5rem;
+  }
+
+  .glossary-page-body :global(.article-prose) h2:hover {
+    color: #2563eb;
+  }
+
+  .glossary-page-body :global(.article-prose) h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    transition: color 0.18s ease;
+    scroll-margin-top: 5rem;
+  }
+
+  .glossary-page-body :global(.article-prose) h3:hover {
+    color: #2563eb;
+  }
+
+  .glossary-page-body :global(.article-prose) section > h2 + p,
+  .glossary-page-body :global(.article-prose) section > h3 + p {
+    margin-top: 0;
+  }
+
+  .glossary-page-body :global(.article-prose) .data-table + h3 {
+    margin-top: 2.25rem;
+  }
+
+  .glossary-page-body :global(.article-prose) section#faq .faq-list {
+    margin-top: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .glossary-page-body :global(.article-prose) section#related-resources ul {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    padding-left: 1.35rem;
+  }
+
+  .glossary-page-body :global(.article-prose) section#related-resources li {
+    margin-bottom: 0.65rem;
+    line-height: 1.65;
+  }
+
+  .glossary-page-body :global(.article-prose) section#related-resources li:last-child {
+    margin-bottom: 0;
+  }
+
+  .glossary-page-body :global(.article-prose p.editorial-note) {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    padding-bottom: 0.25rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #475569;
+    border-top: 1px solid rgba(226, 232, 240, 0.85);
+  }
+
+  /* Softer closing: avoid a heavy double rule under Related resources */
+  .glossary-page-body :global(.article-prose section#related-resources) {
+    padding-bottom: 2.75rem;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
   .data-table {
     overflow-x: auto;
     margin: 1.5rem 0;
