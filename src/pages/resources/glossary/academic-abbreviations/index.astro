@@ -1035,8 +1035,10 @@ const tocItems = [
   </div>
 </BlogArticleLayout>
 
-<!-- Page-level script (not inside layout slots — Astro omits scripts from slot HTML). -->
-<script is:inline src="/js/glossary-acronym-search.js"></script>
+<!-- Bundled client module (always emitted; external /public/js was optional + cache-prone). -->
+<script>
+  import '../../../../scripts/glossary-acronym-search.ts';
+</script>
 
 <style>
   .glossary-acronym-search {

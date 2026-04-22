@@ -1,22 +1,22 @@
 /**
  * Academic abbreviations glossary: dim non-matches, anchors, scroll to best match.
- * Loaded from page-level <script src> on academic-abbreviations (not in Astro slots).
+ * Imported only from academic-abbreviations/index.astro (bundled client script).
  */
 (function () {
   function initGlossaryAcronymSearch() {
-    var root = document.querySelector('.glossary-page-body');
-    var input = document.getElementById('glossary-acronym-search-input');
-    var status = document.getElementById('glossary-acronym-search-status');
+    const root = document.querySelector('.glossary-page-body');
+    const input = document.getElementById('glossary-acronym-search-input');
+    const status = document.getElementById('glossary-acronym-search-status');
     if (!root || !input || !status) return;
 
     function assignRowIds() {
-      var sections = root.querySelectorAll('section[id]');
-      for (var si = 0; si < sections.length; si++) {
-        var section = sections[si];
-        var tbodies = section.querySelectorAll('.data-table tbody');
-        for (var ti = 0; ti < tbodies.length; ti++) {
-          var trs = tbodies[ti].querySelectorAll('tr');
-          for (var ri = 0; ri < trs.length; ri++) {
+      const sections = root.querySelectorAll('section[id]');
+      for (let si = 0; si < sections.length; si++) {
+        const section = sections[si];
+        const tbodies = section.querySelectorAll('.data-table tbody');
+        for (let ti = 0; ti < tbodies.length; ti++) {
+          const trs = tbodies[ti].querySelectorAll('tr');
+          for (let ri = 0; ri < trs.length; ri++) {
             trs[ri].id = section.id + '-abbr-' + ti + '-' + ri;
           }
         }
@@ -25,28 +25,28 @@
 
     assignRowIds();
 
-    var rows = root.querySelectorAll('.data-table tbody tr');
-    var scrollTimer = null;
+    const rows = root.querySelectorAll('.data-table tbody tr');
+    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
 
-    function acronymCellVariants(tr) {
-      var firstTd = tr.querySelector('td');
+    function acronymCellVariants(tr: HTMLTableRowElement): string[] {
+      const firstTd = tr.querySelector('td');
       if (!firstTd) return [];
-      var raw = firstTd.textContent.trim().toLowerCase();
-      var parts = raw.split(/\s*\/\s*|\s*,\s*/);
-      var out = [];
-      for (var i = 0; i < parts.length; i++) {
-        var p = parts[i].trim().replace(/\s+/g, ' ');
+      const raw = firstTd.textContent?.trim().toLowerCase() ?? '';
+      const parts = raw.split(/\s*\/\s*|\s*,\s*/);
+      const out: string[] = [];
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i].trim().replace(/\s+/g, ' ');
         if (p) out.push(p);
       }
       if (out.length === 0 && raw) out.push(raw);
       return out;
     }
 
-    function scoreRow(tr, q) {
-      var full = (tr.textContent || '').toLowerCase();
-      var variants = acronymCellVariants(tr);
-      var joined = variants.join(' ');
-      var i;
+    function scoreRow(tr: HTMLTableRowElement, q: string): number {
+      const full = (tr.textContent || '').toLowerCase();
+      const variants = acronymCellVariants(tr);
+      const joined = variants.join(' ');
+      let i: number;
       for (i = 0; i < variants.length; i++) {
         if (variants[i] === q) return 100;
       }
@@ -62,36 +62,40 @@
     function clearUrlHash() {
       try {
         history.replaceState(null, '', location.pathname + location.search);
-      } catch (e) {}
+      } catch {
+        /* ignore */
+      }
     }
 
-    function headerOffsetPx() {
-      var header = document.querySelector('.site-header');
+    function headerOffsetPx(): number {
+      const header = document.querySelector('.site-header');
       if (!header) return 96;
       return Math.round(header.getBoundingClientRect().height) + 16;
     }
 
-    function scrollHitIntoViewRobust(hit) {
-      if (!hit || !hit.id) return;
+    function scrollHitIntoViewRobust(hit: HTMLTableRowElement) {
+      if (!hit?.id) return;
       hit.scrollIntoView({ behavior: 'auto', block: 'start', inline: 'nearest' });
       window.scrollBy({ left: 0, top: -headerOffsetPx(), behavior: 'auto' });
       try {
         history.replaceState(null, '', '#' + hit.id);
-      } catch (e) {}
+      } catch {
+        /* ignore */
+      }
     }
 
     function clearStatus() {
       status.replaceChildren();
     }
 
-    function renderStatus(q, n, bestHit) {
+    function renderStatus(q: string, n: number, bestHit: HTMLTableRowElement | null) {
       clearStatus();
       if (!q) return;
       if (n === 0) {
         status.appendChild(document.createTextNode('No abbreviations match that search.'));
         return;
       }
-      if (!bestHit || !bestHit.id) {
+      if (!bestHit?.id) {
         status.appendChild(
           document.createTextNode(
             n === 1 ? '1 matching row — see the glossary tables below.' : n + ' matching rows — see the tables below.'
@@ -99,15 +103,13 @@
         );
         return;
       }
-      var label = '';
-      var td0 = bestHit && bestHit.querySelector('td');
-      if (td0) label = td0.textContent.replace(/\s+/g, ' ').trim();
+      let label = '';
+      const td0 = bestHit.querySelector('td');
+      if (td0) label = td0.textContent?.replace(/\s+/g, ' ').trim() ?? '';
 
-      status.appendChild(
-        document.createTextNode(n === 1 ? '1 matching row. ' : n + ' matching rows. ')
-      );
+      status.appendChild(document.createTextNode(n === 1 ? '1 matching row. ' : n + ' matching rows. '));
 
-      var jump = document.createElement('a');
+      const jump = document.createElement('a');
       jump.href = '#' + bestHit.id;
       jump.className = 'glossary-search-jump';
       jump.textContent = label ? 'Jump to “' + label + '” in the table' : 'Jump to match in the table';
@@ -116,29 +118,34 @@
       status.appendChild(document.createTextNode(' · Press Enter to scroll there.'));
     }
 
-    function apply() {
-      var q = input.value.trim().toLowerCase();
-      var n = 0;
-      var bestHit = null;
-      var bestScore = -1;
+    function apply(): {
+      q: string;
+      n: number;
+      bestHit: HTMLTableRowElement | null;
+    } {
+      const q = input.value.trim().toLowerCase();
+      let n = 0;
+      let bestHit: HTMLTableRowElement | null = null;
+      let bestScore = -1;
 
-      for (var i = 0; i < rows.length; i++) {
-        var tr = rows[i];
+      rows.forEach((row) => {
+        const tr = row as HTMLTableRowElement;
         tr.classList.remove('glossary-search-hit');
-        var text = (tr.textContent || '').toLowerCase();
-        var show = !q || text.indexOf(q) !== -1;
-        tr.style.display = show ? '' : 'none';
+        tr.classList.remove('glossary-row-dimmed');
+        const text = (tr.textContent || '').toLowerCase();
+        const show = !q || text.indexOf(q) !== -1;
+        if (q && !show) tr.classList.add('glossary-row-dimmed');
         if (show) {
           n++;
           if (q) {
-            var s = scoreRow(tr, q);
+            const s = scoreRow(tr, q);
             if (s > bestScore) {
               bestScore = s;
               bestHit = tr;
             }
           }
         }
-      }
+      });
 
       if (bestHit && q) bestHit.classList.add('glossary-search-hit');
 
@@ -148,18 +155,18 @@
         return { q: '', n: 0, bestHit: null };
       }
       renderStatus(q, n, bestHit);
-      return { q: q, n: n, bestHit: bestHit };
+      return { q, n, bestHit };
     }
 
     function applyHashFromUrl() {
-      var id = (location.hash || '').replace(/^#/, '');
+      const id = (location.hash || '').replace(/^#/, '');
       if (!id) return;
-      var el = document.getElementById(id);
+      const el = document.getElementById(id);
       if (!el || !root.contains(el)) return;
       if (el.tagName !== 'TR' || !el.closest('.data-table')) return;
       el.classList.remove('glossary-search-hit');
       el.classList.add('glossary-search-hit');
-      requestAnimationFrame(function () {
+      requestAnimationFrame(() => {
         el.scrollIntoView({ behavior: 'auto', block: 'start', inline: 'nearest' });
         window.scrollBy({ left: 0, top: -headerOffsetPx(), behavior: 'auto' });
       });
@@ -167,22 +174,22 @@
 
     applyHashFromUrl();
 
-    input.addEventListener('input', function () {
+    input.addEventListener('input', () => {
       apply();
       if (scrollTimer) clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(function () {
+      scrollTimer = setTimeout(() => {
         scrollTimer = null;
-        var q = input.value.trim();
-        if (!q) {
+        const qq = input.value.trim();
+        if (!qq) {
           clearUrlHash();
           return;
         }
-        var result = apply();
+        const result = apply();
         if (result.bestHit && result.n > 0) scrollHitIntoViewRobust(result.bestHit);
       }, 250);
     });
 
-    input.addEventListener('keydown', function (e) {
+    input.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         input.value = '';
         apply();
@@ -193,7 +200,7 @@
       if (e.key === 'Enter') {
         e.preventDefault();
         if (scrollTimer) clearTimeout(scrollTimer);
-        var result = apply();
+        const result = apply();
         if (!result.q) {
           clearUrlHash();
           return;
