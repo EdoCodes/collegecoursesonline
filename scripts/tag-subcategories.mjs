@@ -43,6 +43,7 @@ const tags = [
   { slug: 'study-com-physics-111-physics-i', subcategory: 'Physics I', subcategory_slug: 'physics-i' },
   { slug: 'study-com-physics-112-physics-ii', subcategory: 'Physics II', subcategory_slug: 'physics-ii' },
   { slug: 'study-com-physics-111l-physics-i-with-lab', subcategory: 'Physics I with Lab', subcategory_slug: 'physics-i-with-lab' },
+  { slug: 'study-com-philosophy-101-intro-to-philosophy', subcategory: 'Philosophy', subcategory_slug: 'philosophy' },
 ];
 
 let ok = 0, fail = 0;

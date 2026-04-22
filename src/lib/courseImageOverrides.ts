@@ -49,6 +49,8 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 		'/images/courses/study-com-physics-111l-physics-i-with-lab.jpg',
 	'study-com-nursing-301-nursing-informatics':
 		'/images/courses/study-com-nursing-301-nursing-informatics.jpg',
+	'study-com-philosophy-101-intro-to-philosophy':
+		'/images/courses/study-com-philosophy-101-intro-to-philosophy.jpg',
 };
 
 export function resolveCourseImageUrl(
