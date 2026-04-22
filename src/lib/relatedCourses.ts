@@ -62,6 +62,8 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	],
 	'straighterline-microbiology': ['straighterline-microbiology-lab'],
 	'straighterline-microbiology-lab': ['straighterline-microbiology'],
+	'study-com-public-speaking': ['chabot-commc1000-intro-public-speaking'],
+	'chabot-commc1000-intro-public-speaking': ['study-com-public-speaking'],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */
