@@ -53,6 +53,30 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     omitFromResourcesBlogIndex: true,
   },
   {
+    slug: 'el-camino-college-radiologic-technology-online-guide',
+    title:
+      'El Camino College (ECC): Radiologic Technology, History, South Bay Guide & FAQs',
+    excerpt:
+      'Torrance’s El Camino College—enrollment, 1947 history, Brian Wilson alumni story, online education reality, and what ECC’s Radiologic Technology program actually includes (hybrid/clinical vs. “fully online BSc”).',
+    label: 'Colleges',
+    date: 'Apr 17, 2026',
+    readingTime: '14 min read',
+    image:
+      'https://images.pexels.com/photos/7088482/pexels-photo-7088482.jpeg?auto=compress&cs=tinysrgb&w=800',
+    imageAlt:
+      'Medical imaging and health-care training context—stethoscope and clinical workspace (representative stock image).',
+    tags: [
+      'El Camino College',
+      'Radiologic Technology',
+      'California',
+      'Community College',
+      'Torrance',
+      '2026',
+    ],
+    hrefOverride: '/colleges/el-camino-college-radiologic-technology-online-guide',
+    omitFromResourcesBlogIndex: true,
+  },
+  {
     slug: 'student-integrity-online-proctored-exams',
     title:
       'Student Integrity in Online Proctored College Exams: Why It Matters More Than Ever',

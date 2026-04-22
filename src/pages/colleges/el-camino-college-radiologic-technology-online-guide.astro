@@ -1,0 +1,175 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../components/blog/ResourcesGuideLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('blog', 'el-camino-college-radiologic-technology-online-guide');
+if (!entry) {
+	throw new Error('Blog entry el-camino-college-radiologic-technology-online-guide not found');
+}
+
+const { Content } = await entry.render();
+const { title, description, pubDate, author, tags, image } = entry.data;
+
+const categoryLabel = entry.data.categoryLabel ?? 'Colleges';
+const authorTitle = entry.data.authorTitle ?? 'Contributor';
+const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
+const readTimeFromFrontmatter = entry.data.readTime;
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const slugPath = '/colleges/el-camino-college-radiologic-technology-online-guide';
+const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
+
+const publishDate = pubDate.toISOString().slice(0, 10);
+const updatedDate =
+	entry.data.updatedDate != null
+		? entry.data.updatedDate.toISOString().slice(0, 10)
+		: publishDate;
+
+const wordCount = entry.body.trim().split(/\s+/).filter(Boolean).length;
+const readingTime =
+	readTimeFromFrontmatter ?? `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
+
+const ogImageUrl =
+	typeof image === 'string' && image.startsWith('http')
+		? image
+		: image
+			? new URL(image, `${site}/`).href
+			: `${site}/og-image.jpg`;
+
+const ogImageForLayout =
+	typeof image === 'string' && image.startsWith('http') ? image : image ?? '/og-image.jpg';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	image: [ogImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: {
+		'@type': 'Person',
+		name: author,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+};
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: [
+		{
+			'@type': 'Question',
+			name: 'Is El Camino College in Torrance a good school?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'El Camino College is widely regarded as a strong California community college for affordable tuition, transfer preparation, and career programs. Match “good” to your goals—completion support, transfer articulation for your major, and services you will use—and confirm details with ECC counseling.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Does El Camino College offer a fully online radiology degree?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'No. ECC’s Radiologic Technology pathway is not a fully online bachelor’s degree in radiology. Expect hybrid coursework plus in-person labs and clinical assignments. Verify current modality on ECC’s official Radiologic Technology pages.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Did Brian Wilson from the Beach Boys go to El Camino College?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. ECC highlights Brian Wilson among notable alumni in its Distinguished Alumni materials.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'What is El Camino College known for?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'ECC is known for accessible tuition, large enrollment, transfer pathways, career education, and regional South Bay reach—including health-care training such as Radiologic Technology.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'How old is El Camino College?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'El Camino College was founded in 1947.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'What does ECC’s Radiologic Technology program include?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'ECC describes a roughly 26-month sequence with coursework, labs, and clinical education aligned with professional imaging standards; accreditation is listed through JRCERT. Confirm prerequisites, clinical sites, and ARRT eligibility rules directly with ECC.',
+			},
+		},
+	],
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Colleges', item: `${site}/colleges/` },
+		{ '@type': 'ListItem', position: 3, name: breadcrumbTitle, item: pageUrl },
+	],
+};
+
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#summary', label: 'Quick Summary' },
+	{ href: '#in-this-guide', label: 'In this guide' },
+	{ href: '#radiologic-technology-at-el-camino-college', label: 'Radiologic Technology at ECC' },
+	{ href: '#what-is-el-camino-college', label: 'What is El Camino College?' },
+	{ href: '#a-brief-history-of-ecc', label: 'History of ECC' },
+	{ href: '#ecc-today', label: 'ECC today' },
+	{ href: '#is-eccs-imaging-pathway-fully-online', label: 'Fully online?' },
+	{ href: '#notable-alumni-including-brian-wilson', label: 'Notable alumni' },
+	{ href: '#interesting-el-camino-college-facts', label: 'ECC facts' },
+	{ href: '#people-also-ask', label: 'People Also Ask' },
+	{ href: '#sources', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slugPath}
+	image={ogImageForLayout}
+	categoryLabel={categoryLabel}
+	breadcrumbTitle={breadcrumbTitle}
+	breadcrumbTrail={[{ label: 'Colleges', href: '/colleges' }]}
+	author={author}
+	authorTitle={authorTitle}
+	readingTime={readingTime}
+	updatedDate={updatedDate}
+	tags={tags}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'More college guides & rankings',
+		href: '/resources/blog/best-online-colleges-2026',
+		buttonLabel: 'Best online colleges 2026 →',
+	}}
+>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+	<Content />
+</ResourcesGuideLayout>

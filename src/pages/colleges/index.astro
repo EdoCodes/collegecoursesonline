@@ -7,6 +7,9 @@ import { getResourcesBlogPostHref, resourcesBlogPosts } from '../../data/resourc
 const uopPost = resourcesBlogPosts.find(
 	(p) => p.slug === 'university-of-the-people-tuition-free-degrees',
 );
+const elCaminoPost = resourcesBlogPosts.find(
+	(p) => p.slug === 'el-camino-college-radiologic-technology-online-guide',
+);
 
 /** Blog MDX guides tagged `colleges` (e.g. UF Online). Exclude UoPeople here—canonical URL is `/colleges/...`. */
 /** Blog MDX guides tagged `colleges` — canonical URLs may live under `/resources/blog/`. */
@@ -19,7 +22,8 @@ const collegeBlogGuides = (await getCollection('blog'))
 		(p) =>
 			!p.data.draft &&
 			p.data.tags.includes('colleges') &&
-			p.slug !== 'university-of-the-people-tuition-free-degrees',
+			p.slug !== 'university-of-the-people-tuition-free-degrees' &&
+			p.slug !== 'el-camino-college-radiologic-technology-online-guide',
 	)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
@@ -67,6 +71,24 @@ const collegeBlogGuides = (await getCollection('blog'))
 							imageObjectFit={uopPost.imageObjectFit}
 							imageContainVariant={uopPost.imageContainVariant}
 							tags={uopPost.tags}
+						/>
+					)
+				}
+				{
+					elCaminoPost && (
+						<BlogCard
+							slug={elCaminoPost.slug}
+							href={getResourcesBlogPostHref(elCaminoPost)}
+							title={elCaminoPost.title}
+							excerpt={elCaminoPost.excerpt}
+							label={elCaminoPost.label}
+							date={elCaminoPost.date}
+							readingTime={elCaminoPost.readingTime}
+							image={elCaminoPost.image}
+							imageAlt={elCaminoPost.imageAlt}
+							imageObjectFit={elCaminoPost.imageObjectFit}
+							imageContainVariant={elCaminoPost.imageContainVariant}
+							tags={elCaminoPost.tags}
 						/>
 					)
 				}

@@ -9,6 +9,7 @@ export async function getStaticPaths() {
     'student-integrity-online-proctored-exams',
     'university-of-the-people-tuition-free-degrees',
     'university-of-florida-online-2026-guide',
+    'el-camino-college-radiologic-technology-online-guide',
   ]);
   return posts
     .filter((post) => !post.data.draft && !resourcesOnlySlugs.has(post.slug))
