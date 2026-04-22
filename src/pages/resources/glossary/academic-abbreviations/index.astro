@@ -1033,10 +1033,9 @@ const tocItems = [
     </p>
   </ArticleProse>
   </div>
-</BlogArticleLayout>
-
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function () {
+  <script is:inline>
+(function () {
+  function initGlossaryAcronymSearch() {
     var root = document.querySelector('.glossary-page-body');
     var input = document.getElementById('glossary-acronym-search-input');
     var status = document.getElementById('glossary-acronym-search-status');
@@ -1106,21 +1105,14 @@ const tocItems = [
       return Math.round(header.getBoundingClientRect().height) + 16;
     }
 
-    /** Table rows + some browsers ignore scrollIntoView; window.scrollTo is reliable. */
+    /** Scroll the row into view, then compensate for sticky header (replaceState alone does not scroll). */
     function scrollHitIntoViewRobust(hit) {
       if (!hit || !hit.id) return;
-      var offset = headerOffsetPx();
-      function scrollNow() {
-        try {
-          history.replaceState(null, '', '#' + hit.id);
-        } catch (e) {}
-        var rect = hit.getBoundingClientRect();
-        var y = rect.top + window.scrollY - offset;
-        window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
-      }
-      requestAnimationFrame(function () {
-        requestAnimationFrame(scrollNow);
-      });
+      hit.scrollIntoView({ behavior: 'auto', block: 'start', inline: 'nearest' });
+      window.scrollBy({ left: 0, top: -headerOffsetPx(), behavior: 'auto' });
+      try {
+        history.replaceState(null, '', '#' + hit.id);
+      } catch (e) {}
     }
 
     function clearStatus() {
@@ -1203,10 +1195,8 @@ const tocItems = [
       el.classList.remove('glossary-search-hit');
       el.classList.add('glossary-search-hit');
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          var y = el.getBoundingClientRect().top + window.scrollY - headerOffsetPx();
-          window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
-        });
+        el.scrollIntoView({ behavior: 'auto', block: 'start', inline: 'nearest' });
+        window.scrollBy({ left: 0, top: -headerOffsetPx(), behavior: 'auto' });
       });
     }
 
@@ -1246,8 +1236,16 @@ const tocItems = [
         if (result.bestHit && result.n > 0) scrollHitIntoViewRobust(result.bestHit);
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGlossaryAcronymSearch);
+  } else {
+    initGlossaryAcronymSearch();
+  }
+})();
 </script>
+</BlogArticleLayout>
 
 <style>
   .glossary-acronym-search {
