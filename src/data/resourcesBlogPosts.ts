@@ -31,6 +31,25 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'online-college-enrollment-after-pandemic',
+    title:
+      'Online College Enrollment After the Pandemic: Trends, Costs, Pros, Cons, and the Future',
+    excerpt:
+      'How online college enrollment changed since the pandemic, which online classes are in demand, whether students save money, tradeoffs of distance learning, and why hybrid models are the realistic baseline.',
+    label: 'Blog',
+    date: 'Apr 17, 2026',
+    readingTime: '16 min read',
+    image:
+      'https://images.pexels.com/photos/5905448/pexels-photo-5905448.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: [
+      'online college enrollment',
+      'distance education',
+      'online learning trends',
+      '2026',
+    ],
+    hrefOverride: '/blog/online-college-enrollment-after-pandemic',
+  },
+  {
     slug: 'academic-acronyms-glossary',
     title: 'Glossary of Academic Abbreviations',
     excerpt:

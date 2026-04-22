@@ -116,9 +116,9 @@ const HOW_TO_CHOOSE_SLUG = 'how-to-choose-right-online-college';
 const HOMEPAGE_FEATURED_SLUG = 'prerequisite-courses-for-nursing-school';
 
 const HOMEPAGE_SIDE_SLUGS = [
+	'online-college-enrollment-after-pandemic',
 	'campus-edu-review',
 	'fafsa-financial-aid-online-college-degrees',
-	'international-students-online-us-colleges',
 ] as const;
 
 const homepageFeaturedPost =
@@ -583,6 +583,14 @@ const homepageSidePosts = HOMEPAGE_SIDE_SLUGS.map((slug) =>
 		font-weight: 700;
 		color: #1e40af;
 		letter-spacing: -0.01em;
+	}
+
+	.blog-header-links {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		justify-content: flex-end;
 	}
 
 	.blog-view-all {
