@@ -1,5 +1,7 @@
 ---
-import BlogArticleLayout from '../../../components/blog/BlogArticleLayout.astro';
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
 import ArticleProse from '../../../components/blog/ArticleProse.astro';
 
 const siteOrigin = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
@@ -86,62 +88,58 @@ const breadcrumbSchema = {
 	'@type': 'BreadcrumbList',
 	itemListElement: [
 		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteOrigin}/` },
-		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${siteOrigin}/resources` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${siteOrigin}/resources/` },
 		{
 			'@type': 'ListItem',
 			position: 3,
 			name: 'Guides',
-			item: `${siteOrigin}/resources/guides`,
+			item: `${siteOrigin}/resources/guides/`,
 		},
 		{ '@type': 'ListItem', position: 4, name: title, item: pageUrl },
 	],
 };
 
-const tocItems = [
-	{ id: 'enrollment-trends', label: 'Enrollment after the pandemic' },
-	{ id: 'in-demand-classes', label: 'In-demand online classes' },
-	{ id: 'save-money', label: 'Saving money online' },
-	{ id: 'staying-popular', label: 'Why online stayed popular' },
-	{ id: 'pros', label: 'Pros of online classes' },
-	{ id: 'cons', label: 'Cons of online classes' },
-	{ id: 'future', label: 'Is online college the future?' },
-	{ id: 'who-benefits', label: 'Who benefits most' },
-	{ id: 'who-struggles', label: 'Who may struggle' },
-	{ id: 'faq', label: 'FAQ' },
-	{ id: 'conclusion', label: 'Conclusion' },
-	{ id: 'sources', label: 'Sources' },
+const breadcrumbShortTitle = 'Online enrollment trends';
+
+/** Same shell & TOC pattern as UF Online guide (`ResourcesGuideLayout`). */
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#enrollment-trends', label: 'Enrollment after the pandemic' },
+	{ href: '#in-demand-classes', label: 'In-demand online classes' },
+	{ href: '#save-money', label: 'Saving money online' },
+	{ href: '#staying-popular', label: 'Why online stayed popular' },
+	{ href: '#pros', label: 'Pros of online classes' },
+	{ href: '#cons', label: 'Cons of online classes' },
+	{ href: '#future', label: 'Is online college the future?' },
+	{ href: '#who-benefits', label: 'Who benefits most' },
+	{ href: '#who-struggles', label: 'Who may struggle' },
+	{ href: '#faq', label: 'FAQ' },
+	{ href: '#conclusion', label: 'Conclusion' },
+	{ href: '#sources', label: 'Sources' },
 ];
 ---
 
-<BlogArticleLayout
+<ResourcesGuideLayout
 	title={title}
 	description={description}
-	breadcrumbItems={[
-		{ label: 'Home', href: '/' },
-		{ label: 'Resources', href: '/resources' },
-		{ label: 'Guides', href: '/resources/guides' },
-		{ label: 'Online enrollment trends' },
-	]}
-	heroLabel="Higher education"
-	heroSubtitle={description}
-	updatedDate={`April 17, 2026`}
-	readingTime={readingTime}
-	author={author}
-	tags={[
-		'Online college enrollment',
-		'Distance education',
-		'Online learning',
-		'2026',
-	]}
-	image={cardImageUrl}
-	tocItems={tocItems}
 	canonical={slug}
+	image={cardImageUrl}
+	categoryLabel="Higher education"
+	breadcrumbTitle={breadcrumbShortTitle}
+	author={author}
+	authorTitle="Editorial"
+	readingTime={readingTime}
+	updatedDate="April 17, 2026"
+	tags={['Online college enrollment', 'Distance education', 'Online learning', '2026']}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'Explore more college & transfer guides',
+		href: '/colleges',
+		buttonLabel: 'College guides →',
+	}}
 >
-	<Fragment slot="schema">
-		<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-		<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-	</Fragment>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
 
 	<ArticleProse>
 		<p class="article-intro">
@@ -870,4 +868,4 @@ const tocItems = [
 			</li>
 		</ul>
 	</ArticleProse>
-</BlogArticleLayout>
+</ResourcesGuideLayout>
