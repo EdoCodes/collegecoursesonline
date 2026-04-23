@@ -3,6 +3,7 @@ import ResourcesGuideLayout, {
 	type ResourcesGuideTocItem,
 } from '../../../components/blog/ResourcesGuideLayout.astro';
 import ArticleProse from '../../../components/blog/ArticleProse.astro';
+import YouTubeEmbed from '../../../components/blog/YouTubeEmbed.astro';
 
 const siteOrigin = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
 
@@ -377,6 +378,12 @@ const tocItems: ResourcesGuideTocItem[] = [
 		</p>
 
 		<h2 id="staying-popular">Why online learning stayed popular after campuses reopened</h2>
+
+		<YouTubeEmbed
+			videoId="flLAKh8MoFo"
+			title="Video: why online learning stayed popular after campuses reopened"
+		/>
+		<p class="video-courtesy">Video courtesy of Richard Walls</p>
 
 		<p>
 			<strong>Flexibility</strong> remains the headline benefit. Adult learners, parents, caregivers, military-connected
@@ -869,3 +876,12 @@ const tocItems: ResourcesGuideTocItem[] = [
 		</ul>
 	</ArticleProse>
 </ResourcesGuideLayout>
+
+<style>
+	.video-courtesy {
+		font-size: 0.75rem;
+		color: var(--color-text-light);
+		margin: 0.35rem 0 1.75rem;
+		line-height: 1.45;
+	}
+</style>
