@@ -107,7 +107,7 @@ const tocItems: ResourcesGuideTocItem[] = [
 	{ href: '#enrollment-trends', label: 'Enrollment after the pandemic' },
 	{ href: '#in-demand-classes', label: 'In-demand online classes' },
 	{ href: '#save-money', label: 'Saving money online' },
-	{ href: '#staying-popular', label: 'Why online stayed popular' },
+	{ href: '#staying-popular', label: 'Why online stayed popular?' },
 	{ href: '#pros', label: 'Pros of online classes' },
 	{ href: '#cons', label: 'Cons of online classes' },
 	{ href: '#future', label: 'Is online college the future?' },
@@ -377,13 +377,13 @@ const tocItems: ResourcesGuideTocItem[] = [
 			assuming savings.
 		</p>
 
-		<h2 id="staying-popular">Why online learning stayed popular after campuses reopened</h2>
-
 		<YouTubeEmbed
 			videoId="flLAKh8MoFo"
-			title="Video: why online learning stayed popular after campuses reopened"
+			title="Video: Why online learning stayed popular after campuses reopened?"
 		/>
 		<p class="video-courtesy">Video courtesy of Richard Walls</p>
+
+		<h2 id="staying-popular">Why online learning stayed popular after campuses reopened?</h2>
 
 		<p>
 			<strong>Flexibility</strong> remains the headline benefit. Adult learners, parents, caregivers, military-connected
@@ -881,7 +881,10 @@ const tocItems: ResourcesGuideTocItem[] = [
 	.video-courtesy {
 		font-size: 0.75rem;
 		color: var(--color-text-light);
-		margin: 0.35rem 0 1.75rem;
+		margin: 0.35rem 0 1rem;
 		line-height: 1.45;
+	}
+	.video-courtesy + h2 {
+		margin-top: 0.5rem;
 	}
 </style>
