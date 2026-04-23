@@ -25,17 +25,21 @@
     margin-bottom: 0.5rem;
   }
   .article-prose h2 {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
     font-weight: 800;
     color: var(--color-navy);
     letter-spacing: -0.03em;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     margin-bottom: 1.35rem;
     line-height: 1.32;
     scroll-margin-top: 5rem;
     transition: color 0.18s ease;
   }
   .article-prose h2:first-child { margin-top: 0; }
+  /* Tighten gap after “At a glance” / summary blocks (matches ResourcesGuideLayout rhythm) */
+  .article-prose .summary-box + h2 {
+    margin-top: 1.25rem;
+  }
   /* Match ResourcesGuideLayout / UF Online guide hover */
   .article-prose h2:hover { color: #2563eb; }
   .article-prose h3 {
@@ -47,7 +51,9 @@
     scroll-margin-top: 5rem;
     transition: color 0.18s ease;
   }
-  .article-prose h3:hover { color: var(--color-primary); }
+  .article-prose h3:hover { color: #2563eb; }
+  .article-prose .red-flags-col h3:hover { color: #881337; }
+  .article-prose .green-flags-col h3:hover { color: #14532d; }
   .article-prose section > h2 + p,
   .article-prose section > h3 + p {
     margin-top: 0;
@@ -68,10 +74,13 @@
     color: #2563eb;
   }
   .article-prose p {
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.85;
     color: var(--color-slate);
     margin-bottom: 1.35rem;
+  }
+  .article-prose strong {
+    color: #0f172a;
   }
   .article-prose .article-intro {
     font-size: 1.125rem !important;
@@ -86,14 +95,23 @@
     margin: 2.5rem 0;
   }
 
-  /* Quick Summary */
+  /* Quick Summary — align with ResourcesGuideLayout / UF guide */
   .article-prose .summary-box {
-    background: linear-gradient(90deg, #eff6ff 0%, #f0f9ff 100%);
-    border-left: 4px solid var(--color-primary);
-    border-radius: 0 12px 12px 0;
-    padding: 1.625rem 1.875rem;
-    margin-bottom: 3rem;
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 0 10px 10px 0;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.75rem;
     box-shadow: 0 1px 3px rgba(30, 64, 175, 0.06);
+  }
+  .article-prose .summary-box ul {
+    margin: 0.75rem 0 0;
+    padding-left: 1.35rem;
+    color: #374151;
+    line-height: 1.82;
+  }
+  .article-prose .summary-box li {
+    margin-bottom: 0.5rem;
   }
   .article-prose .summary-label {
     font-size: 0.7rem;
@@ -122,16 +140,17 @@
     margin-bottom: 0.625rem;
   }
 
-  /* Default lists (MDX/HTML without .styled-list) */
-  .article-prose > ul:not([class*='faq']),
-  .article-prose > ol:not([class*='faq']) {
-    margin-bottom: 1.35rem;
+  /* Default lists — nested lists too (e.g. intro blocks), match ResourcesGuideLayout */
+  .article-prose ul:not(.toc-list),
+  .article-prose ol:not(.toc-list) {
+    margin: 0 0 1.35rem;
     padding-left: 1.35rem;
+    color: #374151;
+    line-height: 1.82;
   }
-  .article-prose > ul:not([class*='faq']) > li,
-  .article-prose > ol:not([class*='faq']) > li {
+  .article-prose ul:not(.toc-list) > li,
+  .article-prose ol:not(.toc-list) > li {
     margin-bottom: 0.5rem;
-    line-height: 1.78;
   }
 
   /* Callouts */
@@ -395,5 +414,54 @@
       align-items: flex-start;
       gap: 0.25rem;
     }
+  }
+</style>
+
+<style is:global>
+  /*
+   * Match ResourcesGuideLayout / UF guide: external links inherit body color until hover.
+   * !important beats Layout.astro global `a` / `a:hover`.
+   */
+  .article-prose a.link-external,
+  .article-prose a.link-course,
+  .article-prose a.link-external:visited,
+  .article-prose a.link-course:visited,
+  .article-prose .faq-item summary a.link-external,
+  .article-prose .faq-item summary a.link-external:visited {
+    color: inherit !important;
+    text-decoration: none !important;
+    transition: color 0.15s ease;
+  }
+  .article-prose a.link-external strong,
+  .article-prose a.link-course strong {
+    color: inherit !important;
+    font-weight: 700;
+  }
+  .article-prose strong a.link-external,
+  .article-prose strong a.link-course,
+  .article-prose td a.link-external,
+  .article-prose td a.link-course {
+    color: inherit !important;
+  }
+  .article-prose a.link-external:hover,
+  .article-prose a.link-external:hover strong,
+  .article-prose a.link-course:hover,
+  .article-prose a.link-course:hover strong,
+  .article-prose .faq-item p a.link-external:hover,
+  .article-prose .faq-item p a.link-external:hover strong,
+  .article-prose .faq-item summary a.link-external:hover,
+  .article-prose li a.link-external:hover,
+  .article-prose li a.link-external:hover strong,
+  .article-prose li a.link-course:hover,
+  .article-prose li a.link-course:hover strong {
+    color: #2563eb !important;
+    text-decoration: none !important;
+  }
+  .article-prose a:not(.link-external):not(.link-course) {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  .article-prose a:not(.link-external):not(.link-course):hover {
+    color: #1d4ed8;
   }
 </style>

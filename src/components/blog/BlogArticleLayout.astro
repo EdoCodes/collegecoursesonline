@@ -226,12 +226,12 @@ const {
     border-radius: 20px;
   }
 
-  /* Two-column layout */
-  .article-layout { padding: 3.5rem 0 5.5rem; }
+  /* Two-column layout — match ResourcesGuideLayout (UF-style guides) */
+  .article-layout { padding: 3rem 0 5rem; }
   .article-body {
     display: grid;
     grid-template-columns: 260px 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
     align-items: start;
   }
 
@@ -274,16 +274,13 @@ const {
     color: var(--color-primary);
   }
 
-  /* Article content - optimal reading width */
   .article-content {
-    max-width: 72ch;
     min-width: 0;
   }
 
   @media (max-width: 1024px) {
     .article-body { grid-template-columns: 1fr; }
     .toc-sidebar { display: none; }
-    .article-content { max-width: none; }
   }
   @media (max-width: 768px) {
     .article-hero { padding: 2.5rem 0 2rem; }
