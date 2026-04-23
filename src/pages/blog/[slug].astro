@@ -434,6 +434,7 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200); // Approximate
     margin-bottom: calc(var(--spacing) * 3.5);
     scroll-margin-top: 5rem;
     color: var(--neutral-900);
+    transition: color 0.18s ease;
   }
 
   .article-content :global(h2:first-of-type) {
@@ -446,6 +447,7 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200); // Approximate
     margin-bottom: calc(var(--spacing) * 2.5);
     scroll-margin-top: 5rem;
     color: var(--neutral-900);
+    transition: color 0.18s ease;
   }
 
   .article-content :global(h4) {
@@ -453,6 +455,15 @@ const readingTime = Math.ceil(post.body.split(' ').length / 200); // Approximate
     margin-top: calc(var(--spacing) * 5);
     margin-bottom: calc(var(--spacing) * 2.25);
     color: var(--neutral-900);
+    scroll-margin-top: 5rem;
+    transition: color 0.18s ease;
+  }
+
+  /* Same heading hover as ResourcesGuideLayout (UF Online guide) */
+  .article-content :global(h2:hover),
+  .article-content :global(h3:hover),
+  .article-content :global(h4:hover) {
+    color: #2563eb;
   }
 
   .article-content :global(p) {
