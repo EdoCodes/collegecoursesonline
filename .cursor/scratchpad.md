@@ -657,6 +657,8 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 - **Header mega-menu (2026-04):** After switching directory filtering to `filterDirectoryCourses`, any Supabase query used for that menu must include `colleges(slug)` (or equivalent) so provider filtering can run. Without it, every row fails the filter and the Courses mega-menu appears empty. Null `subcategory` can be grouped as `General` to match category pages.
 
+- **Resources blog template (2026-04):** New long-form guides under `/resources/blog/` should use **`ResourcesGuideLayout` + `ArticleProse`** (or MDX via `ResourcesGuideLayout` + `<Content />`). Cursor rule: `.cursor/rules/resources-blog-longform-template.mdc`.
+
 ---
 
 ## Technical Stack Decisions

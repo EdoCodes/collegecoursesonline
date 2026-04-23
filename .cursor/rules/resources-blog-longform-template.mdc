@@ -1,0 +1,35 @@
+---
+description: Canonical shell for long-form /resources/blog guides (UF-style)
+globs: src/pages/resources/blog/**/*.astro,src/content/blog/**/*.{md,mdx}
+alwaysApply: false
+---
+
+# Resources blog — long-form template (standard)
+
+Use this for new guides under `/resources/blog/` so they match **University of Florida Online 2026** and **Online college enrollment after the pandemic**: same chrome, spacing, TOC, and sidebar.
+
+## Required shell
+
+1. **`ResourcesGuideLayout`** from `src/components/blog/ResourcesGuideLayout.astro` — not `BlogArticleLayout`, not raw `Layout` for full articles.
+2. **Body** wrapped in **`ArticleProse`** when the article is authored as HTML in the page (`.astro`). For MDX from `src/content/blog/`, keep the thin route page that imports `ResourcesGuideLayout` + `getEntry` + `<Content />` (see `university-of-florida-online-2026-guide.astro`).
+
+## Props checklist
+
+- **`canonical`**: path only, e.g. `/resources/blog/my-slug`
+- **`image`**: OG hero image (absolute URL or site path)
+- **`categoryLabel`**, **`breadcrumbTitle`** (short crumb), **`author`**, **`authorTitle`**, **`readingTime`**, **`updatedDate`** (display string), **`tags`**
+- **`tocItems`**: `ResourcesGuideTocItem[]` with **`{ href: '#section-id', label: '…' }`** (numbered TOC + anchor jumps)
+- **`sidebarCta`** (optional but default for guides): same pattern as UF — e.g. intro + `/colleges` + “College guides →” unless the post needs a different CTA
+
+## JSON-LD
+
+Put scripts in **`<script type="application/ld+json" slot="head" … />`** so structured data lives in `<head>`.
+
+## Body styling
+
+Rely on **`ArticleProse`** + shared prose utilities (`summary-box`, `link-external`, FAQ blocks). Heading hover and link behavior are aligned with **`ResourcesGuideLayout`** global `.article-content` rules.
+
+## Do not
+
+- Introduce a second “blog article” shell for new `/resources/blog/*` pages without team agreement.
+- Drop `ArticleProse` for long guides unless the content is pure MDX rendered without the wrapper (MDX route then uses layout-only styles from `ResourcesGuideLayout`).
