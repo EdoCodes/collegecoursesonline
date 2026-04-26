@@ -31,6 +31,17 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'how-to-become-physician-assistant',
+    title: 'How to Become a Physician Assistant: Required Courses, PA School Steps, and Online Options',
+    excerpt:
+      'Learn how to become a physician assistant, including required college classes, PA school prerequisites, patient care experience requirements, and whether online or hybrid coursework is accepted.',
+    label: 'Health careers',
+    date: 'Apr 26, 2026',
+    readingTime: '14 min read',
+    image: '/images/how-to-become-physician-assistant.jpg',
+    tags: ['Physician assistant', 'PA school', 'Health careers', 'Prerequisites', '2026'],
+  },
+  {
     slug: 'prerequisite-college-courses-by-major',
     title: 'Most Common Prerequisite College Courses for Science, Humanities, and Nursing Majors',
     excerpt:

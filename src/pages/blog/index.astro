@@ -12,6 +12,7 @@ const RESOURCES_ONLY_SLUGS = new Set([
 	'online-college-enrollment-after-pandemic',
 	'enrollment-decline-college-closures-hybrid-campus',
 	'prerequisite-college-courses-by-major',
+	'how-to-become-physician-assistant',
 ]);
 
 /** Guides hosted on `/resources/blog/...` but still shown on this index with a canonical URL. */
@@ -23,6 +24,8 @@ const BLOG_INDEX_HREF_OVERRIDES: Record<string, string> = {
 		'/resources/blog/enrollment-decline-college-closures-hybrid-campus',
 	'prerequisite-college-courses-by-major':
 		'/resources/blog/prerequisite-college-courses-by-major',
+	'how-to-become-physician-assistant':
+		'/resources/blog/how-to-become-physician-assistant',
 };
 
 const raw = await getCollection('blog');
