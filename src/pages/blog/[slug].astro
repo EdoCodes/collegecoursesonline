@@ -11,6 +11,7 @@ export async function getStaticPaths() {
     'university-of-florida-online-2026-guide',
     'bsc-respiratory-care-online-ecc',
     'online-college-enrollment-after-pandemic',
+    'enrollment-decline-college-closures-hybrid-campus',
   ]);
   return posts
     .filter((post) => !post.data.draft && !resourcesOnlySlugs.has(post.slug))
