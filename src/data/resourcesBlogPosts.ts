@@ -38,8 +38,7 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     label: 'College planning',
     date: 'Apr 26, 2026',
     readingTime: '14 min read',
-    image:
-      'https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/prerequisite-college-courses-by-major.jpg',
     tags: ['Prerequisite courses', 'Science majors', 'Nursing', 'Humanities', 'Community college', '2026'],
   },
   {
