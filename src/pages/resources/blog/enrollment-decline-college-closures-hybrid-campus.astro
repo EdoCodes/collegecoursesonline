@@ -105,6 +105,7 @@ const tocItems: ResourcesGuideTocItem[] = [
 	{ href: '#hybrid-campus', label: 'College classes online and hybrid campuses' },
 	{ href: '#future', label: 'What the future may look like' },
 	{ href: '#comparison', label: 'Quick comparison: delivery models' },
+	{ href: '#people-also-ask', label: 'People Also Ask' },
 	{ href: '#faq', label: 'FAQ' },
 	{ href: '#sources', label: 'Sources' },
 ];
@@ -360,37 +361,139 @@ const tocItems: ResourcesGuideTocItem[] = [
 
 		<h2 id="comparison">Quick comparison: delivery models</h2>
 
-		<div class="table-wrap">
-			<table>
-				<thead>
-					<tr>
-						<th>Model</th>
-						<th>Best use case</th>
-						<th>Strengths</th>
-						<th>Limits</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><strong>Traditional campus</strong></td>
-						<td>Labs, studios, clinicals, immersive student life</td>
-						<td>Strong in-person engagement and campus experience</td>
-						<td>Higher cost and less flexibility</td>
-					</tr>
-					<tr>
-						<td><strong>Fully online</strong></td>
-						<td>Working adults, distance learners, lecture-heavy coursework</td>
-						<td>Maximum flexibility and wider reach</td>
-						<td>Limited hands-on experience for lab-based programs</td>
-					</tr>
-					<tr>
-						<td><strong>Hybrid campus</strong></td>
-						<td>Prerequisites online; major labs and applied courses on campus</td>
-						<td>Balances flexibility, cost control, and in-person learning</td>
-						<td>Requires thoughtful scheduling and technology support</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="model-compare-grid">
+			<div class="model-card model-card--traditional">
+				<div class="model-card__icon" aria-hidden="true">🏛️</div>
+				<h3 class="model-card__title">Traditional campus</h3>
+				<p class="model-card__use"><strong>Best for:</strong> Labs, studios, clinicals, immersive student life</p>
+				<div class="model-card__pros">
+					<div class="model-card__pros-label">Strengths</div>
+					<ul>
+						<li>Strong in-person engagement</li>
+						<li>Full campus experience and networking</li>
+						<li>Direct access to faculty and facilities</li>
+					</ul>
+				</div>
+				<div class="model-card__cons">
+					<div class="model-card__cons-label">Limits</div>
+					<ul>
+						<li>Higher cost (housing, commuting, fees)</li>
+						<li>Less schedule flexibility</li>
+						<li>Geographically constrained</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="model-card model-card--online">
+				<div class="model-card__icon" aria-hidden="true">💻</div>
+				<h3 class="model-card__title">Fully online</h3>
+				<p class="model-card__use"><strong>Best for:</strong> Working adults, distance learners, lecture-heavy programs</p>
+				<div class="model-card__pros">
+					<div class="model-card__pros-label">Strengths</div>
+					<ul>
+						<li>Maximum schedule flexibility</li>
+						<li>Learn from anywhere</li>
+						<li>Often lower total cost of attendance</li>
+					</ul>
+				</div>
+				<div class="model-card__cons">
+					<div class="model-card__cons-label">Limits</div>
+					<ul>
+						<li>Limited hands-on experience for lab-based programs</li>
+						<li>Requires strong self-discipline</li>
+						<li>Less spontaneous peer networking</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="model-card model-card--hybrid model-card--featured">
+				<div class="model-card__badge">Emerging standard</div>
+				<div class="model-card__icon" aria-hidden="true">⚡</div>
+				<h3 class="model-card__title">Hybrid campus</h3>
+				<p class="model-card__use"><strong>Best for:</strong> Prerequisites online; major labs and applied courses on campus</p>
+				<div class="model-card__pros">
+					<div class="model-card__pros-label">Strengths</div>
+					<ul>
+						<li>Balances flexibility and hands-on learning</li>
+						<li>Helps colleges control costs and reach more students</li>
+						<li>Preserves labs, clinicals, and studio access</li>
+					</ul>
+				</div>
+				<div class="model-card__cons">
+					<div class="model-card__cons-label">Limits</div>
+					<ul>
+						<li>Requires thoughtful scheduling</li>
+						<li>Technology and infrastructure investment needed</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="paa-block">
+			<div class="section-label">People Also Ask</div>
+			<h2 id="people-also-ask">People Also Ask</h2>
+			<div class="paa-list">
+				<details class="paa-item">
+					<summary>What colleges are closing in 2026?</summary>
+					<div class="paa-answer">
+						<p>
+							Recent coverage identifies schools including Sterling College, St. Andrews University, Siena Heights University,
+							Martin University, Bacone College, Limestone University, Northland College, Trinity Christian College, The King's
+							College, Anna Maria College, and Providence Christian College. Higher Ed Dive's{' '}
+							<a class="link-external" href="https://educationdive.com/topic/closures-and-mergers/" target="_blank" rel="noopener noreferrer">Closures and Mergers topic page</a>{' '}
+							tracks the latest announcements as they happen.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>Why is college enrollment declining in the United States?</summary>
+					<div class="paa-answer">
+						<p>
+							College enrollment is declining because the number of college-age students is shrinking after years of lower
+							birthrates following the Great Recession. High prices and student debt concerns also affect demand. WCET/WICHE's{' '}
+							<a class="link-external" href="https://wcet.wiche.edu/frontiers/2023/07/14/college-enrollment-cliffs-shifts-and-lifts/" target="_blank" rel="noopener noreferrer">Cliffs, Shifts, and Lifts series</a>{' '}
+							explains the demographic drivers in detail.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>What is the future of higher education?</summary>
+					<div class="paa-answer">
+						<p>
+							The most likely future is a hybrid system in which{' '}
+							<a href="/resources/blog/online-college-enrollment-after-pandemic">college classes online</a>{' '}
+							cover flexible and foundational coursework, while campuses focus on labs, advanced instruction, student support,
+							and hands-on learning. See{' '}
+							<a class="link-external" href="https://campustechnology.com/articles/2022/05/26/the-future-of-higher-education-is-the-hybrid-campus.aspx?admgarea=topic.elearning" target="_blank" rel="noopener noreferrer">Campus Technology's analysis of the hybrid campus</a>.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>Which colleges are most at risk of closing?</summary>
+					<div class="paa-answer">
+						<p>
+							Small, tuition-dependent private colleges with limited reserves, weaker enrollment, and high fixed costs appear
+							to face the highest risk. Huron Consulting's analysis — covered by{' '}
+							<a class="link-external" href="https://www.npr.org/2026/04/13/nx-s1-5777582/many-private-colleges-at-risk-of-closing" target="_blank" rel="noopener noreferrer">NPR</a>{' '}
+							— identified 120+ institutions at the highest risk level based on enrollment trends, tuition revenue, assets,
+							debt, and cash on hand.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>Is hybrid college better than fully online college?</summary>
+					<div class="paa-answer">
+						<p>
+							For many students and programs, hybrid college offers a stronger balance because it preserves flexibility while
+							keeping in-person learning for areas that are difficult to replicate online — labs, clinical rotations, studios,
+							and performance-based courses. For lecture-heavy programs, fully online can work just as well at lower cost. The
+							right choice depends on your program requirements, learning style, and schedule needs. Our{' '}
+							<a href="/resources/blog/how-to-choose-right-online-college">guide to choosing the right online college</a>{' '}
+							walks through the key decision factors.
+						</p>
+					</div>
+				</details>
+			</div>
 		</div>
 
 		<div itemscope itemtype="https://schema.org/FAQPage" class="faq-page-wrap">
@@ -538,4 +641,191 @@ const tocItems: ResourcesGuideTocItem[] = [
 		</ul>
 	</ArticleProse>
 </ResourcesGuideLayout>
+
+<style>
+	/* ── Comparison card grid ─────────────────────────────────────────────── */
+	:global(.model-compare-grid) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 1.25rem;
+		margin: 1.75rem 0 2.5rem;
+	}
+
+	:global(.model-card) {
+		position: relative;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 14px;
+		padding: 1.5rem 1.5rem 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+		transition: box-shadow 0.2s ease, border-color 0.2s ease;
+	}
+
+	:global(.model-card:hover) {
+		box-shadow: 0 6px 20px rgba(15, 23, 42, 0.09);
+		border-color: #93c5fd;
+	}
+
+	:global(.model-card--featured) {
+		border-color: #2563eb;
+		background: linear-gradient(160deg, #eff6ff 0%, #fff 60%);
+		box-shadow: 0 4px 16px rgba(37, 99, 235, 0.13);
+	}
+
+	:global(.model-card__badge) {
+		position: absolute;
+		top: -11px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: #2563eb;
+		color: #fff;
+		font-size: 0.65rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 3px 10px;
+		border-radius: 20px;
+		white-space: nowrap;
+	}
+
+	:global(.model-card__icon) {
+		font-size: 1.75rem;
+		line-height: 1;
+	}
+
+	:global(.model-card__title) {
+		font-size: 1.0625rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0;
+		letter-spacing: -0.01em;
+	}
+
+	:global(.model-card__use) {
+		font-size: 0.8375rem;
+		color: #475569;
+		line-height: 1.5;
+		margin: 0;
+		border-left: 3px solid #e2e8f0;
+		padding-left: 0.6rem;
+	}
+
+	:global(.model-card--featured .model-card__use) {
+		border-color: #93c5fd;
+	}
+
+	:global(.model-card__pros),
+	:global(.model-card__cons) {
+		font-size: 0.8125rem;
+	}
+
+	:global(.model-card__pros-label),
+	:global(.model-card__cons-label) {
+		font-size: 0.65rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		margin-bottom: 0.35rem;
+	}
+
+	:global(.model-card__pros-label) { color: #059669; }
+	:global(.model-card__cons-label) { color: #dc2626; }
+
+	:global(.model-card__pros ul),
+	:global(.model-card__cons ul) {
+		margin: 0;
+		padding-left: 1.1rem;
+		color: #374151;
+		line-height: 1.55;
+	}
+
+	:global(.model-card__pros li),
+	:global(.model-card__cons li) {
+		margin-bottom: 0.2rem;
+	}
+
+	/* ── People Also Ask block ────────────────────────────────────────────── */
+	:global(.paa-block) {
+		margin: 2.5rem 0 2rem;
+	}
+
+	:global(.paa-list) {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+		overflow: hidden;
+	}
+
+	:global(.paa-item) {
+		border-bottom: 1px solid #f1f5f9;
+	}
+
+	:global(.paa-item:last-child) {
+		border-bottom: none;
+	}
+
+	:global(.paa-item > summary) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		color: #0f172a;
+		cursor: pointer;
+		list-style: none;
+		background: #fff;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	:global(.paa-item > summary::-webkit-details-marker) { display: none; }
+
+	:global(.paa-item > summary::after) {
+		content: '+';
+		font-size: 1.25rem;
+		font-weight: 400;
+		color: #2563eb;
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+	}
+
+	:global(.paa-item[open] > summary::after) {
+		transform: rotate(45deg);
+	}
+
+	:global(.paa-item > summary:hover) {
+		background: #f8faff;
+		color: #2563eb;
+	}
+
+	:global(.paa-item[open] > summary) {
+		background: #eff6ff;
+		color: #1d4ed8;
+		border-bottom: 1px solid #dbeafe;
+	}
+
+	:global(.paa-answer) {
+		padding: 0.875rem 1.25rem 1rem;
+		background: #fafbff;
+	}
+
+	:global(.paa-answer p) {
+		font-size: 0.9rem;
+		color: #374151;
+		line-height: 1.65;
+		margin: 0;
+	}
+
+	@media (max-width: 640px) {
+		:global(.model-compare-grid) {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
 
