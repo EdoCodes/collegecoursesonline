@@ -172,8 +172,7 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     label: 'Nursing',
     date: 'Apr 13, 2026',
     readingTime: '22 min read',
-    image:
-      'https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/prerequisite-courses-for-nursing-school.jpg',
     tags: [
       'Nursing',
       'Prerequisites',
