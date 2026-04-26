@@ -1,0 +1,981 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
+import ArticleProse from '../../../components/blog/ArticleProse.astro';
+
+const siteOrigin = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+
+const title = 'Most Common Prerequisite College Courses for Science, Humanities, and Nursing Majors';
+const description =
+	'Learn the most common prerequisite college courses for science majors, humanities majors, and nursing majors, plus how community colleges, online college classes, and hybrid college classes fit into transfer and degree planning.';
+const publishDate = '2026-04-26';
+const updatedDate = '2026-04-26';
+const author = 'Editorial Team';
+const readingTime = '14 min read';
+const slug = '/resources/blog/prerequisite-college-courses-by-major';
+const pageUrl = `${siteOrigin}${slug}`;
+
+const cardImageUrl =
+	'https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=1200';
+
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: [
+		{
+			'@type': 'Question',
+			name: 'What are the most common prerequisite college courses?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'The most common prerequisite college courses are English composition, college-level math, biology, chemistry, psychology, sociology, anatomy and physiology, and statistics. Exact requirements depend on the major and school.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Do science majors need more prerequisites than humanities majors?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Usually yes. Science majors often need more sequenced math and lab science college classes, while humanities majors rely more on writing, reading, and analysis courses.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'What are the most common nursing prerequisites?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Common nursing prerequisites include anatomy and physiology, microbiology, chemistry, biology, psychology, sociology, statistics, and English composition.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Can I take prerequisite courses at a community college?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes. Many students complete prerequisite college courses at community colleges because they are affordable and often transfer to four-year schools. Always verify transferability first.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Are online college classes good for prerequisites?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Yes, for many subjects. Online college classes work well for writing, humanities, psychology, sociology, and some lecture-based courses. Lab sciences and nursing prerequisites may have stricter format requirements.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Are hybrid college classes accepted for transfer?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'Often yes, but it depends on the school and course. Hybrid college classes are especially useful for science and nursing prerequisites when lab work or some in-person attendance is required.',
+			},
+		},
+		{
+			'@type': 'Question',
+			name: 'Do all nursing schools require the same prerequisites?',
+			acceptedAnswer: {
+				'@type': 'Answer',
+				text: 'No. Nursing schools vary widely. Some require only a standard set of college classes, while others add extra courses or require minimum grades and GPA thresholds.',
+			},
+		},
+	],
+};
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	image: [cardImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: { '@type': 'Organization', name: 'College Courses Online Editorial Team' },
+	publisher: { '@type': 'Organization', name: 'College Courses Online' },
+	mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+	keywords:
+		'prerequisite college courses, college classes, community college classes, online college classes, hybrid college classes, science major prerequisites, nursing prerequisites, humanities prerequisites, transfer college courses',
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteOrigin}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${siteOrigin}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Guides', item: `${siteOrigin}/resources/guides/` },
+		{ '@type': 'ListItem', position: 4, name: title, item: pageUrl },
+	],
+};
+
+const breadcrumbShortTitle = 'Prerequisite courses by major';
+
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#what-are-prerequisites', label: 'What are prerequisite courses?' },
+	{ href: '#science-prerequisites', label: 'Science major prerequisites' },
+	{ href: '#humanities-prerequisites', label: 'Humanities major prerequisites' },
+	{ href: '#nursing-prerequisites', label: 'Nursing major prerequisites' },
+	{ href: '#comparison-table', label: 'Prerequisites by major: at a glance' },
+	{ href: '#community-college', label: 'Community college options' },
+	{ href: '#online-hybrid', label: 'Online and hybrid college classes' },
+	{ href: '#how-to-choose', label: 'How to choose the right courses' },
+	{ href: '#sample-pathways', label: 'Sample prerequisite pathways' },
+	{ href: '#people-also-ask', label: 'People Also Ask' },
+	{ href: '#faq', label: 'FAQ' },
+	{ href: '#sources', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slug}
+	image={cardImageUrl}
+	categoryLabel="College planning"
+	breadcrumbTitle={breadcrumbShortTitle}
+	author={author}
+	authorTitle="Editorial"
+	readingTime={readingTime}
+	updatedDate="April 26, 2026"
+	tags={['Prerequisite courses', 'Science majors', 'Nursing', 'Humanities', 'Community college', 'Online college classes', '2026']}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'Browse transferable online prerequisite courses',
+		href: '/courses',
+		buttonLabel: 'Browse courses →',
+	}}
+>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+
+	<ArticleProse>
+		<p class="article-intro">
+			<strong>Prerequisite college courses</strong> are the foundation of most degree programs. Whether you are planning a
+			science degree, a humanities major, or a nursing program, the <strong>college classes</strong> you take first
+			determine how smoothly you move into upper-level coursework—and whether your credits transfer where you need them to.
+		</p>
+
+		<p class="article-intro">
+			This guide covers the most common prerequisites by major, when{' '}
+			<strong>community college classes</strong> make sense, how{' '}
+			<strong>online college classes</strong> and <strong>hybrid college classes</strong> fit in, and how to plan a
+			realistic pathway from prerequisites to degree.
+		</p>
+
+		<div class="summary-box">
+			<strong>At a glance</strong>
+			<ul>
+				<li>
+					<strong>Science majors</strong> need sequenced math and lab-based courses (biology, chemistry, physics, calculus).
+				</li>
+				<li>
+					<strong>Humanities majors</strong> focus on writing, reading, and analysis — English composition, philosophy,
+					history.
+				</li>
+				<li>
+					<strong>Nursing majors</strong> face the most structured prereq set: A&amp;P, microbiology, chemistry, psychology,
+					statistics, and more.
+				</li>
+				<li>
+					<strong>Community colleges</strong> are often the most cost-effective place to complete prerequisites before
+					transferring.
+				</li>
+				<li>
+					For a broader look at choosing a school, see our{' '}
+					<a href="/resources/blog/how-to-choose-right-online-college">guide to choosing the right online college</a> and our{' '}
+					<a href="/resources/blog/prerequisite-courses-for-nursing-school">
+						complete 2026 guide to nursing school prerequisites
+					</a>.
+				</li>
+			</ul>
+		</div>
+
+		<h2 id="what-are-prerequisites">What Are Prerequisite College Courses?</h2>
+
+		<p>
+			Prerequisite college courses are classes you must complete before enrolling in more advanced coursework. Some are
+			required for admission into a major; others prepare you for more difficult subjects later in your program.
+		</p>
+
+		<p>These college classes fall into two broad categories:</p>
+
+		<ul>
+			<li>
+				<strong>General education prerequisites</strong> — English composition, college-level math, and communication
+				courses required across most majors.
+			</li>
+			<li>
+				<strong>Major-specific prerequisites</strong> — courses like chemistry for science majors or anatomy and physiology
+				for nursing majors that unlock upper-division study in your field.
+			</li>
+		</ul>
+
+		<p>
+			Prerequisites are not optional. They are designed to ensure students have the academic foundation needed to succeed in
+			higher-level courses — and in many programs, completing them with a competitive grade is part of the admission
+			process itself.
+		</p>
+
+		<h2 id="science-prerequisites">Most Common Prerequisites for Science Majors</h2>
+
+		<p>
+			Science majors have the most structured prerequisite path. These programs typically require multiple semesters of
+			math and lab-based science college classes before students can advance to upper-level study.
+		</p>
+
+		<h3>Common science prerequisite courses</h3>
+
+		<ul>
+			<li>General Biology I and II (with lab)</li>
+			<li>General Chemistry I and II (with lab)</li>
+			<li>Physics I and II</li>
+			<li>College Algebra, Precalculus, or Calculus</li>
+			<li>Statistics</li>
+			<li>Anatomy and Physiology (depending on the major)</li>
+			<li>Introductory lab science electives</li>
+		</ul>
+
+		<p>
+			Science prerequisites are usually <strong>sequenced</strong> — one course must be completed before the next unlocks.
+			Skipping steps or taking courses out of order can delay your entire degree timeline.
+		</p>
+
+		<h3>Science majors these courses support</h3>
+
+		<div class="major-chips">
+			<span>Biology</span><span>Chemistry</span><span>Biochemistry</span><span>Physics</span>
+			<span>Environmental Science</span><span>Exercise Science</span><span>Pre-Med</span>
+			<span>Other health science tracks</span>
+		</div>
+
+		<p>
+			If you are choosing between courses, check whether your target university requires calculus-based physics or
+			prioritizes biology and chemistry first. The answer affects which classes to take and in what order.
+		</p>
+
+		<p>
+			You can explore science prerequisite options on our course directory:{' '}
+			<a href="/courses/category/science/">Natural Sciences</a> and{' '}
+			<a href="/courses/category/mathematics/">Mathematics</a>.
+		</p>
+
+		<h2 id="humanities-prerequisites">Most Common Prerequisites for Humanities Majors</h2>
+
+		<p>
+			Humanities majors generally have fewer hard science-style prerequisites, but they still rely on foundational college
+			classes in writing, reading, analysis, and critical thinking. Strong skills in these areas matter for both admission
+			and long-term success.
+		</p>
+
+		<h3>Common humanities prerequisite courses</h3>
+
+		<ul>
+			<li>English Composition I</li>
+			<li>English Composition II</li>
+			<li>Introduction to Literature</li>
+			<li>Philosophy</li>
+			<li>History (U.S. or World)</li>
+			<li>Art History or Music Appreciation</li>
+			<li>Cultural Studies</li>
+			<li>Foreign Language (required by some programs)</li>
+			<li>Public Speaking or Communication</li>
+		</ul>
+
+		<p>
+			Humanities programs focus on interpretation, argumentation, and communication. Writing and research skills matter
+			more than lab science sequences in most humanities tracks — but the quality of your writing samples and academic
+			record often determines your transfer competitiveness.
+		</p>
+
+		<h3>Humanities majors these courses support</h3>
+
+		<div class="major-chips">
+			<span>English</span><span>History</span><span>Philosophy</span><span>Communication</span>
+			<span>Religious Studies</span><span>Art History</span><span>World Languages</span><span>Cultural Studies</span>
+		</div>
+
+		<p>
+			Browse humanities options on our course directory:{' '}
+			<a href="/courses/category/humanities/">Humanities courses</a>.
+		</p>
+
+		<h2 id="nursing-prerequisites">Most Common Prerequisites for Nursing Majors</h2>
+
+		<p>
+			Nursing majors have some of the most specific prerequisite college courses of any field. Nursing schools require
+			students to be ready for both classroom learning and clinical training, so the required courses are intentional and
+			non-negotiable.
+		</p>
+
+		<h3>Common nursing prerequisite courses</h3>
+
+		<ul>
+			<li>Anatomy and Physiology I and II (with lab)</li>
+			<li>Microbiology (with lab)</li>
+			<li>General Chemistry or Introductory Chemistry</li>
+			<li>Biology</li>
+			<li>Statistics</li>
+			<li>English Composition</li>
+			<li>Psychology</li>
+			<li>Sociology</li>
+			<li>Human Growth and Development or Developmental Psychology</li>
+		</ul>
+
+		<p>
+			Many nursing programs require these college classes to be completed with a minimum grade — often a C or better —
+			and a minimum GPA across the full prerequisite set before students can apply to the program. Some schools also
+			require that prerequisites be completed within the last five to seven years.
+		</p>
+
+		<h3>Why nursing prerequisites matter</h3>
+
+		<p>
+			Nursing coursework becomes demanding quickly. Anatomy, physiology, and microbiology help students understand how the
+			body works, while psychology and sociology support patient care and therapeutic communication. Because nursing
+			admissions are competitive, students should plan prerequisites carefully and complete them as early as possible.
+		</p>
+
+		<p>
+			For a detailed breakdown, see our{' '}
+			<a href="/resources/blog/prerequisite-courses-for-nursing-school">
+				complete guide to prerequisite courses for nursing school
+			</a>.
+		</p>
+
+		<h2 id="comparison-table">Prerequisites by Major: At a Glance</h2>
+
+		<div class="prereq-major-grid">
+			<div class="prereq-card prereq-card--science">
+				<div class="prereq-card__header">
+					<span class="prereq-card__icon" aria-hidden="true">🔬</span>
+					<h3 class="prereq-card__title">Science Majors</h3>
+				</div>
+				<ul class="prereq-card__list">
+					<li>General Biology I &amp; II</li>
+					<li>General Chemistry I &amp; II</li>
+					<li>Physics I &amp; II</li>
+					<li>Calculus or Precalculus</li>
+					<li>Statistics</li>
+					<li>Lab science electives</li>
+				</ul>
+				<div class="prereq-card__note">Sequenced; labs usually required</div>
+			</div>
+
+			<div class="prereq-card prereq-card--humanities">
+				<div class="prereq-card__header">
+					<span class="prereq-card__icon" aria-hidden="true">📚</span>
+					<h3 class="prereq-card__title">Humanities Majors</h3>
+				</div>
+				<ul class="prereq-card__list">
+					<li>English Composition I &amp; II</li>
+					<li>Introduction to Literature</li>
+					<li>Philosophy</li>
+					<li>History</li>
+					<li>Art History or Music</li>
+					<li>Public Speaking</li>
+				</ul>
+				<div class="prereq-card__note">Writing and analysis focused</div>
+			</div>
+
+			<div class="prereq-card prereq-card--nursing">
+				<div class="prereq-card__header">
+					<span class="prereq-card__icon" aria-hidden="true">🩺</span>
+					<h3 class="prereq-card__title">Nursing Majors</h3>
+				</div>
+				<ul class="prereq-card__list">
+					<li>Anatomy &amp; Physiology I &amp; II</li>
+					<li>Microbiology</li>
+					<li>Chemistry</li>
+					<li>Biology</li>
+					<li>Psychology &amp; Sociology</li>
+					<li>Statistics</li>
+				</ul>
+				<div class="prereq-card__note">Most structured; minimum grades often required</div>
+			</div>
+		</div>
+
+		<h2 id="community-college">Community College Options</h2>
+
+		<p>
+			Community colleges are one of the most popular places to complete prerequisite college courses. They typically offer
+			lower tuition, smaller class sizes, and flexible scheduling — including in-person, online, and hybrid college
+			classes — making them the smartest starting point for many students.
+		</p>
+
+		<h3>Why students choose community colleges for prerequisites</h3>
+
+		<ul>
+			<li><strong>Lower cost</strong> — often a fraction of university tuition per credit</li>
+			<li><strong>General education access</strong> — English, math, psychology, biology, chemistry, and more</li>
+			<li><strong>Transfer planning support</strong> — many CCs have articulation agreements with four-year schools</li>
+			<li><strong>Flexible formats</strong> — in-person, online college classes, and hybrid college classes all available</li>
+			<li><strong>Working-student friendly</strong> — evening, weekend, and asynchronous options</li>
+		</ul>
+
+		<h3>Transfer planning matters</h3>
+
+		<p>
+			Not every college class transfers the same way to every university. Before enrolling, always check the transfer
+			agreements, articulation guides, and specific departmental requirements at your target school.
+		</p>
+
+		<p>This matters most for:</p>
+		<ul>
+			<li>Science majors with lab-based sequences (some universities require specific course formats)</li>
+			<li>Nursing majors with program-specific GPA and recency requirements</li>
+			<li>Humanities majors transferring into selective universities</li>
+		</ul>
+
+		<h2 id="online-hybrid">Online College Classes and Hybrid College Classes</h2>
+
+		<p>
+			<strong>Online college classes</strong> and <strong>hybrid college classes</strong> give students more flexibility
+			than traditional face-to-face schedules. That flexibility can help students finish prerequisites faster or fit
+			school into a busy life.
+		</p>
+
+		<div class="format-compare-grid">
+			<div class="format-card format-card--online">
+				<div class="format-card__icon" aria-hidden="true">💻</div>
+				<h3 class="format-card__title">Online college classes</h3>
+				<p class="format-card__desc">Fully remote. Assignments, discussions, and exams through a learning platform.</p>
+				<div class="format-card__good-label">Works well for</div>
+				<ul>
+					<li>English Composition</li>
+					<li>Psychology &amp; Sociology</li>
+					<li>Humanities electives</li>
+					<li>Statistics (lecture-based)</li>
+					<li>Some intro biology and chemistry lectures</li>
+				</ul>
+			</div>
+
+			<div class="format-card format-card--hybrid">
+				<div class="format-card__icon" aria-hidden="true">⚡</div>
+				<h3 class="format-card__title">Hybrid college classes</h3>
+				<p class="format-card__desc">Combines online coursework with scheduled on-campus meetings or lab sessions.</p>
+				<div class="format-card__good-label">Works well for</div>
+				<ul>
+					<li>Science courses with labs</li>
+					<li>Nursing prerequisites with skills components</li>
+					<li>Students who want some campus interaction</li>
+					<li>Courses where discussion or demonstration adds value</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="post-callout">
+			<strong>Important: confirm format acceptance before enrolling</strong>
+			<p>
+				Some prerequisite college courses — especially in science and nursing — may require in-person labs or must meet
+				specific accreditation standards. Always confirm that an online or hybrid format will satisfy your target
+				program's requirements before enrolling.
+			</p>
+		</div>
+
+		<h2 id="how-to-choose">How to Choose the Right Prerequisite Classes</h2>
+
+		<p>
+			The best approach is to start with your degree goal and work backward. Look at the exact major requirements at the
+			school where you want to transfer or apply, then map out which courses you need and in what order.
+		</p>
+
+		<h3>Smart planning steps</h3>
+
+		<ol>
+			<li>Identify the major and target school you want.</li>
+			<li>Find the official prerequisite list on the program's admissions page.</li>
+			<li>Confirm whether each class transfers and check any recency or grade requirements.</li>
+			<li>
+				Decide whether community college, <a href="/resources/blog/online-college-enrollment-after-pandemic">online college classes</a>,
+				or hybrid college classes fit your schedule and budget.
+			</li>
+			<li>Prioritize sequenced courses first — especially in science and nursing — so you do not create gaps in your timeline.</li>
+		</ol>
+
+		<p>
+			This approach helps you avoid wasting time or money on college classes that do not count toward your degree.
+		</p>
+
+		<h2 id="sample-pathways">Sample Prerequisite Pathways</h2>
+
+		<div class="pathway-grid">
+			<div class="pathway-card">
+				<div class="pathway-card__label pathway-card__label--science">Science pathway</div>
+				<h3 class="pathway-card__title">Biology major — first year</h3>
+				<ol class="pathway-card__list">
+					<li>English Composition I</li>
+					<li>College Algebra or Calculus</li>
+					<li>General Biology I (with lab)</li>
+					<li>General Chemistry I (with lab)</li>
+					<li>Statistics</li>
+				</ol>
+				<p class="pathway-card__note">Then: Biology II, Chemistry II, Physics — unlocking advanced major coursework.</p>
+			</div>
+
+			<div class="pathway-card">
+				<div class="pathway-card__label pathway-card__label--humanities">Humanities pathway</div>
+				<h3 class="pathway-card__title">English major — first year</h3>
+				<ol class="pathway-card__list">
+					<li>English Composition I</li>
+					<li>English Composition II</li>
+					<li>Introduction to Literature</li>
+					<li>Philosophy</li>
+					<li>History or Public Speaking</li>
+				</ol>
+				<p class="pathway-card__note">Builds reading, writing, and analytical foundation for advanced humanities study.</p>
+			</div>
+
+			<div class="pathway-card">
+				<div class="pathway-card__label pathway-card__label--nursing">Nursing pathway</div>
+				<h3 class="pathway-card__title">Pre-nursing — first year</h3>
+				<ol class="pathway-card__list">
+					<li>Anatomy &amp; Physiology I (with lab)</li>
+					<li>Biology</li>
+					<li>English Composition</li>
+					<li>Psychology</li>
+					<li>Statistics</li>
+				</ol>
+				<p class="pathway-card__note">Then: A&amp;P II, Microbiology, Sociology — completing a competitive nursing application.</p>
+			</div>
+		</div>
+
+		<div class="paa-block">
+			<div class="section-label">People Also Ask</div>
+			<h2 id="people-also-ask">People Also Ask</h2>
+			<div class="paa-list">
+				<details class="paa-item">
+					<summary>What college classes do most majors require first?</summary>
+					<div class="paa-answer">
+						<p>
+							Most majors require English composition, college-level math, and at least one or two general education courses
+							before upper-level study begins. Science and nursing majors add discipline-specific prerequisites on top of those.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>Which prerequisites are common for science majors?</summary>
+					<div class="paa-answer">
+						<p>
+							Science majors commonly need biology, chemistry, physics, calculus, and statistics — often with labs. The exact
+							sequence depends on your target major and university. Check the program's admissions page for the required list.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>What prerequisites are needed for a nursing major?</summary>
+					<div class="paa-answer">
+						<p>
+							Nursing majors typically need anatomy and physiology I and II, microbiology, chemistry, biology, psychology,
+							sociology, statistics, and English composition. Most programs require a minimum grade (often a C or better) in
+							each course. See our{' '}
+							<a href="/resources/blog/prerequisite-courses-for-nursing-school">full nursing prerequisites guide</a> for details.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>Can I complete prerequisites at community college and transfer them?</summary>
+					<div class="paa-answer">
+						<p>
+							Yes — many students do this to save money. The key is confirming that each course is transferable to your target
+							university or nursing program before enrolling. Check articulation agreements and program-specific transfer
+							requirements first.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>Are online classes accepted for college prerequisites?</summary>
+					<div class="paa-answer">
+						<p>
+							Often yes, especially for lecture-based and humanities courses. Some science and nursing programs may require
+							in-person labs or approved hybrid formats. Always confirm with your target program before enrolling in an online
+							section of a science or nursing prerequisite.
+						</p>
+					</div>
+				</details>
+				<details class="paa-item">
+					<summary>What are the easiest prerequisite classes for college?</summary>
+					<div class="paa-answer">
+						<p>
+							Commonly accessible options include introductory psychology, sociology, public speaking, and some humanities
+							electives — though difficulty always depends on the student and instructor. For science and nursing pathways, it
+							is usually better to start with the courses that unlock later sequences rather than hunting for the easiest
+							option.
+						</p>
+					</div>
+				</details>
+			</div>
+		</div>
+
+		<div itemscope itemtype="https://schema.org/FAQPage" class="faq-page-wrap">
+			<div class="section-label">FAQ</div>
+			<h2 id="faq">Frequently asked questions</h2>
+			<div class="faq-list" role="region" aria-label="Frequently asked questions">
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">What are the most common prerequisite college courses?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								The most common prerequisite college courses are English composition, college-level math, biology, chemistry,
+								psychology, sociology, anatomy and physiology, and statistics. Exact requirements depend on the major and
+								school.
+							</p>
+						</div>
+					</div>
+				</details>
+
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">Do science majors need more prerequisites than humanities majors?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								Usually yes. Science majors often need more sequenced math and lab science college classes, while humanities
+								majors rely more on writing, reading, and analysis courses.
+							</p>
+						</div>
+					</div>
+				</details>
+
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">What are the most common nursing prerequisites?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								Common nursing prerequisites include anatomy and physiology, microbiology, chemistry, biology, psychology,
+								sociology, statistics, and English composition. See our{' '}
+								<a href="/resources/blog/prerequisite-courses-for-nursing-school">detailed nursing prerequisites guide</a> for
+								program-specific requirements.
+							</p>
+						</div>
+					</div>
+				</details>
+
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">Can I take prerequisite courses at a community college?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								Yes. Many students complete prerequisite college courses at community colleges because they are affordable and
+								often transfer to four-year schools. Always verify transferability and any grade or recency requirements before
+								enrolling.
+							</p>
+						</div>
+					</div>
+				</details>
+
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">Are online college classes good for prerequisites?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								Yes, for many subjects. Online college classes work well for writing, humanities, psychology, sociology, and
+								some lecture-based courses. Lab sciences and nursing prerequisites may have stricter format requirements —
+								always confirm with your target program.
+							</p>
+						</div>
+					</div>
+				</details>
+
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">Are hybrid college classes accepted for transfer?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								Often yes. Hybrid college classes are especially useful for science and nursing prerequisites when lab work or
+								some in-person attendance is required. Verify acceptance with your transfer institution or nursing program
+								before enrolling.
+							</p>
+						</div>
+					</div>
+				</details>
+
+				<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+					<summary itemprop="name">Do all nursing schools require the same prerequisites?</summary>
+					<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+						<div itemprop="text">
+							<p>
+								No. Nursing schools vary widely. Some require only a standard set of college classes, while others add extra
+								courses or require minimum grades and GPA thresholds. Always check the specific requirements at each program
+								you plan to apply to.
+							</p>
+						</div>
+					</div>
+				</details>
+			</div>
+		</div>
+
+		<hr />
+
+		<h2 id="sources">Sources and further reading</h2>
+		<ul>
+			<li>
+				<strong>College Courses Online</strong> —{' '}
+				<a href="/resources/blog/prerequisite-courses-for-nursing-school">
+					Prerequisite Courses for Nursing School: Complete 2026 Guide
+				</a>
+			</li>
+			<li>
+				<strong>College Courses Online</strong> —{' '}
+				<a href="/resources/blog/how-to-choose-right-online-college">
+					How to Choose the Right Online College: The Complete Guide
+				</a>
+			</li>
+			<li>
+				<strong>College Courses Online</strong> —{' '}
+				<a href="/resources/blog/online-college-enrollment-after-pandemic">
+					Online College Enrollment After the Pandemic: Trends, Costs, and the Future
+				</a>
+			</li>
+			<li>
+				<strong>U.S. Department of Education</strong> —{' '}
+				<a
+					class="link-external"
+					href="https://ope.ed.gov/dapied/#/home"
+					target="_blank"
+					rel="noopener noreferrer">Database of Accredited Postsecondary Institutions and Programs</a
+				>
+			</li>
+			<li>
+				<strong>National Student Clearinghouse Research Center</strong> —{' '}
+				<a
+					class="link-external"
+					href="https://nscresearchcenter.org/transfer-and-mobility/"
+					target="_blank"
+					rel="noopener noreferrer">Transfer and Mobility research</a
+				>
+			</li>
+		</ul>
+	</ArticleProse>
+</ResourcesGuideLayout>
+
+<style>
+	/* ── Major chips ──────────────────────────────────────────────────────── */
+	:global(.major-chips) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin: 0.75rem 0 1.5rem;
+	}
+	:global(.major-chips span) {
+		background: #eff6ff;
+		color: #1d4ed8;
+		font-size: 0.78rem;
+		font-weight: 600;
+		padding: 3px 10px;
+		border-radius: 20px;
+		border: 1px solid #bfdbfe;
+	}
+
+	/* ── Prerequisite card grid ───────────────────────────────────────────── */
+	:global(.prereq-major-grid) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.25rem;
+		margin: 1.5rem 0 2.5rem;
+	}
+	:global(.prereq-card) {
+		border-radius: 14px;
+		padding: 1.375rem 1.375rem 1rem;
+		border: 1px solid #e2e8f0;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(15,23,42,0.05);
+	}
+	:global(.prereq-card__header) {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 0.75rem;
+	}
+	:global(.prereq-card__icon) { font-size: 1.5rem; }
+	:global(.prereq-card__title) {
+		font-size: 1rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0;
+	}
+	:global(.prereq-card--science)   { border-top: 3px solid #2563eb; }
+	:global(.prereq-card--humanities){ border-top: 3px solid #7c3aed; }
+	:global(.prereq-card--nursing)   { border-top: 3px solid #059669; }
+	:global(.prereq-card__list) {
+		margin: 0 0 0.75rem;
+		padding-left: 1.2rem;
+		font-size: 0.875rem;
+		color: #374151;
+		line-height: 1.65;
+	}
+	:global(.prereq-card__list li) { margin-bottom: 0.2rem; }
+	:global(.prereq-card__note) {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #64748b;
+		padding: 4px 10px;
+		background: #f8fafc;
+		border-radius: 6px;
+		border: 1px solid #f1f5f9;
+		display: inline-block;
+	}
+
+	/* ── Format comparison cards ──────────────────────────────────────────── */
+	:global(.format-compare-grid) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.25rem;
+		margin: 1.25rem 0 1.5rem;
+	}
+	:global(.format-card) {
+		border-radius: 14px;
+		padding: 1.375rem;
+		border: 1px solid #e2e8f0;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(15,23,42,0.05);
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	:global(.format-card--online)  { border-top: 3px solid #2563eb; }
+	:global(.format-card--hybrid)  { border-top: 3px solid #f59e0b; }
+	:global(.format-card__icon) { font-size: 1.5rem; }
+	:global(.format-card__title) {
+		font-size: 1rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0;
+	}
+	:global(.format-card__desc) {
+		font-size: 0.8375rem;
+		color: #475569;
+		margin: 0;
+		line-height: 1.5;
+	}
+	:global(.format-card__good-label) {
+		font-size: 0.65rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #059669;
+		margin-top: 0.25rem;
+	}
+	:global(.format-card ul) {
+		margin: 0;
+		padding-left: 1.1rem;
+		font-size: 0.85rem;
+		color: #374151;
+		line-height: 1.6;
+	}
+	:global(.format-card li) { margin-bottom: 0.2rem; }
+
+	/* ── Pathway cards ────────────────────────────────────────────────────── */
+	:global(.pathway-grid) {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.25rem;
+		margin: 1.5rem 0 2.5rem;
+	}
+	:global(.pathway-card) {
+		border-radius: 14px;
+		padding: 1.375rem 1.375rem 1rem;
+		border: 1px solid #e2e8f0;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(15,23,42,0.05);
+	}
+	:global(.pathway-card__label) {
+		font-size: 0.65rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 3px 10px;
+		border-radius: 20px;
+		display: inline-block;
+		margin-bottom: 0.6rem;
+	}
+	:global(.pathway-card__label--science)    { background: #dbeafe; color: #1d4ed8; }
+	:global(.pathway-card__label--humanities) { background: #ede9fe; color: #6d28d9; }
+	:global(.pathway-card__label--nursing)    { background: #d1fae5; color: #065f46; }
+	:global(.pathway-card__title) {
+		font-size: 0.9375rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0 0 0.5rem;
+	}
+	:global(.pathway-card__list) {
+		margin: 0 0 0.75rem;
+		padding-left: 1.2rem;
+		font-size: 0.875rem;
+		color: #374151;
+		line-height: 1.65;
+	}
+	:global(.pathway-card__list li) { margin-bottom: 0.2rem; }
+	:global(.pathway-card__note) {
+		font-size: 0.8rem;
+		color: #64748b;
+		border-left: 3px solid #e2e8f0;
+		padding-left: 0.6rem;
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	/* ── People Also Ask ──────────────────────────────────────────────────── */
+	:global(.paa-block) {
+		margin: 2.5rem 0 2rem;
+	}
+	:global(.paa-list) {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+		overflow: hidden;
+	}
+	:global(.paa-item) {
+		border-bottom: 1px solid #f1f5f9;
+	}
+	:global(.paa-item:last-child) { border-bottom: none; }
+	:global(.paa-item > summary) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		color: #0f172a;
+		cursor: pointer;
+		list-style: none;
+		background: #fff;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+	:global(.paa-item > summary::-webkit-details-marker) { display: none; }
+	:global(.paa-item > summary::after) {
+		content: '+';
+		font-size: 1.25rem;
+		font-weight: 400;
+		color: #2563eb;
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+	}
+	:global(.paa-item[open] > summary::after) { transform: rotate(45deg); }
+	:global(.paa-item > summary:hover) { background: #f8faff; color: #2563eb; }
+	:global(.paa-item[open] > summary) {
+		background: #eff6ff;
+		color: #1d4ed8;
+		border-bottom: 1px solid #dbeafe;
+	}
+	:global(.paa-answer) {
+		padding: 0.875rem 1.25rem 1rem;
+		background: #fafbff;
+	}
+	:global(.paa-answer p) {
+		font-size: 0.9rem;
+		color: #374151;
+		line-height: 1.65;
+		margin: 0;
+	}
+
+	@media (max-width: 640px) {
+		:global(.prereq-major-grid),
+		:global(.format-compare-grid),
+		:global(.pathway-grid) {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

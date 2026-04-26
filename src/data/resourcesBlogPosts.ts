@@ -31,6 +31,18 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'prerequisite-college-courses-by-major',
+    title: 'Most Common Prerequisite College Courses for Science, Humanities, and Nursing Majors',
+    excerpt:
+      'The most common prerequisite college courses for science, humanities, and nursing majors — plus how community colleges, online college classes, and hybrid college classes fit into transfer and degree planning.',
+    label: 'College planning',
+    date: 'Apr 26, 2026',
+    readingTime: '14 min read',
+    image:
+      'https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: ['Prerequisite courses', 'Science majors', 'Nursing', 'Humanities', 'Community college', '2026'],
+  },
+  {
     slug: 'enrollment-decline-college-closures-hybrid-campus',
     title: 'Enrollment Decline, College Closures, and the Rise of the Hybrid Campus',
     excerpt:
