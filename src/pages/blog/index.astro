@@ -10,6 +10,7 @@ const RESOURCES_ONLY_SLUGS = new Set([
 	'university-of-florida-online-2026-guide',
 	'bsc-respiratory-care-online-ecc',
 	'online-college-enrollment-after-pandemic',
+	'enrollment-decline-college-closures-hybrid-campus',
 ]);
 
 /** Guides hosted on `/resources/blog/...` but still shown on this index with a canonical URL. */
@@ -17,6 +18,8 @@ const BLOG_INDEX_HREF_OVERRIDES: Record<string, string> = {
 	'university-of-florida-online-2026-guide': '/resources/blog/university-of-florida-online-2026-guide',
 	'online-college-enrollment-after-pandemic':
 		'/resources/blog/online-college-enrollment-after-pandemic',
+	'enrollment-decline-college-closures-hybrid-campus':
+		'/resources/blog/enrollment-decline-college-closures-hybrid-campus',
 };
 
 const raw = await getCollection('blog');

@@ -777,6 +777,14 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - **Files:** `supabase/migrations/20260421140000_add_study_com_english_literature_course.sql`, `public/images/courses/study-com-english-literature.png`, `courseImageOverrides.ts`, `scripts/tag-subcategories.mjs`, `scripts/add-study-com-english-literature.mjs`, `20260422120000_study_com_english_literature_png_card_image.sql`.
 - **Verification:** `npm run build` exit 0.
 
+### 2026-04-26 — Enrollment decline + hybrid campus guide (Featured education article)
+
+- **Canonical guide:** `/resources/blog/enrollment-decline-college-closures-hybrid-campus` using `ResourcesGuideLayout` + `ArticleProse`.
+- **Blog presence:** `/blog/enrollment-decline-college-closures-hybrid-campus` issues `Astro.redirect(..., 301)` to the canonical Resources URL.
+- **Homepage:** `src/pages/index.astro` updated so the large featured card uses slug `enrollment-decline-college-closures-hybrid-campus`; side list now includes `prerequisite-courses-for-nursing-school`.
+- **Source list + links:** Added authoritative external links (NPR + transcript, Education Next, Higher Ed Dive, WCET/WICHE, Campus Technology, Atlantic).
+- **Verification:** `npm run build` exit 0 (156 pages).
+
 ### 2026-04-23 — Study.com Analyzing and Interpreting Literature
 
 - **Slug:** `study-com-analyzing-and-interpreting-literature` · **URL:** https://study.com/academy/course/analyzing-and-interpreting-literature.html · **Image:** Pexels Ece K. **15962831** → `study-com-analyzing-and-interpreting-literature.png` · **Subcategory:** Analyzing and Interpreting Literature.

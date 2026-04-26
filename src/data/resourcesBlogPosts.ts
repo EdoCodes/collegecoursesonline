@@ -31,6 +31,18 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'enrollment-decline-college-closures-hybrid-campus',
+    title: 'Enrollment Decline, College Closures, and the Rise of the Hybrid Campus',
+    excerpt:
+      'Enrollment decline is forcing colleges to close, merge, and adapt. Learn why colleges are struggling, how the hybrid campus is rising, and why college classes online are becoming a core part of the future.',
+    label: 'Higher education',
+    date: 'Apr 26, 2026',
+    readingTime: '13 min read',
+    image:
+      'https://images.pexels.com/photos/14753324/pexels-photo-14753324.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: ['Enrollment cliff', 'College closures', 'Hybrid campus', 'College classes online', '2026'],
+  },
+  {
     slug: 'online-college-enrollment-after-pandemic',
     title:
       'Online College Enrollment After the Pandemic: Trends, Costs, Pros, Cons, and the Future',
