@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AskQuestionForm from '../components/blog/AskQuestionForm.astro';
 
 const title = 'Community Discussion | College Courses Online';
 const description =
@@ -33,27 +34,29 @@ const description =
 					</div>
 				</div>
 
-				<div class="giscus-widget-wrap">
-					<script
-						is:inline
-						src="https://giscus.app/client.js"
-						data-repo="EdoCodes/collegecoursesonline"
-						data-repo-id="R_kgDORUyy6w"
-						data-category="General"
-						data-category-id="DIC_kwDORUyy684ClVmN"
-						data-mapping="specific"
-						data-term="Community Discussion — College Courses Online"
-						data-strict="0"
-						data-reactions-enabled="1"
-						data-emit-metadata="0"
-						data-input-position="top"
-						data-theme="light"
-						data-lang="en"
-						data-loading="lazy"
-						crossorigin="anonymous"
-						async
-					></script>
-				</div>
+			<div class="giscus-widget-wrap">
+				<script
+					is:inline
+					src="https://giscus.app/client.js"
+					data-repo="EdoCodes/collegecoursesonline"
+					data-repo-id="R_kgDORUyy6w"
+					data-category="General"
+					data-category-id="DIC_kwDORUyy684ClVmN"
+					data-mapping="specific"
+					data-term="Community Discussion — College Courses Online"
+					data-strict="0"
+					data-reactions-enabled="1"
+					data-emit-metadata="0"
+					data-input-position="top"
+					data-theme="light"
+					data-lang="en"
+					data-loading="lazy"
+					crossorigin="anonymous"
+					async
+				></script>
+			</div>
+
+			<AskQuestionForm pageTitle="Community Page" />
 			</div>
 
 			<aside class="community-sidebar">

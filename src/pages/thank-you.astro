@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+	title="Question received | College Courses Online"
+	description="Thank you — we received your question and will reply by email shortly."
+>
+	<div class="thankyou-page">
+		<div class="thankyou-card">
+			<div class="thankyou-card__icon" aria-hidden="true">✅</div>
+			<h1 class="thankyou-card__title">We got your question!</h1>
+			<p class="thankyou-card__desc">
+				Thanks for reaching out. We'll reply to your email as soon as possible — usually within
+				1–2 business days.
+			</p>
+			<div class="thankyou-card__actions">
+				<a href="/resources/guides/" class="btn-primary">Browse more guides</a>
+				<a href="/blog" class="btn-secondary">Back to blog</a>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.thankyou-page {
+		min-height: 60vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 4rem 1.5rem;
+		background: #f8fafc;
+	}
+	.thankyou-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 20px;
+		padding: 3rem 2.5rem;
+		max-width: 480px;
+		width: 100%;
+		text-align: center;
+		box-shadow: 0 4px 24px rgba(15, 23, 42, 0.07);
+	}
+	.thankyou-card__icon {
+		font-size: 3rem;
+		display: block;
+		margin-bottom: 1rem;
+	}
+	.thankyou-card__title {
+		font-size: 1.625rem;
+		font-weight: 900;
+		color: #0f172a;
+		margin: 0 0 0.75rem;
+	}
+	.thankyou-card__desc {
+		font-size: 0.9375rem;
+		color: #475569;
+		line-height: 1.65;
+		margin: 0 0 2rem;
+	}
+	.thankyou-card__actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.btn-primary {
+		background: #2563eb;
+		color: #fff;
+		font-weight: 700;
+		font-size: 0.9375rem;
+		padding: 0.65rem 1.375rem;
+		border-radius: 8px;
+		text-decoration: none;
+		transition: background 0.15s;
+	}
+	.btn-primary:hover { background: #1d4ed8; }
+	.btn-secondary {
+		background: #f1f5f9;
+		color: #374151;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		padding: 0.65rem 1.375rem;
+		border-radius: 8px;
+		text-decoration: none;
+		transition: background 0.15s;
+	}
+	.btn-secondary:hover { background: #e2e8f0; }
+</style>

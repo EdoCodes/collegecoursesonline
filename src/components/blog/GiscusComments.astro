@@ -1,19 +1,21 @@
 ---
+import AskQuestionForm from './AskQuestionForm.astro';
 /**
- * Giscus comments widget.
+ * Giscus comments widget + no-login question form fallback.
  * Repo: EdoCodes/collegecoursesonline (R_kgDORUyy6w)
- * Category: General — swap data-category-id once you confirm from giscus.app.
- * To find your category ID: giscus.app → enter repo → pick category → copy DIC_... value.
  */
-const { pageUrl = '' } = Astro.props;
+interface Props {
+	pageTitle?: string;
+}
+const { pageTitle = 'General' } = Astro.props;
 ---
 
-<section class="giscus-section" aria-label="Discussion">
+<section class="giscus-section" id="giscus-section" aria-label="Discussion">
 	<div class="giscus-header">
 		<span class="giscus-header__icon" aria-hidden="true">💬</span>
 		<h2 class="giscus-header__title">Join the discussion</h2>
 		<p class="giscus-header__sub">
-			Have a question or something to add? Sign in with GitHub to leave a comment.
+			Have a GitHub account? Leave a comment below. No GitHub? Use the form underneath.
 		</p>
 	</div>
 
@@ -37,6 +39,8 @@ const { pageUrl = '' } = Astro.props;
 			async
 		></script>
 	</div>
+
+	<AskQuestionForm pageTitle={pageTitle} />
 </section>
 
 <style>

@@ -1,0 +1,164 @@
+---
+/**
+ * No-login question form powered by Netlify Forms.
+ * Submissions are collected in the Netlify dashboard → Forms tab.
+ * Pass `pageTitle` so each submission identifies which article it came from.
+ */
+interface Props {
+	pageTitle?: string;
+}
+const { pageTitle = 'General' } = Astro.props;
+---
+
+<section class="ask-form-section" aria-label="Ask a question">
+	<div class="ask-form-header">
+		<span class="ask-form-header__icon" aria-hidden="true">✉️</span>
+		<div>
+			<h2 class="ask-form-header__title">No GitHub? Ask a question</h2>
+			<p class="ask-form-header__sub">
+				No account needed. Type your question below and we'll answer by email.
+			</p>
+		</div>
+	</div>
+
+	<form
+		class="ask-form"
+		name="ask-question"
+		method="POST"
+		action="/thank-you"
+		data-netlify="true"
+		netlify-honeypot="bot-field"
+	>
+		<!-- Netlify hidden fields -->
+		<input type="hidden" name="form-name" value="ask-question" />
+		<input type="hidden" name="article" value={pageTitle} />
+		<p class="ask-form__honeypot" aria-hidden="true">
+			<label>Don't fill this out: <input name="bot-field" /></label>
+		</p>
+
+		<div class="ask-form__row">
+			<div class="ask-form__field">
+				<label class="ask-form__label" for="ask-name">Your name</label>
+				<input
+					class="ask-form__input"
+					type="text"
+					id="ask-name"
+					name="name"
+					placeholder="First name is fine"
+					required
+					autocomplete="given-name"
+				/>
+			</div>
+			<div class="ask-form__field">
+				<label class="ask-form__label" for="ask-email">Your email</label>
+				<input
+					class="ask-form__input"
+					type="email"
+					id="ask-email"
+					name="email"
+					placeholder="so we can reply"
+					required
+					autocomplete="email"
+				/>
+			</div>
+		</div>
+
+		<div class="ask-form__field">
+			<label class="ask-form__label" for="ask-question-text">Your question</label>
+			<textarea
+				class="ask-form__textarea"
+				id="ask-question-text"
+				name="question"
+				placeholder="What would you like to know?"
+				rows="4"
+				required
+			></textarea>
+		</div>
+
+		<button class="ask-form__submit" type="submit">Send question →</button>
+	</form>
+</section>
+
+<style>
+	.ask-form-section {
+		margin-top: 2rem;
+		padding: 1.75rem;
+		background: #f8fafc;
+		border: 1px solid #e2e8f0;
+		border-radius: 14px;
+	}
+	.ask-form-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.9rem;
+		margin-bottom: 1.5rem;
+	}
+	.ask-form-header__icon { font-size: 1.75rem; flex-shrink: 0; }
+	.ask-form-header__title {
+		font-size: 1.125rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0 0 0.25rem;
+	}
+	.ask-form-header__sub {
+		font-size: 0.875rem;
+		color: #64748b;
+		margin: 0;
+		line-height: 1.5;
+	}
+	.ask-form__honeypot { display: none; }
+	.ask-form__row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+	.ask-form__field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		margin-bottom: 1rem;
+	}
+	.ask-form__field:last-of-type { margin-bottom: 1.25rem; }
+	.ask-form__label {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: #374151;
+	}
+	.ask-form__input,
+	.ask-form__textarea {
+		width: 100%;
+		padding: 0.6rem 0.875rem;
+		border: 1.5px solid #e2e8f0;
+		border-radius: 8px;
+		font-size: 0.9rem;
+		color: #0f172a;
+		background: #fff;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		font-family: inherit;
+		box-sizing: border-box;
+	}
+	.ask-form__input:focus,
+	.ask-form__textarea:focus {
+		outline: none;
+		border-color: #2563eb;
+		box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+	}
+	.ask-form__textarea { resize: vertical; min-height: 100px; }
+	.ask-form__submit {
+		background: #2563eb;
+		color: #fff;
+		font-weight: 700;
+		font-size: 0.9375rem;
+		padding: 0.65rem 1.5rem;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background 0.15s ease;
+		font-family: inherit;
+	}
+	.ask-form__submit:hover { background: #1d4ed8; }
+	@media (max-width: 540px) {
+		.ask-form__row { grid-template-columns: 1fr; }
+	}
+</style>
