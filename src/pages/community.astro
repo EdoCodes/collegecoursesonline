@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Community Discussion | College Courses Online';
+const description =
+	'Ask questions, share experiences, and discuss college courses, prerequisites, nursing school, PA programs, and more with the College Courses Online community.';
+---
+
+<Layout title={title} description={description}>
+	<div class="community-page">
+		<div class="community-hero">
+			<div class="community-hero__inner">
+				<div class="community-hero__label">Community</div>
+				<h1 class="community-hero__title">Join the Discussion</h1>
+				<p class="community-hero__desc">
+					Ask questions, share your experience, and connect with other students navigating
+					college courses, prerequisites, nursing programs, PA school, and more.
+				</p>
+			</div>
+		</div>
+
+		<div class="community-body">
+			<div class="community-main">
+				<div class="community-intro-card">
+					<div class="community-intro-card__icon" aria-hidden="true">💬</div>
+					<div>
+						<strong>General discussion</strong>
+						<p>
+							Use the thread below to ask questions or share what's working for you.
+							You can also comment directly on any article — scroll to the bottom of any guide
+							to join that specific conversation.
+						</p>
+					</div>
+				</div>
+
+				<div class="giscus-widget-wrap">
+					<script
+						is:inline
+						src="https://giscus.app/client.js"
+						data-repo="EdoCodes/collegecoursesonline"
+						data-repo-id="R_kgDORUyy6w"
+						data-category="General"
+						data-category-id="DIC_kwDORUyy684ClVmN"
+						data-mapping="specific"
+						data-term="Community Discussion — College Courses Online"
+						data-strict="0"
+						data-reactions-enabled="1"
+						data-emit-metadata="0"
+						data-input-position="top"
+						data-theme="light"
+						data-lang="en"
+						data-loading="lazy"
+						crossorigin="anonymous"
+						async
+					></script>
+				</div>
+			</div>
+
+			<aside class="community-sidebar">
+				<div class="sidebar-card">
+					<h2 class="sidebar-card__title">Article discussions</h2>
+					<p class="sidebar-card__desc">Jump to a specific guide to read or join that article's comments.</p>
+					<ul class="sidebar-card__list">
+						<li>
+							<a href="/resources/blog/prerequisite-courses-for-nursing-school#giscus-section">
+								Nursing school prerequisites
+							</a>
+						</li>
+						<li>
+							<a href="/resources/blog/prerequisite-college-courses-by-major#giscus-section">
+								Prerequisite courses by major
+							</a>
+						</li>
+						<li>
+							<a href="/resources/blog/how-to-become-physician-assistant#giscus-section">
+								How to become a physician assistant
+							</a>
+						</li>
+						<li>
+							<a href="/resources/blog/enrollment-decline-college-closures-hybrid-campus#giscus-section">
+								Enrollment decline &amp; hybrid campus
+							</a>
+						</li>
+						<li>
+							<a href="/resources/guides/">Browse all guides →</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="sidebar-card sidebar-card--blue">
+					<h2 class="sidebar-card__title">How it works</h2>
+					<ul class="sidebar-card__list">
+						<li>Sign in with your <strong>GitHub account</strong> to comment</li>
+						<li>Comments are stored as GitHub Discussions — no ads, no tracking</li>
+						<li>Reactions and replies are supported</li>
+						<li>Your comment appears on both this page and the article thread</li>
+					</ul>
+				</div>
+			</aside>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.community-page {
+		min-height: 100vh;
+	}
+
+	/* ── Hero ─────────────────────────────────────────────────────────────── */
+	.community-hero {
+		background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+		padding: 4rem 1.5rem 3rem;
+	}
+	.community-hero__inner {
+		max-width: 760px;
+		margin: 0 auto;
+	}
+	.community-hero__label {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #93c5fd;
+		margin-bottom: 0.75rem;
+	}
+	.community-hero__title {
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-weight: 900;
+		color: #fff;
+		margin: 0 0 0.75rem;
+		line-height: 1.15;
+	}
+	.community-hero__desc {
+		font-size: 1.0625rem;
+		color: #bfdbfe;
+		margin: 0;
+		max-width: 580px;
+		line-height: 1.6;
+	}
+
+	/* ── Body layout ──────────────────────────────────────────────────────── */
+	.community-body {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 2.5rem 1.5rem 4rem;
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		gap: 2.5rem;
+		align-items: start;
+	}
+
+	/* ── Intro card ───────────────────────────────────────────────────────── */
+	.community-intro-card {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+		background: #f8fafc;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+		padding: 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.community-intro-card__icon { font-size: 1.75rem; flex-shrink: 0; }
+	.community-intro-card strong { font-size: 1rem; color: #0f172a; display: block; margin-bottom: 0.3rem; }
+	.community-intro-card p { font-size: 0.875rem; color: #475569; margin: 0; line-height: 1.6; }
+
+	/* ── Giscus widget ────────────────────────────────────────────────────── */
+	.giscus-widget-wrap {
+		border-radius: 12px;
+		overflow: hidden;
+	}
+
+	/* ── Sidebar cards ────────────────────────────────────────────────────── */
+	.sidebar-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 14px;
+		padding: 1.375rem;
+		margin-bottom: 1.25rem;
+	}
+	.sidebar-card--blue {
+		background: #eff6ff;
+		border-color: #bfdbfe;
+	}
+	.sidebar-card__title {
+		font-size: 0.9375rem;
+		font-weight: 800;
+		color: #0f172a;
+		margin: 0 0 0.4rem;
+	}
+	.sidebar-card__desc {
+		font-size: 0.8125rem;
+		color: #64748b;
+		margin: 0 0 0.75rem;
+		line-height: 1.5;
+	}
+	.sidebar-card__list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.sidebar-card__list li {
+		font-size: 0.875rem;
+		color: #374151;
+		padding-left: 0.9rem;
+		position: relative;
+	}
+	.sidebar-card__list li::before {
+		content: '→';
+		position: absolute;
+		left: 0;
+		color: #2563eb;
+		font-size: 0.75rem;
+		top: 1px;
+	}
+	.sidebar-card__list a {
+		color: #2563eb;
+		text-decoration: none;
+		font-weight: 500;
+	}
+	.sidebar-card__list a:hover { text-decoration: underline; }
+
+	@media (max-width: 768px) {
+		.community-body {
+			grid-template-columns: 1fr;
+		}
+		.community-sidebar {
+			order: -1;
+		}
+	}
+</style>

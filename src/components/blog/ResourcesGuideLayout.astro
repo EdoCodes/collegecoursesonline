@@ -5,6 +5,7 @@
  * Pass JSON-LD and extra `<head>` markup via `<Fragment slot="head">` or `slot="head"` on nodes.
  */
 import Layout from '../../layouts/Layout.astro';
+import GiscusComments from './GiscusComments.astro';
 
 export interface ResourcesGuideTocItem {
 	href: string;
@@ -150,6 +151,7 @@ const authorInitials =
 
 				<article class="article-content">
 					<slot />
+					<GiscusComments />
 				</article>
 			</div>
 		</div>
