@@ -1,0 +1,322 @@
+---
+export const prerender = false;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forum Admin | College Courses Online</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f1f5f9; color: #0f172a; }
+    .admin-header { background: #1e3a5f; color: #fff; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .admin-header h1 { font-size: 1.125rem; font-weight: 800; margin: 0; }
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .login-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 2rem; max-width: 400px; margin: 4rem auto; }
+    .login-card h2 { font-size: 1.25rem; font-weight: 800; margin: 0 0 1.25rem; }
+    .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+    label { font-size: 0.8125rem; font-weight: 600; color: #374151; }
+    input, textarea { padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; width: 100%; font-family: inherit; }
+    input:focus, textarea:focus { outline: none; border-color: #2563eb; }
+    .btn { background: #2563eb; color: #fff; font-weight: 700; padding: 0.65rem 1.25rem; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9375rem; }
+    .btn:hover { background: #1d4ed8; }
+    .btn-danger { background: #dc2626; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-success { background: #059669; }
+    .btn-success:hover { background: #047857; }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0; }
+    .tab { padding: 0.65rem 1.25rem; font-weight: 700; font-size: 0.875rem; border: none; background: none; cursor: pointer; color: #64748b; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .card-title { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin: 0; }
+    .card-meta { font-size: 0.8rem; color: #94a3b8; margin: 0.25rem 0 0; }
+    .card-body { font-size: 0.875rem; color: #374151; line-height: 1.6; margin-bottom: 0.75rem; white-space: pre-wrap; }
+    .card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .badge { font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+    .badge-pending { background: #fef3c7; color: #92400e; }
+    .badge-approved { background: #d1fae5; color: #065f46; }
+    .badge-staff { background: #dbeafe; color: #1d4ed8; }
+    .topic-tag { font-size: 0.75rem; font-weight: 600; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 6px; }
+    .reply-compose { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #f1f5f9; display: none; }
+    .reply-compose textarea { width: 100%; margin-bottom: 0.5rem; min-height: 80px; resize: vertical; }
+    .empty { text-align: center; padding: 3rem; color: #94a3b8; font-size: 0.9375rem; }
+    #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #059669; color: #fff; padding: 0.75rem 1.25rem; border-radius: 10px; font-weight: 700; font-size: 0.875rem; display: none; z-index: 999; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body>
+  <div class="admin-header">
+    <h1>🛡️ Forum Admin</h1>
+    <span id="adminEmail" style="font-size:0.875rem;color:#93c5fd;"></span>
+  </div>
+
+  <!-- Login screen -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <h2>Admin login</h2>
+      <div class="field">
+        <label for="secretInput">Admin secret</label>
+        <input type="password" id="secretInput" placeholder="Enter your admin secret" />
+      </div>
+      <button class="btn" onclick="login()">Sign in →</button>
+      <p id="loginError" style="color:#dc2626;font-size:0.875rem;margin-top:0.75rem;display:none;">Incorrect secret. Try again.</p>
+    </div>
+  </div>
+
+  <!-- Admin dashboard -->
+  <div id="dashboard" style="display:none">
+    <div class="admin-body">
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('pending-posts')">Pending Posts <span id="pendingPostsBadge"></span></button>
+        <button class="tab" onclick="showTab('pending-replies')">Pending Replies <span id="pendingRepliesBadge"></span></button>
+        <button class="tab" onclick="showTab('all-posts')">All Posts</button>
+        <button class="tab" onclick="showTab('topics')">Topics</button>
+      </div>
+
+      <div id="pending-posts" class="tab-content active">
+        <div id="pendingPostsList"></div>
+      </div>
+      <div id="pending-replies" class="tab-content">
+        <div id="pendingRepliesList"></div>
+      </div>
+      <div id="all-posts" class="tab-content">
+        <div id="allPostsList"></div>
+      </div>
+      <div id="topics" class="tab-content">
+        <div id="topicsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">✓ Done</div>
+
+  <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
+    let adminSecret = '';
+
+    async function supaFetch(path, opts = {}) {
+      const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+        headers: {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation',
+          ...opts.headers,
+        },
+        ...opts,
+      });
+      if (!res.ok && res.status !== 204) {
+        const err = await res.text();
+        throw new Error(err);
+      }
+      if (res.status === 204) return null;
+      return res.json();
+    }
+
+    function showTab(id) {
+      document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
+      document.getElementById(id).classList.add('active');
+      if (id === 'pending-posts') loadPendingPosts();
+      if (id === 'pending-replies') loadPendingReplies();
+      if (id === 'all-posts') loadAllPosts();
+      if (id === 'topics') loadTopics();
+    }
+
+    function toast(msg = 'Done') {
+      const el = document.getElementById('toast');
+      el.textContent = '✓ ' + msg;
+      el.style.display = 'block';
+      setTimeout(() => el.style.display = 'none', 2500);
+    }
+
+    async function moderate(action, type, id, replyBody = '') {
+      const res = await fetch('/api/forum-moderate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret },
+        body: JSON.stringify({ action, type, id, reply_body: replyBody }),
+      });
+      if (!res.ok) { alert('Error. Check console.'); return; }
+      toast(action === 'approve' ? 'Approved!' : action === 'delete' ? 'Deleted' : 'Reply posted!');
+      showTab(document.querySelector('.tab.active').getAttribute('onclick').match(/'(.+)'/)[1]);
+    }
+
+    async function loadPendingPosts() {
+      const posts = await supaFetch('posts?is_approved=eq.false&order=created_at.asc&select=*');
+      const el = document.getElementById('pendingPostsList');
+      document.getElementById('pendingPostsBadge').textContent = posts.length ? `(${posts.length})` : '';
+      if (!posts.length) { el.innerHTML = '<div class="empty">No pending posts 🎉</div>'; return; }
+      el.innerHTML = posts.map(p => `
+        <div class="card" id="pp-${p.id}">
+          <div class="card-header">
+            <div>
+              <span class="topic-tag">${p.topic_slug}</span>
+              <p class="card-title" style="margin-top:0.4rem">${escHtml(p.title)}</p>
+              <p class="card-meta">By ${escHtml(p.author_name)} (${escHtml(p.author_email)}) · ${new Date(p.created_at).toLocaleString()}</p>
+            </div>
+            <span class="badge badge-pending">Pending</span>
+          </div>
+          <div class="card-body">${escHtml(p.body)}</div>
+          <div class="card-actions">
+            <button class="btn btn-success btn-sm" onclick="moderate('approve','post','${p.id}')">✓ Approve</button>
+            <button class="btn btn-danger btn-sm" onclick="moderate('delete','post','${p.id}')">✕ Delete</button>
+          </div>
+        </div>`).join('');
+    }
+
+    async function loadPendingReplies() {
+      const replies = await supaFetch('replies?is_approved=eq.false&order=created_at.asc&select=*');
+      const el = document.getElementById('pendingRepliesList');
+      document.getElementById('pendingRepliesBadge').textContent = replies.length ? `(${replies.length})` : '';
+      if (!replies.length) { el.innerHTML = '<div class="empty">No pending replies 🎉</div>'; return; }
+      el.innerHTML = replies.map(r => `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <p class="card-title">Reply to post</p>
+              <p class="card-meta">By ${escHtml(r.author_name)} (${escHtml(r.author_email)}) · ${new Date(r.created_at).toLocaleString()}</p>
+            </div>
+            <span class="badge badge-pending">Pending</span>
+          </div>
+          <div class="card-body">${escHtml(r.body)}</div>
+          <div class="card-actions">
+            <button class="btn btn-success btn-sm" onclick="moderate('approve','reply','${r.id}')">✓ Approve</button>
+            <button class="btn btn-danger btn-sm" onclick="moderate('delete','reply','${r.id}')">✕ Delete</button>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/${r.post_id}" target="_blank">View post ↗</a>
+          </div>
+        </div>`).join('');
+    }
+
+    async function loadAllPosts() {
+      const posts = await supaFetch('posts?is_approved=eq.true&order=created_at.desc&select=*');
+      const el = document.getElementById('allPostsList');
+      if (!posts.length) { el.innerHTML = '<div class="empty">No approved posts yet.</div>'; return; }
+      el.innerHTML = posts.map(p => `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="topic-tag">${p.topic_slug}</span>
+              <p class="card-title" style="margin-top:0.4rem">${escHtml(p.title)}</p>
+              <p class="card-meta">By ${escHtml(p.author_name)} · ${new Date(p.created_at).toLocaleString()} · ${p.reply_count} replies</p>
+            </div>
+            <span class="badge badge-approved">Live</span>
+          </div>
+          <div class="card-body">${escHtml(p.body)}</div>
+          <div class="card-actions">
+            <button class="btn btn-sm" style="background:#f1f5f9;color:#374151" onclick="toggleReplyBox('${p.id}')">💬 Reply as staff</button>
+            <button class="btn btn-danger btn-sm" onclick="moderate('delete','post','${p.id}')">✕ Delete</button>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/${p.id}" target="_blank">View ↗</a>
+          </div>
+          <div class="reply-compose" id="reply-${p.id}">
+            <textarea id="replyText-${p.id}" placeholder="Type your staff reply..." rows="3"></textarea>
+            <button class="btn btn-sm btn-success" onclick="postStaffReply('${p.id}')">Post staff reply →</button>
+          </div>
+        </div>`).join('');
+    }
+
+    async function loadTopics() {
+      const topics = await supaFetch('topics?order=name.asc&select=*');
+      const el = document.getElementById('topicsList');
+      el.innerHTML = `
+        <div class="card" style="margin-bottom:1.5rem">
+          <h3 style="margin:0 0 1rem;font-size:1rem">Add new topic</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div class="field"><label>Slug (no spaces)</label><input id="newSlug" placeholder="e.g. dental-hygiene" /></div>
+            <div class="field"><label>Name</label><input id="newName" placeholder="e.g. Dental Hygiene" /></div>
+            <div class="field"><label>Icon (emoji)</label><input id="newIcon" placeholder="🦷" /></div>
+            <div class="field"><label>Description</label><input id="newDesc" placeholder="Short description..." /></div>
+          </div>
+          <button class="btn btn-sm" onclick="addTopic()">+ Add topic</button>
+        </div>
+        ${topics.map(t => `
+          <div class="card">
+            <div class="card-header">
+              <div style="display:flex;align-items:center;gap:0.75rem">
+                <span style="font-size:1.5rem">${t.icon}</span>
+                <div>
+                  <p class="card-title">${escHtml(t.name)}</p>
+                  <p class="card-meta">${t.post_count} posts · slug: ${t.slug}</p>
+                </div>
+              </div>
+              <span class="badge ${t.is_active ? 'badge-approved' : 'badge-pending'}">${t.is_active ? 'Active' : 'Hidden'}</span>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-sm" style="background:#f1f5f9;color:#374151" onclick="toggleTopic('${t.id}', ${t.is_active})">${t.is_active ? 'Hide topic' : 'Show topic'}</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteTopic('${t.id}')">✕ Delete</button>
+            </div>
+          </div>`).join('')}`;
+    }
+
+    function toggleReplyBox(postId) {
+      const box = document.getElementById(`reply-${postId}`);
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
+    async function postStaffReply(postId) {
+      const body = document.getElementById(`replyText-${postId}`).value.trim();
+      if (!body) { alert('Reply cannot be empty.'); return; }
+      await moderate('staff-reply', 'post', postId, body);
+    }
+
+    async function addTopic() {
+      const slug = document.getElementById('newSlug').value.trim();
+      const name = document.getElementById('newName').value.trim();
+      const icon = document.getElementById('newIcon').value.trim() || '💬';
+      const description = document.getElementById('newDesc').value.trim();
+      if (!slug || !name) { alert('Slug and name are required.'); return; }
+      await supaFetch('topics', {
+        method: 'POST',
+        body: JSON.stringify({ slug, name, icon, description }),
+      });
+      toast('Topic added!');
+      loadTopics();
+    }
+
+    async function toggleTopic(id, isActive) {
+      await supaFetch(`topics?id=eq.${id}`, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ is_active: !isActive }),
+      });
+      toast(isActive ? 'Topic hidden' : 'Topic shown');
+      loadTopics();
+    }
+
+    async function deleteTopic(id) {
+      if (!confirm('Delete this topic and all its posts? This cannot be undone.')) return;
+      await supaFetch(`topics?id=eq.${id}`, { method: 'DELETE', headers: { 'Prefer': 'return=minimal' } });
+      toast('Deleted');
+      loadTopics();
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function login() {
+      const s = document.getElementById('secretInput').value;
+      const res = await fetch('/api/forum-moderate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-secret': s },
+        body: JSON.stringify({ action: 'ping', type: 'post', id: '00000000-0000-0000-0000-000000000000' }),
+      });
+      if (res.status === 401) {
+        document.getElementById('loginError').style.display = 'block';
+        return;
+      }
+      adminSecret = s;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      loadPendingPosts();
+    }
+
+    document.getElementById('secretInput')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>

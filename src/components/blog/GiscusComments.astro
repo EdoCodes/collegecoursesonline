@@ -1,9 +1,6 @@
 ---
 import AskQuestionForm from './AskQuestionForm.astro';
-/**
- * Giscus comments widget + no-login question form fallback.
- * Repo: EdoCodes/collegecoursesonline (R_kgDORUyy6w)
- */
+
 interface Props {
 	pageTitle?: string;
 }
@@ -13,33 +10,11 @@ const { pageTitle = 'General' } = Astro.props;
 <section class="giscus-section" id="giscus-section" aria-label="Discussion">
 	<div class="giscus-header">
 		<span class="giscus-header__icon" aria-hidden="true">💬</span>
-		<h2 class="giscus-header__title">Join the discussion</h2>
+		<h2 class="giscus-header__title">Have a question?</h2>
 		<p class="giscus-header__sub">
-			Have a GitHub account? Leave a comment below. No GitHub? Use the form underneath.
+			Ask below — no account needed. Or visit the <a href="/forum">community forum</a> to browse all questions by topic.
 		</p>
 	</div>
-
-	<div class="giscus-widget-wrap">
-		<script
-			is:inline
-			src="https://giscus.app/client.js"
-			data-repo="EdoCodes/collegecoursesonline"
-			data-repo-id="R_kgDORUyy6w"
-			data-category="General"
-			data-category-id="DIC_kwDORUyy684ClVmN"
-			data-mapping="pathname"
-			data-strict="0"
-			data-reactions-enabled="1"
-			data-emit-metadata="0"
-			data-input-position="top"
-			data-theme="light"
-			data-lang="en"
-			data-loading="lazy"
-			crossorigin="anonymous"
-			async
-		></script>
-	</div>
-
 	<AskQuestionForm pageTitle={pageTitle} />
 </section>
 
