@@ -6,96 +6,163 @@ import Layout from '../../layouts/Layout.astro';
   title="Community Forum | College Courses Online"
   description="Ask questions, share experiences, and get answers about college courses, prerequisites, nursing school, PA programs, and online learning."
 >
-  <div class="forum-page">
+  <div class="forum-wrap">
 
-    <!-- Hero / Header -->
-    <div class="forum-hero">
-      <div class="forum-hero__inner">
-        <h1 class="forum-hero__title">Community Forum</h1>
-        <p class="forum-hero__desc">
-          Ask questions, share experiences, and get answers from students and our editorial team.
-          No account needed.
-        </p>
-        <div class="forum-search-wrap">
-          <svg class="forum-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input class="forum-search-input" id="forumSearch" type="search" placeholder="Search questions…" aria-label="Search forum questions" />
+    <!-- ── Left sidebar ───────────────────────────────────────────────── -->
+    <aside class="left-sidebar">
+      <div class="left-sidebar__inner">
+        <div class="left-sidebar__brand">
+          <span class="left-sidebar__brand-icon">🎓</span>
+          <span class="left-sidebar__brand-name">College Forum</span>
+        </div>
+
+        <nav class="left-nav">
+          <a href="/forum" class="left-nav__item left-nav__item--active">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            All Categories
+          </a>
+          <a href="/forum/general#ask" class="left-nav__item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Ask a Question
+          </a>
+        </nav>
+
+        <div class="left-nav__section-label">Topics</div>
+        <nav class="left-nav" id="leftTopicNav">
+          <div class="left-nav__skeleton"></div>
+          <div class="left-nav__skeleton"></div>
+          <div class="left-nav__skeleton"></div>
+          <div class="left-nav__skeleton"></div>
+          <div class="left-nav__skeleton"></div>
+        </nav>
+
+        <div class="left-nav__section-label" style="margin-top:1.5rem">Resources</div>
+        <nav class="left-nav">
+          <a href="/resources/guides/" class="left-nav__item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            Guides
+          </a>
+          <a href="/blog" class="left-nav__item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Blog
+          </a>
+          <a href="/courses" class="left-nav__item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Browse Courses
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- ── Main content ────────────────────────────────────────────────── -->
+    <main class="forum-main">
+
+      <!-- Hero banner -->
+      <div class="forum-banner">
+        <div class="forum-banner__content">
+          <div class="forum-banner__tag">Community</div>
+          <h1 class="forum-banner__title">Welcome to the Forum</h1>
+          <p class="forum-banner__desc">Ask questions, get answers, and help other students navigate college courses, prerequisites, and health career programs.</p>
+          <div class="forum-banner__search-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input class="forum-banner__search" id="forumSearch" type="search" placeholder="Search questions and categories…" aria-label="Search" />
+          </div>
+        </div>
+        <div class="forum-banner__deco" aria-hidden="true">
+          <span>🩺</span><span>📚</span><span>⚕️</span><span>💻</span><span>💬</span>
         </div>
       </div>
-    </div>
 
-    <!-- Stats bar -->
-    <div class="forum-stats-bar">
-      <div class="forum-stats-bar__inner">
-        <div class="forum-stat" id="statTopics"><span class="forum-stat__num">5</span><span class="forum-stat__label">Categories</span></div>
-        <div class="forum-stat" id="statPosts"><span class="forum-stat__num" id="totalPostsNum">—</span><span class="forum-stat__label">Questions</span></div>
-        <div class="forum-stat"><span class="forum-stat__num" id="totalRepliesNum">—</span><span class="forum-stat__label">Replies</span></div>
-        <div class="forum-stat"><span class="forum-stat__num">Free</span><span class="forum-stat__label">No account needed</span></div>
-      </div>
-    </div>
-
-    <!-- Main content -->
-    <div class="forum-body">
-      <div class="forum-main">
-
-        <!-- Category section label -->
-        <div class="section-header">
-          <h2 class="section-header__title">Browse by category</h2>
-          <p class="section-header__sub">Pick a topic to see questions and post your own.</p>
+      <!-- Stats strip -->
+      <div class="stats-strip">
+        <div class="stat-pill" id="statCategories">
+          <span class="stat-pill__num">5</span>
+          <span class="stat-pill__label">Categories</span>
         </div>
-
-        <!-- Categories grid -->
-        <div id="categoriesGrid" class="categories-grid">
-          <!-- Skeleton placeholders -->
-          <div class="cat-skeleton"></div>
-          <div class="cat-skeleton"></div>
-          <div class="cat-skeleton"></div>
-          <div class="cat-skeleton"></div>
-          <div class="cat-skeleton"></div>
+        <div class="stat-pill">
+          <span class="stat-pill__num" id="statPostsNum">—</span>
+          <span class="stat-pill__label">Questions</span>
         </div>
-
-        <!-- Recent questions section -->
-        <div class="section-header" style="margin-top:2.5rem">
-          <h2 class="section-header__title">Recent questions</h2>
+        <div class="stat-pill">
+          <span class="stat-pill__num" id="statRepliesNum">—</span>
+          <span class="stat-pill__label">Replies</span>
         </div>
-        <div id="recentPosts" class="recent-posts">
-          <div class="loading">Loading recent questions…</div>
+        <div class="stat-pill stat-pill--green">
+          <span class="stat-pill__num">✓</span>
+          <span class="stat-pill__label">No login needed</span>
         </div>
       </div>
 
-      <!-- Sidebar -->
-      <aside class="forum-sidebar">
-        <div class="sidebar-card sidebar-card--cta">
-          <div class="sidebar-card__icon">✏️</div>
-          <h3 class="sidebar-card__title">Have a question?</h3>
-          <p class="sidebar-card__desc">Pick a category below and ask. No account or signup required.</p>
-          <a href="/forum/general#ask" class="sidebar-btn">Ask a question →</a>
+      <!-- Categories -->
+      <section class="content-section">
+        <div class="content-section__header">
+          <h2 class="content-section__title">Browse Categories</h2>
+          <span class="content-section__count" id="catCount"></span>
         </div>
+        <div class="categories-grid" id="categoriesGrid">
+          <div class="cat-skeleton"></div>
+          <div class="cat-skeleton"></div>
+          <div class="cat-skeleton"></div>
+          <div class="cat-skeleton"></div>
+          <div class="cat-skeleton"></div>
+        </div>
+      </section>
 
-        <div class="sidebar-card">
-          <h3 class="sidebar-card__title">📖 Related guides</h3>
-          <ul class="sidebar-links">
-            <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing school prerequisites</a></li>
-            <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
-            <li><a href="/resources/blog/prerequisite-college-courses-by-major">Prereqs by major</a></li>
-            <li><a href="/resources/blog/enrollment-decline-college-closures-hybrid-campus">Enrollment trends 2026</a></li>
-          </ul>
+      <!-- Feed tabs + recent posts -->
+      <section class="content-section" style="margin-top:2rem">
+        <div class="content-section__header">
+          <h2 class="content-section__title">Recent Questions</h2>
+          <div class="feed-tabs">
+            <button class="feed-tab feed-tab--active" data-sort="new">New</button>
+            <button class="feed-tab" data-sort="top">Most Replied</button>
+          </div>
         </div>
+        <div class="feed" id="feedList">
+          <div class="feed-loading">Loading questions…</div>
+        </div>
+      </section>
 
-        <div class="sidebar-card sidebar-card--rules">
-          <h3 class="sidebar-card__title">🤝 Community guidelines</h3>
-          <ul class="sidebar-links">
-            <li>Be respectful and helpful</li>
-            <li>Share your own experience</li>
-            <li>No spam or self-promotion</li>
-            <li>All posts reviewed before publishing</li>
-          </ul>
-        </div>
-      </aside>
-    </div>
-  </div>
+    </main>
+
+    <!-- ── Right sidebar ──────────────────────────────────────────────── -->
+    <aside class="right-sidebar">
+
+      <div class="right-card right-card--cta">
+        <div class="right-card__cta-icon">✏️</div>
+        <h3 class="right-card__title" style="color:#fff">Have a question?</h3>
+        <p class="right-card__desc" style="color:#bfdbfe">No account needed. Pick a topic and ask.</p>
+        <a href="/forum/general#ask" class="right-card__btn">Ask now →</a>
+      </div>
+
+      <div class="right-card">
+        <h3 class="right-card__title">📖 Top Guides</h3>
+        <ul class="right-links" id="guidesList">
+          <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites</a></li>
+          <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
+          <li><a href="/resources/blog/prerequisite-college-courses-by-major">Prereqs by major</a></li>
+          <li><a href="/resources/blog/enrollment-decline-college-closures-hybrid-campus">Enrollment trends</a></li>
+        </ul>
+      </div>
+
+      <div class="right-card">
+        <h3 class="right-card__title">🤝 Guidelines</h3>
+        <ul class="right-links">
+          <li>Be respectful and helpful</li>
+          <li>Share your own experience</li>
+          <li>No spam or self-promotion</li>
+          <li>All posts reviewed first</li>
+        </ul>
+      </div>
+
+    </aside>
+
+  </div><!-- /forum-wrap -->
 </Layout>
 
 <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
+  let allPosts = [];
+  let currentSort = 'new';
+
   async function sbFetch(path) {
     const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
       headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
@@ -107,295 +174,433 @@ import Layout from '../../layouts/Layout.astro';
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
-  function timeAgo(dateStr) {
-    const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+  function timeAgo(d) {
+    const diff = Math.floor((Date.now() - new Date(d)) / 1000);
     if (diff < 60) return 'just now';
     if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
     if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
     if (diff < 2592000) return `${Math.floor(diff/86400)}d ago`;
-    return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function renderFeed(posts) {
+    const el = document.getElementById('feedList');
+    if (!posts.length) {
+      el.innerHTML = '<div class="feed-empty">No questions yet — be the first to ask!</div>';
+      return;
+    }
+    el.innerHTML = posts.map(p => `
+      <a href="/forum/post/${p.id}" class="feed-item" data-title="${escHtml(p.title)}" data-topic="${p.topic_slug}">
+        <div class="feed-item__left">
+          <div class="feed-item__reply-box">
+            <span class="feed-item__reply-num">${p.reply_count}</span>
+            <span class="feed-item__reply-lbl">${p.reply_count === 1 ? 'reply' : 'replies'}</span>
+          </div>
+        </div>
+        <div class="feed-item__body">
+          <div class="feed-item__meta-top">
+            <span class="feed-item__topic-pill">${escHtml(p.topic_icon || '💬')} ${escHtml(p.topic_name || p.topic_slug)}</span>
+          </div>
+          <h3 class="feed-item__title">${escHtml(p.title)}</h3>
+          <div class="feed-item__meta-bottom">
+            <span>by <strong>${escHtml(p.author_name)}</strong></span>
+            <span class="feed-item__dot">·</span>
+            <span>${timeAgo(p.created_at)}</span>
+          </div>
+        </div>
+        <div class="feed-item__arrow">→</div>
+      </a>`).join('');
   }
 
   async function init() {
-    const [topics, posts] = await Promise.all([
+    const [topics, posts, replies] = await Promise.all([
       sbFetch('topics?is_active=eq.true&order=name.asc&select=*'),
-      sbFetch('posts?is_approved=eq.true&order=created_at.desc&limit=8&select=id,title,author_name,topic_slug,reply_count,created_at')
+      sbFetch('posts?is_approved=eq.true&order=created_at.desc&select=id,title,author_name,topic_slug,reply_count,created_at'),
+      sbFetch('replies?is_approved=eq.true&select=id'),
     ]);
 
     // Stats
-    const totalPosts = topics.reduce((s, t) => s + t.post_count, 0);
-    document.getElementById('totalPostsNum').textContent = totalPosts;
+    const totalPosts = topics.reduce((s,t) => s + t.post_count, 0);
+    document.getElementById('statPostsNum').textContent = totalPosts;
+    document.getElementById('statRepliesNum').textContent = Array.isArray(replies) ? replies.length : '—';
+    document.getElementById('statCategories').querySelector('.stat-pill__num').textContent = topics.length;
+    document.getElementById('catCount').textContent = `${topics.length} categories`;
 
-    // Count total replies
-    const repliesRes = await sbFetch('replies?is_approved=eq.true&select=id');
-    document.getElementById('totalRepliesNum').textContent = Array.isArray(repliesRes) ? repliesRes.length : '—';
+    // Left nav topics
+    const leftNav = document.getElementById('leftTopicNav');
+    leftNav.innerHTML = topics.map(t => `
+      <a href="/forum/${t.slug}" class="left-nav__item">
+        <span>${t.icon}</span>
+        <span>${t.name}</span>
+        <span class="left-nav__count">${t.post_count}</span>
+      </a>`).join('');
 
-    // Categories grid
+    // Category grid
     const grid = document.getElementById('categoriesGrid');
     grid.innerHTML = topics.map(t => `
-      <a href="/forum/${t.slug}" class="cat-card" data-topic="${t.slug}">
-        <div class="cat-card__top">
-          <div class="cat-card__icon-wrap">
-            <span class="cat-card__icon">${t.icon}</span>
-          </div>
-          <div class="cat-card__info">
-            <h3 class="cat-card__name">${escHtml(t.name)}</h3>
-            <p class="cat-card__desc">${escHtml(t.description)}</p>
+      <a href="/forum/${t.slug}" class="cat-card" data-name="${t.name.toLowerCase()}" data-desc="${t.description.toLowerCase()}">
+        <div class="cat-card__head">
+          <div class="cat-card__icon-box">${t.icon}</div>
+          <div>
+            <div class="cat-card__name">${escHtml(t.name)}</div>
+            <div class="cat-card__count">${t.post_count} questions</div>
           </div>
         </div>
+        <p class="cat-card__desc">${escHtml(t.description)}</p>
         <div class="cat-card__footer">
-          <span class="cat-card__stat"><strong>${t.post_count}</strong> questions</span>
-          <span class="cat-card__cta">View →</span>
+          <span class="cat-card__ask-link">Ask here →</span>
         </div>
       </a>`).join('');
 
-    // Recent posts
-    const recentEl = document.getElementById('recentPosts');
-    if (!posts.length) {
-      recentEl.innerHTML = '<p class="empty-msg">No questions yet — be the first to ask!</p>';
-    } else {
-      recentEl.innerHTML = posts.map(p => {
-        const topic = topics.find(t => t.slug === p.topic_slug);
-        return `
-          <a href="/forum/post/${p.id}" class="recent-row">
-            <div class="recent-row__left">
-              <span class="recent-row__topic-icon">${topic?.icon || '💬'}</span>
-              <div>
-                <p class="recent-row__title">${escHtml(p.title)}</p>
-                <div class="recent-row__meta">
-                  <span class="recent-row__topic-name">${topic?.name || p.topic_slug}</span>
-                  <span class="recent-row__dot">·</span>
-                  <span>by ${escHtml(p.author_name)}</span>
-                  <span class="recent-row__dot">·</span>
-                  <span>${timeAgo(p.created_at)}</span>
-                </div>
-              </div>
-            </div>
-            <div class="recent-row__replies">
-              <span class="recent-row__reply-num">${p.reply_count}</span>
-              <span class="recent-row__reply-lbl">${p.reply_count === 1 ? 'reply' : 'replies'}</span>
-            </div>
-          </a>`;
-      }).join('');
-    }
+    // Enrich posts with topic info
+    allPosts = posts.map(p => {
+      const topic = topics.find(t => t.slug === p.topic_slug) || {};
+      return { ...p, topic_icon: topic.icon, topic_name: topic.name };
+    });
+
+    renderFeed(allPosts);
+
+    // Sort tabs
+    document.querySelectorAll('.feed-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.feed-tab').forEach(b => b.classList.remove('feed-tab--active'));
+        btn.classList.add('feed-tab--active');
+        currentSort = btn.dataset.sort;
+        const sorted = [...allPosts].sort((a,b) =>
+          currentSort === 'top' ? b.reply_count - a.reply_count : new Date(b.created_at) - new Date(a.created_at)
+        );
+        renderFeed(sorted);
+        applySearch(document.getElementById('forumSearch').value);
+      });
+    });
   }
 
-  // Search filter
-  document.getElementById('forumSearch').addEventListener('input', (e) => {
-    const q = e.target.value.toLowerCase();
-    document.querySelectorAll('.recent-row').forEach(row => {
-      const title = row.querySelector('.recent-row__title').textContent.toLowerCase();
-      row.style.display = title.includes(q) ? '' : 'none';
+  function applySearch(q) {
+    const lq = q.toLowerCase();
+    document.querySelectorAll('.feed-item').forEach(el => {
+      const title = el.dataset.title?.toLowerCase() || '';
+      const topic = el.dataset.topic?.toLowerCase() || '';
+      el.style.display = (!lq || title.includes(lq) || topic.includes(lq)) ? '' : 'none';
     });
-    document.querySelectorAll('.cat-card').forEach(card => {
-      const name = card.querySelector('.cat-card__name').textContent.toLowerCase();
-      const desc = card.querySelector('.cat-card__desc').textContent.toLowerCase();
-      card.style.display = (name.includes(q) || desc.includes(q)) ? '' : 'none';
+    document.querySelectorAll('.cat-card').forEach(el => {
+      el.style.display = (!lq || el.dataset.name?.includes(lq) || el.dataset.desc?.includes(lq)) ? '' : 'none';
     });
-  });
+  }
+
+  document.getElementById('forumSearch').addEventListener('input', e => applySearch(e.target.value));
 
   init();
 </script>
 
 <style>
-  /* ── Hero ─────────────────────────────────────────────────────────────── */
-  .forum-hero {
-    background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%);
-    padding: 3.5rem 1.5rem 2.5rem;
-  }
-  .forum-hero__inner { max-width: 860px; margin: 0 auto; }
-  .forum-hero__title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 900;
-    color: #fff;
-    margin: 0 0 0.625rem;
-  }
-  .forum-hero__desc {
-    font-size: 1.0625rem;
-    color: #bfdbfe;
-    margin: 0 0 1.5rem;
-    max-width: 560px;
-    line-height: 1.6;
-  }
-  .forum-search-wrap {
-    position: relative;
-    max-width: 520px;
-  }
-  .forum-search-icon {
-    position: absolute;
-    left: 0.875rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #94a3b8;
-    pointer-events: none;
-  }
-  .forum-search-input {
-    width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.75rem;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.9375rem;
-    color: #0f172a;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    font-family: inherit;
-    box-sizing: border-box;
-  }
-  .forum-search-input:focus { outline: 2px solid #60a5fa; }
-
-  /* ── Stats bar ────────────────────────────────────────────────────────── */
-  .forum-stats-bar {
-    background: #fff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 0.875rem 1.5rem;
-  }
-  .forum-stats-bar__inner {
-    max-width: 1160px;
-    margin: 0 auto;
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-  }
-  .forum-stat { display: flex; align-items: baseline; gap: 0.4rem; }
-  .forum-stat__num { font-size: 1.125rem; font-weight: 800; color: #0f172a; }
-  .forum-stat__label { font-size: 0.8rem; color: #64748b; font-weight: 500; }
-
-  /* ── Body layout ──────────────────────────────────────────────────────── */
-  .forum-body {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
+  /* ── Layout shell ─────────────────────────────────────────────────────── */
+  .forum-wrap {
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 2.5rem;
+    grid-template-columns: 220px 1fr 260px;
+    gap: 0;
+    min-height: 100vh;
+    background: #f1f5f9;
     align-items: start;
   }
 
-  /* ── Section headers ──────────────────────────────────────────────────── */
-  .section-header { margin-bottom: 1.25rem; }
-  .section-header__title { font-size: 1.125rem; font-weight: 800; color: #0f172a; margin: 0 0 0.2rem; }
-  .section-header__sub { font-size: 0.875rem; color: #64748b; margin: 0; }
-
-  /* ── Categories grid ──────────────────────────────────────────────────── */
-  .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
+  /* ── Left sidebar ─────────────────────────────────────────────────────── */
+  .left-sidebar {
+    background: #fff;
+    border-right: 1px solid #e2e8f0;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
   }
-  .cat-skeleton {
-    height: 130px;
-    border-radius: 14px;
+  .left-sidebar__inner { padding: 1.5rem 0 2rem; }
+  .left-sidebar__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0 1.25rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 1rem;
+  }
+  .left-sidebar__brand-icon { font-size: 1.25rem; }
+  .left-sidebar__brand-name { font-size: 0.9375rem; font-weight: 800; color: #0f172a; }
+  .left-nav__section-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    padding: 0 1.25rem;
+    margin: 1rem 0 0.4rem;
+  }
+  .left-nav { display: flex; flex-direction: column; gap: 1px; }
+  .left-nav__item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.12s, color 0.12s;
+    position: relative;
+  }
+  .left-nav__item:hover { background: #f8fafc; color: #2563eb; }
+  .left-nav__item--active { background: #eff6ff; color: #2563eb; font-weight: 700; border-right: 3px solid #2563eb; }
+  .left-nav__count {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #94a3b8;
+    background: #f1f5f9;
+    padding: 1px 6px;
+    border-radius: 20px;
+  }
+  .left-nav__skeleton {
+    height: 32px;
+    margin: 2px 1.25rem;
+    border-radius: 8px;
     background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
     background-size: 200% 100%;
     animation: shimmer 1.4s infinite;
   }
-  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
+  /* ── Main content ─────────────────────────────────────────────────────── */
+  .forum-main { padding: 1.5rem; min-width: 0; }
+
+  /* ── Banner ───────────────────────────────────────────────────────────── */
+  .forum-banner {
+    background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%);
+    border-radius: 16px;
+    padding: 2rem 2rem 1.75rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .forum-banner__content { flex: 1; min-width: 0; }
+  .forum-banner__tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #93c5fd;
+    margin-bottom: 0.5rem;
+  }
+  .forum-banner__title { font-size: clamp(1.375rem, 3vw, 1.875rem); font-weight: 900; color: #fff; margin: 0 0 0.5rem; }
+  .forum-banner__desc { font-size: 0.9rem; color: #bfdbfe; margin: 0 0 1.25rem; line-height: 1.55; max-width: 480px; }
+  .forum-banner__search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    padding: 0.5rem 0.875rem;
+    max-width: 440px;
+    backdrop-filter: blur(4px);
+  }
+  .forum-banner__search-wrap svg { color: #bfdbfe; flex-shrink: 0; }
+  .forum-banner__search {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    color: #fff;
+    width: 100%;
+    font-family: inherit;
+  }
+  .forum-banner__search::placeholder { color: #93c5fd; }
+  .forum-banner__deco {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 1.75rem;
+    opacity: 0.25;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  /* ── Stats strip ──────────────────────────────────────────────────────── */
+  .stats-strip {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 0.35rem 0.875rem;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+  }
+  .stat-pill--green { border-color: #bbf7d0; background: #f0fdf4; }
+  .stat-pill__num { font-size: 0.9rem; font-weight: 800; color: #0f172a; }
+  .stat-pill--green .stat-pill__num { color: #059669; }
+  .stat-pill__label { font-size: 0.775rem; color: #64748b; }
+
+  /* ── Content sections ─────────────────────────────────────────────────── */
+  .content-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .content-section__title { font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0; }
+  .content-section__count { font-size: 0.8rem; color: #94a3b8; }
+
+  /* ── Category cards ───────────────────────────────────────────────────── */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.875rem;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  .cat-skeleton {
+    height: 120px;
+    border-radius: 14px;
+    background: linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+  }
   .cat-card {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
-    padding: 1.25rem 1.375rem;
+    padding: 1.125rem;
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.625rem;
     transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
-    box-shadow: 0 1px 3px rgba(15,23,42,0.05);
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04);
   }
-  .cat-card:hover {
-    border-color: #2563eb;
-    box-shadow: 0 4px 20px rgba(37,99,235,0.12);
-    transform: translateY(-2px);
-  }
-  .cat-card__top { display: flex; gap: 1rem; align-items: flex-start; }
-  .cat-card__icon-wrap {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+  .cat-card:hover { border-color: #2563eb; box-shadow: 0 4px 16px rgba(37,99,235,0.1); transform: translateY(-2px); }
+  .cat-card__head { display: flex; align-items: center; gap: 0.75rem; }
+  .cat-card__icon-box {
+    width: 40px; height: 40px;
+    border-radius: 10px;
     background: #eff6ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
     flex-shrink: 0;
-    font-size: 1.5rem;
   }
-  .cat-card__info { flex: 1; }
-  .cat-card__name { font-size: 0.9375rem; font-weight: 800; color: #0f172a; margin: 0 0 0.3rem; }
-  .cat-card__desc { font-size: 0.8125rem; color: #64748b; margin: 0; line-height: 1.5; }
-  .cat-card__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.75rem;
-    border-top: 1px solid #f1f5f9;
-  }
-  .cat-card__stat { font-size: 0.8rem; color: #94a3b8; }
-  .cat-card__stat strong { color: #374151; font-weight: 700; }
-  .cat-card__cta { font-size: 0.8rem; font-weight: 700; color: #2563eb; }
+  .cat-card__name { font-size: 0.9rem; font-weight: 800; color: #0f172a; }
+  .cat-card__count { font-size: 0.75rem; color: #94a3b8; margin-top: 1px; }
+  .cat-card__desc { font-size: 0.8rem; color: #64748b; line-height: 1.5; margin: 0; flex: 1; }
+  .cat-card__footer { border-top: 1px solid #f1f5f9; padding-top: 0.625rem; }
+  .cat-card__ask-link { font-size: 0.8rem; font-weight: 700; color: #2563eb; }
 
-  /* ── Recent posts ─────────────────────────────────────────────────────── */
-  .recent-posts {
+  /* ── Feed tabs ────────────────────────────────────────────────────────── */
+  .feed-tabs { display: flex; gap: 0.375rem; }
+  .feed-tab {
+    padding: 0.3rem 0.875rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 20px;
+    background: #fff;
+    color: #64748b;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .feed-tab:hover { border-color: #2563eb; color: #2563eb; }
+  .feed-tab--active { background: #2563eb; border-color: #2563eb; color: #fff; }
+
+  /* ── Feed ─────────────────────────────────────────────────────────────── */
+  .feed {
+    background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
     overflow: hidden;
-    background: #fff;
   }
-  .loading { color: #94a3b8; font-size: 0.9rem; padding: 1.5rem; }
-  .empty-msg { color: #94a3b8; font-size: 0.9rem; padding: 1.5rem; margin: 0; }
-  .recent-row {
+  .feed-loading, .feed-empty { color: #94a3b8; font-size: 0.9rem; padding: 1.5rem 1.25rem; }
+  .feed-item {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 0.875rem 1.25rem;
     border-bottom: 1px solid #f8fafc;
     text-decoration: none;
     transition: background 0.12s;
   }
-  .recent-row:last-child { border-bottom: none; }
-  .recent-row:hover { background: #f8faff; }
-  .recent-row__left { display: flex; align-items: flex-start; gap: 0.75rem; flex: 1; min-width: 0; }
-  .recent-row__topic-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
-  .recent-row__title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 520px; }
-  .recent-row__meta { font-size: 0.775rem; color: #94a3b8; display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
-  .recent-row__topic-name { color: #2563eb; font-weight: 600; }
-  .recent-row__dot { color: #cbd5e1; }
-  .recent-row__replies { text-align: center; flex-shrink: 0; min-width: 48px; }
-  .recent-row__reply-num { display: block; font-size: 1.125rem; font-weight: 800; color: #2563eb; line-height: 1; }
-  .recent-row__reply-lbl { font-size: 0.65rem; color: #94a3b8; font-weight: 600; }
+  .feed-item:last-child { border-bottom: none; }
+  .feed-item:hover { background: #f8faff; }
+  .feed-item__left { flex-shrink: 0; }
+  .feed-item__reply-box {
+    width: 48px;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.35rem 0;
+  }
+  .feed-item__reply-num { display: block; font-size: 1.125rem; font-weight: 800; color: #2563eb; line-height: 1; }
+  .feed-item__reply-lbl { font-size: 0.6rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; }
+  .feed-item__body { flex: 1; min-width: 0; }
+  .feed-item__meta-top { margin-bottom: 0.3rem; }
+  .feed-item__topic-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.725rem;
+    font-weight: 700;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .feed-item__title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin: 0 0 0.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .feed-item__meta-bottom { font-size: 0.775rem; color: #94a3b8; display: flex; align-items: center; gap: 0.25rem; }
+  .feed-item__dot { color: #cbd5e1; }
+  .feed-item__arrow { font-size: 1rem; color: #cbd5e1; flex-shrink: 0; transition: color 0.12s; }
+  .feed-item:hover .feed-item__arrow { color: #2563eb; }
 
-  /* ── Sidebar ──────────────────────────────────────────────────────────── */
-  .forum-sidebar { display: flex; flex-direction: column; gap: 1rem; }
-  .sidebar-card {
+  /* ── Right sidebar ────────────────────────────────────────────────────── */
+  .right-sidebar {
+    padding: 1.5rem 1.25rem 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: 1.5rem;
+  }
+  .right-card {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
-    padding: 1.375rem;
+    padding: 1.25rem;
   }
-  .sidebar-card--cta {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+  .right-card--cta {
+    background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%);
     border: none;
     text-align: center;
   }
-  .sidebar-card--rules { background: #fafbff; }
-  .sidebar-card__icon { font-size: 1.75rem; display: block; margin-bottom: 0.5rem; }
-  .sidebar-card__title { font-size: 0.9375rem; font-weight: 800; margin: 0 0 0.4rem; color: #0f172a; }
-  .sidebar-card--cta .sidebar-card__title { color: #fff; }
-  .sidebar-card__desc { font-size: 0.8375rem; color: #64748b; margin: 0 0 1rem; line-height: 1.5; }
-  .sidebar-card--cta .sidebar-card__desc { color: #bfdbfe; }
-  .sidebar-btn {
+  .right-card__cta-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .right-card__title { font-size: 0.9375rem; font-weight: 800; color: #0f172a; margin: 0 0 0.4rem; }
+  .right-card__desc { font-size: 0.8125rem; color: #64748b; margin: 0 0 1rem; line-height: 1.5; }
+  .right-card__btn {
     display: inline-block;
     background: #fff;
     color: #1d4ed8;
     font-weight: 700;
     font-size: 0.875rem;
-    padding: 0.55rem 1.25rem;
+    padding: 0.5rem 1.25rem;
     border-radius: 8px;
     text-decoration: none;
     transition: background 0.15s;
   }
-  .sidebar-btn:hover { background: #eff6ff; }
-  .sidebar-links {
+  .right-card__btn:hover { background: #eff6ff; }
+  .right-links {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -403,17 +608,21 @@ import Layout from '../../layouts/Layout.astro';
     flex-direction: column;
     gap: 0.5rem;
   }
-  .sidebar-links li { font-size: 0.875rem; color: #374151; padding-left: 0.9rem; position: relative; }
-  .sidebar-links li::before { content: '→'; position: absolute; left: 0; color: #2563eb; font-size: 0.75rem; top: 1px; }
-  .sidebar-links a { color: #2563eb; text-decoration: none; font-weight: 500; }
-  .sidebar-links a:hover { text-decoration: underline; }
+  .right-links li { font-size: 0.8375rem; color: #374151; padding-left: 0.9rem; position: relative; }
+  .right-links li::before { content: '→'; position: absolute; left: 0; color: #2563eb; font-size: 0.75rem; top: 1px; }
+  .right-links a { color: #2563eb; text-decoration: none; font-weight: 500; }
+  .right-links a:hover { text-decoration: underline; }
 
-  @media (max-width: 900px) {
-    .forum-body { grid-template-columns: 1fr; }
-    .forum-sidebar { order: -1; }
-    .categories-grid { grid-template-columns: 1fr; }
+  /* ── Responsive ───────────────────────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .forum-wrap { grid-template-columns: 200px 1fr; }
+    .right-sidebar { display: none; }
   }
-  @media (max-width: 540px) {
-    .forum-stats-bar__inner { gap: 1.25rem; flex-wrap: wrap; }
+  @media (max-width: 720px) {
+    .forum-wrap { grid-template-columns: 1fr; }
+    .left-sidebar { display: none; }
+    .forum-main { padding: 1rem; }
+    .forum-banner__deco { display: none; }
+    .categories-grid { grid-template-columns: 1fr; }
   }
 </style>
