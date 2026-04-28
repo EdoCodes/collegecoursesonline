@@ -11,6 +11,7 @@
   # Environment variables available during build
   [build.environment]
     NODE_VERSION = "18"
+    NPM_FLAGS = "--legacy-peer-deps"
     PUBLIC_SUPABASE_URL = "https://dlxyjoaxyektgqraayfl.supabase.co"
     PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRseHlqb2F4eWVrdGdxcmFheWZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODk0OTAsImV4cCI6MjA4OTk2NTQ5MH0.RViY-bBv5GVya-Z1JVpjEDIqttJWXZ4MP48vkXotLvk"
 

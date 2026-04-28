@@ -1,90 +1,51 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
 
 const { topic: topicSlug } = Astro.params;
 
-const { data: topic } = await supabase
-  .from('topics')
-  .select('*')
-  .eq('slug', topicSlug)
-  .eq('is_active', true)
-  .single();
-
-if (!topic) return Astro.redirect('/forum', 302);
-
-const { data: posts } = await supabase
-  .from('posts')
-  .select('id, title, author_name, reply_count, created_at')
-  .eq('topic_slug', topicSlug)
-  .eq('is_approved', true)
-  .order('created_at', { ascending: false });
-
-export const prerender = false;
+export function getStaticPaths() {
+  return [
+    { params: { topic: 'nursing-school' } },
+    { params: { topic: 'physician-assistant' } },
+    { params: { topic: 'prerequisites-courses' } },
+    { params: { topic: 'online-hybrid-learning' } },
+    { params: { topic: 'general' } },
+  ];
+}
 ---
 
 <Layout
-  title={`${topic.name} | Forum | College Courses Online`}
-  description={topic.description}
+  title="Forum | College Courses Online"
+  description="Ask and answer questions on College Courses Online community forum."
 >
   <div class="topic-page">
     <div class="topic-hero">
       <div class="topic-hero__inner">
         <a href="/forum" class="topic-hero__back">← All topics</a>
-        <div class="topic-hero__icon">{topic.icon}</div>
-        <h1 class="topic-hero__title">{topic.name}</h1>
-        <p class="topic-hero__desc">{topic.description}</p>
+        <div id="topicHeader">
+          <div class="topic-hero__icon" id="topicIcon">💬</div>
+          <h1 class="topic-hero__title" id="topicName">Loading…</h1>
+          <p class="topic-hero__desc" id="topicDesc"></p>
+        </div>
       </div>
     </div>
 
     <div class="topic-body">
       <div class="topic-main">
-        <!-- Post list -->
-        {posts && posts.length > 0 ? (
-          <div class="posts-list">
-            {posts.map((post) => (
-              <a href={`/forum/post/${post.id}`} class="post-row">
-                <div class="post-row__content">
-                  <h2 class="post-row__title">{post.title}</h2>
-                  <div class="post-row__meta">
-                    <span>Asked by {post.author_name}</span>
-                    <span class="post-row__dot">·</span>
-                    <span>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                  </div>
-                </div>
-                <div class="post-row__replies">
-                  <span class="post-row__reply-count">{post.reply_count}</span>
-                  <span class="post-row__reply-label">{post.reply_count === 1 ? 'reply' : 'replies'}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        ) : (
-          <div class="empty-state">
-            <div class="empty-state__icon">💬</div>
-            <p class="empty-state__text">No questions yet — be the first to ask!</p>
-          </div>
-        )}
+        <div id="postsList"><div class="loading">Loading questions…</div></div>
 
-        <!-- Ask a question form -->
         <div class="ask-section" id="ask">
           <h2 class="ask-section__title">Ask a question</h2>
           <p class="ask-section__sub">No account needed. Your question will appear after a quick review.</p>
-
           <form class="ask-form" id="postForm">
-            <input type="hidden" name="topic_slug" value={topicSlug} />
+            <input type="hidden" name="topic_slug" id="topicSlugInput" value={topicSlug} />
             <div class="ask-form__field">
               <label class="ask-form__label" for="post-title">Question title</label>
               <input class="ask-form__input" type="text" id="post-title" name="title" placeholder="e.g. Do nursing schools accept online A&P?" required maxlength="200" />
             </div>
             <div class="ask-form__field">
               <label class="ask-form__label" for="post-body">Details (optional but helpful)</label>
-              <textarea class="ask-form__textarea" id="post-body" name="body" rows="4" placeholder="Add any context that helps someone answer your question..."></textarea>
+              <textarea class="ask-form__textarea" id="post-body" name="body" rows="4" placeholder="Add any context that helps someone answer your question…"></textarea>
             </div>
             <div class="ask-form__row">
               <div class="ask-form__field">
@@ -121,7 +82,7 @@ export const prerender = false;
         <div class="sidebar-card sidebar-card--blue">
           <h3 class="sidebar-card__title">Related guides</h3>
           <ul class="sidebar-card__list">
-            <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites guide</a></li>
+            <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites</a></li>
             <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
             <li><a href="/resources/blog/prerequisite-college-courses-by-major">Prereqs by major</a></li>
           </ul>
@@ -131,74 +92,86 @@ export const prerender = false;
   </div>
 </Layout>
 
-<script>
-  const form = document.getElementById('postForm') as HTMLFormElement;
-  const success = document.getElementById('postSuccess');
+<script define:vars={{ topicSlug, supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
+  async function sbFetch(path) {
+    const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
+    });
+    return res.json();
+  }
 
+  async function init() {
+    const [topics, posts] = await Promise.all([
+      sbFetch(`topics?slug=eq.${topicSlug}&select=*`),
+      sbFetch(`posts?topic_slug=eq.${topicSlug}&is_approved=eq.true&order=created_at.desc&select=id,title,author_name,reply_count,created_at`)
+    ]);
+
+    const topic = topics[0];
+    if (topic) {
+      document.getElementById('topicIcon').textContent = topic.icon;
+      document.getElementById('topicName').textContent = topic.name;
+      document.getElementById('topicDesc').textContent = topic.description;
+      document.title = `${topic.name} | Forum | College Courses Online`;
+    }
+
+    const list = document.getElementById('postsList');
+    if (!posts.length) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-state__icon">💬</div><p class="empty-state__text">No questions yet — be the first to ask!</p></div>';
+    } else {
+      list.innerHTML = `<div class="posts-list">${posts.map(p => `
+        <a href="/forum/post/${p.id}" class="post-row">
+          <div class="post-row__content">
+            <h2 class="post-row__title">${escHtml(p.title)}</h2>
+            <div class="post-row__meta">
+              <span>Asked by ${escHtml(p.author_name)}</span>
+              <span class="post-row__dot">·</span>
+              <span>${new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+            </div>
+          </div>
+          <div class="post-row__replies">
+            <span class="post-row__reply-count">${p.reply_count}</span>
+            <span class="post-row__reply-label">${p.reply_count === 1 ? 'reply' : 'replies'}</span>
+          </div>
+        </a>`).join('')}</div>`;
+    }
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  const form = document.getElementById('postForm');
+  const success = document.getElementById('postSuccess');
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    btn.disabled = true;
-    btn.textContent = 'Submitting…';
-
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.textContent = 'Submitting…';
     const data = Object.fromEntries(new FormData(form));
     if (!data.body) data.body = '(no details provided)';
-
     const res = await fetch('/api/forum-post', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-
-    if (res.ok) {
-      form.style.display = 'none';
-      if (success) success.style.display = 'block';
-    } else {
-      btn.disabled = false;
-      btn.textContent = 'Submit question →';
-      alert('Something went wrong. Please try again.');
-    }
+    if (res.ok) { form.style.display = 'none'; success.style.display = 'block'; }
+    else { btn.disabled = false; btn.textContent = 'Submit question →'; alert('Something went wrong. Please try again.'); }
   });
+
+  init();
 </script>
 
 <style>
-  .topic-hero {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-    padding: 3rem 1.5rem 2.5rem;
-  }
-  .topic-hero__inner { max-width: 860px; margin: 0 auto; }
-  .topic-hero__back {
-    display: inline-block;
-    color: #93c5fd;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-decoration: none;
-    margin-bottom: 1rem;
-  }
+  .loading { color: #94a3b8; font-size: 0.9375rem; padding: 2rem 0; }
+  .topic-hero { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); padding: 3rem 1.5rem 2.5rem; }
+  .topic-hero__inner { max-width: 1060px; margin: 0 auto; }
+  .topic-hero__back { display: inline-block; color: #93c5fd; font-size: 0.875rem; font-weight: 600; text-decoration: none; margin-bottom: 1rem; }
   .topic-hero__back:hover { color: #fff; }
   .topic-hero__icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
   .topic-hero__title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; color: #fff; margin: 0 0 0.5rem; }
   .topic-hero__desc { font-size: 1rem; color: #bfdbfe; margin: 0; }
-  .topic-body {
-    max-width: 1060px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 260px;
-    gap: 2rem;
-    align-items: start;
-  }
+  .topic-body { max-width: 1060px; margin: 0 auto; padding: 2rem 1.5rem 4rem; display: grid; grid-template-columns: 1fr 260px; gap: 2rem; align-items: start; }
   .posts-list { display: flex; flex-direction: column; gap: 0; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; }
-  .post-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.125rem 1.25rem;
-    border-bottom: 1px solid #f1f5f9;
-    text-decoration: none;
-    background: #fff;
-    transition: background 0.12s;
-  }
+  .post-row { display: flex; align-items: center; gap: 1rem; padding: 1.125rem 1.25rem; border-bottom: 1px solid #f1f5f9; text-decoration: none; background: #fff; transition: background 0.12s; }
   .post-row:last-child { border-bottom: none; }
   .post-row:hover { background: #f8faff; }
   .post-row__content { flex: 1; }
@@ -210,25 +183,16 @@ export const prerender = false;
   .post-row__reply-label { font-size: 0.7rem; color: #94a3b8; font-weight: 600; }
   .empty-state { text-align: center; padding: 3rem 1rem; color: #94a3b8; margin-bottom: 2rem; }
   .empty-state__icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-  .empty-state__text { font-size: 0.9375rem; }
   .ask-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.75rem; }
   .ask-section__title { font-size: 1.125rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem; }
   .ask-section__sub { font-size: 0.875rem; color: #64748b; margin: 0 0 1.5rem; }
   .ask-form__field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
   .ask-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .ask-form__label { font-size: 0.8125rem; font-weight: 600; color: #374151; }
-  .ask-form__input, .ask-form__textarea {
-    width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0;
-    border-radius: 8px; font-size: 0.9rem; color: #0f172a; background: #fff;
-    font-family: inherit; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s;
-  }
+  .ask-form__input, .ask-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; color: #0f172a; background: #fff; font-family: inherit; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s; }
   .ask-form__input:focus, .ask-form__textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
   .ask-form__textarea { resize: vertical; min-height: 100px; }
-  .ask-form__submit {
-    margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700;
-    font-size: 0.9375rem; padding: 0.65rem 1.5rem; border: none; border-radius: 8px;
-    cursor: pointer; font-family: inherit; transition: background 0.15s;
-  }
+  .ask-form__submit { margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700; font-size: 0.9375rem; padding: 0.65rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
   .ask-form__submit:hover { background: #1d4ed8; }
   .ask-form__submit:disabled { background: #93c5fd; cursor: not-allowed; }
   .ask-form__note { font-size: 0.8rem; color: #94a3b8; margin: 0.75rem 0 0; }
@@ -243,8 +207,5 @@ export const prerender = false;
   .sidebar-card__list li { font-size: 0.875rem; }
   .sidebar-card__list a { color: #2563eb; text-decoration: none; font-weight: 500; }
   .sidebar-card__list a:hover { text-decoration: underline; }
-  @media (max-width: 768px) {
-    .topic-body { grid-template-columns: 1fr; }
-    .ask-form__row { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 768px) { .topic-body { grid-template-columns: 1fr; } .ask-form__row { grid-template-columns: 1fr; } }
 </style>

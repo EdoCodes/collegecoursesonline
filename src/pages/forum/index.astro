@@ -1,17 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
-const { data: topics } = await supabase
-  .from('topics')
-  .select('*')
-  .eq('is_active', true)
-  .order('name');
 ---
 
 <Layout
@@ -31,22 +19,9 @@ const { data: topics } = await supabase
     </div>
 
     <div class="forum-body">
-      <div class="topics-grid">
-        {topics?.map((topic) => (
-          <a href={`/forum/${topic.slug}`} class="topic-card">
-            <div class="topic-card__icon">{topic.icon}</div>
-            <div class="topic-card__content">
-              <h2 class="topic-card__name">{topic.name}</h2>
-              <p class="topic-card__desc">{topic.description}</p>
-            </div>
-            <div class="topic-card__meta">
-              <span class="topic-card__count">{topic.post_count} {topic.post_count === 1 ? 'question' : 'questions'}</span>
-              <span class="topic-card__arrow">→</span>
-            </div>
-          </a>
-        ))}
+      <div id="topics-grid" class="topics-grid">
+        <div class="loading">Loading topics…</div>
       </div>
-
       <div class="forum-cta">
         <p>Can't find what you're looking for?</p>
         <a href="/forum/general" class="btn-ask">Ask in General →</a>
@@ -55,116 +30,59 @@ const { data: topics } = await supabase
   </div>
 </Layout>
 
+<script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
+  async function loadTopics() {
+    const res = await fetch(
+      `${supabaseUrl}/rest/v1/topics?is_active=eq.true&order=name.asc&select=*`,
+      { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
+    );
+    const topics = await res.json();
+    const grid = document.getElementById('topics-grid');
+    if (!topics.length) { grid.innerHTML = '<p style="color:#64748b">No topics yet.</p>'; return; }
+    grid.innerHTML = topics.map(t => `
+      <a href="/forum/${t.slug}" class="topic-card">
+        <div class="topic-card__icon">${t.icon}</div>
+        <div class="topic-card__content">
+          <h2 class="topic-card__name">${t.name}</h2>
+          <p class="topic-card__desc">${t.description}</p>
+        </div>
+        <div class="topic-card__meta">
+          <span class="topic-card__count">${t.post_count} ${t.post_count === 1 ? 'question' : 'questions'}</span>
+          <span class="topic-card__arrow">→</span>
+        </div>
+      </a>`).join('');
+  }
+  loadTopics();
+</script>
+
 <style>
   .forum-hero {
     background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
     padding: 4rem 1.5rem 3rem;
   }
-  .forum-hero__inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .forum-hero__label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #93c5fd;
-    margin-bottom: 0.75rem;
-  }
-  .forum-hero__title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 900;
-    color: #fff;
-    margin: 0 0 0.75rem;
-  }
-  .forum-hero__desc {
-    font-size: 1.0625rem;
-    color: #bfdbfe;
-    margin: 0;
-    max-width: 560px;
-    line-height: 1.6;
-  }
-  .forum-body {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 4rem;
-  }
-  .topics-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+  .forum-hero__inner { max-width: 760px; margin: 0 auto; }
+  .forum-hero__label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #93c5fd; margin-bottom: 0.75rem; }
+  .forum-hero__title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 900; color: #fff; margin: 0 0 0.75rem; }
+  .forum-hero__desc { font-size: 1.0625rem; color: #bfdbfe; margin: 0; max-width: 560px; line-height: 1.6; }
+  .forum-body { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .loading { color: #94a3b8; font-size: 0.9375rem; padding: 2rem 0; }
+  .topics-grid { display: flex; flex-direction: column; gap: 1rem; }
   .topic-card {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 1.375rem 1.5rem;
-    text-decoration: none;
+    display: flex; align-items: center; gap: 1.25rem;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+    padding: 1.375rem 1.5rem; text-decoration: none;
     transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
     box-shadow: 0 1px 4px rgba(15,23,42,0.05);
   }
-  .topic-card:hover {
-    border-color: #2563eb;
-    box-shadow: 0 4px 16px rgba(37,99,235,0.1);
-    transform: translateY(-1px);
-  }
-  .topic-card__icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-    width: 3rem;
-    text-align: center;
-  }
+  .topic-card:hover { border-color: #2563eb; box-shadow: 0 4px 16px rgba(37,99,235,0.1); transform: translateY(-1px); }
+  .topic-card__icon { font-size: 2rem; flex-shrink: 0; width: 3rem; text-align: center; }
   .topic-card__content { flex: 1; }
-  .topic-card__name {
-    font-size: 1.0625rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0 0 0.25rem;
-  }
-  .topic-card__desc {
-    font-size: 0.875rem;
-    color: #64748b;
-    margin: 0;
-    line-height: 1.5;
-  }
-  .topic-card__meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.35rem;
-    flex-shrink: 0;
-  }
-  .topic-card__count {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #94a3b8;
-    white-space: nowrap;
-  }
-  .topic-card__arrow {
-    font-size: 1.125rem;
-    color: #2563eb;
-    font-weight: 700;
-  }
-  .forum-cta {
-    margin-top: 2.5rem;
-    text-align: center;
-    color: #64748b;
-    font-size: 0.9375rem;
-  }
-  .btn-ask {
-    display: inline-block;
-    margin-top: 0.5rem;
-    background: #2563eb;
-    color: #fff;
-    font-weight: 700;
-    padding: 0.65rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.15s;
-  }
+  .topic-card__name { font-size: 1.0625rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem; }
+  .topic-card__desc { font-size: 0.875rem; color: #64748b; margin: 0; line-height: 1.5; }
+  .topic-card__meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; flex-shrink: 0; }
+  .topic-card__count { font-size: 0.8rem; font-weight: 600; color: #94a3b8; white-space: nowrap; }
+  .topic-card__arrow { font-size: 1.125rem; color: #2563eb; font-weight: 700; }
+  .forum-cta { margin-top: 2.5rem; text-align: center; color: #64748b; font-size: 0.9375rem; }
+  .btn-ask { display: inline-block; margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; transition: background 0.15s; }
   .btn-ask:hover { background: #1d4ed8; }
 </style>
