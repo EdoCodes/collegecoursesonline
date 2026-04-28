@@ -1,14 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
 export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }
+
+  const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('Missing Supabase env vars. URL:', !!supabaseUrl, 'Key:', !!supabaseKey);
+    return { statusCode: 500, body: JSON.stringify({ error: 'Server configuration error' }) };
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   try {
     const { post_id, author_name, author_email, body } = JSON.parse(event.body);
@@ -26,7 +31,10 @@ export const handler = async (event) => {
       is_staff_reply: false,
     });
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase insert error:', JSON.stringify(error));
+      return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    }
 
     return {
       statusCode: 200,
@@ -34,7 +42,7 @@ export const handler = async (event) => {
       body: JSON.stringify({ success: true }),
     };
   } catch (err) {
-    console.error('forum-reply error:', err);
-    return { statusCode: 500, body: JSON.stringify({ error: 'Server error' }) };
+    console.error('forum-reply error:', err.message, err.stack);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message || 'Server error' }) };
   }
 };
