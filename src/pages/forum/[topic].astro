@@ -27,7 +27,7 @@ export function getStaticPaths() {
           Forum
         </a>
         <div class="topic-header__badge" id="topicBadge">
-          <span id="topicIcon">💬</span>
+          <span id="topicIcon" class="topic-glyph">◌</span>
           <span id="topicName">Loading…</span>
         </div>
       </div>
@@ -93,7 +93,7 @@ export function getStaticPaths() {
             <p class="ask-form__note">Questions are reviewed before appearing publicly. Usually within 24 hours.</p>
           </form>
           <div class="ask-success" id="postSuccess" style="display:none">
-            <div class="ask-success__icon">✅</div>
+            <div class="ask-success__icon">Done</div>
             <strong>Question submitted!</strong>
             <p>It will appear here after a quick review. Thank you!</p>
           </div>
@@ -103,7 +103,7 @@ export function getStaticPaths() {
       <!-- Sidebar -->
       <aside class="topic-sidebar">
         <div class="sidebar-card sidebar-card--cta">
-          <div class="sidebar-card__cta-icon">✏️</div>
+          <div class="sidebar-card__cta-icon" aria-hidden="true"></div>
           <p class="sidebar-card__cta-text">Have a question in this topic?</p>
           <a href="#ask" class="sidebar-card__cta-btn">Ask now</a>
         </div>
@@ -111,16 +111,16 @@ export function getStaticPaths() {
         <div class="sidebar-card">
           <h3 class="sidebar-card__title">Other Topics</h3>
           <ul class="sidebar-card__links" id="otherTopics">
-            <li><a href="/forum/nursing-school">🩺 Nursing School</a></li>
-            <li><a href="/forum/physician-assistant">⚕️ Physician Assistant</a></li>
-            <li><a href="/forum/prerequisites-courses">📚 Prerequisites &amp; Courses</a></li>
-            <li><a href="/forum/online-hybrid-learning">💻 Online &amp; Hybrid Learning</a></li>
-            <li><a href="/forum/general">💬 General</a></li>
+            <li><a href="/forum/nursing-school">▣ Nursing School</a></li>
+            <li><a href="/forum/physician-assistant">◈ Physician Assistant</a></li>
+            <li><a href="/forum/prerequisites-courses">◫ Prerequisites &amp; Courses</a></li>
+            <li><a href="/forum/online-hybrid-learning">◉ Online &amp; Hybrid Learning</a></li>
+            <li><a href="/forum/general">◌ General</a></li>
           </ul>
         </div>
 
         <div class="sidebar-card sidebar-card--light">
-          <h3 class="sidebar-card__title">📖 Related Guides</h3>
+          <h3 class="sidebar-card__title">Related Guides</h3>
           <ul class="sidebar-card__links">
             <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites</a></li>
             <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
@@ -160,7 +160,7 @@ export function getStaticPaths() {
   function renderPosts(posts) {
     const el = document.getElementById('postsList');
     if (!posts.length) {
-      el.innerHTML = '<div class="empty-state"><div class="empty-state__icon">💬</div><p>No questions yet — be the first to ask!</p></div>';
+      el.innerHTML = '<div class="empty-state"><div class="empty-state__icon">◌</div><p>No questions yet — be the first to ask!</p></div>';
       return;
     }
     el.innerHTML = posts.map(p => `
@@ -191,7 +191,14 @@ export function getStaticPaths() {
 
     const topic = topics[0];
     if (topic) {
-      document.getElementById('topicIcon').textContent = topic.icon;
+      const iconMap = {
+        'nursing-school': '▣',
+        'physician-assistant': '◈',
+        'prerequisites-courses': '◫',
+        'online-hybrid-learning': '◉',
+        'general': '◌',
+      };
+      document.getElementById('topicIcon').textContent = iconMap[topic.slug] || '◌';
       document.getElementById('topicName').textContent = topic.name;
       document.getElementById('topicDesc').textContent = topic.description;
       document.getElementById('topicStats').innerHTML = `<span>${topic.post_count} questions</span>`;
@@ -316,14 +323,21 @@ export function getStaticPaths() {
   .ask-form__submit:disabled { background: #93c5fd; cursor: not-allowed; }
   .ask-form__note { font-size: 0.8rem; color: #94a3b8; margin: 0.75rem 0 0; }
   .ask-success { text-align: center; padding: 2rem; }
-  .ask-success__icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .ask-success__icon { font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; color: #047857; font-weight: 800; }
   .ask-success strong { display: block; font-size: 1.125rem; color: #0f172a; margin-bottom: 0.35rem; }
   .ask-success p { color: #64748b; font-size: 0.9rem; margin: 0; }
 
   /* ── Sidebar ──────────────────────────────────────────────────────────── */
   .sidebar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem; }
   .sidebar-card--cta { background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%); border: none; text-align: center; }
-  .sidebar-card__cta-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .sidebar-card__cta-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 auto 0.55rem;
+    border-radius: 7px;
+    border: 1px solid rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.2);
+  }
   .sidebar-card__cta-text { font-size: 0.875rem; color: #bfdbfe; margin: 0 0 0.875rem; }
   .sidebar-card__cta-btn { display: inline-block; background: #fff; color: #1d4ed8; font-weight: 700; font-size: 0.875rem; padding: 0.45rem 1.25rem; border-radius: 8px; text-decoration: none; transition: background 0.15s; }
   .sidebar-card__cta-btn:hover { background: #eff6ff; }

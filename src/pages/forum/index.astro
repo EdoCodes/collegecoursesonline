@@ -12,7 +12,7 @@ import Layout from '../../layouts/Layout.astro';
     <aside class="left-sidebar">
       <div class="left-sidebar__inner">
         <div class="left-sidebar__brand">
-          <span class="left-sidebar__brand-icon">🎓</span>
+          <span class="left-sidebar__brand-icon" aria-hidden="true"></span>
           <span class="left-sidebar__brand-name">Student Forum</span>
         </div>
 
@@ -69,7 +69,7 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </div>
         <div class="forum-banner__deco" aria-hidden="true">
-          <span>🩺</span><span>📚</span><span>⚕️</span><span>💻</span><span>💬</span>
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
 
@@ -128,14 +128,14 @@ import Layout from '../../layouts/Layout.astro';
     <aside class="right-sidebar">
 
       <div class="right-card right-card--cta">
-        <div class="right-card__cta-icon">✏️</div>
+        <div class="right-card__cta-icon" aria-hidden="true"></div>
         <h3 class="right-card__title" style="color:#fff">Have a question?</h3>
         <p class="right-card__desc" style="color:#bfdbfe">No account needed. Pick a topic and ask.</p>
         <a href="/forum/general#ask" class="right-card__btn">Ask now →</a>
       </div>
 
       <div class="right-card">
-        <h3 class="right-card__title">📖 Top Guides</h3>
+        <h3 class="right-card__title">Top Guides</h3>
         <ul class="right-links" id="guidesList">
           <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites</a></li>
           <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
@@ -145,7 +145,7 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <div class="right-card">
-        <h3 class="right-card__title">🤝 Guidelines</h3>
+        <h3 class="right-card__title">Guidelines</h3>
         <ul class="right-links">
           <li>Be respectful and helpful</li>
           <li>Share your own experience</li>
@@ -174,6 +174,17 @@ import Layout from '../../layouts/Layout.astro';
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
+  function iconForTopic(slug) {
+    const map = {
+      'nursing-school': '▣',
+      'physician-assistant': '◈',
+      'prerequisites-courses': '◫',
+      'online-hybrid-learning': '◉',
+      'general': '◌',
+    };
+    return map[slug] || '◌';
+  }
+
   function timeAgo(d) {
     const diff = Math.floor((Date.now() - new Date(d)) / 1000);
     if (diff < 60) return 'just now';
@@ -199,7 +210,7 @@ import Layout from '../../layouts/Layout.astro';
         </div>
         <div class="feed-item__body">
           <div class="feed-item__meta-top">
-            <span class="feed-item__topic-pill">${escHtml(p.topic_icon || '💬')} ${escHtml(p.topic_name || p.topic_slug)}</span>
+            <span class="feed-item__topic-pill"><span class="topic-glyph">${iconForTopic(p.topic_slug)}</span> ${escHtml(p.topic_name || p.topic_slug)}</span>
           </div>
           <h3 class="feed-item__title">${escHtml(p.title)}</h3>
           <div class="feed-item__meta-bottom">
@@ -230,7 +241,7 @@ import Layout from '../../layouts/Layout.astro';
     const leftNav = document.getElementById('leftTopicNav');
     leftNav.innerHTML = topics.map(t => `
       <a href="/forum/${t.slug}" class="left-nav__item">
-        <span>${t.icon}</span>
+        <span class="topic-glyph">${iconForTopic(t.slug)}</span>
         <span>${t.name}</span>
         <span class="left-nav__count">${t.post_count}</span>
       </a>`).join('');
@@ -240,7 +251,7 @@ import Layout from '../../layouts/Layout.astro';
     grid.innerHTML = topics.map(t => `
       <a href="/forum/${t.slug}" class="cat-card" data-name="${(t.name || '').toLowerCase()}" data-desc="${(t.description || '').toLowerCase()}">
         <div class="cat-card__head">
-          <div class="cat-card__icon-box">${t.icon}</div>
+          <div class="cat-card__icon-box"><span class="topic-glyph">${iconForTopic(t.slug)}</span></div>
           <div>
             <div class="cat-card__name">${escHtml(t.name)}</div>
             <div class="cat-card__count-pill">${t.post_count} ${t.post_count === 1 ? 'question' : 'questions'}</div>
@@ -320,7 +331,15 @@ import Layout from '../../layouts/Layout.astro';
     border-bottom: 1px solid #f1f5f9;
     margin-bottom: 1rem;
   }
-  .left-sidebar__brand-icon { font-size: 1.25rem; }
+  .left-sidebar__brand-icon {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1d4ed8;
+    border-radius: 6px;
+    display: inline-block;
+    transform: rotate(8deg);
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  }
   .left-sidebar__brand-name { font-size: 0.9375rem; font-weight: 800; color: #0f172a; }
   .left-nav__section-label {
     font-size: 0.65rem;
@@ -418,10 +437,17 @@ import Layout from '../../layouts/Layout.astro';
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    font-size: 1.75rem;
     opacity: 0.25;
     flex-shrink: 0;
     line-height: 1;
+  }
+  .forum-banner__deco span {
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.18);
+    display: inline-block;
   }
 
   /* ── Stats strip ──────────────────────────────────────────────────────── */
@@ -506,6 +532,12 @@ import Layout from '../../layouts/Layout.astro';
     display: flex; align-items: center; justify-content: center;
     font-size: 1.25rem;
     flex-shrink: 0;
+  }
+  .topic-glyph {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1d4ed8;
+    line-height: 1;
   }
   .cat-card__name { font-size: 0.95rem; font-weight: 800; color: #0f172a; line-height: 1.25; }
   .cat-card__count-pill {
@@ -639,6 +671,14 @@ import Layout from '../../layouts/Layout.astro';
     text-align: center;
   }
   .right-card__cta-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .right-card__cta-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.18);
+  }
   .right-card__title { font-size: 0.9375rem; font-weight: 800; color: #0f172a; margin: 0 0 0.4rem; }
   .right-card__desc { font-size: 0.8125rem; color: #64748b; margin: 0 0 1rem; line-height: 1.5; }
   .right-card__btn {

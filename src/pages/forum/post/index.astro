@@ -49,7 +49,7 @@ import Layout from '../../../layouts/Layout.astro';
             <p class="reply-form__note">Replies are reviewed before appearing publicly. Usually within 24 hours.</p>
           </form>
           <div class="reply-success" id="replySuccess" style="display:none">
-            <div class="reply-success__icon">✅</div>
+            <div class="reply-success__icon">Done</div>
             <strong>Reply submitted!</strong>
             <p>It will appear here after a quick review. Thank you!</p>
           </div>
@@ -61,7 +61,7 @@ import Layout from '../../../layouts/Layout.astro';
         <a href="/forum" class="sidebar-btn sidebar-btn--back">← Back to forum</a>
 
         <div class="sidebar-card">
-          <h3 class="sidebar-card__title">📖 Related Guides</h3>
+          <h3 class="sidebar-card__title">Related Guides</h3>
           <ul class="sidebar-card__links">
             <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites</a></li>
             <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
@@ -297,7 +297,7 @@ import Layout from '../../../layouts/Layout.astro';
   .reply-form__submit:disabled { background: #93c5fd; cursor: not-allowed; }
   .reply-form__note { font-size: 0.8rem; color: #94a3b8; margin: 0.75rem 0 0; }
   .reply-success { text-align: center; padding: 2rem; }
-  .reply-success__icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .reply-success__icon { font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; color: #047857; font-weight: 800; }
   .reply-success strong { display: block; font-size: 1.125rem; color: #0f172a; margin-bottom: 0.35rem; }
   .reply-success p { color: #64748b; font-size: 0.9rem; margin: 0; }
   .sidebar-btn { display: block; text-align: center; font-weight: 700; font-size: 0.875rem; padding: 0.625rem 1rem; border-radius: 10px; text-decoration: none; margin-bottom: 0.625rem; }
