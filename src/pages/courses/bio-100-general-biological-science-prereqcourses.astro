@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
 
 const course = {
   title: 'BIO 100 General Biological Science',
@@ -73,6 +74,7 @@ const compareWith = [
     provider: 'Study.com',
     level: 'Introductory',
     price: '$95/mo',
+    slug: 'study-com-introduction-to-biology',
     href: '/courses/study-com-introduction-to-biology',
   },
 ];
@@ -296,18 +298,24 @@ const compareWith = [
       <div class="container">
         <h2>Compare with</h2>
         <div class="compare-grid">
-          {compareWith.map((c) => (
-            <a class="compare-card" href={c.href}>
-              <div class="compare-content">
-                <h3>{c.title}</h3>
-                <p class="compare-provider">{c.provider}</p>
-                <div class="compare-meta">
-                  <span class="compare-level">{c.level}</span>
-                  <span class="compare-price">{c.price}</span>
+          {compareWith.map((c) => {
+            const img = resolveCourseImageUrl(c.slug, undefined, '');
+            return (
+              <a class="compare-card" href={c.href}>
+                <div class="compare-image">
+                  {img ? <img src={img} alt={c.title} loading="lazy" decoding="async" /> : <div class="image-placeholder">📚</div>}
                 </div>
-              </div>
-            </a>
-          ))}
+                <div class="compare-content">
+                  <h3>{c.title}</h3>
+                  <p class="compare-provider">{c.provider}</p>
+                  <div class="compare-meta">
+                    <span class="compare-level">{c.level}</span>
+                    <span class="compare-price">{c.price}</span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -628,11 +636,34 @@ const compareWith = [
     background: white;
     border: 1px solid var(--neutral-200);
     border-radius: calc(var(--border-radius) * 1.25);
-    padding: calc(var(--spacing) * 3.5);
+    overflow: hidden;
     transition: var(--transition);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   }
   .compare-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(37, 99, 235, 0.25); }
+  .compare-image {
+    position: relative;
+    height: 140px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  }
+  .compare-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .compare-image .image-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .compare-content { padding: calc(var(--spacing) * 3); }
   .compare-content h3 { margin: 0 0 calc(var(--spacing) * 1); color: var(--neutral-900); font-size: 1.15rem; line-height: 1.3; }
   .compare-provider { margin: 0 0 calc(var(--spacing) * 2.5); color: var(--neutral-600); font-weight: 600; }
   .compare-meta { display: flex; justify-content: space-between; gap: calc(var(--spacing) * 2); align-items: center; }
