@@ -140,10 +140,12 @@ const courseSchema = {
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 1fr 340px;
     gap: 1.75rem;
     align-items: start;
   }
+  .hero-content { order: 1; }
+  .hero-media { order: 2; }
   .hero-media {
     background: rgba(255,255,255,0.10);
     border: 1px solid rgba(255,255,255,0.18);
@@ -244,6 +246,8 @@ const courseSchema = {
 
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
+    .hero-content { order: 1; }
+    .hero-media { order: 2; }
     .hero-media img { height: 220px; }
     .meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
