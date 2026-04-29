@@ -238,7 +238,7 @@ import Layout from '../../layouts/Layout.astro';
     // Category grid
     const grid = document.getElementById('categoriesGrid');
     grid.innerHTML = topics.map(t => `
-      <a href="/forum/${t.slug}" class="cat-card" data-name="${t.name.toLowerCase()}" data-desc="${t.description.toLowerCase()}">
+      <a href="/forum/${t.slug}" class="cat-card" data-name="${(t.name || '').toLowerCase()}" data-desc="${(t.description || '').toLowerCase()}">
         <div class="cat-card__head">
           <div class="cat-card__icon-box">${t.icon}</div>
           <div>
@@ -246,7 +246,7 @@ import Layout from '../../layouts/Layout.astro';
             <div class="cat-card__count-pill">${t.post_count} ${t.post_count === 1 ? 'question' : 'questions'}</div>
           </div>
         </div>
-        <p class="cat-card__desc">${escHtml(t.description)}</p>
+        <p class="cat-card__desc">${escHtml(t.description || 'Ask questions and share tips in this category.')}</p>
         <div class="cat-card__footer">
           <span class="cat-card__ask-btn">Ask here <span aria-hidden="true">→</span></span>
         </div>
@@ -292,7 +292,7 @@ import Layout from '../../layouts/Layout.astro';
   init();
 </script>
 
-<style>
+<style is:global>
   /* ── Layout shell ─────────────────────────────────────────────────────── */
   .forum-wrap {
     display: grid;
