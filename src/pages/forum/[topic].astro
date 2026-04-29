@@ -164,7 +164,7 @@ export function getStaticPaths() {
       return;
     }
     el.innerHTML = posts.map(p => `
-      <a href="/forum/post/${p.id}" class="post-row">
+      <a href="/forum/post/?id=${encodeURIComponent(p.id)}" class="post-row">
         <div class="post-row__vote-col">
           <div class="post-row__reply-box">
             <span class="post-row__reply-num">${p.reply_count}</span>

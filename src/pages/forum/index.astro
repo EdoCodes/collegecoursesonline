@@ -190,7 +190,7 @@ import Layout from '../../layouts/Layout.astro';
       return;
     }
     el.innerHTML = posts.map(p => `
-      <a href="/forum/post/${p.id}" class="feed-item" data-title="${escHtml(p.title)}" data-topic="${p.topic_slug}">
+      <a href="/forum/post/?id=${encodeURIComponent(p.id)}" class="feed-item" data-title="${escHtml(p.title)}" data-topic="${p.topic_slug}">
         <div class="feed-item__left">
           <div class="feed-item__reply-box">
             <span class="feed-item__reply-num">${p.reply_count}</span>

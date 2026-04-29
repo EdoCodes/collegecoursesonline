@@ -190,7 +190,7 @@
           <div class="card-actions">
             <button class="btn btn-success btn-sm" onclick="moderate('approve','reply','${r.id}')">✓ Approve</button>
             <button class="btn btn-danger btn-sm" onclick="moderate('delete','reply','${r.id}')">✕ Delete</button>
-            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/${r.post_id}" target="_blank">View post ↗</a>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/?id=${r.post_id}" target="_blank">View post ↗</a>
           </div>
         </div>`).join('');
     }
@@ -213,7 +213,7 @@
           <div class="card-actions">
             <button class="btn btn-sm" style="background:#f1f5f9;color:#374151" onclick="toggleReplyBox('${p.id}')">💬 Reply as staff</button>
             <button class="btn btn-danger btn-sm" onclick="moderate('delete','post','${p.id}')">✕ Delete</button>
-            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/${p.id}" target="_blank">View ↗</a>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/?id=${p.id}" target="_blank">View ↗</a>
           </div>
           <div class="reply-compose" id="reply-${p.id}">
             <textarea id="replyText-${p.id}" placeholder="Type your staff reply..." rows="3"></textarea>
