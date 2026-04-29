@@ -94,7 +94,7 @@
 
   <div id="toast">✓ Done</div>
 
-  <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
+  <script is:inline define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
     let adminSecret = '';
 
     async function supaFetch(path, opts = {}) {
@@ -346,6 +346,18 @@
 
     document.getElementById('secretInput')?.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') login();
+    });
+
+    // Expose functions for inline onclick handlers (Astro scripts run as modules by default).
+    Object.assign(window, {
+      showTab,
+      login,
+      moderate,
+      toggleReplyBox,
+      postStaffReply,
+      addTopic,
+      toggleTopic,
+      deleteTopic,
     });
   </script>
 </body>
