@@ -97,23 +97,18 @@
   <script is:inline define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
     let adminSecret = '';
 
-    async function supaFetch(path, opts = {}) {
-      const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
-        headers: {
-          'apikey': supabaseKey,
-          'Authorization': `Bearer ${supabaseKey}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=representation',
-          ...opts.headers,
-        },
-        ...opts,
+    async function adminApi(payload) {
+      const res = await fetch('/api/forum-moderate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret },
+        body: JSON.stringify(payload),
       });
-      if (!res.ok && res.status !== 204) {
-        const err = await res.text();
-        throw new Error(err);
+      const text = await res.text();
+      if (!res.ok) {
+        console.error('Admin API error:', res.status, text);
+        throw new Error(text || `Admin API error (${res.status})`);
       }
-      if (res.status === 204) return null;
-      return res.json();
+      try { return JSON.parse(text); } catch { return { raw: text }; }
     }
 
     function showTab(id) {
@@ -155,7 +150,7 @@
     }
 
     async function loadPendingPosts() {
-      const posts = await supaFetch('posts?is_approved=eq.false&order=created_at.asc&select=*');
+      const { rows: posts } = await adminApi({ action: 'list-pending-posts' });
       const el = document.getElementById('pendingPostsList');
       document.getElementById('pendingPostsBadge').textContent = posts.length ? `(${posts.length})` : '';
       if (!posts.length) { el.innerHTML = '<div class="empty">No pending posts 🎉</div>'; return; }
@@ -178,7 +173,7 @@
     }
 
     async function loadPendingReplies() {
-      const replies = await supaFetch('replies?is_approved=eq.false&order=created_at.asc&select=*');
+      const { rows: replies } = await adminApi({ action: 'list-pending-replies' });
       const el = document.getElementById('pendingRepliesList');
       document.getElementById('pendingRepliesBadge').textContent = replies.length ? `(${replies.length})` : '';
       if (!replies.length) { el.innerHTML = '<div class="empty">No pending replies 🎉</div>'; return; }
@@ -201,7 +196,7 @@
     }
 
     async function loadAllPosts() {
-      const posts = await supaFetch('posts?is_approved=eq.true&order=created_at.desc&select=*');
+      const { rows: posts } = await adminApi({ action: 'list-approved-posts' });
       const el = document.getElementById('allPostsList');
       if (!posts.length) { el.innerHTML = '<div class="empty">No approved posts yet.</div>'; return; }
       el.innerHTML = posts.map(p => `
@@ -228,7 +223,7 @@
     }
 
     async function loadTopics() {
-      const topics = await supaFetch('topics?order=name.asc&select=*');
+      const { rows: topics } = await adminApi({ action: 'list-topics' });
       const el = document.getElementById('topicsList');
       el.innerHTML = `
         <div class="card" style="margin-bottom:1.5rem">
@@ -277,27 +272,20 @@
       const icon = document.getElementById('newIcon').value.trim() || '💬';
       const description = document.getElementById('newDesc').value.trim();
       if (!slug || !name) { alert('Slug and name are required.'); return; }
-      await supaFetch('topics', {
-        method: 'POST',
-        body: JSON.stringify({ slug, name, icon, description }),
-      });
+      await adminApi({ action: 'add-topic', data: { slug, name, icon, description } });
       toast('Topic added!');
       loadTopics();
     }
 
     async function toggleTopic(id, isActive) {
-      await supaFetch(`topics?id=eq.${id}`, {
-        method: 'PATCH',
-        headers: { 'Prefer': 'return=minimal' },
-        body: JSON.stringify({ is_active: !isActive }),
-      });
+      await adminApi({ action: 'toggle-topic', data: { topic_id: id, is_active: !isActive } });
       toast(isActive ? 'Topic hidden' : 'Topic shown');
       loadTopics();
     }
 
     async function deleteTopic(id) {
       if (!confirm('Delete this topic and all its posts? This cannot be undone.')) return;
-      await supaFetch(`topics?id=eq.${id}`, { method: 'DELETE', headers: { 'Prefer': 'return=minimal' } });
+      await adminApi({ action: 'delete-topic', id });
       toast('Deleted');
       loadTopics();
     }
