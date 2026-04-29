@@ -23,6 +23,44 @@ if (isSupabaseConfigured && supabase) {
 if (categories.length === 0) {
 	categories = [...FALLBACK_COURSE_CATEGORIES];
 }
+
+// Curated courses (not yet in Supabase) — show these in the directory as external cards.
+const CURATED_COURSES: any[] = [
+	{
+		id: 'curated-prereqcourses-bio-100',
+		slug: 'bio-100-general-biological-science-prereqcourses',
+		title: 'BIO 100 General Biological Science',
+		short_description:
+			'Self-paced, online biology course for non-science majors. 3 semester hours.',
+		description:
+			'This course presents the basic concepts of biology; it is intended for non-science majors. Recommended to satisfy the general education requirement for science.',
+		course_url: 'https://www.prereqcourses.com/product/bio-100-general-biological-science/',
+		image_url: '/images/courses/prereqcourses-bio-100.png',
+		duration: 'Self-paced',
+		level: 'Beginner',
+		price: '$675',
+		certificate_available: true,
+		credits: '3 Semester hours',
+		featured: true,
+		views_count: 0,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		colleges: {
+			name: 'PrereqCourses',
+			slug: 'prereqcourses',
+			accreditation_level: 'Other',
+			popularity_score: 0,
+			ease_of_access_score: 0,
+		},
+		course_categories: {
+			slug: 'natural-sciences',
+			name: 'Natural Sciences',
+			icon: '🧪',
+		},
+	},
+];
+
+const allCourses: any[] = [...CURATED_COURSES, ...coursesData];
 ---
 
 <Layout
@@ -136,7 +174,13 @@ if (categories.length === 0) {
 
 			<section class="courses-section">
 				<div class="courses-grid" id="coursesGrid">
-					{coursesData.map((course) => (
+					{allCourses.map((course) => (
+						(() => {
+							const href = course?.colleges?.slug === 'prereqcourses'
+								? course.course_url
+								: `/courses/${course.slug}`;
+							const isExternal = typeof href === 'string' && href.startsWith('http');
+							return (
 						<article
 							class="card card--has-overlay"
 							data-course-id={course.id}
@@ -150,7 +194,13 @@ if (categories.length === 0) {
 							data-featured={course.featured}
 							data-created={course.created_at}
 						>
-							<a href={`/courses/${course.slug}`} class="card-cover" aria-label={`View course: ${course.title}`}>
+							<a
+								href={href}
+								class="card-cover"
+								aria-label={`View course: ${course.title}`}
+								target={isExternal ? '_blank' : undefined}
+								rel={isExternal ? 'noopener noreferrer' : undefined}
+							>
 								<span class="sr-only">View course: {course.title}</span>
 							</a>
 							<div class="card-front">
@@ -183,6 +233,8 @@ if (categories.length === 0) {
 							</div>
 							</div>
 						</article>
+							);
+						})()
 					))}
 				</div>
 
