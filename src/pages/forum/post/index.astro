@@ -186,9 +186,20 @@ import Layout from '../../../layouts/Layout.astro';
 </script>
 
 <style>
+  :root {
+    --forum-font-sans: "IBM Plex Sans", "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .thread-layout,
+  .thread-layout *,
+  .thread-header,
+  .thread-header * {
+    font-family: var(--forum-font-sans);
+  }
+
   .thread-header { background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%); padding: 0.875rem 0; }
   .thread-header__inner { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem; }
-  .thread-header__breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8375rem; color: #93c5fd; flex-wrap: wrap; }
+  .thread-header__breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 12px; color: #93c5fd; flex-wrap: wrap; }
   .thread-header__breadcrumb a { color: #93c5fd; text-decoration: none; font-weight: 500; }
   .thread-header__breadcrumb a:hover { color: #fff; }
   .thread-header__breadcrumb span { color: #60a5fa; }
@@ -201,13 +212,13 @@ import Layout from '../../../layouts/Layout.astro';
   .op-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; color: #fff; flex-shrink: 0; }
   .op-avatar--blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
   .op-card__meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-  .op-card__author { font-size: 0.9rem; font-weight: 700; color: #0f172a; }
+  .op-card__author { font-size: 14px; font-weight: 700; color: #0f172a; }
   .op-card__badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; }
   .op-card__badge--op { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
   .op-card__dot { color: #cbd5e1; font-size: 0.75rem; }
-  .op-card__time { font-size: 0.8125rem; color: #94a3b8; }
-  .op-card__title { font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0 0 0.875rem; line-height: 1.4; }
-  .op-card__body { font-size: 0.9375rem; color: #374151; line-height: 1.7; white-space: pre-wrap; margin-bottom: 1rem; }
+  .op-card__time { font-size: 12px; color: #94a3b8; }
+  .op-card__title { font-size: 20px; font-weight: 700; color: #0f172a; margin: 0 0 0.875rem; line-height: 1.35; letter-spacing: -0.01em; }
+  .op-card__body { font-size: 14px; color: #374151; line-height: 1.65; white-space: pre-wrap; margin-bottom: 1rem; }
   .op-card__footer { border-top: 1px solid #f1f5f9; padding-top: 0.75rem; }
   .op-card__reply-count { font-size: 0.8125rem; color: #94a3b8; font-weight: 600; }
   .not-found { color: #94a3b8; font-size: 0.9375rem; padding: 2rem; text-align: center; }
@@ -218,19 +229,19 @@ import Layout from '../../../layouts/Layout.astro';
   .reply-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; color: #fff; flex-shrink: 0; background: linear-gradient(135deg, #64748b, #475569); }
   .reply-avatar--green { background: linear-gradient(135deg, #059669, #047857); }
   .reply-item__meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-  .reply-item__author { font-size: 0.875rem; font-weight: 700; color: #0f172a; }
+  .reply-item__author { font-size: 14px; font-weight: 700; color: #0f172a; }
   .reply-item__staff-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; background: #dcfce7; color: #065f46; border: 1px solid #bbf7d0; }
   .reply-item__dot { color: #cbd5e1; font-size: 0.75rem; }
-  .reply-item__time { font-size: 0.8rem; color: #94a3b8; }
-  .reply-item__body { font-size: 0.9375rem; color: #374151; line-height: 1.65; white-space: pre-wrap; margin-bottom: 0.75rem; }
+  .reply-item__time { font-size: 12px; color: #94a3b8; }
+  .reply-item__body { font-size: 14px; color: #374151; line-height: 1.6; white-space: pre-wrap; margin-bottom: 0.75rem; }
   .reply-item__num { font-size: 0.75rem; color: #cbd5e1; font-weight: 600; }
   .reply-card--form { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.5rem; }
-  .reply-card__form-title { font-size: 1.125rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem; }
-  .reply-card__form-sub { font-size: 0.875rem; color: #64748b; margin: 0 0 1.25rem; }
+  .reply-card__form-title { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem; }
+  .reply-card__form-sub { font-size: 14px; color: #64748b; margin: 0 0 1.25rem; }
   .reply-form__field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
   .reply-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .reply-form__label { font-size: 0.8125rem; font-weight: 600; color: #374151; }
-  .reply-form__input, .reply-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; color: #0f172a; background: #fff; font-family: inherit; box-sizing: border-box; }
+  .reply-form__label { font-size: 12px; font-weight: 600; color: #374151; }
+  .reply-form__input, .reply-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #0f172a; background: #fff; font-family: inherit; box-sizing: border-box; }
   .reply-form__textarea { resize: vertical; min-height: 120px; }
   .reply-form__submit { margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700; font-size: 0.9375rem; padding: 0.65rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; }
   .reply-form__submit:disabled { background: #93c5fd; cursor: not-allowed; }

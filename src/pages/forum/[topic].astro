@@ -234,6 +234,17 @@ export function getStaticPaths() {
 </script>
 
 <style>
+  :root {
+    --forum-font-sans: "IBM Plex Sans", "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .topic-layout,
+  .topic-layout *,
+  .topic-header,
+  .topic-header * {
+    font-family: var(--forum-font-sans);
+  }
+
   /* ── Topic header ─────────────────────────────────────────────────────── */
   .topic-header { background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%); }
   .topic-header__bar { border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -253,8 +264,8 @@ export function getStaticPaths() {
   }
   .topic-header__hero { padding: 1.75rem 0 1.75rem; }
   .topic-header__hero .topic-header__inner { padding-top: 0; padding-bottom: 0; }
-  .topic-header__desc { font-size: 0.9375rem; color: #bfdbfe; margin: 0 0 0.5rem; }
-  .topic-header__stats { font-size: 0.8rem; color: #93c5fd; font-weight: 600; }
+  .topic-header__desc { font-size: 14px; color: #bfdbfe; margin: 0 0 0.5rem; }
+  .topic-header__stats { font-size: 12px; color: #93c5fd; font-weight: 600; }
 
   /* ── Layout ───────────────────────────────────────────────────────────── */
   .topic-layout { background: #f1f5f9; min-height: 60vh; padding: 1.75rem 0 4rem; }
@@ -279,8 +290,8 @@ export function getStaticPaths() {
   .post-row__reply-num { display: block; font-size: 1.125rem; font-weight: 800; color: #2563eb; line-height: 1; }
   .post-row__reply-lbl { font-size: 0.6rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; }
   .post-row__body { flex: 1; min-width: 0; }
-  .post-row__title { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin: 0 0 0.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .post-row__meta { font-size: 0.8rem; color: #94a3b8; display: flex; align-items: center; gap: 0.3rem; }
+  .post-row__title { font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 0.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.35; }
+  .post-row__meta { font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 0.3rem; }
   .dot { color: #cbd5e1; }
   .post-row__arrow { font-size: 1rem; color: #cbd5e1; flex-shrink: 0; transition: color 0.12s; }
   .post-row:hover .post-row__arrow { color: #2563eb; }
@@ -292,12 +303,12 @@ export function getStaticPaths() {
   /* ── Ask card ─────────────────────────────────────────────────────────── */
   .ask-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1.75rem; margin-top: 1.5rem; }
   .ask-card__head { margin-bottom: 1.25rem; }
-  .ask-card__title { font-size: 1.125rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem; }
-  .ask-card__sub { font-size: 0.875rem; color: #64748b; margin: 0; }
+  .ask-card__title { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem; }
+  .ask-card__sub { font-size: 14px; color: #64748b; margin: 0; }
   .ask-form__field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
   .ask-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .ask-form__label { font-size: 0.8125rem; font-weight: 600; color: #374151; }
-  .ask-form__input, .ask-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; color: #0f172a; background: #fff; font-family: inherit; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s; }
+  .ask-form__label { font-size: 12px; font-weight: 600; color: #374151; }
+  .ask-form__input, .ask-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #0f172a; background: #fff; font-family: inherit; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s; }
   .ask-form__input:focus, .ask-form__textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
   .ask-form__textarea { resize: vertical; min-height: 100px; }
   .ask-form__submit { margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700; font-size: 0.9375rem; padding: 0.65rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
