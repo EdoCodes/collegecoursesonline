@@ -245,8 +245,8 @@ import Layout from '../../../layouts/Layout.astro';
   .op-card { background: transparent; border: none; border-radius: 0; padding: 0; margin-bottom: 1rem; }
   .op-card__skeleton { height: 120px; border-radius: 8px; background: linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%); background-size:200% 100%; animation: shimmer 1.4s infinite; }
   .qa-post { display: grid; grid-template-columns: 52px 1fr; gap: 0.875rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.95rem 1rem 0.85rem; margin-bottom: 0.625rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03); }
-  .qa-post--op { border-left: 2px solid #2563eb; }
-  .qa-post--reply { border-left: 2px solid #dbe5f2; }
+  .qa-post--op { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03), 0 0 0 1px rgba(37, 99, 235, 0.1); }
+  .qa-post--reply { background: #ffffff; }
   .qa-post__avatar-col { padding-top: 2px; }
   .qa-post__content-col { min-width: 0; }
   .qa-post__meta-row { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
@@ -273,7 +273,7 @@ import Layout from '../../../layouts/Layout.astro';
   .not-found { color: #94a3b8; font-size: 0.9375rem; padding: 2rem; text-align: center; }
   .replies-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #64748b; margin: 1rem 0 0.6rem; }
   .replies-list { display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.25rem; }
-  .reply-item--staff { border-left-color: #059669; background: #f0fdf4; }
+  .reply-item--staff { background: #f0fdf4; border-color: #bbf7d0; }
   .reply-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; color: #fff; flex-shrink: 0; background: linear-gradient(135deg, #64748b, #475569); }
   .reply-avatar--green { background: linear-gradient(135deg, #059669, #047857); }
   .reply-item__meta { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
