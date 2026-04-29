@@ -134,14 +134,24 @@
     }
 
     async function moderate(action, type, id, replyBody = '') {
-      const res = await fetch('/api/forum-moderate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret },
-        body: JSON.stringify({ action, type, id, reply_body: replyBody }),
-      });
-      if (!res.ok) { alert('Error. Check console.'); return; }
-      toast(action === 'approve' ? 'Approved!' : action === 'delete' ? 'Deleted' : 'Reply posted!');
-      showTab(document.querySelector('.tab.active').getAttribute('onclick').match(/'(.+)'/)[1]);
+      try {
+        const res = await fetch('/api/forum-moderate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret },
+          body: JSON.stringify({ action, type, id, reply_body: replyBody }),
+        });
+        const text = await res.text();
+        if (!res.ok) {
+          console.error('Moderate failed:', res.status, text);
+          alert(`Error (${res.status}). ${text || 'Check console for details.'}`);
+          return;
+        }
+        toast(action === 'approve' ? 'Approved!' : action === 'delete' ? 'Deleted' : 'Reply posted!');
+        showTab(document.querySelector('.tab.active').getAttribute('onclick').match(/'(.+)'/)[1]);
+      } catch (err) {
+        console.error('Moderate request failed:', err);
+        alert('Network error contacting the moderation API. Please try again.');
+      }
     }
 
     async function loadPendingPosts() {
@@ -298,19 +308,40 @@
 
     async function login() {
       const s = document.getElementById('secretInput').value;
-      const res = await fetch('/api/forum-moderate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-admin-secret': s },
-        body: JSON.stringify({ action: 'ping', type: 'post', id: '00000000-0000-0000-0000-000000000000' }),
-      });
-      if (res.status === 401) {
-        document.getElementById('loginError').style.display = 'block';
-        return;
+      const errEl = document.getElementById('loginError');
+      errEl.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/forum-moderate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-admin-secret': s },
+          body: JSON.stringify({ action: 'ping', type: 'post', id: '00000000-0000-0000-0000-000000000000' }),
+        });
+
+        const text = await res.text();
+
+        if (res.status === 401) {
+          errEl.textContent = 'Incorrect secret. Try again.';
+          errEl.style.display = 'block';
+          return;
+        }
+
+        if (!res.ok) {
+          console.error('Login ping failed:', res.status, text);
+          errEl.textContent = `Login failed (${res.status}). ${text || 'Check console.'}`;
+          errEl.style.display = 'block';
+          return;
+        }
+
+        adminSecret = s;
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        loadPendingPosts();
+      } catch (err) {
+        console.error('Login request failed:', err);
+        errEl.textContent = 'Network error. Could not reach moderation API.';
+        errEl.style.display = 'block';
       }
-      adminSecret = s;
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      loadPendingPosts();
     }
 
     document.getElementById('secretInput')?.addEventListener('keydown', (e) => {

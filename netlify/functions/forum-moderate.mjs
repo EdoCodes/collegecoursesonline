@@ -1,14 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
 export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }
+
+  const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('Missing Supabase env vars. URL:', !!supabaseUrl, 'Key:', !!supabaseKey);
+    return { statusCode: 500, body: JSON.stringify({ error: 'Server configuration error' }) };
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   // Verify admin secret
   const secret = event.headers['x-admin-secret'];
@@ -52,6 +57,6 @@ export const handler = async (event) => {
     };
   } catch (err) {
     console.error('forum-moderate error:', err);
-    return { statusCode: 500, body: JSON.stringify({ error: 'Server error' }) };
+    return { statusCode: 500, body: JSON.stringify({ error: err?.message || 'Server error' }) };
   }
 };
