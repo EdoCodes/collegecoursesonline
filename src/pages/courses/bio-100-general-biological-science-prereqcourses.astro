@@ -53,6 +53,19 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: course.title, item: fullCourseUrl },
   ],
 };
+
+const genEdNote =
+  'Commonly used to satisfy a general education science requirement for non-science majors. Transfer and program acceptance vary by school—confirm with your advisor before enrolling.';
+
+const learningOutcomes: string[] = [
+  'Explain core biology concepts including cells, genetics, evolution, and basic physiology.',
+  'Use scientific vocabulary to interpret common biology diagrams, models, and data.',
+  'Connect biology topics to real-world health, ecology, and everyday decision-making.',
+  'Demonstrate foundational lab-style thinking: hypothesis → evidence → conclusion (even in an online format).',
+];
+
+const providerAbout =
+  'PrereqCourses offers self-paced, online courses designed to help students complete prerequisite requirements on a flexible schedule. Course start dates and policies can change—verify current details on the provider site.';
 ---
 
 <Layout
@@ -158,6 +171,92 @@ const breadcrumbSchema = {
             />
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-grid">
+        <div class="main-content">
+          <section class="content-section">
+            <h2>About This Course</h2>
+            <div class="description-content">
+              <p>{course.description}</p>
+            </div>
+          </section>
+
+          <section class="content-section gen-ed-section" aria-labelledby="gen-ed-heading">
+            <h2 id="gen-ed-heading">General education &amp; majors</h2>
+            <p class="gen-ed-disclaimer">
+              Degree requirements differ by college and catalog year; always verify gen-ed rules and transfer credit with your advisor.
+            </p>
+            <div class="gen-ed-callout">
+              <p class="gen-ed-note">{genEdNote}</p>
+            </div>
+          </section>
+
+          <section class="content-section">
+            <h2>What You'll Learn</h2>
+            <ul class="learning-outcomes">
+              {learningOutcomes.map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+
+          <section class="content-section college-section">
+            <h2>About {course.providerName}</h2>
+            <div class="college-info">
+              <div class="college-details">
+                <p style="margin:0">{providerAbout}</p>
+                <div class="college-stats">
+                  <div class="stat-item">
+                    <strong>Location</strong>
+                    <span>Online</span>
+                  </div>
+                  <div class="stat-item">
+                    <strong>Format</strong>
+                    <span>Self-paced</span>
+                  </div>
+                </div>
+                <a class="college-link" href={course.providerSiteUrl} target="_blank" rel="noopener">
+                  Visit course provider website →
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sidebar">
+          <div class="info-card">
+            <h3>Course Details</h3>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="label">Duration</span>
+                <span class="value">{course.format}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Level</span>
+                <span class="value">Beginner</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Price</span>
+                <span class="value">{course.price}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Credits</span>
+                <span class="value">{course.credits}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Format</span>
+                <span class="value">100% Online</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card disclosure-card">
+            <p class="disclosure-text">
+              <strong>Note:</strong> Pricing, availability, and transfer policies can change. Always confirm details on the provider’s website.
+            </p>
+          </div>
+        </aside>
       </div>
     </div>
   </main>
@@ -270,6 +369,137 @@ const breadcrumbSchema = {
     .cta-section { flex-direction: column; align-items: flex-start; }
     .cta-button { width: 100%; justify-content: space-between; }
     .price-box { width: 100%; text-align: center; }
+  }
+
+  /* Main Content Grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: calc(var(--spacing) * 6);
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .main-content { min-width: 0; }
+  .content-section { margin-bottom: calc(var(--spacing) * 6); }
+  .content-section h2 {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 3);
+    color: var(--neutral-900);
+  }
+  .description-content p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--neutral-700);
+    margin: 0;
+  }
+  .gen-ed-disclaimer {
+    font-size: 0.9375rem;
+    color: var(--neutral-600);
+    margin: calc(var(--spacing) * -1) 0 calc(var(--spacing) * 3);
+    line-height: 1.55;
+    max-width: 52rem;
+  }
+  .gen-ed-callout {
+    padding: calc(var(--spacing) * 3);
+    border-radius: calc(var(--border-radius));
+    border: 1px solid rgba(37, 99, 235, 0.22);
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+    box-shadow: 0 1px 3px rgba(30, 64, 175, 0.06);
+    max-width: 52rem;
+  }
+  .gen-ed-note {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--neutral-800);
+  }
+
+  .learning-outcomes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+    margin: 0;
+    padding: 0;
+  }
+  .learning-outcomes li {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--spacing) * 2);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--neutral-800);
+  }
+  .learning-outcomes li::before {
+    content: "✓";
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: var(--color-success);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-top: 2px;
+  }
+
+  .college-section {
+    background: var(--neutral-50);
+    padding: calc(var(--spacing) * 4);
+    border-radius: calc(var(--border-radius) * 1.25);
+    border: 1px solid var(--neutral-200);
+  }
+  .college-info { display: flex; gap: calc(var(--spacing) * 3); align-items: flex-start; }
+  .college-details { flex: 1; }
+  .college-stats {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+    margin: calc(var(--spacing) * 2) 0;
+  }
+  .stat-item { display: flex; gap: calc(var(--spacing) * 1); font-size: 0.9375rem; }
+  .stat-item strong { min-width: 120px; color: var(--neutral-700); }
+  .college-link {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .college-link:hover { color: var(--color-primary-dark); }
+
+  /* Sidebar */
+  .sidebar { position: sticky; top: calc(var(--spacing) * 3); align-self: flex-start; }
+  .info-card {
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.25);
+    padding: calc(var(--spacing) * 3);
+    box-shadow: var(--shadow-md);
+    margin-bottom: calc(var(--spacing) * 3);
+    border: 1px solid var(--neutral-200);
+  }
+  .info-card h3 { font-size: 1.25rem; margin-bottom: calc(var(--spacing) * 3); color: var(--neutral-900); }
+  .info-list { display: flex; flex-direction: column; gap: calc(var(--spacing) * 2); }
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: calc(var(--spacing) * 2);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  .info-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .info-item .label { font-weight: 600; color: var(--neutral-700); }
+  .info-item .value { color: var(--neutral-900); font-weight: 500; }
+  .disclosure-card { background: var(--neutral-50); border: 1px solid var(--neutral-200); }
+  .disclosure-text { font-size: 0.8125rem; color: var(--neutral-600); line-height: 1.5; margin: 0; }
+  .disclosure-text strong { color: var(--neutral-800); }
+
+  @media (max-width: 1100px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
   }
 </style>
 
