@@ -1,62 +1,283 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 const { id } = Astro.params;
 
-export function getStaticPaths() {
-  return [];
+async function sbFetch(path: string) {
+  if (!supabaseUrl || !supabaseKey) return [];
+  const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+    headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
+  });
+  if (!res.ok) return [];
+  return res.json();
 }
+
+export async function getStaticPaths() {
+  const url = import.meta.env.PUBLIC_SUPABASE_URL;
+  const key = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return [];
+  const res = await fetch(`${url}/rest/v1/posts?is_approved=eq.true&select=id`, {
+    headers: { apikey: key, Authorization: `Bearer ${key}` }
+  });
+  if (!res.ok) return [];
+  const posts = await res.json();
+  return posts.map((p: { id: string }) => ({ params: { id: p.id } }));
+}
+
+const posts = await sbFetch(`posts?id=eq.${id}&is_approved=eq.true&select=*`);
+const post = posts?.[0] ?? null;
+const replies = post
+  ? await sbFetch(`replies?post_id=eq.${id}&is_approved=eq.true&order=is_staff_reply.desc,created_at.asc&select=*`)
+  : [];
+
+const pageTitle = post ? `${post.title} | Forum | College Courses Online` : 'Forum Thread | College Courses Online';
+const pageDescription = post
+  ? String(post.body || 'Community Q&A thread on College Courses Online.').slice(0, 155)
+  : 'Community Q&A thread on College Courses Online.';
+const canonicalPath = `/forum/post/${id}`;
+
+function hashString(str: string) {
+  let hash = 0;
+  const value = String(str || '');
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function avatarGradient(name: string) {
+  const palettes = [
+    ['#2563eb', '#1d4ed8'],
+    ['#7c3aed', '#6d28d9'],
+    ['#db2777', '#be185d'],
+    ['#ea580c', '#c2410c'],
+    ['#0d9488', '#0f766e'],
+    ['#0891b2', '#0e7490'],
+    ['#4f46e5', '#4338ca'],
+    ['#16a34a', '#15803d'],
+    ['#b91c1c', '#991b1b'],
+  ];
+  const [from, to] = palettes[hashString(name) % palettes.length];
+  return `linear-gradient(135deg, ${from}, ${to})`;
+}
+
+function initials(name: string) {
+  return name ? String(name).trim().charAt(0).toUpperCase() : '?';
+}
+
+const siteUrl = Astro.site || new URL('https://collegecoursesonline.netlify.app');
+const threadUrl = new URL(canonicalPath, siteUrl).toString();
+const qapageSchema = post
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'QAPage',
+      mainEntity: {
+        '@type': 'Question',
+        name: post.title,
+        text: post.body || '',
+        dateCreated: post.created_at,
+        author: { '@type': 'Person', name: post.author_name || 'Anonymous' },
+        answerCount: replies.length,
+        acceptedAnswer: replies.find((r: any) => r.is_staff_reply)
+          ? {
+              '@type': 'Answer',
+              text: replies.find((r: any) => r.is_staff_reply).body,
+              dateCreated: replies.find((r: any) => r.is_staff_reply).created_at,
+              author: { '@type': 'Organization', name: 'College Courses Online Team' }
+            }
+          : undefined,
+        suggestedAnswer: replies.map((r: any) => ({
+          '@type': 'Answer',
+          text: r.body,
+          dateCreated: r.created_at,
+          author: { '@type': 'Person', name: r.author_name || 'Anonymous' }
+        }))
+      }
+    }
+  : null;
 ---
 
 <Layout
-  title="Forum | College Courses Online"
-  description="Community Q&A thread on College Courses Online."
+  title={pageTitle}
+  description={pageDescription}
+  canonical={canonicalPath}
+  noindex={!post}
 >
-  <div class="redirect-wrap">
-    <div class="redirect-card">
-      <h1>Opening thread…</h1>
-      <p>If you are not redirected automatically, use the link below.</p>
-      <a id="fallbackLink" href={`/forum/post/?id=${id ?? ''}`}>Open thread</a>
+  {qapageSchema && (
+    <Fragment slot="head">
+      <script type="application/ld+json" set:html={JSON.stringify(qapageSchema)} />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={threadUrl} />
+    </Fragment>
+  )}
+
+  <div class="thread-header">
+    <div class="thread-header__inner">
+      <div class="thread-header__breadcrumb">
+        <a href="/forum">Forum</a>
+        <span aria-hidden="true">›</span>
+        <a href={post ? `/forum/${post.topic_slug}` : '/forum'}>{post ? post.topic_slug.replace(/-/g, ' ') : 'Thread'}</a>
+        <span aria-hidden="true">›</span>
+        <span>Thread</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="thread-layout">
+    <div class="thread-layout__inner">
+      <div class="thread-main">
+        {post ? (
+          <>
+            <div class="op-card">
+              <article class="qa-post qa-post--op">
+                <div class="qa-post__avatar-col">
+                  <div class="op-avatar" style={`background:${avatarGradient(post.author_name)}`}>{initials(post.author_name)}</div>
+                </div>
+                <div class="qa-post__content-col">
+                  <div class="qa-post__meta-row">
+                    <span class="op-card__author">{post.author_name}</span>
+                    <span class="op-card__badge op-card__badge--op">Original Post</span>
+                  </div>
+                  <h1 class="op-card__title">{post.title}</h1>
+                  {post.body && post.body !== '(no details provided)' ? (
+                    <div class="op-card__body">{post.body}</div>
+                  ) : (
+                    <div class="op-card__body op-card__body--muted">No details were provided for this question.</div>
+                  )}
+                  <div class="qa-post__footer-row">
+                    <span class="op-card__reply-count">{replies.length} {replies.length === 1 ? 'reply' : 'replies'}</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            {replies.length > 0 && (
+              <>
+                <div class="replies-title">{replies.length} {replies.length === 1 ? 'Answer' : 'Answers'}</div>
+                <div class="replies-list">
+                  {replies.map((r: any, i: number) => (
+                    <article class={`qa-post qa-post--reply ${r.is_staff_reply ? 'reply-item--staff' : ''}`}>
+                      <div class="qa-post__avatar-col">
+                        <div class={`reply-avatar ${r.is_staff_reply ? 'reply-avatar--green' : ''}`} style={!r.is_staff_reply ? `background:${avatarGradient(r.author_name)}` : undefined}>
+                          {initials(r.author_name)}
+                        </div>
+                      </div>
+                      <div class="qa-post__content-col">
+                        <div class="reply-item__meta">
+                          <span class="reply-item__author">{r.author_name}</span>
+                          {r.is_staff_reply && <span class="reply-item__staff-badge">Staff</span>}
+                          <span class="reply-item__dot">·</span>
+                          <span class="reply-item__num">#{i + 1}</span>
+                        </div>
+                        <div class="reply-item__body">{r.body}</div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <div class="reply-card reply-card--form" id="replySection">
+              <h2 class="reply-card__form-title">Add a reply</h2>
+              <p class="reply-card__form-sub">Help a fellow student — share what you know. No account needed.</p>
+              <form class="reply-form" id="replyForm">
+                <input type="hidden" name="post_id" value={post.id} />
+                <div class="reply-form__field">
+                  <label class="reply-form__label" for="reply-body">Your reply</label>
+                  <textarea class="reply-form__textarea" id="reply-body" name="body" rows="5" placeholder="Share your experience or answer…" required></textarea>
+                </div>
+                <div class="reply-form__row">
+                  <div class="reply-form__field">
+                    <label class="reply-form__label" for="reply-name">Your name</label>
+                    <input class="reply-form__input" type="text" id="reply-name" name="author_name" placeholder="First name is fine" required />
+                  </div>
+                  <div class="reply-form__field">
+                    <label class="reply-form__label" for="reply-email">Email (not shown)</label>
+                    <input class="reply-form__input" type="email" id="reply-email" name="author_email" placeholder="Not shown publicly" required />
+                  </div>
+                </div>
+                <button class="reply-form__submit" type="submit">Post reply →</button>
+              </form>
+              <div class="reply-success" id="replySuccess" style="display:none">
+                <div class="reply-success__icon">Done</div>
+                <strong>Reply submitted!</strong>
+                <p>It will appear here after a quick review. Thank you!</p>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div class="not-found">Question not found or not yet approved.</div>
+        )}
+      </div>
     </div>
   </div>
 </Layout>
 
-<script define:vars={{ id }}>
-  const fallbackId = id || window.location.pathname.split('/').filter(Boolean).pop();
-  if (fallbackId) {
-    window.location.replace(`/forum/post/?id=${encodeURIComponent(fallbackId)}`);
-  }
+<script>
+  const form = document.getElementById('replyForm');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.textContent = 'Submitting…';
+    const data = Object.fromEntries(new FormData(form));
+    const res = await fetch('/api/forum-reply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('replySuccess').style.display = 'block';
+    } else {
+      btn.disabled = false; btn.textContent = 'Post reply →';
+      alert('Something went wrong. Please try again.');
+    }
+  });
 </script>
 
-<style>
-  .redirect-wrap {
-    min-height: 50vh;
-    display: grid;
-    place-items: center;
-    background: #f1f5f9;
-    padding: 2rem;
-  }
-  .redirect-card {
-    width: min(560px, 100%);
-    background: #fff;
-    border: 1px solid #dbe5f2;
-    border-left: 3px solid #2563eb;
-    border-radius: 12px;
-    padding: 1.25rem 1.25rem 1rem;
-  }
-  .redirect-card h1 {
-    margin: 0 0 0.5rem;
-    font-size: 1.1rem;
-    color: #0f172a;
-  }
-  .redirect-card p {
-    margin: 0 0 0.75rem;
-    color: #475569;
-    font-size: 0.95rem;
-  }
-  .redirect-card a {
-    color: #1d4ed8;
-    font-weight: 700;
-    text-decoration: none;
+<style is:global>
+  .thread-header { background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%); padding: 0.875rem 0; }
+  .thread-header__inner { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem; }
+  .thread-header__breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 12px; color: #93c5fd; flex-wrap: wrap; }
+  .thread-header__breadcrumb a { color: #93c5fd; text-decoration: none; font-weight: 500; }
+  .thread-layout { background: #f6f8fb; min-height: 70vh; padding: 1.75rem 0 4rem; }
+  .thread-layout__inner { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem; }
+  .qa-post { display: grid; grid-template-columns: 52px 1fr; gap: 0.875rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.95rem 1rem 0.85rem; margin-bottom: 0.625rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03); }
+  .qa-post__avatar-col { padding-top: 2px; }
+  .op-avatar, .reply-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; color: #fff; }
+  .reply-avatar { width: 32px; height: 32px; font-size: 0.8rem; }
+  .reply-avatar--green { background: linear-gradient(135deg, #059669, #047857); }
+  .op-card__title { font-size: 27px; font-weight: 600; color: #0f172a; margin: 0 0 0.45rem; line-height: 1.28; }
+  .op-card__body { font-size: 14px; color: #1f2937; line-height: 1.6; white-space: pre-wrap; }
+  .op-card__body--muted { color: #6b7280; }
+  .op-card__author, .reply-item__author { font-size: 13px; font-weight: 700; color: #1e293b; }
+  .op-card__badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+  .qa-post__meta-row, .reply-item__meta { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+  .qa-post__footer-row { border-top: 1px solid #f1f5f9; padding-top: 0.5rem; margin-top: 0.45rem; }
+  .op-card__reply-count { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .replies-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #64748b; margin: 1rem 0 0.6rem; }
+  .reply-item--staff { background: #f0fdf4; border-color: #bbf7d0; }
+  .reply-item__staff-badge { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; background: #dcfce7; color: #065f46; border: 1px solid #bbf7d0; }
+  .reply-item__body { font-size: 14px; color: #334155; line-height: 1.6; white-space: pre-wrap; }
+  .reply-card--form { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03); margin-top: 1rem; }
+  .reply-card__form-title { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem; }
+  .reply-card__form-sub { font-size: 14px; color: #64748b; margin: 0 0 1.25rem; }
+  .reply-form__field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .reply-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .reply-form__label { font-size: 12px; font-weight: 600; color: #374151; }
+  .reply-form__input, .reply-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #0f172a; background: #fff; box-sizing: border-box; }
+  .reply-form__textarea { resize: vertical; min-height: 120px; }
+  .reply-form__submit { margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700; font-size: 0.9375rem; padding: 0.65rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; }
+  .reply-success { text-align: center; padding: 1rem; }
+  .reply-success__icon { font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; color: #047857; font-weight: 800; }
+  .not-found { color: #94a3b8; font-size: 0.95rem; padding: 2rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
+  @media (max-width: 768px) {
+    .qa-post { grid-template-columns: 1fr; }
+    .qa-post__avatar-col { display: none; }
+    .reply-form__row { grid-template-columns: 1fr; }
+    .op-card__title { font-size: 22px; }
   }
 </style>

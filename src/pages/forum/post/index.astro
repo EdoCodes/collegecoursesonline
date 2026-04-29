@@ -5,315 +5,42 @@ import Layout from '../../../layouts/Layout.astro';
 <Layout
   title="Forum | College Courses Online"
   description="Community Q&A thread on College Courses Online."
+  noindex={true}
 >
-  <div class="thread-header">
-    <div class="thread-header__inner">
-      <div class="thread-header__breadcrumb" id="breadcrumb">
-        <a href="/forum">Forum</a>
-        <span aria-hidden="true">›</span>
-        <a href="/forum" id="topicLink">Loading…</a>
-        <span aria-hidden="true">›</span>
-        <span>Thread</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="thread-layout">
-    <div class="thread-layout__inner">
-      <div class="thread-main">
-        <div class="op-card" id="questionCard">
-          <div class="op-card__skeleton"></div>
-        </div>
-        <div id="repliesSection"></div>
-
-        <div class="reply-card reply-card--form" id="replySection">
-          <h2 class="reply-card__form-title">Add a reply</h2>
-          <p class="reply-card__form-sub">Help a fellow student — share what you know. No account needed.</p>
-          <form class="reply-form" id="replyForm">
-            <input type="hidden" name="post_id" id="postIdInput" value="" />
-            <div class="reply-form__field">
-              <label class="reply-form__label" for="reply-body">Your reply</label>
-              <textarea class="reply-form__textarea" id="reply-body" name="body" rows="5" placeholder="Share your experience or answer…" required></textarea>
-            </div>
-            <div class="reply-form__row">
-              <div class="reply-form__field">
-                <label class="reply-form__label" for="reply-name">Your name</label>
-                <input class="reply-form__input" type="text" id="reply-name" name="author_name" placeholder="First name is fine" required />
-              </div>
-              <div class="reply-form__field">
-                <label class="reply-form__label" for="reply-email">Email (not shown)</label>
-                <input class="reply-form__input" type="email" id="reply-email" name="author_email" placeholder="Not shown publicly" required />
-              </div>
-            </div>
-            <button class="reply-form__submit" type="submit">Post reply →</button>
-            <p class="reply-form__note">Replies are reviewed before appearing publicly. Usually within 24 hours.</p>
-          </form>
-          <div class="reply-success" id="replySuccess" style="display:none">
-            <div class="reply-success__icon">Done</div>
-            <strong>Reply submitted!</strong>
-            <p>It will appear here after a quick review. Thank you!</p>
-          </div>
-        </div>
-      </div>
-
-      <aside class="thread-sidebar">
-        <a href="/forum" class="sidebar-btn sidebar-btn--new" id="newQuestionBtn">+ Ask a new question</a>
-        <a href="/forum" class="sidebar-btn sidebar-btn--back">← Back to forum</a>
-
-        <div class="sidebar-card">
-          <h3 class="sidebar-card__title">Related Guides</h3>
-          <ul class="sidebar-card__links">
-            <li><a href="/resources/blog/prerequisite-courses-for-nursing-school">Nursing prerequisites</a></li>
-            <li><a href="/resources/blog/how-to-become-physician-assistant">How to become a PA</a></li>
-            <li><a href="/resources/blog/prerequisite-college-courses-by-major">Prereqs by major</a></li>
-          </ul>
-        </div>
-      </aside>
+  <div class="redirect-wrap">
+    <div class="redirect-card">
+      <h1>Opening thread…</h1>
+      <p>If you are not redirected automatically, go back to the forum.</p>
+      <a href="/forum">Back to forum</a>
     </div>
   </div>
 </Layout>
 
-<script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
-  function escHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+<script>
+  const postId = new URLSearchParams(window.location.search).get('id');
+  if (postId) {
+    window.location.replace(`/forum/post/${encodeURIComponent(postId)}`);
+  } else {
+    window.location.replace('/forum');
   }
-
-  function timeAgo(d) {
-    const diff = Math.floor((Date.now() - new Date(d)) / 1000);
-    if (diff < 60) return 'just now';
-    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-    if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-    if (diff < 2592000) return `${Math.floor(diff/86400)}d ago`;
-    return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  }
-
-  async function sbFetch(path) {
-    const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` }
-    });
-    return res.json();
-  }
-
-  function avatarInitials(name) {
-    return name ? name.trim().charAt(0).toUpperCase() : '?';
-  }
-
-  function hashString(str) {
-    let hash = 0;
-    const value = String(str || '');
-    for (let i = 0; i < value.length; i += 1) {
-      hash = (hash << 5) - hash + value.charCodeAt(i);
-      hash |= 0;
-    }
-    return Math.abs(hash);
-  }
-
-  function avatarGradient(name) {
-    const palettes = [
-      ['#2563eb', '#1d4ed8'], // blue
-      ['#7c3aed', '#6d28d9'], // purple
-      ['#db2777', '#be185d'], // pink
-      ['#ea580c', '#c2410c'], // orange
-      ['#0d9488', '#0f766e'], // teal
-      ['#0891b2', '#0e7490'], // cyan
-      ['#4f46e5', '#4338ca'], // indigo
-      ['#16a34a', '#15803d'], // green
-      ['#b91c1c', '#991b1b'], // red
-    ];
-    const [from, to] = palettes[hashString(name) % palettes.length];
-    return `linear-gradient(135deg, ${from}, ${to})`;
-  }
-
-  async function init() {
-    const postId = new URLSearchParams(window.location.search).get('id');
-    if (!postId) {
-      document.getElementById('questionCard').innerHTML = '<div class="not-found">Missing thread ID.</div>';
-      return;
-    }
-
-    const [posts, replies] = await Promise.all([
-      sbFetch(`posts?id=eq.${postId}&is_approved=eq.true&select=*`),
-      sbFetch(`replies?post_id=eq.${postId}&is_approved=eq.true&order=is_staff_reply.desc,created_at.asc&select=*`)
-    ]);
-
-    const post = posts[0];
-    if (!post) {
-      document.getElementById('questionCard').innerHTML = '<div class="not-found">Question not found or not yet approved.</div>';
-      return;
-    }
-
-    document.title = `${post.title} | Forum | College Courses Online`;
-    document.getElementById('topicLink').textContent = post.topic_slug.replace(/-/g, ' ');
-    document.getElementById('topicLink').href = `/forum/${post.topic_slug}`;
-    const newQBtn = document.getElementById('newQuestionBtn');
-    if (newQBtn) newQBtn.href = `/forum/${post.topic_slug}#ask`;
-    document.getElementById('postIdInput').value = post.id;
-
-    document.getElementById('questionCard').innerHTML = `
-      <article class="qa-post qa-post--op">
-        <div class="qa-post__avatar-col">
-          <div class="op-avatar" style="background:${avatarGradient(post.author_name)}">${avatarInitials(post.author_name)}</div>
-        </div>
-        <div class="qa-post__content-col">
-          <div class="qa-post__meta-row">
-            <span class="op-card__author">${escHtml(post.author_name)}</span>
-            <span class="op-card__badge op-card__badge--op">Original Post</span>
-            <span class="op-card__dot">·</span>
-            <span class="op-card__time">${timeAgo(post.created_at)}</span>
-          </div>
-          <h1 class="op-card__title">${escHtml(post.title)}</h1>
-          ${post.body && post.body !== '(no details provided)' ? `<div class="op-card__body">${escHtml(post.body)}</div>` : '<div class="op-card__body op-card__body--muted">No details were provided for this question.</div>'}
-          <div class="qa-post__footer-row">
-            <span class="op-card__reply-count">${replies.length} ${replies.length === 1 ? 'reply' : 'replies'}</span>
-          </div>
-        </div>
-      </article>`;
-
-    if (replies.length) {
-      document.getElementById('repliesSection').innerHTML = `
-        <div class="replies-title">${replies.length} ${replies.length === 1 ? 'Answer' : 'Answers'}</div>
-        <div class="replies-list">
-          ${replies.map((r, i) => `
-            <article class="qa-post qa-post--reply ${r.is_staff_reply ? 'reply-item--staff' : ''}">
-              <div class="qa-post__avatar-col">
-                <div class="reply-avatar ${r.is_staff_reply ? 'reply-avatar--green' : ''}" ${r.is_staff_reply ? '' : `style="background:${avatarGradient(r.author_name)}"`}>${avatarInitials(r.author_name)}</div>
-              </div>
-              <div class="qa-post__content-col">
-                <div class="reply-item__meta">
-                  <span class="reply-item__author">${escHtml(r.author_name)}</span>
-                  ${r.is_staff_reply ? '<span class="reply-item__staff-badge">Staff</span>' : ''}
-                  <span class="reply-item__dot">·</span>
-                  <span class="reply-item__time">${timeAgo(r.created_at)}</span>
-                  <span class="reply-item__dot">·</span>
-                  <span class="reply-item__num">#${i + 1}</span>
-                </div>
-                <div class="reply-item__body">${escHtml(r.body)}</div>
-                <div class="qa-post__footer-row">
-                  <span class="reply-item__action">Helpful</span>
-                  <span class="reply-item__action">Reply</span>
-                </div>
-              </div>
-            </article>`).join('')}
-        </div>`;
-    }
-  }
-
-  const form = document.getElementById('replyForm');
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true; btn.textContent = 'Submitting…';
-    const data = Object.fromEntries(new FormData(form));
-    const res = await fetch('/api/forum-reply', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) {
-      form.style.display = 'none';
-      document.getElementById('replySuccess').style.display = 'block';
-    } else {
-      btn.disabled = false; btn.textContent = 'Post reply →';
-      alert('Something went wrong. Please try again.');
-    }
-  });
-
-  init();
 </script>
 
-<style is:global>
-  :root {
-    --forum-font-sans: "IBM Plex Sans", "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+<style>
+  .redirect-wrap {
+    min-height: 50vh;
+    display: grid;
+    place-items: center;
+    background: #f1f5f9;
+    padding: 2rem;
   }
-
-  .thread-layout,
-  .thread-layout *,
-  .thread-header,
-  .thread-header * {
-    font-family: var(--forum-font-sans);
+  .redirect-card {
+    width: min(560px, 100%);
+    background: #fff;
+    border: 1px solid #dbe5f2;
+    border-radius: 12px;
+    padding: 1.25rem;
   }
-
-  .thread-header { background: linear-gradient(135deg, #0f2744 0%, #1d4ed8 100%); padding: 0.875rem 0; }
-  .thread-header__inner { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem; }
-  .thread-header__breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 12px; color: #93c5fd; flex-wrap: wrap; }
-  .thread-header__breadcrumb a { color: #93c5fd; text-decoration: none; font-weight: 500; }
-  .thread-header__breadcrumb a:hover { color: #fff; }
-  .thread-header__breadcrumb span { color: #60a5fa; }
-  .thread-layout { background: #f6f8fb; min-height: 70vh; padding: 1.75rem 0 4rem; }
-  .thread-layout__inner { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: 1fr 240px; gap: 1.5rem; align-items: start; }
-  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-  .op-card { background: transparent; border: none; border-radius: 0; padding: 0; margin-bottom: 1rem; }
-  .op-card__skeleton { height: 120px; border-radius: 8px; background: linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%); background-size:200% 100%; animation: shimmer 1.4s infinite; }
-  .qa-post { display: grid; grid-template-columns: 52px 1fr; gap: 0.875rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.95rem 1rem 0.85rem; margin-bottom: 0.625rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03); }
-  .qa-post--op { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03), 0 0 0 1px rgba(37, 99, 235, 0.1); }
-  .qa-post--reply { background: #ffffff; }
-  .qa-post__avatar-col { padding-top: 2px; }
-  .qa-post__content-col { min-width: 0; }
-  .qa-post__meta-row { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
-  .qa-post__footer-row { border-top: 1px solid #f1f5f9; padding-top: 0.5rem; margin-top: 0.45rem; display: flex; gap: 0.8rem; }
-  .op-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; color: #fff; flex-shrink: 0; }
-  .op-avatar--blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
-  .op-card__meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-  .op-card__author { font-size: 13px; font-weight: 700; color: #1e293b; }
-  .op-card__badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; }
-  .op-card__badge--op { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-  .op-card__dot { color: #cbd5e1; font-size: 0.75rem; }
-  .op-card__time { font-size: 12px; color: #64748b; }
-  .thread-main .op-card__title {
-    font-size: 27px !important;
-    font-weight: 600 !important;
-    color: #0f172a;
-    margin: 0 0 0.45rem;
-    line-height: 1.28;
-    letter-spacing: -0.004em;
-  }
-  .op-card__body { font-size: 14px; color: #1f2937; line-height: 1.6; white-space: pre-wrap; margin-bottom: 0.5rem; }
-  .op-card__body--muted { color: #6b7280; }
-  .op-card__reply-count { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-  .not-found { color: #94a3b8; font-size: 0.9375rem; padding: 2rem; text-align: center; }
-  .replies-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #64748b; margin: 1rem 0 0.6rem; }
-  .replies-list { display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.25rem; }
-  .reply-item--staff { background: #f0fdf4; border-color: #bbf7d0; }
-  .reply-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; color: #fff; flex-shrink: 0; background: linear-gradient(135deg, #64748b, #475569); }
-  .reply-avatar--green { background: linear-gradient(135deg, #059669, #047857); }
-  .reply-item__meta { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
-  .reply-item__author { font-size: 13px; font-weight: 700; color: #1e293b; }
-  .reply-item__staff-badge { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; background: #dcfce7; color: #065f46; border: 1px solid #bbf7d0; }
-  .reply-item__dot { color: #cbd5e1; font-size: 0.75rem; }
-  .reply-item__time { font-size: 12px; color: #94a3b8; }
-  .reply-item__body { font-size: 14px; color: #334155; line-height: 1.6; white-space: pre-wrap; margin-bottom: 0.35rem; }
-  .reply-item__num { font-size: 12px; color: #94a3b8; font-weight: 600; }
-  .reply-item__action { font-size: 12px; color: #64748b; font-weight: 600; }
-  .reply-item__action:hover { color: #1d4ed8; cursor: default; }
-  .reply-card--form { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03); }
-  .reply-card__form-title { font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem; }
-  .reply-card__form-sub { font-size: 14px; color: #64748b; margin: 0 0 1.25rem; }
-  .reply-form__field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
-  .reply-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .reply-form__label { font-size: 12px; font-weight: 600; color: #374151; }
-  .reply-form__input, .reply-form__textarea { width: 100%; padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #0f172a; background: #fff; font-family: inherit; box-sizing: border-box; }
-  .reply-form__textarea { resize: vertical; min-height: 120px; }
-  .reply-form__submit { margin-top: 0.5rem; background: #2563eb; color: #fff; font-weight: 700; font-size: 0.9375rem; padding: 0.65rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; }
-  .reply-form__submit:disabled { background: #93c5fd; cursor: not-allowed; }
-  .reply-form__note { font-size: 0.8rem; color: #94a3b8; margin: 0.75rem 0 0; }
-  .reply-success { text-align: center; padding: 2rem; }
-  .reply-success__icon { font-size: 0.75rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; color: #047857; font-weight: 800; }
-  .reply-success strong { display: block; font-size: 1.125rem; color: #0f172a; margin-bottom: 0.35rem; }
-  .reply-success p { color: #64748b; font-size: 0.9rem; margin: 0; }
-  .sidebar-btn { display: block; text-align: center; font-weight: 700; font-size: 0.875rem; padding: 0.625rem 1rem; border-radius: 10px; text-decoration: none; margin-bottom: 0.625rem; }
-  .sidebar-btn--new { background: #2563eb; color: #fff; }
-  .sidebar-btn--back { background: #fff; color: #374151; border: 1.5px solid #e2e8f0; }
-  .sidebar-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-bottom: 0.875rem; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03); }
-  .sidebar-card__title { font-size: 0.875rem; font-weight: 800; color: #0f172a; margin: 0 0 0.75rem; }
-  .sidebar-card__links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .sidebar-card__links li { font-size: 0.875rem; color: #374151; }
-  .sidebar-card__links a { color: #2563eb; text-decoration: none; font-weight: 500; }
-  @media (max-width: 768px) {
-    .thread-layout__inner { grid-template-columns: 1fr; }
-    .thread-sidebar { display: none; }
-    .reply-form__row { grid-template-columns: 1fr; }
-    .qa-post { grid-template-columns: 1fr; }
-    .qa-post__avatar-col { display: none; }
-    .thread-main .op-card__title { font-size: 22px !important; }
-  }
+  .redirect-card h1 { margin: 0 0 0.5rem; font-size: 1.1rem; color: #0f172a; }
+  .redirect-card p { margin: 0 0 0.75rem; color: #475569; font-size: 0.95rem; }
+  .redirect-card a { color: #1d4ed8; font-weight: 700; text-decoration: none; }
 </style>
