@@ -176,10 +176,8 @@ const allCourses: any[] = [...CURATED_COURSES, ...coursesData];
 				<div class="courses-grid" id="coursesGrid">
 					{allCourses.map((course) => (
 						(() => {
-							const href = course?.colleges?.slug === 'prereqcourses'
-								? course.course_url
-								: `/courses/${course.slug}`;
-							const isExternal = typeof href === 'string' && href.startsWith('http');
+							const href = `/courses/${course.slug}`;
+							const isExternal = false;
 							return (
 						<article
 							class="card card--has-overlay"
