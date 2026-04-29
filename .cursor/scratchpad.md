@@ -535,6 +535,13 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-04-29 — Curated PrereqCourses pages: add Reviews + Compare sections
+
+- Added the missing **Student Reviews & Ratings** section (placeholder + “Write a Review” CTA) and a **Compare with** section to the two curated PrereqCourses course pages:
+  - `bio-100-general-biological-science-prereqcourses`
+  - `bio-210-microbiology-w-lab-prereqcourses`
+- Note: these curated pages are not Supabase-backed, so they can’t use `ReviewsSection.astro` (requires `courseId`). We render the same UI pattern as a static “No reviews yet” state and link to `/rate-my-course`.
+
 ### ✅ Phase 1 Progress Update - Core Pages Complete
 
 **Completed Tasks:**
