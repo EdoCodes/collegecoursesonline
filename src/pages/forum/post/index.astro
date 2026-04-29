@@ -233,7 +233,14 @@ import Layout from '../../../layouts/Layout.astro';
   .op-card__badge--op { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
   .op-card__dot { color: #cbd5e1; font-size: 0.75rem; }
   .op-card__time { font-size: 12px; color: #94a3b8; }
-  .op-card__title { font-size: 22px; font-weight: 700; color: #0f172a; margin: 0 0 0.5rem; line-height: 1.32; letter-spacing: -0.01em; }
+  .thread-main .op-card__title {
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+    line-height: 1.24;
+    letter-spacing: -0.005em;
+  }
   .op-card__body { font-size: 14px; color: #1f2937; line-height: 1.6; white-space: pre-wrap; margin-bottom: 0.5rem; }
   .op-card__body--muted { color: #6b7280; }
   .op-card__reply-count { font-size: 12px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -280,5 +287,6 @@ import Layout from '../../../layouts/Layout.astro';
     .reply-form__row { grid-template-columns: 1fr; }
     .qa-post { grid-template-columns: 1fr; }
     .qa-post__avatar-col { display: none; }
+    .thread-main .op-card__title { font-size: 26px !important; }
   }
 </style>
