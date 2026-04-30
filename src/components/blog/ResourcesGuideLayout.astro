@@ -816,6 +816,10 @@ const authorInitials =
 		color: #0f172a;
 		border-bottom: 2px solid #e2e8f0;
 		white-space: nowrap;
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		box-shadow: 0 1px 0 rgba(226, 232, 240, 1);
 	}
 	.table-wrap td {
 		padding: 0.875rem 1rem;
@@ -823,6 +827,16 @@ const authorInitials =
 		vertical-align: top;
 		color: #374151;
 		line-height: 1.55;
+	}
+	.table-wrap tbody tr:nth-child(even) td {
+		background: #f8fafc;
+	}
+	.table-wrap tbody tr:hover td {
+		background: #eff6ff;
+	}
+	.table-wrap td:first-child {
+		font-weight: 650;
+		color: #0f172a;
 	}
 	.table-wrap tr:last-child td {
 		border-bottom: none;
