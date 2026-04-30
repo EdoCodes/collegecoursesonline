@@ -915,6 +915,8 @@ const authorInitials =
 		border: 1px solid #e2e8f0;
 		border-radius: 8px;
 		overflow: hidden;
+		background: #fff;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
 	}
 	.faq-item summary {
 		padding: 1rem 1.25rem;
@@ -926,7 +928,7 @@ const authorInitials =
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		transition: background 0.12s;
+		transition: background 0.15s ease, color 0.15s ease;
 	}
 	.faq-item summary::-webkit-details-marker {
 		display: none;
@@ -941,7 +943,38 @@ const authorInitials =
 		content: '−';
 	}
 	.faq-item summary:hover {
-		background: #f8fafc;
+		background: #f8faff;
+		color: #2563eb;
+	}
+	.faq-item summary:focus-visible {
+		outline: 3px solid rgba(37, 99, 235, 0.35);
+		outline-offset: 2px;
+	}
+	.faq-item[open] {
+		border-color: #bfdbfe;
+		box-shadow: 0 8px 24px rgba(37, 99, 235, 0.10);
+	}
+	.faq-item[open] summary {
+		background: #eff6ff;
+		color: #1d4ed8;
+	}
+	/* Accent bar (hover/open) */
+	.faq-item summary {
+		position: relative;
+	}
+	.faq-item summary::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 3px;
+		background: transparent;
+		transition: background 0.15s ease;
+	}
+	.faq-item summary:hover::before,
+	.faq-item[open] summary::before {
+		background: #2563eb;
 	}
 	.faq-item p {
 		padding: 0 1.25rem 1rem;
@@ -989,6 +1022,7 @@ const authorInitials =
 		list-style: none;
 		background: #fff;
 		transition: background 0.15s ease, color 0.15s ease;
+		position: relative;
 	}
 	.paa-item > summary::-webkit-details-marker {
 		display: none;
@@ -1008,10 +1042,31 @@ const authorInitials =
 		background: #f8faff;
 		color: #2563eb;
 	}
+	.paa-item > summary:focus-visible {
+		outline: 3px solid rgba(37, 99, 235, 0.35);
+		outline-offset: 2px;
+	}
+	.paa-item > summary::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 3px;
+		background: transparent;
+		transition: background 0.15s ease;
+	}
+	.paa-item > summary:hover::before,
+	.paa-item[open] > summary::before {
+		background: #2563eb;
+	}
 	.paa-item[open] > summary {
 		background: #eff6ff;
 		color: #1d4ed8;
 		border-bottom: 1px solid #dbeafe;
+	}
+	.paa-item[open] {
+		box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.18);
 	}
 	.paa-answer {
 		padding: 0.875rem 1.25rem 1rem;
