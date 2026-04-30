@@ -2,41 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-/** Slugs rendered only under `/resources/blog` or `/colleges` — must match `blog/[slug].astro`. */
-const RESOURCES_ONLY_SLUGS = new Set([
-	'prerequisite-courses-for-nursing-school',
-	'student-integrity-online-proctored-exams',
-	'university-of-the-people-tuition-free-degrees',
-	'university-of-florida-online-2026-guide',
-	'bsc-respiratory-care-online-ecc',
-	'online-college-enrollment-after-pandemic',
-	'enrollment-decline-college-closures-hybrid-campus',
-	'best-hybrid-adn-nursing-programs-california',
-	'prerequisite-college-courses-by-major',
-	'how-to-become-physician-assistant',
-]);
-
-/** Guides hosted on `/resources/blog/...` but still shown on this index with a canonical URL. */
-const BLOG_INDEX_HREF_OVERRIDES: Record<string, string> = {
-	'university-of-florida-online-2026-guide': '/resources/blog/university-of-florida-online-2026-guide',
-	'online-college-enrollment-after-pandemic':
-		'/resources/blog/online-college-enrollment-after-pandemic',
-	'enrollment-decline-college-closures-hybrid-campus':
-		'/resources/blog/enrollment-decline-college-closures-hybrid-campus',
-	'best-hybrid-adn-nursing-programs-california':
-		'/resources/blog/best-hybrid-adn-nursing-programs-california',
-	'prerequisite-college-courses-by-major':
-		'/resources/blog/prerequisite-college-courses-by-major',
-	'how-to-become-physician-assistant':
-		'/resources/blog/how-to-become-physician-assistant',
-};
-
 const raw = await getCollection('blog');
 const posts = raw
 	.filter(
 		(p) =>
 			!p.data.draft &&
-			(!RESOURCES_ONLY_SLUGS.has(p.slug) || BLOG_INDEX_HREF_OVERRIDES[p.slug]),
+			// All posts are rendered with the `/resources/blog/...` guide template.
+			true,
 	)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -82,9 +54,8 @@ const breadcrumbJsonLd = {
 			</nav>
 			<h1>Blog</h1>
 			<p class="subtitle">
-				Everything listed below is an editorial blog post at <strong>/blog/…</strong>.
-				Long-form guides and rankings also live under{' '}
-				<a href="/resources/guides">Resources → Guides</a>.
+				Posts use our guide-style blog template and render under <strong>/resources/blog/…</strong>. The{' '}
+				<strong>/blog/…</strong> URLs redirect there.
 			</p>
 		</div>
 	</div>
@@ -105,7 +76,7 @@ const breadcrumbJsonLd = {
 						});
 						const mins = readingMinutesFromPost(post);
 						const label = post.data.tags[0] ?? 'Article';
-						const cardHref = BLOG_INDEX_HREF_OVERRIDES[post.slug] ?? `/blog/${post.slug}`;
+						const cardHref = `/resources/blog/${post.slug}`;
 						return (
 							<a href={cardHref} class="card">
 								{post.data.image ? (

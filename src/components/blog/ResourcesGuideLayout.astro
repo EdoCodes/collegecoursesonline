@@ -120,16 +120,18 @@ const authorInitials =
 		<div class="container">
 			<div class="article-body">
 				<aside class="toc-sidebar">
-					<div class="toc-card">
-						<div class="toc-title">Table of Contents</div>
-						<ol class="toc-list">
-							{tocItems.map((item) => (
-								<li>
-									<a href={item.href}>{item.label}</a>
-								</li>
-							))}
-						</ol>
-					</div>
+					{tocItems.length > 0 && (
+						<div class="toc-card">
+							<div class="toc-title">Table of Contents</div>
+							<ol class="toc-list">
+								{tocItems.map((item) => (
+									<li>
+										<a href={item.href}>{item.label}</a>
+									</li>
+								))}
+							</ol>
+						</div>
+					)}
 					<div class="author-card">
 						<div class="author-avatar">{authorInitials}</div>
 						<div class="author-info">
