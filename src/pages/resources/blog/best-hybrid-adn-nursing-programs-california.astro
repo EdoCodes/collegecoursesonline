@@ -1,0 +1,134 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('blog', 'best-hybrid-adn-nursing-programs-california');
+if (!entry) {
+	throw new Error('Blog entry best-hybrid-adn-nursing-programs-california not found');
+}
+
+const { Content } = await entry.render();
+const { title, description, pubDate, author, tags, image } = entry.data;
+
+const categoryLabel = entry.data.categoryLabel ?? 'Nursing';
+const authorTitle = entry.data.authorTitle ?? 'Editorial';
+const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
+const readTimeFromFrontmatter = entry.data.readTime;
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const slugPath = '/resources/blog/best-hybrid-adn-nursing-programs-california';
+const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
+
+const publishDate = pubDate.toISOString().slice(0, 10);
+const updatedDate =
+	entry.data.updatedDate != null
+		? entry.data.updatedDate.toISOString().slice(0, 10)
+		: publishDate;
+
+const wordCount = entry.body.trim().split(/\s+/).filter(Boolean).length;
+const readingTime =
+	readTimeFromFrontmatter ?? `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
+
+const ogImageUrl =
+	typeof image === 'string' && image.startsWith('http')
+		? image
+		: image
+			? new URL(image, `${site}/`).href
+			: `${site}/og-image.jpg`;
+
+const ogImageForLayout =
+	typeof image === 'string' && image.startsWith('http') ? image : image ?? '/og-image.jpg';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description: description,
+	image: [ogImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: {
+		'@type': 'Person',
+		name: author,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+};
+
+const faqItems = entry.data.faq;
+const faqSchema =
+	faqItems && faqItems.length > 0
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'FAQPage',
+				mainEntity: faqItems.map((item) => ({
+					'@type': 'Question',
+					name: item.question,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.answer,
+					},
+				})),
+			}
+		: null;
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${site}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Guides', item: `${site}/resources/guides/` },
+		{ '@type': 'ListItem', position: 4, name: title, item: pageUrl },
+	],
+};
+
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#what-is-a-hybrid-adn-program', label: 'What is a hybrid ADN program?' },
+	{ href: '#why-accreditation-matters-in-california', label: 'Why accreditation and BRN approval matter' },
+	{ href: '#best-hybrid-adn-nursing-programs-in-california', label: 'Comparison table: hybrid-style ADN options' },
+	{ href: '#school-profiles', label: 'School profiles' },
+	{ href: '#which-program-is-best-for-you', label: 'Which program fits you?' },
+	{ href: '#how-to-choose-the-right-adn-program', label: 'How to choose' },
+	{ href: '#planning-prerequisites--next-steps', label: 'Planning prerequisites & next steps' },
+	{ href: '#frequently-asked-questions', label: 'FAQ' },
+	{ href: '#sources', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slugPath}
+	image={ogImageForLayout}
+	categoryLabel={categoryLabel}
+	breadcrumbTitle={breadcrumbTitle}
+	author={author}
+	authorTitle={authorTitle}
+	readingTime={readingTime}
+	updatedDate={updatedDate}
+	tags={tags}
+	tocItems={tocItems}
+>
+	<Fragment slot="head">
+		<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+		{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+	</Fragment>
+
+	<Content />
+</ResourcesGuideLayout>
+
