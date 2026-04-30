@@ -24,6 +24,11 @@ export interface ResourcesGuideBreadcrumbSegment {
 	href: string;
 }
 
+export interface ResourcesGuideHeroRightIcon {
+	src: string;
+	alt: string;
+}
+
 interface Props {
 	title: string;
 	description: string;
@@ -45,6 +50,7 @@ interface Props {
 	tags?: string[];
 	tocItems: ResourcesGuideTocItem[];
 	sidebarCta?: ResourcesGuideSidebarCta;
+	heroRightIcon?: ResourcesGuideHeroRightIcon;
 }
 
 const defaultBreadcrumbTrail: ResourcesGuideBreadcrumbSegment[] = [
@@ -68,6 +74,7 @@ const {
 	tags = [],
 	tocItems,
 	sidebarCta,
+	heroRightIcon,
 } = Astro.props;
 
 const authorParts = author.trim().split(/\s+/).filter(Boolean);
@@ -98,20 +105,36 @@ const authorInitials =
 
 	<header class="article-hero">
 		<div class="container">
-			<div class="article-label">{categoryLabel}</div>
-			<h1>{title}</h1>
-			<p class="article-subtitle">{description}</p>
-			<div class="article-meta">
-				<span class="meta-item">Updated {updatedDate}</span>
-				<span class="meta-dot">·</span>
-				<span class="meta-item">{readingTime}</span>
-				<span class="meta-dot">·</span>
-				<span class="meta-item">By {author}</span>
-			</div>
-			<div class="article-tags">
-				{tags.map((tag) => (
-					<span class="tag">{tag}</span>
-				))}
+			<div class="hero-inner">
+				<div class="hero-text">
+					<div class="article-label">{categoryLabel}</div>
+					<h1>{title}</h1>
+					<p class="article-subtitle">{description}</p>
+					<div class="article-meta">
+						<span class="meta-item">Updated {updatedDate}</span>
+						<span class="meta-dot">·</span>
+						<span class="meta-item">{readingTime}</span>
+						<span class="meta-dot">·</span>
+						<span class="meta-item">By {author}</span>
+					</div>
+					<div class="article-tags">
+						{tags.map((tag) => (
+							<span class="tag">{tag}</span>
+						))}
+					</div>
+				</div>
+
+				{heroRightIcon && (
+					<div class="hero-right" aria-hidden="true">
+						<img
+							class="hero-right__img"
+							src={heroRightIcon.src}
+							alt={heroRightIcon.alt}
+							loading="eager"
+							decoding="async"
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	</header>
@@ -193,6 +216,35 @@ const authorInitials =
 		background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #0284c7 100%);
 		color: white;
 		padding: 3.5rem 0 3rem;
+	}
+	.hero-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+	.hero-text {
+		min-width: 0;
+		flex: 1 1 auto;
+	}
+	.hero-right {
+		flex: 0 0 auto;
+		width: clamp(120px, 18vw, 190px);
+		height: clamp(120px, 18vw, 190px);
+		display: grid;
+		place-items: center;
+		opacity: 0.9;
+		filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.22));
+	}
+	.hero-right__img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+	@media (max-width: 820px) {
+		.hero-right {
+			display: none;
+		}
 	}
 	.article-label {
 		display: inline-block;
