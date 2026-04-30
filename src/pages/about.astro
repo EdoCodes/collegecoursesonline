@@ -23,8 +23,9 @@ import Layout from '../layouts/Layout.astro';
         <div class="section-inner two-col">
           <div class="section-text">
             <h2>Our Mission</h2>
-            <p>College Courses Online exists to make online higher education easier to navigate. With thousands of programs, colleges, and certificates available, choosing the right path can feel overwhelming. We cut through the noise with clear, unbiased information so you can make a confident decision.</p>
-            <p>Whether you're a working adult looking to advance your career, a recent high school graduate exploring online options, or a lifelong learner pursuing a new passion — we're here to help you find the program that fits your goals, schedule, and budget.</p>
+            <p>We are a team of working professionals who earned our accredited degrees through flexible online programs. Drawing from our own experiences balancing careers and education, we created this platform to help other motivated students do the same — advancing their academic goals and accelerating their careers through high-quality, accredited online education.</p>
+            <p>This website acts as a trusted bridge between students and reputable accredited institutions. We simplify the process by guiding you in selecting the right courses, majors, online degree programs (Associate’s and Bachelor’s of Science), and professional certifications that align with your ambitions and schedule. Our mission is to make quality education more accessible, efficient, and achievable for busy adults who are ready to invest in their future.</p>
+            <p>If you have any questions, please post them in our <a href="/forum">forum</a> or reach out to us directly via <a href="/contact">email</a>. We’re here to help!</p>
           </div>
           <div class="mission-stats">
             <div class="stat-card">
@@ -126,8 +127,12 @@ import Layout from '../layouts/Layout.astro';
           <p>We welcome submissions from accredited institutions and love hearing from students about their online learning experiences.</p>
           <div class="cta-buttons">
             <a href="/contact" class="btn-primary">Contact Us</a>
+            <a href="/forum" class="btn-tertiary">Visit Student Forum</a>
             <a href="/submit-course" class="btn-secondary">Submit a Course</a>
           </div>
+          <p class="cta-disclaimer">
+            Disclosure: Our site may earn affiliate revenue from advertisements at no cost to the reader. We use that revenue to expand the site and add more informative content and courses.
+          </p>
         </div>
       </section>
 
@@ -343,8 +348,10 @@ import Layout from '../layouts/Layout.astro';
   .cta-section {
     background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
     border-radius: 20px;
-    padding: 3.5rem 2rem;
+    padding: 2.5rem 1.75rem;
     margin-top: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 18px 55px rgba(30, 64, 175, 0.22);
   }
 
   .cta-inner {
@@ -352,7 +359,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .cta-section h2 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.35rem, 2.6vw, 1.85rem);
     font-weight: 800;
     color: white;
     letter-spacing: -0.03em;
@@ -394,6 +401,26 @@ import Layout from '../layouts/Layout.astro';
     transform: translateY(-2px);
   }
 
+  .btn-tertiary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 2rem;
+    background: rgba(255,255,255,0.16);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.28);
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  }
+
+  .btn-tertiary:hover {
+    background: rgba(255,255,255,0.24);
+    border-color: rgba(255,255,255,0.38);
+    transform: translateY(-2px);
+  }
+
   .btn-secondary {
     display: inline-flex;
     align-items: center;
@@ -411,6 +438,15 @@ import Layout from '../layouts/Layout.astro';
   .btn-secondary:hover {
     background: rgba(255,255,255,0.2);
     transform: translateY(-2px);
+  }
+
+  .cta-disclaimer {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    font-size: 0.825rem;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.5;
+    max-width: 760px;
   }
 
   /* ── Responsive ── */
