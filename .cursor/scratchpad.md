@@ -535,6 +535,10 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-04-29 — Blog: hybrid ADN post hero image (card only)
+
+- Set `hideHeroImage: true` on `src/content/blog/best-hybrid-adn-nursing-programs-california.mdx` so `src/pages/blog/[slug].astro` skips the `.featured-image` block under the title while keeping `image` for OG/meta and `/blog` card thumbnails. `npm run build` passed.
+
 ### 2026-04-29 — Curated PrereqCourses pages: add Reviews + Compare sections
 
 - Added the missing **Student Reviews & Ratings** section (placeholder + “Write a Review” CTA) and a **Compare with** section to the two curated PrereqCourses course pages:
