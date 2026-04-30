@@ -791,9 +791,42 @@ const authorInitials =
 
 	.table-wrap {
 		overflow-x: auto;
-		margin: 1.25rem 0;
-		border-radius: 10px;
+		margin: 1.5rem 0 2rem;
+		-webkit-overflow-scrolling: touch;
+		border-radius: 12px;
 		border: 1px solid #e2e8f0;
+		background: #fff;
+		box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+	}
+	/* Default tables inside `.table-wrap` (MDX/HTML tables). */
+	.table-wrap table {
+		width: 100%;
+		min-width: 520px;
+		border-collapse: collapse;
+		font-size: 0.9375rem;
+		margin: 0;
+	}
+	.table-wrap th {
+		background: #f8fafc;
+		text-align: left;
+		padding: 0.875rem 1rem;
+		font-weight: 800;
+		color: #0f172a;
+		border-bottom: 2px solid #e2e8f0;
+		white-space: nowrap;
+	}
+	.table-wrap td {
+		padding: 0.875rem 1rem;
+		border-bottom: 1px solid #e2e8f0;
+		vertical-align: top;
+		color: #374151;
+		line-height: 1.55;
+	}
+	.table-wrap tr:last-child td {
+		border-bottom: none;
+	}
+	.table-wrap a {
+		font-weight: 600;
 	}
 	.facts-table {
 		width: 100%;
@@ -905,6 +938,74 @@ const authorInitials =
 	.faq-inline-label {
 		margin-top: 2rem;
 		margin-bottom: 0.5rem;
+	}
+
+	/* ── People Also Ask block ────────────────────────────────────────────── */
+	.paa-block {
+		margin: 2.5rem 0 2rem;
+	}
+	.paa-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+		overflow: hidden;
+		background: #fff;
+		box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+	}
+	.paa-item {
+		border-bottom: 1px solid #f1f5f9;
+	}
+	.paa-item:last-child {
+		border-bottom: none;
+	}
+	.paa-item > summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: #0f172a;
+		cursor: pointer;
+		list-style: none;
+		background: #fff;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+	.paa-item > summary::-webkit-details-marker {
+		display: none;
+	}
+	.paa-item > summary::after {
+		content: '+';
+		font-size: 1.25rem;
+		font-weight: 400;
+		color: #2563eb;
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+	}
+	.paa-item[open] > summary::after {
+		transform: rotate(45deg);
+	}
+	.paa-item > summary:hover {
+		background: #f8faff;
+		color: #2563eb;
+	}
+	.paa-item[open] > summary {
+		background: #eff6ff;
+		color: #1d4ed8;
+		border-bottom: 1px solid #dbeafe;
+	}
+	.paa-answer {
+		padding: 0.875rem 1.25rem 1rem;
+		background: #fafbff;
+	}
+	.paa-answer p {
+		font-size: 0.9rem;
+		color: #374151;
+		line-height: 1.65;
+		margin: 0;
 	}
 
 	.conclusion-block {
