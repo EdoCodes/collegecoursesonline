@@ -1,0 +1,704 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CoursePrice from '../../components/CoursePrice.astro';
+import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
+
+const course = {
+  title: 'Cultural Anthropology (ANTH101)',
+  providerName: 'StraighterLine',
+  providerUrl: 'https://www.straighterline.com/online-college-courses/cultural-anthropology/',
+  providerSiteUrl: 'https://www.straighterline.com/',
+  image: '/images/courses/straighterline-cultural-anthropology.png',
+  price: '$79 + membership',
+  credits: '3 credits (ACE-recommended)',
+  format: 'Self-paced',
+  location: 'Online',
+  description:
+    'Cultural Anthropology offers a thoughtful introduction to human diversity across multiple spectrums—kinship and descent, anthropological theories, religion and belief systems, and more. Learn how anthropologists study culture and practice reading the world with greater context and care.',
+};
+
+const collegeForPrice = {
+  name: course.providerName,
+  slug: 'straighterline',
+  accreditation_level: 'ACE',
+  popularity_score: 0,
+  ease_of_access_score: 0,
+};
+
+const canonical = '/courses/straighterline-cultural-anthropology';
+
+const siteUrl = Astro.site || new URL('https://collegecoursesonline.netlify.app');
+const fullCourseUrl = new URL(canonical, siteUrl).toString();
+const schemaImageUrl = new URL(course.image.replace(/^\//, ''), siteUrl).toString();
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: course.title,
+  description: course.description,
+  provider: {
+    '@type': 'Organization',
+    name: course.providerName,
+    url: course.providerSiteUrl,
+  },
+  image: schemaImageUrl,
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'USD',
+    price: '79',
+    description: 'Per-course fee; StraighterLine membership required',
+    url: course.providerUrl,
+    availability: 'https://schema.org/InStock',
+  },
+  educationalCredentialAwarded: course.credits,
+  courseMode: [course.location, course.format],
+  url: fullCourseUrl,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', siteUrl).toString() },
+    { '@type': 'ListItem', position: 2, name: 'Courses', item: new URL('/courses', siteUrl).toString() },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Humanities',
+      item: new URL('/categories/humanities', siteUrl).toString(),
+    },
+    { '@type': 'ListItem', position: 4, name: course.title, item: fullCourseUrl },
+  ],
+};
+
+const genEdNote =
+  'Often used toward social science or general education requirements. ACE-recommended credits transfer to many schools—always confirm with your registrar or advisor.';
+
+const learningOutcomes: string[] = [
+  'Explain how anthropologists define culture and how the subfields of anthropology fit together.',
+  'Recognize human diversity and evaluate popular representations of peoples and cultures with a critical lens.',
+  'Describe ethnographic methods and reflect on the ethical responsibilities of fieldwork.',
+  'Apply anthropological concepts—such as power, inequality, and globalization—to everyday experiences.',
+];
+
+const providerAbout =
+  'StraighterLine offers self-paced, online courses with a subscription model plus per-course tuition. Credits are ACE-recommended; transfer policies depend on your college. Pricing and promotions change—confirm current details on the StraighterLine site.';
+
+const compareWith = [
+  {
+    title: 'Sociology 101',
+    provider: 'Study.com',
+    level: 'Introductory',
+    price: '$95/mo',
+    slug: 'study-com-sociology',
+    href: '/courses/study-com-sociology',
+  },
+  {
+    title: 'Principles of Genetics (BIO210)',
+    provider: 'StraighterLine',
+    level: 'Intermediate',
+    price: '$79 + membership',
+    slug: 'straighterline-principles-of-genetics',
+    href: '/courses/straighterline-principles-of-genetics',
+  },
+];
+---
+
+<Layout
+  title={`${course.title} | ${course.providerName} | College Courses Online`}
+  description={`${course.title} is a ${course.format.toLowerCase()}, ${course.location.toLowerCase()} course (${course.credits}) from ${course.providerName}.`}
+  canonical={canonical}
+  image={course.image}
+  type="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <main class="course-detail">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <a href="/categories/humanities">Humanities</a>
+        <span class="separator">/</span>
+        <span class="current">{course.title}</span>
+      </nav>
+    </div>
+
+    <div class="hero-section">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1 class="course-title">{course.title}</h1>
+            <p class="course-subtitle">{course.description}</p>
+
+            <div class="course-meta">
+              <div class="meta-item">
+                <span><strong>Institution:</strong> {course.providerName}</span>
+              </div>
+
+              <div class="meta-item">
+                <span>📚</span>
+                <span><strong>Category:</strong> Humanities</span>
+              </div>
+
+              <div class="meta-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span><strong>Duration:</strong> {course.format}</span>
+              </div>
+
+              <div class="meta-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                <span><strong>Level:</strong> Beginner</span>
+              </div>
+
+              <div class="meta-item certificate">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <span><strong>Transcript available upon completion</strong></span>
+              </div>
+            </div>
+
+            <div class="cta-section">
+              <div class="price-box">
+                <span class="price">
+                  <CoursePrice price={course.price} colleges={collegeForPrice} courseSlug="straighterline-cultural-anthropology" />
+                </span>
+              </div>
+
+              <a
+                href={course.providerUrl}
+                target="_blank"
+                rel="nofollow noopener"
+                class="cta-button primary"
+              >
+                <span>Enroll Now</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+
+              <a
+                href={course.providerSiteUrl}
+                target="_blank"
+                rel="noopener"
+                class="cta-button secondary"
+              >
+                Visit Institution Website
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <img
+              src={course.image}
+              alt={course.title}
+              class="course-image"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content-grid">
+        <div class="main-content">
+          <section class="content-section">
+            <h2>About This Course</h2>
+            <div class="description-content">
+              <p>{course.description}</p>
+            </div>
+          </section>
+
+          <section class="content-section gen-ed-section" aria-labelledby="gen-ed-heading">
+            <h2 id="gen-ed-heading">General education &amp; majors</h2>
+            <p class="gen-ed-disclaimer">
+              Degree requirements differ by college and catalog year; always verify gen-ed rules and transfer credit with your advisor.
+            </p>
+            <div class="gen-ed-callout">
+              <p class="gen-ed-note">{genEdNote}</p>
+            </div>
+          </section>
+
+          <section class="content-section">
+            <h2>What You'll Learn</h2>
+            <ul class="learning-outcomes">
+              {learningOutcomes.map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+
+          <section class="content-section college-section">
+            <h2>About {course.providerName}</h2>
+            <div class="college-info">
+              <div class="college-details">
+                <p style="margin:0">{providerAbout}</p>
+                <div class="college-stats">
+                  <div class="stat-item">
+                    <strong>Location</strong>
+                    <span>Online</span>
+                  </div>
+                  <div class="stat-item">
+                    <strong>Format</strong>
+                    <span>Self-paced</span>
+                  </div>
+                </div>
+                <a class="college-link" href={course.providerSiteUrl} target="_blank" rel="noopener">
+                  Visit course provider website →
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section class="content-section reviews-section">
+            <div class="reviews-header">
+              <h2>Student Reviews &amp; Ratings</h2>
+              <a href="/rate-my-course" class="write-review-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                Write a Review
+              </a>
+            </div>
+
+            <div class="no-reviews">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              <h3>No reviews yet</h3>
+              <p>Be the first to share your experience with this course!</p>
+              <a href="/rate-my-course" class="write-first-review-btn">Write the First Review</a>
+            </div>
+          </section>
+        </div>
+
+        <aside class="sidebar">
+          <div class="info-card">
+            <h3>Course Details</h3>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="label">Duration</span>
+                <span class="value">{course.format}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Level</span>
+                <span class="value">Beginner</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Price</span>
+                <span class="value">
+                  <CoursePrice price={course.price} colleges={collegeForPrice} courseSlug="straighterline-cultural-anthropology" />
+                </span>
+              </div>
+              <div class="info-item">
+                <span class="label">Credits</span>
+                <span class="value">{course.credits}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Format</span>
+                <span class="value">100% Online</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card disclosure-card">
+            <p class="disclosure-text">
+              <strong>Note:</strong> Pricing, availability, and transfer policies can change. Always confirm details on the provider’s website.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section class="compare-section">
+      <div class="container">
+        <h2>Compare with</h2>
+        <div class="compare-grid">
+          {compareWith.map((c) => {
+            const img = resolveCourseImageUrl(c.slug, undefined, '');
+            return (
+              <a class="compare-card" href={c.href}>
+                <div class="compare-image">
+                  {img ? <img src={img} alt={c.title} loading="lazy" decoding="async" /> : <div class="image-placeholder">📚</div>}
+                </div>
+                <div class="compare-content">
+                  <h3>{c.title}</h3>
+                  <p class="compare-provider">{c.provider}</p>
+                  <div class="compare-meta">
+                    <span class="compare-level">{c.level}</span>
+                    <span class="compare-price">{c.price}</span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .course-detail { min-height: 100vh; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 calc(var(--spacing) * 3); }
+
+  .breadcrumb {
+    padding: calc(var(--spacing) * 3) 0;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+    flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--neutral-600); transition: var(--transition); }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .breadcrumb .separator { color: var(--neutral-400); }
+  .breadcrumb .current { color: var(--neutral-900); font-weight: 500; }
+
+  .hero-section {
+    background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+    padding: calc(var(--spacing) * 8) 0;
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: calc(var(--spacing) * 6);
+    align-items: center;
+  }
+  .hero-content { color: white; }
+  .course-title { font-size: 3rem; margin-bottom: calc(var(--spacing) * 3); color: white; }
+  .course-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: calc(var(--spacing) * 4);
+    color: #e2e8f0;
+    font-style: italic;
+    line-height: 1.7;
+  }
+  .course-meta {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+  .meta-item { display: flex; align-items: center; gap: calc(var(--spacing) * 1.5); font-size: 1rem; }
+  .meta-item svg { opacity: 0.9; }
+  .meta-item.certificate { color: #10b981; }
+
+  .cta-section { display: flex; gap: calc(var(--spacing) * 2); align-items: center; flex-wrap: wrap; }
+  .price-box {
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: calc(var(--border-radius) / 2);
+  }
+  .price { font-size: 2rem; font-weight: 800; color: white; }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 4);
+    border-radius: calc(var(--border-radius) / 2);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .cta-button.primary { background: white; color: var(--color-primary); }
+  .cta-button.primary:hover { background: var(--neutral-100); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); }
+  .cta-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  .cta-button.secondary:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.5); }
+
+  .hero-image {
+    position: relative;
+    width: 100%;
+    border-radius: calc(var(--border-radius) * 1.5);
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    min-height: 260px;
+    height: clamp(260px, 38vw, min(440px, 52vh));
+  }
+  .course-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  @media (max-width: 1100px) {
+    .course-title { font-size: 2.25rem; }
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: calc(var(--spacing) * 4); }
+    .hero-image { height: 280px; }
+    .cta-section { flex-direction: column; align-items: flex-start; }
+    .cta-button { width: 100%; justify-content: space-between; }
+    .price-box { width: 100%; text-align: center; }
+  }
+
+  /* Main Content Grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: calc(var(--spacing) * 6);
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .main-content { min-width: 0; }
+  .content-section { margin-bottom: calc(var(--spacing) * 6); }
+  .content-section h2 {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 3);
+    color: var(--neutral-900);
+  }
+  .description-content p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--neutral-700);
+    margin: 0;
+  }
+  .gen-ed-disclaimer {
+    font-size: 0.9375rem;
+    color: var(--neutral-600);
+    margin: calc(var(--spacing) * -1) 0 calc(var(--spacing) * 3);
+    line-height: 1.55;
+    max-width: 52rem;
+  }
+  .gen-ed-callout {
+    padding: calc(var(--spacing) * 3);
+    border-radius: calc(var(--border-radius));
+    border: 1px solid rgba(37, 99, 235, 0.22);
+    background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+    box-shadow: 0 1px 3px rgba(30, 64, 175, 0.06);
+    max-width: 52rem;
+  }
+  .gen-ed-note {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--neutral-800);
+  }
+
+  .learning-outcomes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+    margin: 0;
+    padding: 0;
+  }
+  .learning-outcomes li {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--spacing) * 2);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--neutral-800);
+  }
+  .learning-outcomes li::before {
+    content: "✓";
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: var(--color-success);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-top: 2px;
+  }
+
+  .college-section {
+    background: var(--neutral-50);
+    padding: calc(var(--spacing) * 4);
+    border-radius: calc(var(--border-radius) * 1.25);
+    border: 1px solid var(--neutral-200);
+  }
+  .college-info { display: flex; gap: calc(var(--spacing) * 3); align-items: flex-start; }
+  .college-details { flex: 1; }
+  .college-stats {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 1);
+    margin: calc(var(--spacing) * 2) 0;
+  }
+  .stat-item { display: flex; gap: calc(var(--spacing) * 1); font-size: 0.9375rem; }
+  .stat-item strong { min-width: 120px; color: var(--neutral-700); }
+  .college-link {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1);
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .college-link:hover { color: var(--color-primary-dark); }
+
+  /* Sidebar */
+  .sidebar { position: sticky; top: calc(var(--spacing) * 3); align-self: flex-start; }
+  .info-card {
+    background: white;
+    border-radius: calc(var(--border-radius) * 1.25);
+    padding: calc(var(--spacing) * 3);
+    box-shadow: var(--shadow-md);
+    margin-bottom: calc(var(--spacing) * 3);
+    border: 1px solid var(--neutral-200);
+  }
+  .info-card h3 { font-size: 1.25rem; margin-bottom: calc(var(--spacing) * 3); color: var(--neutral-900); }
+  .info-list { display: flex; flex-direction: column; gap: calc(var(--spacing) * 2); }
+  .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: calc(var(--spacing) * 2);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  .info-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .info-item .label { font-weight: 600; color: var(--neutral-700); }
+  .info-item .value { color: var(--neutral-900); font-weight: 500; }
+  .disclosure-card { background: var(--neutral-50); border: 1px solid var(--neutral-200); }
+  .disclosure-text { font-size: 0.8125rem; color: var(--neutral-600); line-height: 1.5; margin: 0; }
+  .disclosure-text strong { color: var(--neutral-800); }
+
+  @media (max-width: 1100px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+
+  /* Reviews (placeholder for curated pages) */
+  .reviews-section {
+    background: white;
+    padding: calc(var(--spacing) * 5);
+    border-radius: calc(var(--border-radius) * 1.25);
+    border: 1px solid var(--neutral-200);
+  }
+  .reviews-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: calc(var(--spacing) * 4);
+    padding-bottom: calc(var(--spacing) * 3);
+    border-bottom: 2px solid var(--neutral-200);
+    gap: calc(var(--spacing) * 2);
+    flex-wrap: wrap;
+  }
+  .reviews-header h2 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--neutral-900);
+  }
+  .write-review-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    border-radius: calc(var(--border-radius) / 2);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .write-review-btn:hover { background: var(--color-primary-dark); transform: translateY(-2px); }
+  .no-reviews { text-align: center; padding: calc(var(--spacing) * 6) 0 calc(var(--spacing) * 2); }
+  .no-reviews svg { margin: 0 auto calc(var(--spacing) * 3); color: var(--neutral-300); }
+  .no-reviews h3 { font-size: 1.5rem; color: var(--neutral-700); margin-bottom: calc(var(--spacing) * 1); }
+  .no-reviews p { font-size: 1.125rem; color: var(--neutral-600); margin-bottom: calc(var(--spacing) * 4); }
+  .write-first-review-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 4);
+    background: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    border-radius: calc(var(--border-radius) / 2);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .write-first-review-btn:hover { background: var(--color-primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  /* Compare with */
+  .compare-section {
+    padding: calc(var(--spacing) * 7) 0;
+    background: linear-gradient(180deg, rgba(241, 245, 249, 0.6) 0%, rgba(255, 255, 255, 1) 100%);
+  }
+  .compare-section h2 {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing) * 4);
+    color: var(--neutral-900);
+  }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(var(--spacing) * 3);
+  }
+  .compare-card {
+    display: block;
+    text-decoration: none;
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: calc(var(--border-radius) * 1.25);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+  .compare-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(37, 99, 235, 0.25); }
+  .compare-image {
+    position: relative;
+    height: 140px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  }
+  .compare-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .compare-image .image-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .compare-content { padding: calc(var(--spacing) * 3); }
+  .compare-content h3 { margin: 0 0 calc(var(--spacing) * 1); color: var(--neutral-900); font-size: 1.15rem; line-height: 1.3; }
+  .compare-provider { margin: 0 0 calc(var(--spacing) * 2.5); color: var(--neutral-600); font-weight: 600; }
+  .compare-meta { display: flex; justify-content: space-between; gap: calc(var(--spacing) * 2); align-items: center; }
+  .compare-level { font-size: 0.875rem; color: var(--neutral-700); font-weight: 600; }
+  .compare-price { font-size: 0.95rem; font-weight: 800; color: var(--neutral-900); }
+  @media (max-width: 900px) {
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+</style>
+

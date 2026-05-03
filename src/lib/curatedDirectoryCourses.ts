@@ -95,6 +95,38 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 		},
 	},
 	{
+		id: 'curated-straighterline-cultural-anthropology',
+		slug: 'straighterline-cultural-anthropology',
+		title: 'Cultural Anthropology (ANTH101)',
+		short_description:
+			'StraighterLine Cultural Anthropology: human diversity, kinship, belief systems, and ethnographic methods. 3 ACE-recommended credits.',
+		description:
+			'Cultural Anthropology offers a thoughtful introduction to human diversity across multiple spectrums—kinship and descent, anthropological theories, religion and belief systems, and more. Build skills in understanding cultures and critically evaluating how they are represented.',
+		course_url: 'https://www.straighterline.com/online-college-courses/cultural-anthropology/',
+		image_url: '/images/courses/straighterline-cultural-anthropology.png',
+		duration: 'Self-paced',
+		level: 'Beginner',
+		price: '$79 + membership',
+		certificate_available: true,
+		credits: '3 Credits',
+		featured: true,
+		views_count: 0,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		colleges: {
+			name: 'StraighterLine',
+			slug: 'straighterline',
+			accreditation_level: 'ACE',
+			popularity_score: 0,
+			ease_of_access_score: 0,
+		},
+		course_categories: {
+			slug: 'humanities',
+			name: 'Humanities',
+			icon: '📚',
+		},
+	},
+	{
 		id: 'curated-prereqcourses-bio-100',
 		slug: 'bio-100-general-biological-science-prereqcourses',
 		title: 'BIO 100 General Biological Science',
