@@ -63,6 +63,38 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 		},
 	},
 	{
+		id: 'curated-straighterline-principles-of-genetics',
+		slug: 'straighterline-principles-of-genetics',
+		title: 'Principles of Genetics (BIO210)',
+		short_description:
+			'StraighterLine genetics: heredity, DNA replication, gene expression, and inheritance—from molecules to organisms. 3 ACE-recommended credits.',
+		description:
+			'Principles of Genetics explores the fundamental principles of heredity, examining the flow of genetic information from the molecular to the organismal level. Delve into DNA replication, gene expression, and mechanisms of inheritance to build a foundation for healthcare or scientific careers.',
+		course_url: 'https://www.straighterline.com/online-college-courses/principles-of-genetics/',
+		image_url: '/images/courses/straighterline-principles-of-genetics.png',
+		duration: 'Self-paced',
+		level: 'Intermediate',
+		price: '$79 + membership',
+		certificate_available: true,
+		credits: '3 Credits',
+		featured: true,
+		views_count: 0,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		colleges: {
+			name: 'StraighterLine',
+			slug: 'straighterline',
+			accreditation_level: 'ACE',
+			popularity_score: 0,
+			ease_of_access_score: 0,
+		},
+		course_categories: {
+			slug: 'natural-sciences',
+			name: 'Natural Sciences',
+			icon: '🧪',
+		},
+	},
+	{
 		id: 'curated-prereqcourses-bio-100',
 		slug: 'bio-100-general-biological-science-prereqcourses',
 		title: 'BIO 100 General Biological Science',
