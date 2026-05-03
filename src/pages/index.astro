@@ -61,11 +61,11 @@ if (categories.length === 0) {
 
 const CURATED_COURSES = [...CURATED_DIRECTORY_COURSES];
 
-/** Curated-first so new partner rows (e.g. StraighterLine Pharmacology) appear in Featured. */
+/** Curated-first; cap at 4 cards in the homepage Featured strip. */
 const featuredCourses = mergeFeaturedForHome(
 	CURATED_COURSES,
 	coursesData.filter((c) => c.featured),
-	6,
+	4,
 );
 
 const allCourses: any[] = [...CURATED_COURSES, ...coursesData];
