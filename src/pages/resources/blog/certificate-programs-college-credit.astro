@@ -4,19 +4,8 @@ import ResourcesGuideLayout, {
 } from '../../../components/blog/ResourcesGuideLayout.astro';
 import ArticleProse from '../../../components/blog/ArticleProse.astro';
 import CertificateTranscriptDirectory from '../../../components/blog/CertificateTranscriptDirectory.astro';
-import {
-	buildCertificateTranscriptCourseList,
-	uniqueCategoriesFromRows,
-} from '../../../lib/certificateDirectoryCourses';
-import { supabase, isSupabaseConfigured } from '../../../lib/supabase';
 
 const siteOrigin = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
-
-const certHubRows = await buildCertificateTranscriptCourseList(
-	isSupabaseConfigured ? supabase : null,
-	isSupabaseConfigured,
-);
-const certHubCategories = uniqueCategoriesFromRows(certHubRows);
 
 const title =
 	'Certificate Programs That Count for College Credit: Ultimate Guide for Nursing, IT, Paralegal & More';
@@ -167,7 +156,7 @@ const tocItems: ResourcesGuideTocItem[] = [
 	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
 
 	<ArticleProse>
-		<CertificateTranscriptDirectory rows={certHubRows} categories={certHubCategories} />
+		<CertificateTranscriptDirectory placeholderCount={12} />
 
 		<hr class="cert-guide-divider" />
 

@@ -1,177 +1,37 @@
 ---
-import CoursePrice from '../CoursePrice.astro';
-import { resolveCourseImageUrl } from '../../lib/courseImageOverrides';
-import { displayPriceForCourse, resolveCollegeSlug } from '../../lib/coursePriceDisplay';
-import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
-import type { CertificateDirectoryRow } from '../../lib/certificateDirectoryCourses';
-
 interface Props {
-	rows: CertificateDirectoryRow[];
-	categories: { slug: string; name: string; icon: string }[];
+	/** Number of placeholder slots to render. */
+	placeholderCount?: number;
 }
 
-const { rows, categories } = Astro.props;
+const { placeholderCount = 12 } = Astro.props;
 ---
 
 <section class="cert-hub" id="search-programs" aria-labelledby="cert-hub-title">
 	<div class="cert-hub__intro">
-		<h2 id="cert-hub-title" class="cert-hub__title">Search programs (transcript upon completion)</h2>
+		<h2 id="cert-hub-title" class="cert-hub__title">Search accredited certificate programs (coming soon)</h2>
 		<p class="cert-hub__lede">
-			These listings are from our course directory and are flagged by the provider as offering a <strong>transcript or official completion record</strong>.
-			That helps with transfer and CPL petitions—it is <strong>not</strong> a guarantee that your target college will award credit. Read the guide below for
-			how transfer, ACE/NCCRS, and registrar decisions work.
+			We are building a searchable directory of <strong>accredited certificate programs</strong> that may count toward transferable college credit.
+			This section is intentionally showing <strong>placeholder slots</strong> for now—we will populate it with programs you provide as we add them.
 		</p>
 		<p class="cert-hub__jump">
 			<a href="#guide" class="cert-hub__jump-link">Skip to the full guide ↓</a>
 		</p>
 	</div>
 
-	{
-		rows.length === 0 ? (
-			<div class="cert-hub__empty">
-				<p>No transcript-eligible courses are available in the directory right now (database may be offline for this build).</p>
-				<p>
-					<a href="/courses/">Browse all courses →</a>
-				</p>
+	<div class="cert-hub__grid" aria-label="Certificate program placeholders">
+		{Array.from({ length: placeholderCount }).map((_, i) => (
+			<div class="cert-hub__placeholder" aria-label={`Placeholder program slot ${i + 1}`}>
+				<div class="cert-hub__ph-img" aria-hidden="true" />
+				<div class="cert-hub__ph-body">
+					<div class="cert-hub__ph-line cert-hub__ph-line--sm" aria-hidden="true" />
+					<div class="cert-hub__ph-line cert-hub__ph-line--lg" aria-hidden="true" />
+					<div class="cert-hub__ph-line" aria-hidden="true" />
+					<div class="cert-hub__ph-chip" aria-hidden="true" />
+				</div>
 			</div>
-		) : (
-			<>
-				<div class="cert-hub__filters">
-					<div class="cert-hub__filters-head">
-						<h3 class="cert-hub__filters-title">Filter results</h3>
-						<p class="cert-hub__count">
-							Showing <span id="certHubCount">{rows.length}</span> programs
-						</p>
-					</div>
-					<div class="cert-hub__search">
-						<label class="sr-only" for="certHubSearch">Search programs</label>
-						<input
-							type="search"
-							id="certHubSearch"
-							class="cert-hub__search-input"
-							placeholder="Search by title, subject, or provider…"
-							autocomplete="off"
-						/>
-					</div>
-					<div class="cert-hub__filter-grid">
-						<div class="cert-hub__field">
-							<label for="certHubCategory">Subject</label>
-							<select id="certHubCategory" class="cert-hub__select">
-								<option value="">All subjects</option>
-								{categories.map((cat) => (
-									<option value={cat.slug}>
-										{cat.icon ? `${cat.icon} ` : ''}
-										{cat.name}
-									</option>
-								))}
-							</select>
-						</div>
-						<div class="cert-hub__field">
-							<label for="certHubSort">Sort by</label>
-							<select id="certHubSort" class="cert-hub__select">
-								<option value="featured">Featured</option>
-								<option value="popularity">Popularity</option>
-								<option value="price-low">Price: low to high</option>
-								<option value="price-high">Price: high to low</option>
-								<option value="ease">Ease of access</option>
-								<option value="accreditation">Accreditation</option>
-							</select>
-						</div>
-						<div class="cert-hub__field">
-							<label for="certHubLevel">Level</label>
-							<select id="certHubLevel" class="cert-hub__select">
-								<option value="">All levels</option>
-								<option value="Beginner">Beginner</option>
-								<option value="Intermediate">Intermediate</option>
-								<option value="Advanced">Advanced</option>
-							</select>
-						</div>
-						<div class="cert-hub__field">
-							<label for="certHubPrice">Price</label>
-							<select id="certHubPrice" class="cert-hub__select">
-								<option value="">All</option>
-								<option value="Free">Free only</option>
-								<option value="Paid">Paid</option>
-							</select>
-						</div>
-						<div class="cert-hub__field">
-							<label for="certHubAccr">Accreditation</label>
-							<select id="certHubAccr" class="cert-hub__select">
-								<option value="">All types</option>
-								<option value="Regional">Regional</option>
-								<option value="National">National</option>
-								<option value="International">International</option>
-								<option value="ACE">ACE</option>
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div class="cert-hub__grid" id="certHubGrid">
-					{rows.map((course) => {
-						const href = `/courses/${course.slug}`;
-						const priceLabel = displayPriceForCourse(course.price, resolveCollegeSlug(course.colleges));
-						return (
-							<article
-								class="cert-hub__card card card--has-overlay"
-								data-category={course.course_categories?.slug ?? ''}
-								data-level={course.level}
-								data-price={priceLabel}
-								data-certificate="true"
-								data-accreditation={course.colleges.accr}
-								data-popularity={course.colleges.popularity_score}
-								data-ease={course.colleges.ease_of_access_score}
-								data-featured={course.featured}
-								data-created={course.created_at}
-							>
-								<a href={href} class="card-cover" aria-label={`View course: ${course.title}`}>
-									<span class="sr-only">View course: {course.title}</span>
-								</a>
-								<div class="card-front">
-									<div class="card-image">
-										<img
-											src={resolveCourseImageUrl(course.slug, course.image_url)}
-											alt={course.title}
-											loading="lazy"
-										/>
-										{course.price === 'Free' ? (
-											<span class="card-badge-price free">Free</span>
-										) : (
-											course.price && (
-												<span class="card-badge-price">
-													<CoursePrice price={course.price} colleges={course.colleges} courseSlug={course.slug} />
-												</span>
-											)
-										)}
-									</div>
-									<div class="card-body">
-										<span class="card-label">
-											{course.course_categories
-												? `${course.course_categories.icon ?? ''} ${course.course_categories.name}`.trim()
-												: 'Course'}
-										</span>
-										<h3 class="card-title">{course.title}</h3>
-										{course.colleges?.name && <p class="card-brand">{course.colleges.name}</p>}
-										<p
-											class="card-excerpt"
-											set:html={linkAceNccrsHtml(
-												course.short_description || course.description?.slice(0, 180) || '',
-											)}
-										/>
-										<span class="card-cta">View course details →</span>
-									</div>
-								</div>
-							</article>
-						);
-					})}
-				</div>
-
-				<div class="cert-hub__no-results" id="certHubNoResults" hidden>
-					<p>No programs match your filters. Try clearing search or subject.</p>
-				</div>
-			</>
-		)
-	}
+		))}
+	</div>
 </section>
 
 <style>
@@ -296,104 +156,63 @@ const { rows, categories } = Astro.props;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 		gap: 1.25rem;
 	}
-	/* Match directory course cards (courses index) inside the guide column */
-	.cert-hub__card {
-		display: flex;
-		flex-direction: column;
-		background: #fff;
-		border: 1px solid #e2e8f0;
+	.cert-hub__placeholder {
 		border-radius: 12px;
+		border: 1px solid #e2e8f0;
+		background: #fff;
 		overflow: hidden;
-		color: inherit;
-		transition:
-			transform 0.2s ease,
-			box-shadow 0.2s ease,
-			border-color 0.2s ease;
-		height: 100%;
+		box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
 	}
-	.cert-hub__card:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 32px rgba(0, 0, 0, 0.09);
-		border-color: #2563eb;
-	}
-	.cert-hub__card .card-image {
-		position: relative;
-		width: 100%;
-		height: 180px;
-		overflow: hidden;
+	.cert-hub__ph-img {
+		height: 160px;
 		background: #f1f5f9;
-		flex-shrink: 0;
-	}
-	.cert-hub__card .card-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.35s ease;
-	}
-	.cert-hub__card:hover .card-image img {
-		transform: scale(1.05);
-	}
-	.cert-hub__card .card-body {
-		padding: 1.1rem 1.25rem 1.35rem;
-		display: flex;
-		flex-direction: column;
-		flex: 1;
-	}
-	.cert-hub__card .card-label {
-		font-size: 0.65rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: #2563eb;
-		margin-bottom: 0.45rem;
-	}
-	.cert-hub__card .card-title {
-		font-size: 1.05rem;
-		font-weight: 700;
-		color: #0f172a;
-		line-height: 1.35;
-		margin: 0 0 0.5rem;
-		letter-spacing: -0.02em;
-	}
-	.cert-hub__card:hover .card-title {
-		color: #2563eb;
-	}
-	.cert-hub__card .card-brand {
-		font-size: 0.8rem;
-		color: #94a3b8;
-		margin: 0 0 0.5rem;
-		font-weight: 500;
-	}
-	.cert-hub__card .card-excerpt {
-		font-size: 0.82rem;
-		color: #334155;
-		line-height: 1.55;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
+		position: relative;
 		overflow: hidden;
-		flex: 1;
-		margin: 0 0 0.75rem;
 	}
-	.cert-hub__card .card-cta {
-		font-size: 0.82rem;
-		font-weight: 600;
-		color: #2563eb;
-		margin-top: auto;
+	.cert-hub__ph-body {
+		padding: 1.1rem 1.25rem 1.35rem;
+		display: grid;
+		gap: 0.55rem;
 	}
-	.cert-hub__card .card-badge-price {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		padding: 3px 9px;
-		background: rgba(15, 23, 42, 0.82);
-		color: white;
-		font-size: 0.72rem;
-		font-weight: 700;
-		border-radius: 6px;
+	.cert-hub__ph-line,
+	.cert-hub__ph-chip {
+		background: #e2e8f0;
+		border-radius: 8px;
+		height: 12px;
+		position: relative;
+		overflow: hidden;
 	}
-	.cert-hub__card .card-badge-price.free {
-		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	.cert-hub__ph-line--sm {
+		width: 40%;
+		height: 10px;
+	}
+	.cert-hub__ph-line--lg {
+		width: 78%;
+		height: 14px;
+	}
+	.cert-hub__ph-chip {
+		width: 36%;
+		height: 22px;
+		border-radius: 999px;
+		margin-top: 0.2rem;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.cert-hub__ph-img::after,
+		.cert-hub__ph-line::after,
+		.cert-hub__ph-chip::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			transform: translateX(-100%);
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+			animation: certHubShimmer 1.35s infinite;
+		}
+	}
+	@keyframes certHubShimmer {
+		100% {
+			transform: translateX(100%);
+		}
 	}
 	.cert-hub__no-results {
 		text-align: center;
@@ -410,131 +229,3 @@ const { rows, categories } = Astro.props;
 		}
 	}
 </style>
-
-<script>
-	(() => {
-		const grid = document.getElementById('certHubGrid');
-		const noResults = document.getElementById('certHubNoResults');
-		const countEl = document.getElementById('certHubCount');
-		const search = document.getElementById('certHubSearch') as HTMLInputElement | null;
-		const category = document.getElementById('certHubCategory') as HTMLSelectElement | null;
-		const sort = document.getElementById('certHubSort') as HTMLSelectElement | null;
-		const level = document.getElementById('certHubLevel') as HTMLSelectElement | null;
-		const price = document.getElementById('certHubPrice') as HTMLSelectElement | null;
-		const accr = document.getElementById('certHubAccr') as HTMLSelectElement | null;
-		if (!grid) return;
-
-		const cards = Array.from(grid.querySelectorAll<HTMLElement>('.cert-hub__card'));
-		if (cards.length === 0) return;
-
-		type Meta = {
-			el: HTMLElement;
-			title: string;
-			brand: string;
-			categorySlug: string;
-			label: string;
-			excerpt: string;
-			level: string;
-			price: string;
-			priceNumeric: number;
-			accr: string;
-			popularity: number;
-			ease: number;
-			featured: boolean;
-			created: number;
-		};
-
-		const meta: Meta[] = cards.map((el) => ({
-			el,
-			title: el.querySelector('.card-title')?.textContent?.toLowerCase() ?? '',
-			brand: el.querySelector('.card-brand')?.textContent?.toLowerCase() ?? '',
-			categorySlug: (el.dataset.category ?? '').toLowerCase(),
-			label: el.querySelector('.card-label')?.textContent?.toLowerCase() ?? '',
-			excerpt: el.querySelector('.card-excerpt')?.textContent?.toLowerCase() ?? '',
-			level: el.dataset.level ?? '',
-			price: el.dataset.price ?? '',
-			priceNumeric: parseFloat(String(el.dataset.price).replace(/[^0-9.]/g, '')) || 0,
-			accr: el.dataset.accreditation ?? '',
-			popularity: parseFloat(el.dataset.popularity ?? '0'),
-			ease: parseFloat(el.dataset.ease ?? '0'),
-			featured: el.dataset.featured === 'true',
-			created: new Date(el.dataset.created ?? 0).getTime(),
-		}));
-
-		let visible = [...meta];
-
-		function apply() {
-			const q = search?.value.trim().toLowerCase() ?? '';
-			const cat = category?.value ?? '';
-			const lev = level?.value ?? '';
-			const pr = price?.value ?? '';
-			const ac = accr?.value ?? '';
-			const s = sort?.value ?? 'featured';
-
-			visible = meta.filter((m) => {
-				if (
-					q &&
-					!m.title.includes(q) &&
-					!m.brand.includes(q) &&
-					!m.categorySlug.includes(q) &&
-					!m.label.includes(q) &&
-					!m.excerpt.includes(q)
-				) {
-					return false;
-				}
-				if (cat && m.categorySlug !== cat.toLowerCase()) return false;
-				if (lev && m.level !== lev) return false;
-				if (pr === 'Free' && m.price !== 'Free') return false;
-				if (pr === 'Paid' && m.price === 'Free') return false;
-				if (ac && m.accr !== ac) return false;
-				return true;
-			});
-
-			const accOrder: Record<string, number> = { Regional: 3, National: 2, International: 1, ACE: 2 };
-			visible.sort((a, b) => {
-				switch (s) {
-					case 'popularity':
-						return b.popularity - a.popularity;
-					case 'price-low':
-						return a.priceNumeric - b.priceNumeric;
-					case 'price-high':
-						return b.priceNumeric - a.priceNumeric;
-					case 'ease':
-						return b.ease - a.ease;
-					case 'accreditation':
-						return (accOrder[b.accr] ?? 0) - (accOrder[a.accr] ?? 0);
-					default:
-						if (b.featured !== a.featured) return b.featured ? 1 : -1;
-						return b.created - a.created;
-				}
-			});
-
-			render();
-		}
-
-		function render() {
-			const set = new Set(visible.map((m) => m.el));
-			if (countEl) countEl.textContent = String(visible.length);
-			if (visible.length === 0) {
-				grid.style.display = 'none';
-				if (noResults) {
-					noResults.hidden = false;
-				}
-				return;
-			}
-			grid.style.display = 'grid';
-			if (noResults) noResults.hidden = true;
-			visible.forEach((m) => grid.appendChild(m.el));
-			meta.forEach((m) => {
-				m.el.style.display = set.has(m.el) ? '' : 'none';
-			});
-		}
-
-		search?.addEventListener('input', apply);
-		category?.addEventListener('change', apply);
-		sort?.addEventListener('change', apply);
-		level?.addEventListener('change', apply);
-		price?.addEventListener('change', apply);
-		accr?.addEventListener('change', apply);
-	})();
-</script>
