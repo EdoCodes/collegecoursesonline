@@ -65,6 +65,27 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     tags: ['Enrollment cliff', 'College closures', 'Hybrid campus', 'College classes online', '2026'],
   },
   {
+    slug: 'certificate-programs-college-credit',
+    title:
+      'Certificate Programs That Count for College Credit: Ultimate Guide for Nursing, IT, Paralegal & More',
+    excerpt:
+      'How certificate programs transferable to college credits work: community college certificates, UCLA Extension for-credit courses, ACE/NCCRS industry certs (Google, CompTIA, AWS), WGU/APUS/SNHU mappings, and pathway tips for RN-to-BSN, IT, paralegal, and AS-to-BS business.',
+    label: 'Certificates & transfer',
+    date: 'Apr 30, 2026',
+    readingTime: '24 min read',
+    image:
+      'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800',
+    tags: [
+      'Transfer credit',
+      'Certificates',
+      'RN-to-BSN',
+      'IT certifications',
+      'Paralegal',
+      'ACE credit',
+      '2026',
+    ],
+  },
+  {
     slug: 'online-college-enrollment-after-pandemic',
     title:
       'Online College Enrollment After the Pandemic: Trends, Costs, Pros, Cons, and the Future',

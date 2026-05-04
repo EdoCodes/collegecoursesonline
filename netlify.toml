@@ -210,6 +210,17 @@
   to = "/resources/glossary/academic-abbreviations/"
   status = 301
 
+# Certificate Programs nav — canonical guide under Resources › Blog
+[[redirects]]
+  from = "/categories/certificate-programs"
+  to = "/resources/blog/certificate-programs-college-credit/"
+  status = 301
+
+[[redirects]]
+  from = "/categories/certificate-programs/"
+  to = "/resources/blog/certificate-programs-college-credit/"
+  status = 301
+
 # Custom 404 page
 [[redirects]]
   from = "/*"
