@@ -4,6 +4,7 @@ import ResourcesGuideLayout, {
 } from '../../../components/blog/ResourcesGuideLayout.astro';
 import ArticleProse from '../../../components/blog/ArticleProse.astro';
 import CertificateTranscriptDirectory from '../../../components/blog/CertificateTranscriptDirectory.astro';
+import { certificatePrograms } from '../../../data/certificatePrograms';
 
 const siteOrigin = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
 
@@ -156,7 +157,7 @@ const tocItems: ResourcesGuideTocItem[] = [
 	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
 
 	<ArticleProse>
-		<CertificateTranscriptDirectory placeholderCount={12} />
+		<CertificateTranscriptDirectory placeholderCount={12} programs={certificatePrograms} />
 
 		<hr class="cert-guide-divider" />
 

@@ -1,0 +1,325 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { certificatePrograms } from '../data/certificatePrograms';
+
+const selectedProgramSlug = Astro.url.searchParams.get('program') || '';
+
+const pageTitle = 'Rate a Certificate Program - Share Your Experience';
+const pageDescription =
+	'Share your honest review of certificate programs you completed. Help other students understand transfer, credit, and program quality.';
+
+const programs = certificatePrograms;
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical="/rate-certificate-program">
+	<main class="rate-page">
+		<div class="hero-section">
+			<div class="container">
+				<h1 class="page-title">Rate a Certificate Program</h1>
+				<p class="page-subtitle">Share your experience to help students choose programs that support college credit pathways.</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="content-grid">
+				<div class="form-section">
+					<div class="form-card">
+						<h2>Submit Your Review</h2>
+						<p class="form-intro">
+							Please be honest and constructive. Reviews are moderated before publishing.
+						</p>
+
+						<form id="reviewForm" class="review-form">
+							<div class="form-group">
+								<label for="programSelect" class="form-label">
+									Select Program <span class="required">*</span>
+								</label>
+								<select id="programSelect" name="program_slug" required class="form-select">
+									<option value="">-- Choose a program --</option>
+									{programs.map((p) => (
+										<option value={p.slug} selected={p.slug === selectedProgramSlug}>
+											{p.title} — {p.providerName}
+										</option>
+									))}
+								</select>
+								<p class="field-help">Choose the program you want to review</p>
+							</div>
+
+							<div class="form-group">
+								<label class="form-label">
+									Overall Rating <span class="required">*</span>
+								</label>
+								<div class="star-rating" id="starRating">
+									<input type="radio" id="star5" name="rating" value="5" required />
+									<label for="star5" title="5 stars">★</label>
+									<input type="radio" id="star4" name="rating" value="4" />
+									<label for="star4" title="4 stars">★</label>
+									<input type="radio" id="star3" name="rating" value="3" />
+									<label for="star3" title="3 stars">★</label>
+									<input type="radio" id="star2" name="rating" value="2" />
+									<label for="star2" title="2 stars">★</label>
+									<input type="radio" id="star1" name="rating" value="1" />
+									<label for="star1" title="1 star">★</label>
+								</div>
+								<p class="selected-rating" id="selectedRating">Select a rating</p>
+							</div>
+
+							<div class="form-group">
+								<label for="reviewTitle" class="form-label">
+									Review Title <span class="required">*</span>
+								</label>
+								<input
+									type="text"
+									id="reviewTitle"
+									name="review_title"
+									placeholder="Sum up your experience in one sentence"
+									required
+									maxlength="100"
+									class="form-input"
+								/>
+							</div>
+
+							<div class="form-group">
+								<label for="reviewText" class="form-label">
+									Your Review <span class="required">*</span>
+								</label>
+								<textarea
+									id="reviewText"
+									name="review_text"
+									placeholder="What did you like? What should applicants know? Did it help with credit/transfer?"
+									required
+									minlength="100"
+									rows="8"
+									class="form-textarea"
+								></textarea>
+								<p class="field-help char-count">
+									<span id="charCount">0</span> / 100 characters minimum
+								</p>
+							</div>
+
+							<div class="form-group">
+								<label for="userName" class="form-label">
+									Your Name <span class="required">*</span>
+								</label>
+								<input type="text" id="userName" name="user_name" required class="form-input" />
+							</div>
+
+							<div class="form-group">
+								<label for="userEmail" class="form-label">
+									Your Email <span class="required">*</span>
+								</label>
+								<input type="email" id="userEmail" name="user_email" required class="form-input" />
+								<p class="field-help">Private — never displayed publicly</p>
+							</div>
+
+							<div class="form-group">
+								<label for="enrollmentDate" class="form-label">When did you complete or take this program?</label>
+								<input type="month" id="enrollmentDate" name="enrollment_date" class="form-input" />
+							</div>
+
+							<div class="form-group checkbox-group">
+								<input type="checkbox" id="verifiedEnrollment" name="verified_enrollment" class="form-checkbox" />
+								<label for="verifiedEnrollment" class="checkbox-label">
+									I participated in this program and can verify my experience
+								</label>
+							</div>
+
+							<div class="form-group checkbox-group">
+								<input type="checkbox" id="termsAgree" required class="form-checkbox" />
+								<label for="termsAgree" class="checkbox-label">
+									I agree that my review is honest and based on my personal experience <span class="required">*</span>
+								</label>
+							</div>
+
+							<div class="form-actions">
+								<button type="submit" class="submit-button" id="submitButton">Submit Review</button>
+							</div>
+
+							<div id="successMessage" class="message success-message" style="display: none;">
+								<strong>Thank you for your review!</strong>
+								<p>Your review has been submitted and will be published after moderation.</p>
+							</div>
+							<div id="errorMessage" class="message error-message" style="display: none;"></div>
+						</form>
+					</div>
+				</div>
+
+				<aside class="sidebar">
+					<div class="sidebar-card">
+						<h3>Tip: write reviews that help with transfer planning</h3>
+						<ul>
+							<li>Did you receive a transcript or official record?</li>
+							<li>Did a college accept it for transfer or CPL?</li>
+							<li>What should applicants verify before enrolling?</li>
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	/* Reuse the existing Rate My Course page styles by keeping class names */
+	.hero-section {
+		background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+		color: white;
+		padding: 3rem 0 2.5rem;
+	}
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+	.content-grid {
+		display: grid;
+		grid-template-columns: 1fr 320px;
+		gap: 2rem;
+		padding: 2rem 0 3rem;
+	}
+	.form-card,
+	.sidebar-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 14px;
+		padding: 1.5rem;
+	}
+	.form-label {
+		display: block;
+		font-weight: 700;
+		margin-bottom: 0.35rem;
+	}
+	.form-group {
+		margin-bottom: 1rem;
+	}
+	.form-input,
+	.form-select,
+	.form-textarea {
+		width: 100%;
+		padding: 0.75rem 0.9rem;
+		border: 1px solid #cbd5e1;
+		border-radius: 10px;
+		font-size: 1rem;
+	}
+	.form-textarea {
+		resize: vertical;
+	}
+	.star-rating label {
+		font-size: 1.65rem;
+		cursor: pointer;
+		color: #cbd5e1;
+	}
+	.star-rating input {
+		display: none;
+	}
+	.star-rating input:checked ~ label {
+		color: #fbbf24;
+	}
+	.submit-button {
+		background: #2563eb;
+		color: #fff;
+		border: none;
+		padding: 0.85rem 1rem;
+		border-radius: 10px;
+		font-weight: 800;
+		width: 100%;
+		cursor: pointer;
+	}
+	.submit-button:hover {
+		background: #1d4ed8;
+	}
+	.message {
+		margin-top: 1rem;
+		padding: 0.9rem 1rem;
+		border-radius: 12px;
+	}
+	.success-message {
+		background: #ecfdf5;
+		border: 1px solid #a7f3d0;
+		color: #065f46;
+	}
+	.error-message {
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		color: #7f1d1d;
+	}
+	@media (max-width: 900px) {
+		.content-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	import { supabase, isSupabaseConfigured } from '../lib/supabase';
+
+	const form = document.getElementById('reviewForm');
+	const successMessage = document.getElementById('successMessage');
+	const errorMessage = document.getElementById('errorMessage');
+	const reviewText = document.getElementById('reviewText');
+	const charCount = document.getElementById('charCount');
+	const selectedRating = document.getElementById('selectedRating');
+
+	function setError(msg) {
+		if (!errorMessage) return;
+		errorMessage.textContent = msg;
+		errorMessage.style.display = 'block';
+		if (successMessage) successMessage.style.display = 'none';
+	}
+
+	function setSuccess() {
+		if (successMessage) successMessage.style.display = 'block';
+		if (errorMessage) errorMessage.style.display = 'none';
+	}
+
+	reviewText?.addEventListener('input', () => {
+		if (charCount && reviewText instanceof HTMLTextAreaElement) charCount.textContent = String(reviewText.value.length);
+	});
+
+	document.querySelectorAll('input[name=\"rating\"]').forEach((el) => {
+		el.addEventListener('change', () => {
+			const v = (el as HTMLInputElement).value;
+			if (selectedRating) selectedRating.textContent = `${v} star${v === '1' ? '' : 's'}`;
+		});
+	});
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		if (!isSupabaseConfigured || !supabase) {
+			setError('Reviews are temporarily unavailable. Please try again later.');
+			return;
+		}
+
+		const formData = new FormData(form as HTMLFormElement);
+		const programSlug = String(formData.get('program_slug') || '');
+		const programTitle =
+			(Array.from(document.querySelectorAll('#programSelect option')) as HTMLOptionElement[]).find((o) => o.value === programSlug)?.textContent?.split(' — ')[0]?.trim() ||
+			programSlug;
+
+		try {
+			const { error } = await supabase.from('certificate_program_reviews').insert([
+				{
+					program_slug: programSlug,
+					program_title: programTitle,
+					rating: Number(formData.get('rating')),
+					review_title: String(formData.get('review_title') || ''),
+					review_text: String(formData.get('review_text') || ''),
+					user_name: String(formData.get('user_name') || ''),
+					user_email: String(formData.get('user_email') || ''),
+					verified_enrollment: Boolean(formData.get('verified_enrollment')),
+					enrollment_date: formData.get('enrollment_date') ? String(formData.get('enrollment_date')) + '-01' : null,
+					status: 'pending',
+				},
+			]);
+
+			if (error) throw error;
+			(form as HTMLFormElement).reset();
+			setSuccess();
+		} catch (err) {
+			console.error(err);
+			setError('Error submitting review. Please try again.');
+		}
+	});
+</script>
+

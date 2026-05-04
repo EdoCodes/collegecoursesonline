@@ -1,10 +1,13 @@
 ---
+import CertificateProgramCard from './CertificateProgramCard.astro';
+
 interface Props {
 	/** Number of placeholder slots to render. */
 	placeholderCount?: number;
+	programs?: Array<import('../../data/certificatePrograms').CertificateProgram>;
 }
 
-const { placeholderCount = 12 } = Astro.props;
+const { placeholderCount = 12, programs = [] } = Astro.props;
 ---
 
 <section class="cert-hub" id="search-programs" aria-labelledby="cert-hub-title">
@@ -19,8 +22,12 @@ const { placeholderCount = 12 } = Astro.props;
 		</p>
 	</div>
 
-	<div class="cert-hub__grid" aria-label="Certificate program placeholders">
-		{Array.from({ length: placeholderCount }).map((_, i) => (
+	<div class="cert-hub__grid" aria-label="Certificate program cards and placeholders">
+		{programs.map((program) => (
+			<CertificateProgramCard program={program} />
+		))}
+
+		{Array.from({ length: Math.max(0, placeholderCount - programs.length) }).map((_, i) => (
 			<div class="cert-hub__placeholder" aria-label={`Placeholder program slot ${i + 1}`}>
 				<div class="cert-hub__ph-img" aria-hidden="true" />
 				<div class="cert-hub__ph-body">

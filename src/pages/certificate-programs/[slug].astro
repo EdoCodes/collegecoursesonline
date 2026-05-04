@@ -1,0 +1,245 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CertificateProgramReviewsSection from '../../components/CertificateProgramReviewsSection.astro';
+import { certificatePrograms, type CertificateProgram } from '../../data/certificatePrograms';
+
+export async function getStaticPaths() {
+	return certificatePrograms.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const program = certificatePrograms.find((p) => p.slug === slug) as CertificateProgram | undefined;
+if (!program) {
+	return Astro.redirect('/404');
+}
+
+const pageTitle = `${program.title} | Accredited Certificate Program`;
+const pageDescription =
+	program.shortDescription.length > 155 ? program.shortDescription.slice(0, 152) + '…' : program.shortDescription;
+const canonical = `/certificate-programs/${program.slug}`;
+
+const programSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'EducationalOccupationalProgram',
+	name: program.title,
+	description: program.shortDescription,
+	provider: { '@type': 'Organization', name: program.providerName, url: program.sourceUrl },
+	educationalCredentialAwarded: 'Certificate',
+	url: Astro.url.href,
+	image: [new URL(program.image.replace(/^\//, ''), Astro.site ?? Astro.url).href],
+	inLanguage: 'en-US',
+};
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site ?? Astro.url).href },
+		{ '@type': 'ListItem', position: 2, name: 'Certificate programs', item: new URL('/resources/blog/certificate-programs-college-credit', Astro.site ?? Astro.url).href },
+		{ '@type': 'ListItem', position: 3, name: program.title, item: Astro.url.href },
+	],
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical={canonical} image={program.image} type="article">
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(programSchema)} />
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+
+	<main class="program-page">
+		<div class="hero">
+			<div class="container">
+				<nav class="breadcrumb">
+					<a href="/">Home</a>
+					<span>›</span>
+					<a href="/resources/blog/certificate-programs-college-credit">Certificate Programs</a>
+					<span>›</span>
+					<span>{program.title}</span>
+				</nav>
+
+				<div class="hero-grid">
+					<div class="hero-copy">
+						<div class="hero-label">{program.categoryLabel}</div>
+						<h1>{program.title}</h1>
+						<p class="hero-subtitle">{program.shortDescription}</p>
+						<div class="hero-meta">
+							<span><strong>Provider:</strong> {program.providerName}</span>
+							{program.format && (
+								<>
+									<span class="dot">·</span>
+									<span><strong>Format:</strong> {program.format}</span>
+								</>
+							)}
+							{program.location && (
+								<>
+									<span class="dot">·</span>
+									<span><strong>Location:</strong> {program.location}</span>
+								</>
+							)}
+						</div>
+						<div class="hero-actions">
+							<a class="btn primary" href={program.sourceUrl} target="_blank" rel="noopener noreferrer">
+								View official program page →
+							</a>
+							<a class="btn ghost" href="/rate-certificate-program?program={program.slug}">
+								Rate this program
+							</a>
+						</div>
+					</div>
+
+					<div class="hero-image">
+						<img src={program.image} alt={program.title} loading="eager" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container body">
+			<section class="info-card">
+				<h2>Key details to verify (transfer and credit)</h2>
+				<p>
+					Programs like this can help with transfer and credit for prior learning—but the receiving school makes the final decision. Before you enroll,
+					confirm transferability with your target registrar in writing.
+				</p>
+				{program.creditNotes?.length ? (
+					<ul>
+						{program.creditNotes.map((n) => (
+							<li>{n}</li>
+						))}
+					</ul>
+				) : null}
+			</section>
+
+			<section class="reviews-wrap" id="reviews">
+				<CertificateProgramReviewsSection programSlug={program.slug} programTitle={program.title} />
+			</section>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+	.hero {
+		background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0284c7 100%);
+		color: #fff;
+		padding: 3rem 0 2.5rem;
+	}
+	.breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.875rem;
+		margin-bottom: 1.25rem;
+		opacity: 0.9;
+		flex-wrap: wrap;
+	}
+	.breadcrumb a {
+		color: #fff;
+		text-decoration: none;
+	}
+	.breadcrumb a:hover {
+		text-decoration: underline;
+	}
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 2rem;
+		align-items: center;
+	}
+	.hero-label {
+		display: inline-block;
+		background: rgba(255, 255, 255, 0.15);
+		font-size: 0.7rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		padding: 4px 12px;
+		border-radius: 999px;
+		margin-bottom: 0.9rem;
+	}
+	h1 {
+		margin: 0 0 0.75rem;
+		font-size: clamp(1.8rem, 4vw, 2.6rem);
+		letter-spacing: -0.03em;
+		line-height: 1.15;
+	}
+	.hero-subtitle {
+		margin: 0 0 1rem;
+		color: rgba(255, 255, 255, 0.86);
+		line-height: 1.65;
+	}
+	.hero-meta {
+		font-size: 0.95rem;
+		color: rgba(255, 255, 255, 0.85);
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin-bottom: 1.25rem;
+	}
+	.dot {
+		opacity: 0.7;
+	}
+	.hero-actions {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem 1rem;
+		border-radius: 10px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.btn.primary {
+		background: #fff;
+		color: #0f172a;
+	}
+	.btn.primary:hover {
+		background: #e2e8f0;
+	}
+	.btn.ghost {
+		background: rgba(255, 255, 255, 0.12);
+		color: #fff;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+	}
+	.btn.ghost:hover {
+		background: rgba(255, 255, 255, 0.18);
+	}
+	.hero-image img {
+		width: 100%;
+		height: auto;
+		border-radius: 14px;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+	}
+	.body {
+		padding: 2rem 0 3rem;
+	}
+	.info-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 14px;
+		padding: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.info-card h2 {
+		margin: 0 0 0.75rem;
+		font-size: 1.35rem;
+	}
+	.info-card p {
+		margin: 0 0 0.75rem;
+		color: #334155;
+	}
+	@media (max-width: 860px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
