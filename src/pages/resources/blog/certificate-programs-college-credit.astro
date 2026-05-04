@@ -3,17 +3,29 @@ import ResourcesGuideLayout, {
 	type ResourcesGuideTocItem,
 } from '../../../components/blog/ResourcesGuideLayout.astro';
 import ArticleProse from '../../../components/blog/ArticleProse.astro';
+import CertificateTranscriptDirectory from '../../../components/blog/CertificateTranscriptDirectory.astro';
+import {
+	buildCertificateTranscriptCourseList,
+	uniqueCategoriesFromRows,
+} from '../../../lib/certificateDirectoryCourses';
+import { supabase, isSupabaseConfigured } from '../../../lib/supabase';
 
 const siteOrigin = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+
+const certHubRows = await buildCertificateTranscriptCourseList(
+	isSupabaseConfigured ? supabase : null,
+	isSupabaseConfigured,
+);
+const certHubCategories = uniqueCategoriesFromRows(certHubRows);
 
 const title =
 	'Certificate Programs That Count for College Credit: Ultimate Guide for Nursing, IT, Paralegal & More';
 const description =
 	'How certificate programs transferable to college credits work in the U.S.: community college certificates, UCLA Extension for-credit courses, ACE/NCCRS industry certs (Google, CompTIA, AWS), WGU/APUS/SNHU mappings, and pathway tips for RN-to-BSN, IT, paralegal, and AS-to-BS business.';
 const publishDate = '2026-04-30';
-const updatedDate = '2026-04-30';
+const updatedDate = '2026-05-01';
 const author = 'Editorial Team';
-const readingTime = '24 min read';
+const readingTime = '26 min read';
 const slug = '/resources/blog/certificate-programs-college-credit';
 const pageUrl = `${siteOrigin}${slug}`;
 
@@ -104,6 +116,8 @@ const breadcrumbSchema = {
 const breadcrumbShortTitle = 'Certificates & college credit';
 
 const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#search-programs', label: 'Search programs' },
+	{ href: '#guide', label: 'Full guide' },
 	{ href: '#overview', label: 'At a glance' },
 	{ href: '#what-is-credit-bearing', label: 'Credit-bearing certificates' },
 	{ href: '#how-credit-works', label: 'How credit transfer works' },
@@ -131,7 +145,7 @@ const tocItems: ResourcesGuideTocItem[] = [
 	author={author}
 	authorTitle="Editorial"
 	readingTime={readingTime}
-	updatedDate="April 30, 2026"
+	updatedDate="May 1, 2026"
 	tags={[
 		'Transfer credit',
 		'Certificates',
@@ -153,6 +167,12 @@ const tocItems: ResourcesGuideTocItem[] = [
 	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
 
 	<ArticleProse>
+		<CertificateTranscriptDirectory rows={certHubRows} categories={certHubCategories} />
+
+		<hr class="cert-guide-divider" />
+
+		<div id="guide" class="cert-guide-anchor" tabindex="-1"></div>
+
 		<p class="article-intro">
 			If you are a working adult, career changer, or transfer student in <strong>nursing</strong>, <strong>IT and cybersecurity</strong>,{' '}
 			<strong>paralegal or legal studies</strong>, or <strong>business</strong>, certificate programs can save money and time—<em>when</em> they are
@@ -161,7 +181,8 @@ const tocItems: ResourcesGuideTocItem[] = [
 		</p>
 
 		<p class="article-intro">
-			This guide explains <strong>certificate programs that count for college credit</strong> in the United States: what “credit-bearing” means, how
+			Use the <a href="#search-programs">searchable directory above</a> to explore programs in our catalog that advertise a transcript or completion record—then
+			read on for how credit decisions actually work. This guide explains <strong>certificate programs that count for college credit</strong> in the United States: what “credit-bearing” means, how
 			<strong>online certificate programs for college credit</strong> differ from industry badges alone, and how <strong>community college certificates that transfer to university</strong> work next to{' '}
 			<strong>industry certifications that count as college credit</strong> through ACE, NCCRS, or school-specific policies. We cover RN-to-BSN, IT, paralegal, and AS-to-BS business pathways with practical tools—ASSIST.org, Transferology, and the ACE National Guide—without pretending one policy fits every school.
 		</p>
@@ -719,6 +740,15 @@ const tocItems: ResourcesGuideTocItem[] = [
 </ResourcesGuideLayout>
 
 <style>
+	.cert-guide-divider {
+		border: none;
+		border-top: 1px solid #e2e8f0;
+		margin: 2.25rem 0 1.75rem;
+	}
+	.cert-guide-anchor {
+		scroll-margin-top: 6rem;
+	}
+
 	.data-table {
 		overflow-x: auto;
 		margin: 1.5rem 0 2rem;

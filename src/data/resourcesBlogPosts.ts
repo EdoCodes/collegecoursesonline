@@ -72,7 +72,7 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
       'How certificate programs transferable to college credits work: community college certificates, UCLA Extension for-credit courses, ACE/NCCRS industry certs (Google, CompTIA, AWS), WGU/APUS/SNHU mappings, and pathway tips for RN-to-BSN, IT, paralegal, and AS-to-BS business.',
     label: 'Certificates & transfer',
     date: 'Apr 30, 2026',
-    readingTime: '24 min read',
+    readingTime: '26 min read',
     image:
       'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800',
     tags: [
