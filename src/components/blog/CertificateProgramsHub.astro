@@ -11,23 +11,27 @@ const paralegal = programs.filter((p) => p.hubGroup === 'paralegal');
 const health = programs.filter((p) => p.hubGroup === 'health');
 const itPrograms = programs.filter((p) => p.hubGroup === 'it');
 
+const guideHref = '/resources/guides/certificate-programs-college-credit';
+
 function searchBlob(p: CertificateProgram) {
 	return `${p.title} ${p.providerName} ${p.categoryLabel} ${p.shortDescription}`.toLowerCase().replace(/\s+/g, ' ').trim();
 }
 ---
 
 <section class="cph" aria-labelledby="cph-search-label">
-	<div class="cph__toolbar" id="search-programs">
-		<label id="cph-search-label" for="cph-search" class="cph__label">Search certificate programs</label>
-		<input
-			type="search"
-			id="cph-search"
-			class="cph__input"
-			placeholder="Search by program name, provider, or keyword…"
-			autocomplete="off"
-			enterKeyHint="search"
-		/>
-		<p class="cph__status" id="cph-status" role="status" aria-live="polite"></p>
+	<div class="cph__toolbar-sticky">
+		<div class="cph__toolbar" id="search-programs">
+			<label id="cph-search-label" for="cph-search" class="cph__label">Search certificate programs</label>
+			<input
+				type="search"
+				id="cph-search"
+				class="cph__input"
+				placeholder="Search by program name, provider, or keyword…"
+				autocomplete="off"
+				enterKeyHint="search"
+			/>
+			<p class="cph__status" id="cph-status" role="status" aria-live="polite"></p>
+		</div>
 	</div>
 
 	<div class="cph__groups">
@@ -37,7 +41,9 @@ function searchBlob(p: CertificateProgram) {
 				Paralegal and legal studies certificates focus on legal research, civil procedure, ethics, and practical
 				skills for law offices and legal departments. Whether a program is credit-bearing or primarily professional
 				development depends on the provider—always confirm transcripts, state paralegal rules, and transfer goals
-				with your target school before you enroll.
+				with your target school before you enroll. Our{' '}
+				<a href={guideHref}>certificate programs &amp; college credit guide</a> walks through paralegal transfer basics
+				and how credit decisions are made.
 			</p>
 			<div class="cph__grid">
 				{paralegal.map((p) => (
@@ -47,7 +53,10 @@ function searchBlob(p: CertificateProgram) {
 				))}
 			</div>
 			{paralegal.length === 0 ? (
-				<p class="cph__empty">No paralegal programs in the directory yet. Check back soon.</p>
+				<p class="cph__empty">
+					No paralegal programs in the directory yet. Check back soon—and read our{' '}
+					<a href={guideHref}>certificate programs &amp; college credit guide</a> for paralegal pathways in the meantime.
+				</p>
 			) : null}
 		</section>
 
@@ -57,7 +66,9 @@ function searchBlob(p: CertificateProgram) {
 				Health profession pathways include medical assisting, pre-health science stacks, and other allied health
 				credentials. Clinical hours, accreditation, certification exams, and transfer credit rules vary widely by
 				program—read the official syllabus, talk to the provider, and get written confirmation from any program
-				you hope to transfer into.
+				you hope to transfer into. The{' '}
+				<a href={guideHref}>certificate programs &amp; college credit guide</a> covers RN-to-BSN context, prerequisites,
+				and extension-credit patterns that often matter for health students.
 			</p>
 			<div class="cph__grid">
 				{health.map((p) => (
@@ -67,7 +78,11 @@ function searchBlob(p: CertificateProgram) {
 				))}
 			</div>
 			{health.length === 0 ? (
-				<p class="cph__empty">No health programs in the directory yet. Check back soon.</p>
+				<p class="cph__empty">
+					No health programs in the directory yet. Check back soon—and use our{' '}
+					<a href={guideHref}>certificate programs &amp; college credit guide</a> for nursing and pre-health transfer
+					planning in the meantime.
+				</p>
 			) : null}
 		</section>
 
@@ -77,6 +92,9 @@ function searchBlob(p: CertificateProgram) {
 				IT, cybersecurity, and technology certificate pathways often pair coursework with industry certifications
 				(cloud, networking, security). Credit transfer frequently relies on prior-learning policies, ACE or NCCRS
 				evaluations, or school-published certification mappings—plans differ, so verify with the registrar early.
+				See the{' '}
+				<a href={guideHref}>certificate programs &amp; college credit guide</a> for IT/CPL examples and questions to ask
+				your transfer office.
 			</p>
 			{itPrograms.length > 0 ? (
 				<div class="cph__grid">
@@ -89,10 +107,10 @@ function searchBlob(p: CertificateProgram) {
 			) : (
 				<div class="cph__it-placeholder" data-cph-it-placeholder>
 					<p>
-						We are actively adding IT and cybersecurity certificate programs to this directory. In the meantime,
-						read our full guide on <a href="/resources/guides/certificate-programs-college-credit#how-credit-works"
-							>how IT certs can translate to college credit</a
-						> through CPL and ACE/NCCRS pathways.
+						We are actively adding IT and cybersecurity certificate programs to this directory. In the meantime, use
+						our <a href={guideHref}>certificate programs &amp; college credit guide</a>—including the section on{' '}
+						<a href={`${guideHref}#how-credit-works`}>how certificates become college credit</a>—for CPL, ACE/NCCRS, and IT
+						pathways.
 					</p>
 				</div>
 			)}
@@ -159,8 +177,28 @@ function searchBlob(p: CertificateProgram) {
 	.cph {
 		margin: 0 0 2.5rem;
 	}
+	/* Stays under the site header (sticky ~4.5rem) so search stays visible while scrolling */
+	.cph__toolbar-sticky {
+		position: sticky;
+		top: 4.5rem;
+		z-index: 90;
+		margin: 0 0 1.75rem;
+		padding: 0.35rem 0 0.85rem;
+		background: #fff;
+		box-shadow: 0 6px 20px rgba(15, 23, 42, 0.07);
+		border-radius: 0 0 14px 14px;
+	}
+	@media (max-width: 640px) {
+		.cph__toolbar-sticky {
+			top: 4.25rem;
+			margin-left: -0.25rem;
+			margin-right: -0.25rem;
+			padding-left: 0.35rem;
+			padding-right: 0.35rem;
+		}
+	}
 	.cph__toolbar {
-		margin-bottom: 2rem;
+		margin-bottom: 0;
 		padding: 1.25rem 1.25rem 1.35rem;
 		background: linear-gradient(180deg, #f8fafc 0%, #fff 55%);
 		border: 1px solid var(--color-border, #e2e8f0);
@@ -217,6 +255,15 @@ function searchBlob(p: CertificateProgram) {
 		line-height: 1.7;
 		color: var(--color-text-medium, #475569);
 		max-width: 85ch;
+	}
+	.cph__lead a,
+	.cph__empty a {
+		color: var(--color-primary, #1e40af);
+		font-weight: 600;
+	}
+	.cph__lead a:hover,
+	.cph__empty a:hover {
+		text-decoration: underline;
 	}
 	.cph__grid {
 		display: grid;

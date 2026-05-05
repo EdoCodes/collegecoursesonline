@@ -34,39 +34,27 @@ const description =
 				<p class="cert-hero__eyebrow">Directory</p>
 				<h1 class="cert-hero__title">Certificate programs</h1>
 				<p class="cert-hero__subtitle">
-					Explore paralegal, health professions, and IT-focused certificate listings in one place. Use search to narrow by program name, school, or topic.
-					Transfer and credit rules always depend on your receiving institution—when you need the full policy deep-dive, open our companion guide below.
+					Explore paralegal, health professions, and IT-focused certificate listings in one place. For how transfer credit, ACE/NCCRS, and
+					prior-learning policies actually work, start with our{' '}
+					<a href="/resources/guides/certificate-programs-college-credit">certificate programs &amp; college credit guide</a>.
 				</p>
-				<div class="cert-hero__actions">
-					<a class="cert-btn cert-btn--secondary" href="/resources/guides/certificate-programs-college-credit">
-						Read the full guide: certificates &amp; college credit →
-					</a>
-				</div>
+				<p class="cert-hero__subtitle cert-hero__subtitle--second">
+					The search bar below stays pinned as you scroll so you can filter by program name, school, or topic at any time—then cross-check pathways and
+					registrar questions in the same{' '}
+					<a href="/resources/guides/certificate-programs-college-credit">certificate programs &amp; college credit guide</a>.
+				</p>
 			</div>
 		</div>
 
 		<div class="container cert-body">
-			<section class="cert-intro" aria-labelledby="cert-intro-heading">
-				<h2 id="cert-intro-heading" class="cert-intro__title">How to use this page</h2>
-				<p>
-					Programs are grouped into three areas that match common student goals: paralegal and legal support, health professions, and information
-					technology. Each card links to a program detail page with provider context, format notes, and reminders to verify transfer and financial aid
-					before you enroll.
-				</p>
-				<p>
-					<strong>Looking for mechanics of transfer and ACE/NCCRS credit?</strong>{' '}
-					<a href="/resources/guides/certificate-programs-college-credit">Open the ultimate guide on certificate programs and college credit</a>
-					—it covers community college certificates, university extension credit, RN-to-BSN and IT pathways, and the questions to ask your registrar.
-				</p>
-			</section>
-
 			<CertificateProgramsHub programs={certificatePrograms} />
 
 			<section class="cert-note" aria-label="Disclaimer">
 				<p>
 					<strong>Note:</strong> We summarize publicly posted program information to help you compare options. Admissions, accreditation, pricing, and
-					credit acceptance change over time. Confirm every detail on the official provider site and with your target college’s registrar or transfer
-					office.
+					credit acceptance change over time—use our{' '}
+					<a href="/resources/guides/certificate-programs-college-credit">certificate programs &amp; college credit guide</a>{' '}
+					for policy context, and confirm every detail on the official provider site and with your target college’s registrar or transfer office.
 				</p>
 			</section>
 		</div>
@@ -141,61 +129,33 @@ const description =
 		color: #fff;
 	}
 	.cert-hero__subtitle {
-		margin: 0 0 1.5rem;
+		margin: 0 0 1rem;
 		font-size: 1.0625rem;
 		line-height: 1.7;
 		color: rgba(255, 255, 255, 0.88);
-		max-width: 65ch;
+		max-width: 68ch;
 	}
-	.cert-hero__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
+	.cert-hero__subtitle--second {
+		margin-bottom: 0;
 	}
-	.cert-btn {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.65rem 1.15rem;
-		border-radius: 10px;
-		font-weight: 600;
-		font-size: 0.9375rem;
-		text-decoration: none;
-		transition: background 0.2s ease, color 0.2s ease;
-	}
-	.cert-btn--secondary {
-		background: rgba(255, 255, 255, 0.14);
+	.cert-hero__subtitle a {
 		color: #fff;
-		border: 1px solid rgba(255, 255, 255, 0.35);
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 3px;
 	}
-	.cert-btn--secondary:hover {
-		background: rgba(255, 255, 255, 0.24);
+	.cert-hero__subtitle a:hover {
+		color: #e0e7ff;
 	}
 	.cert-body {
 		padding-bottom: 4rem;
 	}
-	.cert-intro {
-		margin-bottom: 2.25rem;
-	}
-	.cert-intro__title {
-		font-size: 1.35rem;
-		font-weight: 800;
-		color: var(--color-navy, #0f172a);
-		margin: 0 0 0.75rem;
-		letter-spacing: -0.02em;
-	}
-	.cert-intro p {
-		margin: 0 0 1rem;
-		font-size: 1.02rem;
-		line-height: 1.75;
-		color: var(--color-text-medium, #475569);
-		max-width: 75ch;
-	}
-	.cert-intro a {
+	.cert-note a {
 		color: var(--color-primary, #1e40af);
 		font-weight: 600;
 	}
-	.cert-intro a:hover {
+	.cert-note a:hover {
 		text-decoration: underline;
 	}
 	.cert-note {
@@ -214,9 +174,6 @@ const description =
 	@media (max-width: 640px) {
 		.cert-hero {
 			padding: 2rem 0 2.25rem;
-		}
-		.cert-btn {
-			width: 100%;
 		}
 	}
 </style>
