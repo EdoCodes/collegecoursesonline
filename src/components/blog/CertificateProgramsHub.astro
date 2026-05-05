@@ -1,0 +1,263 @@
+---
+import CertificateProgramCard from './CertificateProgramCard.astro';
+import type { CertificateProgram } from '../../data/certificatePrograms';
+
+interface Props {
+	programs: CertificateProgram[];
+}
+
+const { programs } = Astro.props;
+const paralegal = programs.filter((p) => p.hubGroup === 'paralegal');
+const health = programs.filter((p) => p.hubGroup === 'health');
+const itPrograms = programs.filter((p) => p.hubGroup === 'it');
+
+function searchBlob(p: CertificateProgram) {
+	return `${p.title} ${p.providerName} ${p.categoryLabel} ${p.shortDescription}`.toLowerCase().replace(/\s+/g, ' ').trim();
+}
+---
+
+<section class="cph" aria-labelledby="cph-search-label">
+	<div class="cph__toolbar" id="search-programs">
+		<label id="cph-search-label" for="cph-search" class="cph__label">Search certificate programs</label>
+		<input
+			type="search"
+			id="cph-search"
+			class="cph__input"
+			placeholder="Search by program name, provider, or keyword…"
+			autocomplete="off"
+			enterKeyHint="search"
+		/>
+		<p class="cph__status" id="cph-status" role="status" aria-live="polite"></p>
+	</div>
+
+	<div class="cph__groups">
+		<section class="cph__group" data-cph-group="paralegal" id="certificates-paralegal">
+			<h2 class="cph__h2">Paralegal certificates</h2>
+			<p class="cph__lead">
+				Paralegal and legal studies certificates focus on legal research, civil procedure, ethics, and practical
+				skills for law offices and legal departments. Whether a program is credit-bearing or primarily professional
+				development depends on the provider—always confirm transcripts, state paralegal rules, and transfer goals
+				with your target school before you enroll.
+			</p>
+			<div class="cph__grid">
+				{paralegal.map((p) => (
+					<div class="cph-card" data-cert-card data-search-text={searchBlob(p)}>
+						<CertificateProgramCard program={p} />
+					</div>
+				))}
+			</div>
+			{paralegal.length === 0 ? (
+				<p class="cph__empty">No paralegal programs in the directory yet. Check back soon.</p>
+			) : null}
+		</section>
+
+		<section class="cph__group" data-cph-group="health" id="certificates-health">
+			<h2 class="cph__h2">Health professions certificates</h2>
+			<p class="cph__lead">
+				Health profession pathways include medical assisting, pre-health science stacks, and other allied health
+				credentials. Clinical hours, accreditation, certification exams, and transfer credit rules vary widely by
+				program—read the official syllabus, talk to the provider, and get written confirmation from any program
+				you hope to transfer into.
+			</p>
+			<div class="cph__grid">
+				{health.map((p) => (
+					<div class="cph-card" data-cert-card data-search-text={searchBlob(p)}>
+						<CertificateProgramCard program={p} />
+					</div>
+				))}
+			</div>
+			{health.length === 0 ? (
+				<p class="cph__empty">No health programs in the directory yet. Check back soon.</p>
+			) : null}
+		</section>
+
+		<section class="cph__group" data-cph-group="it" data-cph-it-section id="certificates-it">
+			<h2 class="cph__h2">IT and technology certificates</h2>
+			<p class="cph__lead">
+				IT, cybersecurity, and technology certificate pathways often pair coursework with industry certifications
+				(cloud, networking, security). Credit transfer frequently relies on prior-learning policies, ACE or NCCRS
+				evaluations, or school-published certification mappings—plans differ, so verify with the registrar early.
+			</p>
+			{itPrograms.length > 0 ? (
+				<div class="cph__grid">
+					{itPrograms.map((p) => (
+						<div class="cph-card" data-cert-card data-search-text={searchBlob(p)}>
+							<CertificateProgramCard program={p} />
+						</div>
+					))}
+				</div>
+			) : (
+				<div class="cph__it-placeholder" data-cph-it-placeholder>
+					<p>
+						We are actively adding IT and cybersecurity certificate programs to this directory. In the meantime,
+						read our full guide on <a href="/resources/guides/certificate-programs-college-credit#how-credit-works"
+							>how IT certs can translate to college credit</a
+						> through CPL and ACE/NCCRS pathways.
+					</p>
+				</div>
+			)}
+		</section>
+	</div>
+</section>
+
+<script>
+	(() => {
+		const input = document.getElementById('cph-search');
+		const status = document.getElementById('cph-status');
+		if (!(input instanceof HTMLInputElement) || !status) return;
+
+		const cards = () => Array.from(document.querySelectorAll<HTMLElement>('[data-cert-card]'));
+		const groups = () => Array.from(document.querySelectorAll<HTMLElement>('[data-cph-group]'));
+		const itHint =
+			/it|information|tech|technolog|cyber|security|software|comptia|cloud|developer|network|data\s*science|aws|azure|google/i;
+
+		const totalPrograms = cards().length;
+
+		function apply() {
+			const raw = input.value.trim().toLowerCase();
+			const words = raw.split(/\s+/).filter(Boolean);
+
+			cards().forEach((card) => {
+				const text = card.getAttribute('data-search-text') || '';
+				const match = words.length === 0 || words.every((w) => text.includes(w));
+				card.toggleAttribute('hidden', !match);
+			});
+
+			groups().forEach((group) => {
+				const groupCards = Array.from(group.querySelectorAll<HTMLElement>('[data-cert-card]'));
+				const slug = group.getAttribute('data-cph-group');
+				if (groupCards.length === 0 && slug === 'it') {
+					const showIt = words.length === 0 || itHint.test(raw);
+					group.toggleAttribute('hidden', !showIt);
+					return;
+				}
+				if (groupCards.length === 0 && slug && slug !== 'it') {
+					group.toggleAttribute('hidden', words.length > 0);
+					return;
+				}
+				const visibleInGroup = groupCards.filter((c) => !c.hasAttribute('hidden')).length;
+				const show = words.length === 0 || visibleInGroup > 0;
+				group.toggleAttribute('hidden', !show);
+			});
+
+			const visibleTotal = cards().filter((c) => !c.hasAttribute('hidden')).length;
+			if (words.length === 0) {
+				status.textContent = `${totalPrograms} program${totalPrograms === 1 ? '' : 's'} listed`;
+			} else if (visibleTotal === 0) {
+				status.textContent = 'No programs match your search. Try different keywords.';
+			} else {
+				status.textContent = `${visibleTotal} matching program${visibleTotal === 1 ? '' : 's'}`;
+			}
+		}
+
+		input.addEventListener('input', apply);
+		apply();
+	})();
+</script>
+
+<style>
+	.cph {
+		margin: 0 0 2.5rem;
+	}
+	.cph__toolbar {
+		margin-bottom: 2rem;
+		padding: 1.25rem 1.25rem 1.35rem;
+		background: linear-gradient(180deg, #f8fafc 0%, #fff 55%);
+		border: 1px solid var(--color-border, #e2e8f0);
+		border-radius: var(--border-radius, 14px);
+		box-shadow: var(--shadow-subtle, 0 1px 3px rgb(0 0 0 / 0.04));
+	}
+	.cph__label {
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-text-medium, #475569);
+		margin-bottom: 0.5rem;
+	}
+	.cph__input {
+		width: 100%;
+		padding: 0.8rem 1rem;
+		border: 2px solid var(--color-border, #e2e8f0);
+		border-radius: 10px;
+		font-size: 1rem;
+		color: var(--color-text, #0f172a);
+		background: #fff;
+	}
+	.cph__input:focus {
+		outline: none;
+		border-color: var(--color-primary, #1e40af);
+		box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+	}
+	.cph__status {
+		margin: 0.65rem 0 0;
+		font-size: 0.9rem;
+		color: var(--color-text-medium, #475569);
+		min-height: 1.35em;
+	}
+	.cph__groups {
+		display: flex;
+		flex-direction: column;
+		gap: 2.75rem;
+	}
+	.cph__group[hidden] {
+		display: none !important;
+	}
+	.cph__h2 {
+		font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+		font-weight: 800;
+		color: var(--color-navy, #0f172a);
+		margin: 0 0 0.75rem;
+		letter-spacing: -0.02em;
+	}
+	.cph__lead {
+		margin: 0 0 1.25rem;
+		font-size: 1rem;
+		line-height: 1.7;
+		color: var(--color-text-medium, #475569);
+		max-width: 85ch;
+	}
+	.cph__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+		gap: 1.25rem;
+		align-items: stretch;
+	}
+	.cph-card {
+		min-width: 0;
+	}
+	.cph-card[hidden] {
+		display: none !important;
+	}
+	.cph__empty {
+		margin: 0;
+		padding: 1rem 1.15rem;
+		background: var(--color-bg-light, #f8fafc);
+		border: 1px dashed var(--color-border, #e2e8f0);
+		border-radius: 10px;
+		color: var(--color-text-medium, #475569);
+		font-size: 0.95rem;
+	}
+	.cph__it-placeholder {
+		padding: 1.25rem 1.35rem;
+		background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+		border: 1px solid #bfdbfe;
+		border-radius: 12px;
+		color: #1e3a5f;
+		font-size: 0.95rem;
+		line-height: 1.65;
+	}
+	.cph__it-placeholder a {
+		color: var(--color-primary, #1e40af);
+		font-weight: 600;
+	}
+	.cph__it-placeholder a:hover {
+		text-decoration: underline;
+	}
+	@media (max-width: 640px) {
+		.cph__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

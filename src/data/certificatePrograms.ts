@@ -19,11 +19,14 @@ export type CertificateProgram = {
 	location?: string;
 	format?: string;
 	creditNotes?: string[];
+	/** Used on the certificate programs hub to group cards (paralegal / health / IT). */
+	hubGroup: 'paralegal' | 'health' | 'it';
 };
 
 export const certificatePrograms: CertificateProgram[] = [
 	{
 		slug: 'ucla-extension-ucla-health-medical-assistant',
+		hubGroup: 'health',
 		title: 'UCLA Health Medical Assistant Program (Certificate)',
 		providerName: 'UCLA Extension',
 		providerSlug: 'ucla-extension',
@@ -78,6 +81,7 @@ export const certificatePrograms: CertificateProgram[] = [
 	},
 	{
 		slug: 'ucla-extension-pre-medical-and-general-science',
+		hubGroup: 'health',
 		title: 'Pre-Medical and General Science Studies (Certificate)',
 		providerName: 'UCLA Extension',
 		providerSlug: 'ucla-extension',
@@ -97,6 +101,7 @@ export const certificatePrograms: CertificateProgram[] = [
 	},
 	{
 		slug: 'csulb-cpace-cls-paralegal-certificate-course',
+		hubGroup: 'paralegal',
 		title: 'Paralegal Certificate Course (CSULB / Center for Legal Studies)',
 		providerName: 'Center for Legal Studies',
 		providerSlug: 'center-for-legal-studies',

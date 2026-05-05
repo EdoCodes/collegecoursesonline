@@ -84,6 +84,7 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
       'ACE credit',
       '2026',
     ],
+    hrefOverride: '/resources/guides/certificate-programs-college-credit',
   },
   {
     slug: 'online-college-enrollment-after-pandemic',
