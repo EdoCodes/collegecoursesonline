@@ -13,6 +13,8 @@ export type CertificateProgram = {
 	occupationalCategory?: string;
 	externalLinks?: Array<{ label: string; url: string }>;
 	image: string;
+	/** Accessible description when the thumbnail is illustrative or stock photography. */
+	imageAlt?: string;
 	sourceUrl: string;
 	location?: string;
 	format?: string;
@@ -123,7 +125,9 @@ export const certificatePrograms: CertificateProgram[] = [
 		accreditation:
 			'This listing describes a professional certificate program delivered by the Center for Legal Studies in partnership with a university continuing education unit. It is not a substitute for state-specific paralegal regulation guidance—confirm requirements with the State Bar or applicable regulatory authority in your jurisdiction.',
 		occupationalCategory: 'Paralegal and Legal Assistant',
-		image: '/images/certificates/csulb-cpace-cls-paralegal-certificate-course.png',
+		image: '/images/certificates/csulb-cpace-cls-paralegal-certificate-course.jpg',
+		imageAlt:
+			'Two professionals in a formal legal office reviewing documents together, with a U.S. flag and law-library shelving in the background.',
 		sourceUrl:
 			'https://www.legalstudies.com/product/california-state-university-long-beach-paralegal-certificate-course/',
 		location: 'California (CSULB CPaCE partner offering; online and other formats per CLS)',
@@ -147,6 +151,10 @@ export const certificatePrograms: CertificateProgram[] = [
 			{
 				label: 'BLS Occupational Outlook Handbook — Paralegals and Legal Assistants',
 				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #4427547 (August de Richelieu)',
+				url: 'https://www.pexels.com/photo/4427547/',
 			},
 		],
 	},

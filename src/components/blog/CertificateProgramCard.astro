@@ -18,7 +18,7 @@ const href = `/certificate-programs/${program.slug}/`;
 
 	<div class="card-front">
 		<div class="card-image">
-			<img src={program.image} alt={program.title} loading="lazy" />
+			<img src={program.image} alt={program.imageAlt ?? program.title} loading="lazy" />
 			{comingSoonLabel && <span class="card-badge-price">{comingSoonLabel}</span>}
 		</div>
 		<div class="card-body">
