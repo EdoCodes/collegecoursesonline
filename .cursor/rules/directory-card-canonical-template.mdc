@@ -1,0 +1,42 @@
+---
+description: Canonical directory card template (size, layout, colors)
+globs: src/components/**/*Card*.astro,src/pages/**/*.astro
+alwaysApply: false
+---
+
+# Canonical directory card template (do not reinvent)
+
+When adding or modifying any “card” UI (course cards, certificate program cards, blog cards, university program cards, directory grids), **reuse the existing shared card system** instead of creating new bespoke card CSS.
+
+## Source of truth
+
+- **Global styles** live in `src/layouts/Layout.astro` under “Directory card base styles (shared across pages/components)”.
+- **Canonical markup** is:
+  - `<article class="card card--has-overlay">`
+  - `<a class="card-cover" ...>` as the stretch-link
+  - `<div class="card-front">` wrapping:
+    - `<div class="card-image"> ... </div>`
+    - `<div class="card-body"> ... </div>`
+
+## Required sizing/layout rules
+
+- **Image height**: `200px` via `.card-image`
+- **Consistent vertical rhythm**: `.card-body` padding and `.card-excerpt` line clamp should remain consistent
+- **Full-height cards**: the card must be `height: 100%` so grid rows align
+
+## Color consistency (avoid “random blues”)
+
+- Never hardcode accent blues like `#2563eb` for card borders/labels/CTAs.
+- Use theme tokens:
+  - `var(--color-primary)` and `var(--color-primary-dark)` for interactive states
+  - neutrals from `--neutral-*` for borders/text where appropriate
+
+## Accessibility + linking rules
+
+- Use the overlay link (`.card-cover`) so the whole card is clickable.
+- Keep any inline links that must remain clickable **above** the overlay via the existing `.card--has-overlay` pointer-events pattern.
+
+## If a change is needed
+
+- Prefer updating **the shared `.card` styles** once in `src/layouts/Layout.astro` rather than per-component CSS.
+- Keep new variants minimal (e.g., add a small modifier class) and document why.
