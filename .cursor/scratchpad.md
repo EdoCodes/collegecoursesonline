@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-05 — Certificate programs: National Paralegal College — Certificate in Paralegal Studies
+
+- Added `npc-certificate-in-paralegal-studies` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl`: `https://www.nationalparalegal.edu/Certificate.aspx`.
+- Card image: `public/images/certificates/npc-certificate-paralegal-studies.png` (Pexels #7875863 / Karola G; copied from Cursor `assets` via `robocopy`, then renamed).
+- `npm run build` succeeds; route `/certificate-programs/npc-certificate-in-paralegal-studies/`.
+
 ### 2026-05-05 — Certificate programs: National University Paralegal Specialist Certificate (Criminal Law)
 
 - Added `nu-paralegal-specialist-certificate-criminal-law` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl` is the official NU program page; marketing landing `https://info.nu.edu/criminal-justice/law/` is in `externalLinks` (no tracking params).

@@ -287,5 +287,62 @@ export const certificatePrograms: CertificateProgram[] = [
 			},
 		],
 	},
+	{
+		slug: 'npc-certificate-in-paralegal-studies',
+		hubGroup: 'paralegal',
+		title: 'Certificate in Paralegal Studies',
+		providerName: 'National Paralegal College',
+		providerSlug: 'national-paralegal-college',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'An online paralegal certificate designed for students who want to finish training and enter the workforce quickly—or who already hold a degree in another field. The program requires 24 semester credits: four core paralegal courses plus four legal-studies electives, with optional introductory coursework (per National Paralegal College).',
+		overview:
+			'National Paralegal College describes the certificate as combining core legal subjects—torts, contracts, legal research and writing with civil litigation, and professional responsibility—with elective depth across areas such as criminal law, real property, business law, estate planning, and more. Many courses use online courseware with no textbook purchase required (per NPC program page). NPC lists published completion timelines based on course load (for example, about seven months when taking three courses at a time).',
+		highlights: [
+			'24 credits total: four paralegal core courses (12 credits) plus four elective legal studies courses (12 credits); optional zero-credit Introduction to the Law (per National Paralegal College).',
+			'Published pacing examples on the program page include about 7 months (three courses at a time), 9 months (two courses), or 17 months (one course)—actual pace varies by student schedule.',
+			'Institutionally accredited by the Distance Education Accrediting Commission (DEAC), listed by the U.S. Department of Education as a recognized accrediting agency (per NPC program page).',
+			'NPC states participation in Title IV federal financial aid for qualifying students and licensing by the Arizona Board for Private Postsecondary Education (per NPC program page).',
+			'Program learning outcomes include ethical practice, legal research and drafting skills, and preparation relevant to the Certified Paralegal exam offered by NALA (per NPC program page).',
+		],
+		whatYoullLearn: [
+			'Locate and apply relevant statutes and research case law using major legal databases.',
+			'Draft foundational litigation and transactional documents and communicate professionally under attorney supervision.',
+			'Apply ethics frameworks aligned with the Model Rules of Professional Conduct and avoid unauthorized practice of law.',
+			'Support civil litigation workflows including discovery-related tasks and attorney-directed assignments.',
+		],
+		outcomes: [
+			'Designed to prepare for paralegal/legal assistant roles; certification and employer requirements vary by state—confirm with NPC and your jurisdiction.',
+		],
+		accreditation:
+			'National Paralegal College is accredited by the Distance Education Accrediting Commission (DEAC). DEAC is listed by the U.S. Department of Education as a recognized accrediting agency and is recognized by the Council for Higher Education Accreditation (CHEA) (per NPC program page).',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/npc-certificate-paralegal-studies.png',
+		imageAlt:
+			'Professional reviewing documents at a white desk with a laptop; a Lady Justice statue and an open law book sit in the foreground.',
+		sourceUrl: 'https://www.nationalparalegal.edu/Certificate.aspx',
+		location: 'United States (National Paralegal College; online)',
+		format: 'Online',
+		creditNotes: [
+			'Elective courses may have prerequisites; confirm sequencing with NPC before registering.',
+			'Financial aid eligibility and licensure/certification rules depend on your situation and state—verify with NPC and official sources.',
+		],
+		externalLinks: [
+			{
+				label: 'National Paralegal College — Certificate in Paralegal Studies',
+				url: 'https://www.nationalparalegal.edu/Certificate.aspx',
+			},
+			{ label: 'Distance Education Accrediting Commission (DEAC)', url: 'https://www.deac.org/' },
+			{
+				label: 'BLS Occupational Outlook: Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{ label: 'NALA — The Paralegal Association (Certified Paralegal credential)', url: 'https://www.nala.org/' },
+			{
+				label: 'Card image — Pexels photo #7875863 (Karola G)',
+				url: 'https://www.pexels.com/photo/7875863/',
+			},
+		],
+	},
 ];
 
