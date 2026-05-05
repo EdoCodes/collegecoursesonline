@@ -538,8 +538,8 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 ### 2026-05-05 — Certificate programs: CSULB / CLS Paralegal Certificate Course card
 
 - Added `csulb-cpace-cls-paralegal-certificate-course` to `src/data/certificatePrograms.ts` with official CLS enrollment URL and detail-page fields.
-- Added card/hero image at `public/images/certificates/csulb-cpace-cls-paralegal-certificate-course.png` (site-generated illustration; swap for user stock photo later if preferred).
-- `npm run build` succeeded; `/certificate-programs/csulb-cpace-cls-paralegal-certificate-course/` and Certificate Programs hub include the new program.
+- Added card/hero image at `public/images/certificates/csulb-cpace-cls-paralegal-certificate-course.jpg` (Pexels #4427547 / August de Richelieu via CDN download; Cursor `assets` copy path was not readable from shell).
+- Optional `imageAlt` on certificate program type; CSULB card uses descriptive alt text. `npm run build` succeeds.
 
 ### 2026-04-29 — Blog: hybrid ADN post hero image (card only)
 
