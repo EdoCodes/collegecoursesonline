@@ -206,12 +206,20 @@ const breadcrumbSchema = {
 						<div class="info-list">
 							<div class="info-item">
 								<span class="label">Provider</span>
-								<span class="value">{program.providerName}</span>
+								<span class="value">
+									<a href={program.sourceUrl} target="_blank" rel="noopener noreferrer">
+										{program.providerName}
+									</a>
+								</span>
 							</div>
 							{program.format && (
 								<div class="info-item">
 									<span class="label">Format</span>
-									<span class="value">{program.format}</span>
+									<span class="value">
+										<a href={program.sourceUrl} target="_blank" rel="noopener noreferrer">
+											{program.format}
+										</a>
+									</span>
 								</div>
 							)}
 							{program.location && (
@@ -497,8 +505,8 @@ const breadcrumbSchema = {
 
 	.info-item {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		gap: calc(var(--spacing) * 2);
+		align-items: flex-start;
 		padding-bottom: calc(var(--spacing) * 2);
 		border-bottom: 1px solid var(--neutral-200);
 	}
@@ -511,11 +519,29 @@ const breadcrumbSchema = {
 	.info-item .label {
 		font-weight: 600;
 		color: var(--neutral-700);
+		flex: 0 0 96px;
+		line-height: 1.35;
+		padding-top: 2px;
 	}
 
 	.info-item .value {
 		color: var(--neutral-900);
 		font-weight: 500;
+		flex: 1 1 auto;
+		min-width: 0;
+		line-height: 1.45;
+		overflow-wrap: anywhere;
+		text-align: right;
+	}
+
+	.info-item .value a {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.info-item .value a:hover {
+		color: var(--color-primary);
 	}
 
 	.disclosure-card {
