@@ -45,200 +45,458 @@ const breadcrumbSchema = {
 	<script type="application/ld+json" slot="head" set:html={JSON.stringify(programSchema)} />
 	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
 
-	<main class="program-page">
-		<div class="hero">
-			<div class="container">
-				<nav class="breadcrumb">
-					<a href="/">Home</a>
-					<span>›</span>
-					<a href="/resources/blog/certificate-programs-college-credit">Certificate Programs</a>
-					<span>›</span>
-					<span>{program.title}</span>
-				</nav>
+	<main class="course-detail">
+		<div class="container">
+			<nav class="breadcrumb" aria-label="Breadcrumb">
+				<a href="/">Home</a>
+				<span class="separator">/</span>
+				<a href="/resources/blog/certificate-programs-college-credit">Certificate Programs</a>
+				<span class="separator">/</span>
+				<span class="current">{program.title}</span>
+			</nav>
+		</div>
 
+		<div class="hero-section">
+			<div class="container">
 				<div class="hero-grid">
-					<div class="hero-copy">
-						<div class="hero-label">{program.categoryLabel}</div>
-						<h1>{program.title}</h1>
-						<p class="hero-subtitle">{program.shortDescription}</p>
-						<div class="hero-meta">
-							<span><strong>Provider:</strong> {program.providerName}</span>
+					<div class="hero-content">
+						<span class="featured-badge">{program.categoryLabel}</span>
+						<h1 class="course-title">{program.title}</h1>
+						<p class="course-subtitle">{program.shortDescription}</p>
+
+						<div class="course-meta">
+							<div class="meta-item">
+								<span><strong>Provider:</strong> {program.providerName}</span>
+							</div>
 							{program.format && (
-								<>
-									<span class="dot">·</span>
+								<div class="meta-item">
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<circle cx="12" cy="12" r="10"/>
+										<polyline points="12 6 12 12 16 14"/>
+									</svg>
 									<span><strong>Format:</strong> {program.format}</span>
-								</>
+								</div>
 							)}
 							{program.location && (
-								<>
-									<span class="dot">·</span>
+								<div class="meta-item">
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+										<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+										<circle cx="12" cy="10" r="3"/>
+									</svg>
 									<span><strong>Location:</strong> {program.location}</span>
-								</>
+								</div>
 							)}
 						</div>
-						<div class="hero-actions">
-							<a class="btn primary" href={program.sourceUrl} target="_blank" rel="noopener noreferrer">
-								View official program page →
+
+						<div class="cta-section">
+							<a class="cta-button primary" href={program.sourceUrl} target="_blank" rel="noopener noreferrer">
+								<span>View official program page</span>
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M5 12h14M12 5l7 7-7 7"/>
+								</svg>
 							</a>
-							<a class="btn ghost" href="/rate-certificate-program?program={program.slug}">
+							<a class="cta-button secondary" href={`/rate-certificate-program?program=${program.slug}`}>
 								Rate this program
 							</a>
 						</div>
 					</div>
 
 					<div class="hero-image">
-						<img src={program.image} alt={program.title} loading="eager" />
+						<img src={program.image} alt={program.title} class="course-image" loading="eager" />
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="container body">
-			<section class="info-card">
-				<h2>Key details to verify (transfer and credit)</h2>
-				<p>
-					Programs like this can help with transfer and credit for prior learning—but the receiving school makes the final decision. Before you enroll,
-					confirm transferability with your target registrar in writing.
-				</p>
-				{program.creditNotes?.length ? (
-					<ul>
-						{program.creditNotes.map((n) => (
-							<li>{n}</li>
-						))}
-					</ul>
-				) : null}
-			</section>
+		<div class="container">
+			<div class="content-grid">
+				<div class="main-content">
+					<section class="content-section">
+						<h2>Key details to verify (transfer and credit)</h2>
+						<div class="description-content">
+							<p>
+								Programs like this can help with transfer and credit for prior learning—but the receiving school makes the final decision. Before you enroll,
+								confirm transferability with your target registrar in writing.
+							</p>
+							{program.creditNotes?.length ? (
+								<ul class="learning-outcomes">
+									{program.creditNotes.map((n) => (
+										<li>{n}</li>
+									))}
+								</ul>
+							) : null}
+						</div>
+					</section>
 
-			<section class="reviews-wrap" id="reviews">
-				<CertificateProgramReviewsSection programSlug={program.slug} programTitle={program.title} />
-			</section>
+					<section class="content-section" id="reviews">
+						<CertificateProgramReviewsSection programSlug={program.slug} programTitle={program.title} />
+					</section>
+				</div>
+
+				<aside class="sidebar">
+					<div class="info-card">
+						<h3>Program Details</h3>
+						<div class="info-list">
+							<div class="info-item">
+								<span class="label">Provider</span>
+								<span class="value">{program.providerName}</span>
+							</div>
+							{program.format && (
+								<div class="info-item">
+									<span class="label">Format</span>
+									<span class="value">{program.format}</span>
+								</div>
+							)}
+							{program.location && (
+								<div class="info-item">
+									<span class="label">Location</span>
+									<span class="value">{program.location}</span>
+								</div>
+							)}
+							<div class="info-item">
+								<span class="label">Credential</span>
+								<span class="value">Certificate</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="info-card disclosure-card">
+						<p class="disclosure-text">
+							<strong>Note:</strong> Transfer, credit, and financial aid eligibility vary by school and student circumstances. Always confirm in writing before enrolling.
+						</p>
+					</div>
+				</aside>
+			</div>
 		</div>
 	</main>
 </Layout>
 
 <style>
+	.course-detail {
+		min-height: 100vh;
+	}
+
 	.container {
-		max-width: 1100px;
+		max-width: 1400px;
 		margin: 0 auto;
-		padding: 0 1.5rem;
+		padding: 0 calc(var(--spacing) * 3);
 	}
-	.hero {
-		background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0284c7 100%);
-		color: #fff;
-		padding: 3rem 0 2.5rem;
-	}
+
+	/* Breadcrumb */
 	.breadcrumb {
+		padding: calc(var(--spacing) * 3) 0;
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: calc(var(--spacing) * 1);
 		font-size: 0.875rem;
-		margin-bottom: 1.25rem;
-		opacity: 0.9;
+		color: var(--neutral-600);
 		flex-wrap: wrap;
 	}
+
 	.breadcrumb a {
-		color: #fff;
-		text-decoration: none;
+		color: var(--neutral-600);
+		transition: var(--transition);
 	}
+
 	.breadcrumb a:hover {
-		text-decoration: underline;
+		color: var(--color-primary);
 	}
+
+	.breadcrumb .separator {
+		color: var(--neutral-400);
+	}
+
+	.breadcrumb .current {
+		color: var(--neutral-900);
+		font-weight: 500;
+	}
+
+	/* Hero Section */
+	.hero-section {
+		background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+		padding: calc(var(--spacing) * 8) 0;
+		margin-bottom: calc(var(--spacing) * 6);
+	}
+
 	.hero-grid {
 		display: grid;
-		grid-template-columns: 1.2fr 0.8fr;
-		gap: 2rem;
+		grid-template-columns: 1.5fr 1fr;
+		gap: calc(var(--spacing) * 6);
 		align-items: center;
 	}
-	.hero-label {
-		display: inline-block;
-		background: rgba(255, 255, 255, 0.15);
-		font-size: 0.7rem;
-		font-weight: 800;
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		padding: 4px 12px;
-		border-radius: 999px;
-		margin-bottom: 0.9rem;
+
+	.hero-content {
+		color: white;
 	}
-	h1 {
-		margin: 0 0 0.75rem;
-		font-size: clamp(1.8rem, 4vw, 2.6rem);
-		letter-spacing: -0.03em;
-		line-height: 1.15;
+
+	.featured-badge {
+		display: inline-flex;
+		align-items: center;
+		padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+		background: rgba(255, 255, 255, 0.2);
+		backdrop-filter: blur(10px);
+		border-radius: calc(var(--border-radius) / 2);
+		font-size: 0.875rem;
+		font-weight: 700;
+		margin-bottom: calc(var(--spacing) * 2);
 	}
-	.hero-subtitle {
-		margin: 0 0 1rem;
-		color: rgba(255, 255, 255, 0.86);
-		line-height: 1.65;
+
+	.course-title {
+		font-size: 3rem;
+		margin-bottom: calc(var(--spacing) * 3);
+		color: white;
 	}
-	.hero-meta {
-		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.85);
+
+	.course-subtitle {
+		font-size: 1.125rem;
+		margin-bottom: calc(var(--spacing) * 4);
+		color: #e2e8f0;
+		font-style: italic;
+		line-height: 1.7;
+	}
+
+	.course-meta {
 		display: flex;
-		gap: 0.5rem;
-		flex-wrap: wrap;
-		margin-bottom: 1.25rem;
+		flex-direction: column;
+		gap: calc(var(--spacing) * 2);
+		margin-bottom: calc(var(--spacing) * 4);
 	}
-	.dot {
-		opacity: 0.7;
-	}
-	.hero-actions {
+
+	.meta-item {
 		display: flex;
-		gap: 0.75rem;
+		align-items: center;
+		gap: calc(var(--spacing) * 1.5);
+		font-size: 1rem;
+	}
+
+	.meta-item svg {
+		opacity: 0.9;
+	}
+
+	.cta-section {
+		display: flex;
+		gap: calc(var(--spacing) * 2);
+		align-items: center;
 		flex-wrap: wrap;
 	}
-	.btn {
+
+	.cta-button {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0.75rem 1rem;
-		border-radius: 10px;
+		gap: calc(var(--spacing) * 1.5);
+		padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 4);
+		border-radius: calc(var(--border-radius) / 2);
 		font-weight: 700;
+		font-size: 1rem;
 		text-decoration: none;
+		transition: var(--transition);
+		white-space: nowrap;
 	}
-	.btn.primary {
-		background: #fff;
-		color: #0f172a;
+
+	.cta-button.primary {
+		background: white;
+		color: var(--color-primary);
 	}
-	.btn.primary:hover {
-		background: #e2e8f0;
+
+	.cta-button.primary:hover {
+		background: var(--neutral-100);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 	}
-	.btn.ghost {
-		background: rgba(255, 255, 255, 0.12);
-		color: #fff;
-		border: 1px solid rgba(255, 255, 255, 0.18);
+
+	.cta-button.secondary {
+		background: rgba(255, 255, 255, 0.1);
+		color: white;
+		border: 2px solid rgba(255, 255, 255, 0.3);
 	}
-	.btn.ghost:hover {
-		background: rgba(255, 255, 255, 0.18);
+
+	.cta-button.secondary:hover {
+		background: rgba(255, 255, 255, 0.2);
+		border-color: rgba(255, 255, 255, 0.5);
 	}
-	.hero-image img {
+
+	.hero-image {
+		position: relative;
 		width: 100%;
-		height: auto;
-		border-radius: 14px;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+		border-radius: calc(var(--border-radius) * 1.5);
+		overflow: hidden;
+		box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+		background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+		min-height: 260px;
+		height: clamp(260px, 38vw, min(440px, 52vh));
 	}
-	.body {
-		padding: 2rem 0 3rem;
+
+	.course-image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		display: block;
+		object-fit: cover;
+		object-position: center center;
 	}
+
+	/* Main Content Grid */
+	.content-grid {
+		display: grid;
+		grid-template-columns: 1fr 350px;
+		gap: calc(var(--spacing) * 6);
+		margin-bottom: calc(var(--spacing) * 8);
+	}
+
+	.main-content {
+		min-width: 0;
+	}
+
+	.content-section {
+		margin-bottom: calc(var(--spacing) * 6);
+	}
+
+	.content-section h2 {
+		font-size: 2rem;
+		margin-bottom: calc(var(--spacing) * 3);
+		color: var(--neutral-900);
+	}
+
+	.description-content p {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		color: var(--neutral-700);
+	}
+
+	/* Reuse the same list styling */
+	.learning-outcomes {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: calc(var(--spacing) * 2);
+		margin: 0;
+		padding: 0;
+	}
+
+	.learning-outcomes li {
+		display: flex;
+		align-items: flex-start;
+		gap: calc(var(--spacing) * 2);
+		font-size: 1.05rem;
+		line-height: 1.6;
+		color: var(--neutral-800);
+	}
+
+	.learning-outcomes li::before {
+		content: "✓";
+		flex-shrink: 0;
+		width: 24px;
+		height: 24px;
+		background: var(--color-success);
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 700;
+		font-size: 0.875rem;
+		margin-top: 2px;
+	}
+
+	/* Sidebar */
+	.sidebar {
+		position: sticky;
+		top: calc(var(--spacing) * 3);
+		align-self: flex-start;
+	}
+
 	.info-card {
-		background: #fff;
-		border: 1px solid #e2e8f0;
-		border-radius: 14px;
-		padding: 1.5rem;
-		margin-bottom: 1.5rem;
+		background: white;
+		border-radius: calc(var(--border-radius) * 1.25);
+		padding: calc(var(--spacing) * 3);
+		box-shadow: var(--shadow-md);
+		margin-bottom: calc(var(--spacing) * 3);
+		border: 1px solid var(--neutral-200);
 	}
-	.info-card h2 {
-		margin: 0 0 0.75rem;
-		font-size: 1.35rem;
+
+	.info-card h3 {
+		font-size: 1.25rem;
+		margin-bottom: calc(var(--spacing) * 3);
+		color: var(--neutral-900);
 	}
-	.info-card p {
-		margin: 0 0 0.75rem;
-		color: #334155;
+
+	.info-list {
+		display: flex;
+		flex-direction: column;
+		gap: calc(var(--spacing) * 2);
 	}
-	@media (max-width: 860px) {
+
+	.info-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: calc(var(--spacing) * 2);
+		border-bottom: 1px solid var(--neutral-200);
+	}
+
+	.info-item:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.info-item .label {
+		font-weight: 600;
+		color: var(--neutral-700);
+	}
+
+	.info-item .value {
+		color: var(--neutral-900);
+		font-weight: 500;
+	}
+
+	.disclosure-card {
+		background: var(--neutral-50);
+		border: 1px solid var(--neutral-200);
+	}
+
+	.disclosure-text {
+		font-size: 0.8125rem;
+		color: var(--neutral-600);
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	.disclosure-text strong {
+		color: var(--neutral-800);
+	}
+
+	@media (max-width: 1024px) {
+		.content-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.sidebar {
+			position: static;
+		}
+	}
+
+	@media (max-width: 768px) {
 		.hero-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.course-title {
+			font-size: 2rem;
+		}
+
+		.hero-image {
+			order: -1;
+		}
+
+		.cta-section {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.cta-button {
+			width: 100%;
 		}
 	}
 </style>

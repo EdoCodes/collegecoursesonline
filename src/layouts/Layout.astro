@@ -238,12 +238,12 @@ const websiteSchema = {
 
 	/* Study.com ACE / NCCRS explainer — used where linkAceNccrsHtml() outputs these links */
 	a.ace-nccrs-credit-link {
-		color: #2563eb;
+		color: var(--color-primary);
 		text-decoration: underline;
 		text-underline-offset: 2px;
 	}
 	a.ace-nccrs-credit-link:hover {
-		color: #1d4ed8;
+		color: var(--color-primary-dark);
 	}
 
 	.sr-only {
@@ -276,6 +276,135 @@ const websiteSchema = {
 		pointer-events: auto;
 		position: relative;
 		z-index: 2;
+	}
+
+	/* Directory card base styles (shared across pages/components) */
+	.card {
+		display: flex;
+		flex-direction: column;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+		height: 100%;
+	}
+
+	.card--has-overlay .card-front {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		min-height: 0;
+	}
+
+	.card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+		border-color: var(--color-primary);
+	}
+
+	.card-image {
+		position: relative;
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background: #f1f5f9;
+		flex-shrink: 0;
+	}
+
+	.card-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.35s ease;
+	}
+
+	.card:hover .card-image img {
+		transform: scale(1.06);
+	}
+
+	.card-body {
+		padding: 1.25rem 1.5rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.card-label {
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-primary);
+		margin-bottom: 0.5rem;
+		display: inline-block;
+	}
+
+	.card-title {
+		font-family: 'Inter', sans-serif;
+		font-size: 1.125rem;
+		font-weight: 700;
+		color: #0f172a;
+		line-height: 1.4;
+		margin-bottom: 0.625rem;
+		letter-spacing: -0.02em;
+	}
+
+	.card:hover .card-title {
+		color: var(--color-primary);
+	}
+
+	.card-brand {
+		font-size: 0.85rem;
+		color: #94a3b8;
+		margin-bottom: 0.625rem;
+		font-weight: 500;
+	}
+
+	.card-excerpt {
+		font-size: 0.875rem;
+		color: #334155;
+		line-height: 1.6;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		flex: 1;
+		margin-bottom: 1rem;
+	}
+
+	.card-cta {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-primary);
+		transition: color 0.2s;
+		margin-top: auto;
+	}
+
+	.card:hover .card-cta {
+		color: var(--color-primary-dark);
+	}
+
+	.card-badge-price {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		padding: 4px 10px;
+		background: rgba(15, 23, 42, 0.8);
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 700;
+		border-radius: 6px;
+		backdrop-filter: blur(8px);
+	}
+
+	.card-badge-price.free {
+		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 	}
 
 	button {
