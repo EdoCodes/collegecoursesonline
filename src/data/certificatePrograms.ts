@@ -163,5 +163,64 @@ export const certificatePrograms: CertificateProgram[] = [
 			},
 		],
 	},
+	{
+		slug: 'purdue-global-pathway-to-paralegal-postbaccalaureate-certificate',
+		hubGroup: 'paralegal',
+		title: 'Pathway to Paralegal Postbaccalaureate Certificate',
+		providerName: 'Purdue Global',
+		providerSlug: 'purdue-global',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'An online postbaccalaureate paralegal certificate from Purdue Global for students who already hold a bachelor’s degree—covering civil litigation, legal research and writing, ethics, law office management, and elective depth in areas such as family law or estate planning (per official program page).',
+		overview:
+			'This certificate is designed for career changers with an undergraduate degree who want paralegal-focused coursework in an online format. The curriculum emphasizes communication, ethics, critical thinking, legal research, and applying concepts to realistic legal scenarios. Elective options listed on the program page include Wills, Trusts, and Estate Planning; Family Law; Bankruptcy and Debtor-Creditor Law; and Real Estate Law.',
+		highlights: [
+			'Offered 100% online (per Purdue Global program page).',
+			'Designed for students who already have a bachelor’s degree (postbaccalaureate certificate; per Purdue Global).',
+			'Listed as 7 major courses / 7 total courses and approximately 36–37 quarter credits on the official page.',
+			'Institutionally accredited by the Higher Learning Commission (per Purdue Global).',
+			'Optional 3-week undergraduate trial may be available for qualifying new students—see catalog for conditions (per Purdue Global).',
+		],
+		whatYoullLearn: [
+			'Foundations of the paralegal role and the U.S. legal system.',
+			'Civil litigation workflows and structured legal analysis.',
+			'Legal ethics and professional communication in legal environments.',
+			'Legal research, writing, and law-office management concepts.',
+		],
+		outcomes: [
+			'Prepares for paralegal/legal assistant career tracks; paralegals are not lawyers and cannot practice law or give legal advice (per Purdue Global program disclaimers).',
+		],
+		accreditation:
+			'Purdue University Global is accredited by the Higher Learning Commission (HLC), an institutional accreditor recognized by the U.S. Department of Education (per Purdue Global). Program-specific licensure or certification requirements vary by state.',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/purdue-global-pathway-paralegal-postbaccalaureate.png',
+		imageAlt:
+			'Professional woman in glasses and blazer reviewing documents at a desk in a bright office with plants and shelving.',
+		sourceUrl:
+			'https://www.purdueglobal.edu/degree-programs/legal-studies/pathway-to-paralegal-certificate/',
+		location: 'United States (Purdue Global; online)',
+		format: '100% online',
+		creditNotes: [
+			'Postbaccalaureate certificate: a completed bachelor’s degree is required (confirm with Purdue Global admissions).',
+			'Quarter credits are used (Purdue Global lists 36–37 quarter credits on the program page); compare to semester credit if you transfer.',
+			'Federal financial aid may be available for eligible students in qualifying programs—verify current rules with Purdue Global.',
+			'Paralegal regulation and employer requirements vary by state; confirm with your jurisdiction and target employer.',
+		],
+		externalLinks: [
+			{
+				label: 'Purdue Global — Pathway to Paralegal Postbaccalaureate Certificate',
+				url: 'https://www.purdueglobal.edu/degree-programs/legal-studies/pathway-to-paralegal-certificate/',
+			},
+			{ label: 'Higher Learning Commission (HLC)', url: 'https://www.hlcommission.org/' },
+			{
+				label: 'BLS Occupational Outlook: Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #7654446 (Pavel Danilyuk)',
+				url: 'https://www.pexels.com/photo/7654446/',
+			},
+		],
+	},
 ];
 
