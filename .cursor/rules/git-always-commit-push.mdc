@@ -1,0 +1,16 @@
+---
+description: After completing substantive work, commit and push to origin; never leave changes uncommitted unless the user explicitly says not to.
+alwaysApply: true
+---
+
+# Git: always commit and push
+
+When you finish a task that changes the codebase or project assets:
+
+1. Run `git status` and stage the relevant files (`git add`).
+2. Create a commit with a clear, conventional message (present tense, what changed and why in plain language).
+3. Run `git push` to `origin` on the current branch.
+
+Do this as part of the same session as the implementation. Do not ask whether to commit unless the user has previously said not to for that task.
+
+Exceptions: never use `git push --force` (or similar) without explicit user approval. If push fails (auth, conflicts), report the error and next steps.

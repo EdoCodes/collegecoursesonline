@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-05 — Certificate programs: National University Paralegal Specialist Certificate (Criminal Law)
+
+- Added `nu-paralegal-specialist-certificate-criminal-law` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl` is the official NU program page; marketing landing `https://info.nu.edu/criminal-justice/law/` is in `externalLinks` (no tracking params).
+- Card image: `public/images/certificates/nu-paralegal-specialist-certificate-criminal-law.png` (Pexels #6077588; copied from Cursor `assets` via `robocopy` because `Copy-Item` failed on the long filename).
+- `npm run build` succeeds; static route `/certificate-programs/nu-paralegal-specialist-certificate-criminal-law/` generated.
+
 ### 2026-05-05 — Certificate programs: CSULB / CLS Paralegal Certificate Course card
 
 - Added `csulb-cpace-cls-paralegal-certificate-course` to `src/data/certificatePrograms.ts` with official CLS enrollment URL and detail-page fields.

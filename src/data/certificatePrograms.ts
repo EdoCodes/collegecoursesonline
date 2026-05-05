@@ -222,5 +222,70 @@ export const certificatePrograms: CertificateProgram[] = [
 			},
 		],
 	},
+	{
+		slug: 'nu-paralegal-specialist-certificate-criminal-law',
+		hubGroup: 'paralegal',
+		title: 'Paralegal Specialist Certificate in Criminal Law',
+		providerName: 'National University',
+		providerSlug: 'national-university',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'An American Bar Association–approved paralegal specialist certificate focused on criminal law practice skills—case analysis, legal research, drafting pleadings and discovery, evidence, and trial preparation—offered online and in class-based formats, with onsite and hybrid options at the Los Angeles campus (per National University).',
+		overview:
+			'National University describes this certificate as combining academic and practical preparation for paralegal work in criminal law settings. The Criminal Law specialization emphasizes litigation support competencies alongside the broader paralegal foundations covered in the specialty course sequence. NU notes the program is not intended to qualify students to practice law, and that paralegals may not provide legal services directly to the public except as permitted by law.',
+		highlights: [
+			'Approved by the American Bar Association (ABA) (per National University program page).',
+			'Eight legal specialty courses totaling 36 quarter units; NU states the full ABA-compliant option requires 90 quarter units of coursework overall, including a minimum of 27 quarter units of general education across at least three disciplines (per National University).',
+			'Listed modalities include online delivery plus onsite and hybrid study at the Los Angeles campus (per National University).',
+			'NU publishes an average completion time of about eight months and year-round enrollment with a $0 application fee (per National University).',
+			'Students must complete at least nine semester credits (or the equivalent) of legal specialty courses through synchronous instruction (per National University).',
+		],
+		whatYoullLearn: [
+			'Foundational legal analysis across core areas such as torts, contracts, and real property, with emphasis on terminology and principles.',
+			'Legal research using manual and computer-assisted methods and development of legal writing work product.',
+			'Ethical and professional expectations for paralegals in criminal law practice.',
+			'Criminal law and procedure topics relevant to supporting attorneys in litigation and case preparation.',
+		],
+		outcomes: [
+			'Designed to support paralegal and legal assistant career paths; requirements and permissible scope of work vary by state (verify with official guidance and employers).',
+		],
+		accreditation:
+			'National University is institutionally accredited by the WASC Senior College and University Commission (WSCUC). The Paralegal Specialist Certificate in Criminal Law is approved by the American Bar Association (per National University program page).',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/nu-paralegal-specialist-certificate-criminal-law.png',
+		imageAlt:
+			'Gold scales of justice in sharp focus on a desk; a professional in business attire works with papers in the softly blurred background.',
+		sourceUrl:
+			'https://www.nu.edu/ourprograms/college-of-professional-studies/professionalstudies/programs/paralegal-specialist-certificate-criminal-law-specialization/',
+		location: 'United States (National University; online and Los Angeles campus options per NU)',
+		format: 'Online; onsite and hybrid at Los Angeles campus (per National University)',
+		creditNotes: [
+			'NU states this program option may require up to 90 quarter units total to meet ABA requirements, including general education—confirm your transfer credit and remaining requirements with admissions before enrolling.',
+			'Coursework is not described as transferable to law school and does not satisfy requirements to sit for the California Bar exam (per National University).',
+			'Financial aid eligibility depends on your enrollment status and program rules; confirm current policies with National University.',
+		],
+		externalLinks: [
+			{
+				label: 'National University — Criminal Justice / Law (program information)',
+				url: 'https://info.nu.edu/criminal-justice/law/',
+			},
+			{
+				label: 'WASC Senior College and University Commission (WSCUC)',
+				url: 'https://www.wscuc.org/',
+			},
+			{
+				label: 'American Bar Association — paralegal education overview',
+				url: 'https://www.americanbar.org/groups/paralegals/',
+			},
+			{
+				label: 'BLS Occupational Outlook: Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #6077588 (Katrin Bolovtsova)',
+				url: 'https://www.pexels.com/photo/6077588/',
+			},
+		],
+	},
 ];
 
