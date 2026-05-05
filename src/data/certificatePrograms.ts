@@ -93,5 +93,62 @@ export const certificatePrograms: CertificateProgram[] = [
 			'Federal financial aid: available (per UCLA Extension program page)',
 		],
 	},
+	{
+		slug: 'csulb-cpace-cls-paralegal-certificate-course',
+		title: 'Paralegal Certificate Course (CSULB / Center for Legal Studies)',
+		providerName: 'Center for Legal Studies',
+		providerSlug: 'center-for-legal-studies',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'A professional paralegal certificate offered through CSULB’s College of Professional and Continuing Education (CPaCE), delivered via the Center for Legal Studies Paralegal Certificate Course—covering core litigation support skills, legal research fundamentals, ethics, and practical workflows used in law offices and legal departments.',
+		overview:
+			'The Paralegal Certificate Course is a continuing education program designed to build job-ready paralegal competencies: understanding the U.S. judicial system, supporting trial teams, interviewing and investigation basics, legal research, and case preparation. Multiple study formats may be available depending on the partner offer and term (see the official CLS product page for current options, schedules, and pricing).',
+		highlights: [
+			'Offered in partnership with California State University, Long Beach CPaCE (per Center for Legal Studies program page).',
+			'Popular online format is described as two instructor-led 7-week segments (Paralegal I and Paralegal II) within a 14-week window; the published fee covers both segments (per CLS).',
+			'Additional formats (self-study, live lecture, text-only) may be available through select partners (per CLS).',
+			'California paralegals may need additional Advanced Paralegal coursework to meet requirements under California Business and Professions Code §6450 (per CLS).',
+			'New Mexico paralegals may have additional education requirements under Rule 20-115 NMRA (per CLS).',
+		],
+		whatYoullLearn: [
+			'Foundations of the American judicial system and civil procedure concepts used in litigation support.',
+			'Practical skills for assisting attorneys with fact development, witness interviews, and case organization.',
+			'Legal research and writing fundamentals for paralegal work product.',
+			'Ethics and professionalism expectations common to law-office environments.',
+		],
+		outcomes: [
+			'Designed to support entry-level paralegal/legal assistant roles across a range of practice settings (verify employer requirements in your state).',
+			'CLS notes career-center access for students who meet stated progress requirements (see official page for details).',
+		],
+		accreditation:
+			'This listing describes a professional certificate program delivered by the Center for Legal Studies in partnership with a university continuing education unit. It is not a substitute for state-specific paralegal regulation guidance—confirm requirements with the State Bar or applicable regulatory authority in your jurisdiction.',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/csulb-cpace-cls-paralegal-certificate-course.png',
+		sourceUrl:
+			'https://www.legalstudies.com/product/california-state-university-long-beach-paralegal-certificate-course/',
+		location: 'California (CSULB CPaCE partner offering; online and other formats per CLS)',
+		format: 'Online (two 7-week segments) and other formats may be available (see official CLS page)',
+		creditNotes: [
+			'Continuing education / professional certificate programs often do not qualify for traditional federal financial aid (Pell, Stafford, etc.); confirm payment options on the official provider page.',
+			'Textbooks and materials are commonly sold separately; confirm total cost before enrolling (per CLS FAQ pattern).',
+			'Transfer of credit or employer tuition assistance depends on your school or employer; get written confirmation before enrolling.',
+		],
+		externalLinks: [
+			{
+				label: 'Center for Legal Studies — Paralegal Certificate Course (CSULB partner page)',
+				url: 'https://www.legalstudies.com/product/california-state-university-long-beach-paralegal-certificate-course/',
+			},
+			{ label: 'Center for Legal Studies (CLS) — home', url: 'https://www.legalstudies.com/' },
+			{ label: 'California State University, Long Beach', url: 'https://www.csulb.edu/' },
+			{
+				label: 'California BPC §6450 (paralegal qualification — read with counsel / official guidance)',
+				url: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=6450.',
+			},
+			{
+				label: 'BLS Occupational Outlook Handbook — Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+		],
+	},
 ];
 

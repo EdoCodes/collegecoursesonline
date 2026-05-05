@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-05 — Certificate programs: CSULB / CLS Paralegal Certificate Course card
+
+- Added `csulb-cpace-cls-paralegal-certificate-course` to `src/data/certificatePrograms.ts` with official CLS enrollment URL and detail-page fields.
+- Added card/hero image at `public/images/certificates/csulb-cpace-cls-paralegal-certificate-course.png` (site-generated illustration; swap for user stock photo later if preferred).
+- `npm run build` succeeded; `/certificate-programs/csulb-cpace-cls-paralegal-certificate-course/` and Certificate Programs hub include the new program.
+
 ### 2026-04-29 — Blog: hybrid ADN post hero image (card only)
 
 - Set `hideHeroImage: true` on `src/content/blog/best-hybrid-adn-nursing-programs-california.mdx` so `src/pages/blog/[slug].astro` skips the `.featured-image` block under the title while keeping `image` for OG/meta and `/blog` card thumbnails. `npm run build` passed.
