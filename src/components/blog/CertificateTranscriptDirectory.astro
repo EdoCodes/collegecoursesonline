@@ -74,7 +74,7 @@ const { placeholderCount = 12, programs = [] } = Astro.props;
 	}
 	.cert-hub__jump-link {
 		font-weight: 600;
-		color: #2563eb;
+		color: var(--color-primary);
 		text-decoration: none;
 	}
 	.cert-hub__jump-link:hover {
@@ -116,7 +116,7 @@ const { placeholderCount = 12, programs = [] } = Astro.props;
 	}
 	.cert-hub__count span {
 		font-weight: 700;
-		color: #2563eb;
+		color: var(--color-primary);
 	}
 	.cert-hub__search {
 		margin-bottom: 1rem;
@@ -132,8 +132,8 @@ const { placeholderCount = 12, programs = [] } = Astro.props;
 	}
 	.cert-hub__search-input:focus {
 		outline: none;
-		border-color: #2563eb;
-		box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
 	}
 	.cert-hub__filter-grid {
 		display: grid;
