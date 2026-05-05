@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-05 — Certificate programs: Post University — Certificate in Paralegal Studies
+
+- Added `post-university-certificate-paralegal-studies` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl` without query params: `https://degrees.post.edu/programs/public-service/paralegal-studies/`.
+- Card image: `public/images/certificates/post-university-certificate-paralegal-studies.png` (Pexels #8730785 / Mikhail Nilov).
+- `npm run build` succeeds; route `/certificate-programs/post-university-certificate-paralegal-studies/`.
+
 ### 2026-05-05 — Certificate programs: National Paralegal College — Certificate in Paralegal Studies
 
 - Added `npc-certificate-in-paralegal-studies` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl`: `https://www.nationalparalegal.edu/Certificate.aspx`.

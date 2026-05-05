@@ -344,5 +344,59 @@ export const certificatePrograms: CertificateProgram[] = [
 			},
 		],
 	},
+	{
+		slug: 'post-university-certificate-paralegal-studies',
+		hubGroup: 'paralegal',
+		title: 'Certificate in Paralegal Studies',
+		providerName: 'Post University',
+		providerSlug: 'post-university',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'A 30-credit undergraduate paralegal certificate from Post University covering law, civil litigation, and legal research—designed to build skills for working on a legal team under attorney supervision, with online or on-campus options and a published ~12-month timeline (per Post University).',
+		overview:
+			'Post University describes the Certificate in Paralegal Studies as coursework that can support exploration of legal services careers while emphasizing communication and practical tasks such as summarizing depositions, interrogatories, and testimony. The institution notes the certificate may also serve as a starting point toward an associate or bachelor’s degree. Post embeds micro-credential opportunities within programs for resume-ready skill badges (per Post University program page).',
+		highlights: [
+			'Listed as a 30-semester-credit-hour program with an approximate 12-month timeline and online or on-campus availability (per Post University program page).',
+			'Institutionally accredited by the New England Commission of Higher Education (NECHE) (per Post University program page).',
+			'Course themes cited by Post include law, civil litigation, and legal research, with emphasis on supervised legal support work and professional communication.',
+			'Post states the certificate is not designed to fulfill educational requirements for a state law license or paralegal certification—confirm state and employer expectations separately.',
+		],
+		whatYoullLearn: [
+			'Support litigation-related workflows under attorney direction, including summarizing depositions and testimony.',
+			'Apply foundational legal studies concepts relevant to paralegal and legal assistant roles.',
+			'Communicate clearly and professionally in legal office environments.',
+		],
+		outcomes: [
+			'Intended to prepare students for paralegal-style support roles; scope of practice and credential rules vary by state—verify with Post and official guidance.',
+		],
+		accreditation:
+			'Post University is accredited by the New England Commission of Higher Education (NECHE), an institutional accreditor recognized by the U.S. Department of Education (per Post University program page).',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/post-university-certificate-paralegal-studies.png',
+		imageAlt:
+			'Two professionals collaborating over documents at a wooden desk with law books, including a volume titled “THE LAW” on the spine.',
+		sourceUrl: 'https://degrees.post.edu/programs/public-service/paralegal-studies/',
+		location: 'United States (Post University; online or Waterbury, CT campus per Post)',
+		format: 'Online or on campus',
+		creditNotes: [
+			'Confirm current credit totals, term schedules, and modality availability with Post admissions—marketing summaries can change.',
+			'Financial aid eligibility depends on enrollment status and federal rules; verify with Post’s financial aid office.',
+		],
+		externalLinks: [
+			{
+				label: 'Post University — Paralegal Studies (certificate overview)',
+				url: 'https://degrees.post.edu/programs/public-service/paralegal-studies/',
+			},
+			{ label: 'New England Commission of Higher Education (NECHE)', url: 'https://www.neche.org/' },
+			{
+				label: 'BLS Occupational Outlook: Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #8730785 (Mikhail Nilov)',
+				url: 'https://www.pexels.com/photo/8730785/',
+			},
+		],
+	},
 ];
 
