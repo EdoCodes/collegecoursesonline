@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-05 — Certificate programs: Coastline College — Paralegal Studies Certificate of Achievement
+
+- Added `coastline-college-paralegal-studies-certificate-of-achievement` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl`: `https://www.coastline.edu/programs/paralegal-studies.php`.
+- Card positions fully online delivery with schedule verification; ABA-approved 27-unit certificate path for qualifying transfer students per Coastline page.
+- Card image: `public/images/certificates/coastline-paralegal-studies-certificate-of-achievement.png` (Pexels #8112121 / Pavel Danilyuk).
+
 ### 2026-05-05 — Certificate programs: Post University — Certificate in Paralegal Studies
 
 - Added `post-university-certificate-paralegal-studies` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl` without query params: `https://degrees.post.edu/programs/public-service/paralegal-studies/`.

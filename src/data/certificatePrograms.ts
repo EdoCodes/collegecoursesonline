@@ -398,5 +398,69 @@ export const certificatePrograms: CertificateProgram[] = [
 			},
 		],
 	},
+	{
+		slug: 'coastline-college-paralegal-studies-certificate-of-achievement',
+		hubGroup: 'paralegal',
+		title: 'Paralegal Studies — Certificate of Achievement',
+		providerName: 'Coastline College',
+		providerSlug: 'coastline-college',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'An American Bar Association–approved Certificate of Achievement in Paralegal Studies offered fully online through Coastline College—built for students who already hold a transferable associate or bachelor’s degree from a regionally accredited school and need the 27-unit paralegal specialty stack (per Coastline program materials).',
+		overview:
+			'Coastline describes its ABA-approved paralegal program as preparing students for supervised legal support work between legal secretary and attorney roles, including research, writing, organization, and client interaction where appropriate. The Certificate of Achievement pathway awards the ABA-approved certificate after completion of required paralegal coursework when prior college transcripts are on file; students without a qualifying prior degree must follow the full associate-degree plan to meet ABA guidelines (per Coastline). Coastline emphasizes finding and enrolling in paralegal classes through its online schedules.',
+		highlights: [
+			'ABA-approved Paralegal Studies program (per Coastline program page).',
+			'Certificate of Achievement track: 27 semester units of required paralegal courses for students with a transferable AA or bachelor’s from a regionally accredited institution and official transcripts on file (per Coastline).',
+			'Fully online course options—students search and register for paralegal sections through Coastline’s online class schedule workflow (confirm each term’s modality in the schedule and catalog).',
+			'Institutionally accredited by the Accrediting Commission for Community and Junior Colleges (ACCJC), WASC (per Coastline).',
+			'Paralegal specialty transfer limits apply: up to six units from another ABA-approved program with department approval, and 21 units of paralegal coursework must be completed at Coastline (per Coastline program page).',
+		],
+		whatYoullLearn: [
+			'Analyze facts and communicate legal conclusions orally and in writing under attorney supervision.',
+			'Apply legal concepts and ethics to realistic client and case scenarios.',
+			'Support litigation and transactional workflows common to California paralegal practice.',
+		],
+		outcomes: [
+			'Prepares for paralegal/legal assistant roles; California restricts unauthorized practice of law—confirm scope with employers and the State Bar (per Coastline and BPC §6450 family).',
+		],
+		accreditation:
+			'Coastline College is accredited by the Accrediting Commission for Community and Junior Colleges (ACCJC) of the Western Association of Schools and Colleges, an institutional accreditor recognized by CHEA and the U.S. Department of Education (per Coastline). The Paralegal Studies Certificate of Achievement is approved by the American Bar Association (per Coastline program page).',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/coastline-paralegal-studies-certificate-of-achievement.png',
+		imageAlt:
+			'Professional in a blazer writing in a notebook at a desk with a Lady Justice statue, legal papers, a magnifying glass, and a laptop.',
+		sourceUrl: 'https://www.coastline.edu/programs/paralegal-studies.php',
+		location: 'California (Coastline College; online delivery)',
+		format: 'Fully online (verify sections each term in Coastline’s class schedule)',
+		creditNotes: [
+			'If you do not already have a qualifying transferable associate or bachelor’s degree, Coastline requires completing the full Paralegal Studies AA as specified to satisfy ABA guidelines—read the academic plan carefully before enrolling.',
+			'Orientation or counseling is required; minimum GPA and computer proficiency rules apply (per Coastline).',
+			'Paralegal regulation and transfer credit rules are state- and school-specific—get written confirmation from Coastline’s paralegal department and any receiving institution.',
+		],
+		externalLinks: [
+			{
+				label: 'Coastline College — Paralegal Studies',
+				url: 'https://www.coastline.edu/programs/paralegal-studies.php',
+			},
+			{ label: 'ACCJC accreditation (community colleges)', url: 'https://www.accjc.org/' },
+			{
+				label: 'American Bar Association — Standing Committee on Paralegals',
+				url: 'https://www.americanbar.org/groups/paralegals/',
+			},
+			{
+				label: 'California BPC §6450 (paralegal qualifications — read with official guidance)',
+				url: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=6450.',
+			},
+			{
+				label: 'BLS Occupational Outlook: Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #8112121 (Pavel Danilyuk)',
+				url: 'https://www.pexels.com/photo/8112121/',
+			},
+		],
+	},
 ];
 
