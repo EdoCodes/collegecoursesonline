@@ -462,5 +462,69 @@ export const certificatePrograms: CertificateProgram[] = [
 			},
 		],
 	},
+	{
+		slug: 'college-of-the-canyons-paralegal-studies-certificate',
+		hubGroup: 'paralegal',
+		title: 'Paralegal Studies — Certificate',
+		providerName: 'College of the Canyons',
+		providerSlug: 'college-of-the-canyons',
+		categoryLabel: 'Legal studies',
+		shortDescription:
+			'An American Bar Association–approved paralegal certificate pathway at College of the Canyons delivered fully online through Zoom and Canvas—31 semester units across 11 courses, with a required internship and live (synchronous) instruction to meet ABA standards (per College of the Canyons).',
+		overview:
+			'College of the Canyons describes its paralegal program as preparing students for California’s legal workforce with coursework taught by experienced attorneys and paralegals, flexible pacing, and evening options for working students. The program is marketed as fully online while noting that the ABA requires at least nine semester credits through synchronous instruction (for example via Zoom or in the classroom). Students should expect a paralegal internship as part of the program. The college also stresses that paralegals may not provide legal services directly to the public except as permitted by law.',
+		highlights: [
+			'ABA-approved Paralegal Studies program (per College of the Canyons program page).',
+			'Listed as 31 semester units in 11 classes for the paralegal studies certificate (and associate pathway—confirm general education requirements separately in the catalog).',
+			'Fully online delivery using Zoom and Canvas, with synchronous/live components to satisfy the ABA’s minimum synchronous credit rule (per College of the Canyons).',
+			'Includes a required paralegal internship to support job readiness (per College of the Canyons).',
+			'California community college tuition is cited on the program page (for example $46/unit—verify current rates and fees in the official schedule).',
+		],
+		whatYoullLearn: [
+			'Legal research, writing, and case organization skills aligned with supervised paralegal practice.',
+			'Professional communication and client-service fundamentals in law-office settings.',
+			'Ethical boundaries and unauthorized-practice-of-law awareness under California expectations.',
+		],
+		outcomes: [
+			'Designed to meet California’s education expectations for paralegals (statute references at least 24 semester units of qualifying coursework—confirm your pathway with COC counseling).',
+		],
+		accreditation:
+			'College of the Canyons is a California community college accredited by the Accrediting Commission for Community and Junior Colleges (ACCJC) of the Western Association of Schools and Colleges. The Paralegal Studies program is approved by the American Bar Association (per College of the Canyons program page).',
+		occupationalCategory: 'Paralegal and Legal Assistant',
+		image: '/images/certificates/college-canyons-paralegal-studies-certificate.png',
+		imageAlt:
+			'Two professionals shaking hands in a formal setting: one in an academic robe, one in a business suit holding papers, with law-library shelving in the background.',
+		sourceUrl: 'https://www.canyons.edu/academics/paralegal/',
+		location: 'California (College of the Canyons; Santa Clarita area campuses / online)',
+		format: 'Fully online (Zoom + Canvas; includes required synchronous instruction per ABA)',
+		creditNotes: [
+			'Compare the Certificate vs Associate of Arts plans in the official catalog—total units and general education differ.',
+			'ABA synchronous requirements and internship details can change; confirm sequencing with the Paralegal Studies department before enrolling.',
+			'Published tuition is subject to board action; use the college schedule of classes for the amount you will actually pay.',
+		],
+		externalLinks: [
+			{
+				label: 'College of the Canyons — Paralegal Studies',
+				url: 'https://www.canyons.edu/academics/paralegal/',
+			},
+			{ label: 'ACCJC accreditation (community colleges)', url: 'https://www.accjc.org/' },
+			{
+				label: 'American Bar Association — Standing Committee on Paralegals',
+				url: 'https://www.americanbar.org/groups/paralegals/',
+			},
+			{
+				label: 'California BPC §6450 (paralegal qualifications — read with official guidance)',
+				url: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=6450.',
+			},
+			{
+				label: 'BLS Occupational Outlook: Paralegals and Legal Assistants',
+				url: 'https://www.bls.gov/ooh/legal/paralegals-and-legal-assistants.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #6077423 (Katrin Bolovtsova)',
+				url: 'https://www.pexels.com/photo/6077423/',
+			},
+		],
+	},
 ];
 

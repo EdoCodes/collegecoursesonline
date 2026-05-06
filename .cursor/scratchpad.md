@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-05 — Certificate programs: College of the Canyons — Paralegal Studies Certificate
+
+- Added `college-of-the-canyons-paralegal-studies-certificate` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl`: `https://www.canyons.edu/academics/paralegal/`.
+- Card reflects ABA approval, 31 units / 11 courses, Zoom+Canvas “fully online” framing, 9+ credit synchronous rule, internship, and published $46/unit note with verification caveat.
+- Card image: `public/images/certificates/college-canyons-paralegal-studies-certificate.png` (Pexels #6077423 / Katrin Bolovtsova).
+
 ### 2026-05-05 — Certificate programs: Coastline College — Paralegal Studies Certificate of Achievement
 
 - Added `coastline-college-paralegal-studies-certificate-of-achievement` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl`: `https://www.coastline.edu/programs/paralegal-studies.php`.
