@@ -100,6 +100,64 @@ export const certificatePrograms: CertificateProgram[] = [
 		],
 	},
 	{
+		slug: 'ucla-extension-behavioral-health-support',
+		hubGroup: 'health',
+		title: 'Behavioral Health Support Specialist Program (Certificate)',
+		providerName: 'UCLA Extension',
+		providerSlug: 'ucla-extension',
+		categoryLabel: 'Behavioral health',
+		shortDescription:
+			'A cohort-based, one-year Behavioral Health Support Specialist (BHSS) certificate from UCLA Extension focused on behavioral health paraprofessional support skills and the specialized needs of LGBTQ+ communities in Los Angeles. Courses are offered online and live online, with a required 260-hour in-person internship (per UCLA Extension).',
+		overview:
+			'UCLA Extension describes the BHSS certificate as foundational training for working and aspiring paraprofessionals supporting integrated behavioral health teams. The curriculum covers scope of practice, cultural competency, communication strategies, ethics and confidentiality, human sexuality and gender, and substance use topics, with required fieldwork through community-based partners in Los Angeles. The program is offered tuition-free through an HRSA grant and lists a cohort structure completed across four consecutive quarters (per UCLA Extension).',
+		highlights: [
+			'12-month cohort-based certificate completed in four consecutive quarters (per UCLA Extension).',
+			'10 required courses totaling 37.5 academic credit units (per UCLA Extension).',
+			'Format listed as a combination of Online and Live Online instruction (per UCLA Extension).',
+			'Includes a supervised field work practicum with a minimum of 260 in-person internship hours in Los Angeles (per UCLA Extension).',
+			'Program is described as tuition-free through HRSA grant sponsorship; UCLA Extension also notes federal financial aid is not available (per program page).',
+		],
+		whatYoullLearn: [
+			'Support clients and families as part of integrated behavioral health teams in ethically and culturally responsive ways.',
+			'Apply cultural competency and humility, including intersectionality and barriers affecting LGBTQ+ communities.',
+			'Use evidence-based communication strategies for high-stakes conversations in healthcare settings.',
+			'Recognize substance use patterns and treatment considerations across target populations.',
+		],
+		outcomes: [
+			'Designed for entry-level behavioral health paraprofessional support roles; employer requirements and permissible scope vary—confirm with your local regulations and employers.',
+		],
+		occupationalCategory: 'Behavioral Health Support Specialist',
+		image: '/images/certificates/ucla-extension-behavioral-health-support.png',
+		imageAlt:
+			'Healthcare worker wearing scrubs and a stethoscope speaks with an older adult seated on a couch, taking notes during a supportive conversation.',
+		sourceUrl:
+			'https://www.uclaextension.edu/health-care-counseling/health-care-counseling-general/certificate/behavioral-health-support',
+		location: 'California (Los Angeles; UCLA Extension + community partner internship sites)',
+		format: 'Online + Live Online; required in-person internship (Los Angeles)',
+		creditNotes: [
+			'Internship requires a minimum of 260 in-person hours in Los Angeles; confirm scheduling, placement, and eligibility before applying.',
+			'UCLA Extension lists “Estimated Program Tuition: N/A” and “Federal Financial Aid is not available” for this sponsored program; confirm current sponsorship details on the official page.',
+		],
+		externalLinks: [
+			{
+				label: 'UCLA Extension — Behavioral Health Support Specialist Program',
+				url: 'https://www.uclaextension.edu/health-care-counseling/health-care-counseling-general/certificate/behavioral-health-support',
+			},
+			{
+				label: 'HRSA (Health Resources & Services Administration)',
+				url: 'https://www.hrsa.gov/',
+			},
+			{
+				label: 'BLS Occupational Outlook: Substance Abuse, Behavioral Disorder, and Mental Health Counselors',
+				url: 'https://www.bls.gov/ooh/community-and-social-service/substance-abuse-behavioral-disorder-and-mental-health-counselors.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #7345460 (Antoni Shkraba Studio)',
+				url: 'https://www.pexels.com/@shkrabaanthony/',
+			},
+		],
+	},
+	{
 		slug: 'csulb-cpace-cls-paralegal-certificate-course',
 		hubGroup: 'paralegal',
 		title: 'Paralegal Certificate Course (CSULB / Center for Legal Studies)',
