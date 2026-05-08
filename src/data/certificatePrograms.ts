@@ -100,6 +100,58 @@ export const certificatePrograms: CertificateProgram[] = [
 		],
 	},
 	{
+		slug: 'comptia-network-plus-certification',
+		hubGroup: 'it',
+		title: 'CompTIA Network+ Certification',
+		providerName: 'CompTIA',
+		providerSlug: 'comptia',
+		categoryLabel: 'Networking',
+		shortDescription:
+			'CompTIA Network+ is a vendor-neutral networking certification that validates skills to troubleshoot, configure, and manage wired and wireless networks. It’s positioned as a foundation for IT infrastructure roles before specializing in vendor-specific networking solutions (per CompTIA).',
+		overview:
+			'CompTIA describes Network+ as covering core networking concepts, infrastructure, operations, security, and troubleshooting tools. The certification is commonly mapped to entry-to-mid IT infrastructure roles such as network administrator, help desk technician, and network support specialist. CompTIA notes Network+ covers both wired and wireless networking and includes emerging technologies such as cloud and virtualization concepts.',
+		highlights: [
+			'Vendor-neutral networking certification (per CompTIA).',
+			'Covers wired and wireless networking fundamentals plus troubleshooting and security (per CompTIA).',
+			'Domains include Networking Concepts, Infrastructure, Network Operations, Network Security, and Network Troubleshooting & Tools (per CompTIA).',
+			'Role examples listed by CompTIA include network administrator, network support specialist, help desk technician, and IT consultant.',
+		],
+		whatYoullLearn: [
+			'Design and implement functional networks and segment traffic with switches and routers.',
+			'Configure, manage, and maintain essential network devices and services.',
+			'Implement basic network security standards and troubleshoot connectivity and performance issues.',
+			'Apply networking concepts across platforms, including cloud and virtualization context.',
+		],
+		outcomes: [
+			'Designed to support job readiness for networking and IT infrastructure roles; hiring requirements vary by employer—verify role expectations in job postings.',
+		],
+		occupationalCategory: 'Network Support Specialist',
+		image: '/images/certificates/comptia-network-plus-certification.png',
+		imageAlt:
+			'IT technician working in a server rack, connecting network cables to a switch in a data center environment.',
+		sourceUrl: 'https://www.comptia.org/en-us/blog/what-is-comptia-network-certification/',
+		location: 'United States (global credential; exam-based)',
+		format: 'Certification exam (self-study or instructor-led prep; see CompTIA)',
+		creditNotes: [
+			'This is an industry certification, not a college certificate. College credit (if any) depends on the receiving school’s prior-learning / certification credit policies.',
+			'Exam codes, pricing, and objectives change; confirm current requirements on the official CompTIA site before registering.',
+		],
+		externalLinks: [
+			{
+				label: 'CompTIA — What is Network+ certification?',
+				url: 'https://www.comptia.org/en-us/blog/what-is-comptia-network-certification/',
+			},
+			{
+				label: 'BLS Occupational Outlook: Network and Computer Systems Administrators',
+				url: 'https://www.bls.gov/ooh/computer-and-information-technology/network-and-computer-systems-administrators.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #442150 (Field Engineer)',
+				url: 'https://www.pexels.com/photo/442150/',
+			},
+		],
+	},
+	{
 		slug: 'ucla-extension-behavioral-health-support',
 		hubGroup: 'health',
 		title: 'Behavioral Health Support Specialist Program (Certificate)',
