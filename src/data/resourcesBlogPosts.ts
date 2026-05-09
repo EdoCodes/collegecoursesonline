@@ -31,6 +31,26 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
+    slug: 'canvas-cyberattack-cybersecurity-online-hybrid-education',
+    title:
+      'Canvas Cyberattack Highlights the Growing Need for Cybersecurity in Online and Hybrid Education',
+    excerpt:
+      'A cyberattack targeting Canvas shows why cybersecurity matters as online education and hybrid college programs grow—stronger vendor controls, MFA, and privacy-first data practices are now essential.',
+    label: 'Cybersecurity',
+    date: 'May 9, 2026',
+    readingTime: '8 min read',
+    image: '/images/cards/blog/canvas-cyberattack-cybersecurity-education-card.png',
+    tags: [
+      'Canvas',
+      'Cybersecurity',
+      'Online education',
+      'Hybrid learning',
+      'Student privacy',
+      'Data breach',
+      '2026',
+    ],
+  },
+  {
     slug: 'how-to-become-physician-assistant',
     title: 'How to Become a Physician Assistant: Required Courses, PA School Steps, and Online Options',
     excerpt:
