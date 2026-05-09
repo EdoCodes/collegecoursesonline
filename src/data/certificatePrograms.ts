@@ -152,6 +152,62 @@ export const certificatePrograms: CertificateProgram[] = [
 		],
 	},
 	{
+		slug: 'unt-data-analytics-undergraduate-certificate',
+		hubGroup: 'it',
+		title: 'Data Analytics Undergraduate Certificate',
+		providerName: 'University of North Texas',
+		providerSlug: 'university-of-north-texas',
+		categoryLabel: 'Data analytics',
+		shortDescription:
+			'An undergraduate data analytics certificate from the University of North Texas (UNT) that teaches contemporary analytics concepts and hands-on skills in obtaining, wrangling, and learning from data using machine learning and deep learning tools. UNT lists 5 classes / 15 credit hours and notes this certificate can apply toward a university degree (per UNT Online).',
+		overview:
+			'UNT Online describes this undergraduate certificate as career-enhancing training in data analytics fundamentals with applied coursework focused on real-world business problems. The program page highlights learning contemporary methods, data wrangling, and practical work with machine learning and deep learning tools. UNT also notes the certificate’s credits may be applied toward an undergraduate degree such as the Bachelor of Applied Arts and Sciences, and that the program is not currently eligible for financial aid (per UNT Online).',
+		highlights: [
+			'5 classes / 15 total credit hours (per UNT Online).',
+			'Program content emphasizes contemporary analytics concepts, data wrangling, and ML/DL tools applied to real-world business problems (per UNT Online).',
+			'Credits may apply toward a university degree (for example, UNT’s BAAS pathway; confirm applicability with an advisor) (per UNT Online).',
+			'UNT notes this program is not currently eligible for financial aid (per UNT Online program page).',
+		],
+		whatYoullLearn: [
+			'Understand fundamental concepts behind contemporary data analytics methods.',
+			'Obtain, clean, and wrangle data for analysis and modeling workflows.',
+			'Apply machine learning and deep learning tools to practical problems.',
+			'Connect analytics outputs to real-world decision-making contexts.',
+		],
+		outcomes: [
+			'Designed to build foundational analytics skills for roles that use data; job requirements vary—verify target roles in job postings.',
+		],
+		occupationalCategory: 'Data Analyst',
+		image: '/images/certificates/unt-data-analytics-undergraduate-certificate.png',
+		imageAlt:
+			'Hands using a pencil to point at data and charts displayed on a digital tablet screen, suggesting data analysis and reporting work.',
+		sourceUrl: 'https://online.unt.edu/programs/undergraduate/data-analytics.html',
+		location: 'Texas (UNT Online; remote)',
+		format: 'Online undergraduate certificate (credit-bearing)',
+		creditNotes: [
+			'Program is listed as not currently eligible for financial aid (per UNT Online); confirm current eligibility and tuition/fees before applying.',
+			'Transferability and degree applicability depend on your academic plan and school policies; confirm in writing with your advisor/registrar.',
+		],
+		externalLinks: [
+			{
+				label: 'UNT Online — Data Analytics Undergraduate Certificate',
+				url: 'https://online.unt.edu/programs/undergraduate/data-analytics.html',
+			},
+			{
+				label: 'UNT tuition estimator (residency-dependent)',
+				url: 'https://estimatemytuition.unt.edu/',
+			},
+			{
+				label: 'BLS Occupational Outlook: Data Scientists',
+				url: 'https://www.bls.gov/ooh/math/data-scientists.htm',
+			},
+			{
+				label: 'Card image — Pexels photo #6829522 (Kampus Production)',
+				url: 'https://www.pexels.com/photo/6829522/',
+			},
+		],
+	},
+	{
 		slug: 'ucla-extension-behavioral-health-support',
 		hubGroup: 'health',
 		title: 'Behavioral Health Support Specialist Program (Certificate)',
