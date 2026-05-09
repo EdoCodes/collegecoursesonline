@@ -55,7 +55,7 @@ const pageDescription = 'Share your honest review of online courses you\'ve take
                 <select id="courseSelect" name="course_id" required class="form-select">
                   <option value="">-- Choose a course --</option>
                   {courses?.map((course) => (
-                    <option value={course.id}>
+                    <option value={course.id} data-course-slug={course.slug}>
                       {course.title} - {course.colleges?.name}
                     </option>
                   ))}
@@ -676,6 +676,7 @@ const pageDescription = 'Share your honest review of online courses you\'ve take
   import { supabase } from '../lib/supabase';
 
   const form = document.getElementById('reviewForm') as HTMLFormElement;
+  const courseSelect = document.getElementById('courseSelect') as HTMLSelectElement | null;
   const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
   const successMessage = document.getElementById('successMessage') as HTMLDivElement;
   const errorMessage = document.getElementById('errorMessage') as HTMLDivElement;
@@ -684,6 +685,24 @@ const pageDescription = 'Share your honest review of online courses you\'ve take
   const reviewText = document.getElementById('reviewText') as HTMLTextAreaElement;
   const starRating = document.getElementById('starRating');
   const selectedRating = document.getElementById('selectedRating') as HTMLParagraphElement;
+
+  // Prefill course from URL: /rate-my-course?course=<course-slug>
+  // Works even though <option> values are course IDs (we match by data attribute).
+  try {
+    const url = new URL(window.location.href);
+    const courseSlug = url.searchParams.get('course')?.trim();
+    if (courseSlug && courseSelect) {
+      const options = Array.from(courseSelect.options) as HTMLOptionElement[];
+      const match = options.find((o) => (o.dataset.courseSlug || '').toLowerCase() === courseSlug.toLowerCase());
+      if (match) {
+        courseSelect.value = match.value;
+        // Bring the form into view if user came from a course page CTA
+        form?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  } catch {
+    // no-op
+  }
 
   // Character count
   reviewText?.addEventListener('input', () => {
