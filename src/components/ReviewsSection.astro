@@ -1,6 +1,6 @@
 ---
 interface Props {
-  courseId: string;
+  courseId?: string;
   courseSlug: string;
 }
 
@@ -8,15 +8,23 @@ const { courseId, courseSlug } = Astro.props;
 
 import { supabase } from '../lib/supabase';
 
-// Get approved reviews for this course
-const { data: reviews, error } = await supabase
-  .from('course_reviews')
-  .select('*')
-  .eq('course_id', courseId)
-  .eq('status', 'approved')
-  .order('helpful_count', { ascending: false })
-  .order('created_at', { ascending: false })
-  .limit(10);
+let reviews: any[] | null = null;
+let error: unknown = null;
+if (courseId) {
+	// Get approved reviews for this course
+	const res = await supabase
+		.from('course_reviews')
+		.select('*')
+		.eq('course_id', courseId)
+		.eq('status', 'approved')
+		.order('helpful_count', { ascending: false })
+		.order('created_at', { ascending: false })
+		.limit(10);
+	reviews = res.data as any[] | null;
+	error = res.error;
+} else {
+	reviews = [];
+}
 
 // Calculate average rating and stats
 const reviewCount = reviews?.length || 0;
