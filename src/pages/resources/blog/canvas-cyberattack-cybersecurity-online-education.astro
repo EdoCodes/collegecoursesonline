@@ -1,0 +1,143 @@
+---
+import ResourcesGuideLayout, {
+	type ResourcesGuideTocItem,
+} from '../../../components/blog/ResourcesGuideLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('blog', 'canvas-cyberattack-cybersecurity-online-education');
+if (!entry) {
+	throw new Error('Blog entry canvas-cyberattack-cybersecurity-online-education not found');
+}
+
+const { Content } = await entry.render();
+const { title, description, pubDate, author, tags, image } = entry.data;
+
+const categoryLabel = entry.data.categoryLabel ?? 'Cybersecurity';
+const authorTitle = entry.data.authorTitle ?? 'Editorial';
+const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
+const readTimeFromFrontmatter = entry.data.readTime;
+
+// Prefer a more optimized SERP title than the on-page H1 when provided.
+const seoTitle = entry.data.seoTitle as string | undefined;
+const layoutTitle = seoTitle ? `${seoTitle} | Online College Courses` : undefined;
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const slugPath = '/resources/blog/canvas-cyberattack-cybersecurity-online-education';
+const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
+
+const publishDate = pubDate.toISOString().slice(0, 10);
+const updatedDate =
+	entry.data.updatedDate != null
+		? entry.data.updatedDate.toISOString().slice(0, 10)
+		: publishDate;
+
+const wordCount = entry.body.trim().split(/\s+/).filter(Boolean).length;
+const readingTime =
+	readTimeFromFrontmatter ?? `${Math.max(1, Math.ceil(wordCount / 200))} min read`;
+
+const ogImageUrl =
+	typeof image === 'string' && image.startsWith('http')
+		? image
+		: image
+			? new URL(image, `${site}/`).href
+			: `${site}/og-image.jpg`;
+
+const ogImageForLayout =
+	typeof image === 'string' && image.startsWith('http') ? image : image ?? '/og-image.jpg';
+
+const articleSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: seoTitle ?? title,
+	description: description,
+	image: [ogImageUrl],
+	datePublished: publishDate,
+	dateModified: updatedDate,
+	author: {
+		'@type': 'Person',
+		name: author,
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'College Courses Online',
+		url: site,
+		logo: {
+			'@type': 'ImageObject',
+			url: `${site}/favicon.svg`,
+		},
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+};
+
+const faqItems = entry.data.faq;
+const faqSchema =
+	faqItems && faqItems.length > 0
+		? {
+				'@context': 'https://schema.org',
+				'@type': 'FAQPage',
+				mainEntity: faqItems.map((item) => ({
+					'@type': 'Question',
+					name: item.question,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.answer,
+					},
+				})),
+			}
+		: null;
+
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Home', item: `${site}/` },
+		{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${site}/resources/` },
+		{ '@type': 'ListItem', position: 3, name: 'Guides', item: `${site}/resources/guides/` },
+		{ '@type': 'ListItem', position: 4, name: breadcrumbTitle, item: pageUrl },
+	],
+};
+
+const tocItems: ResourcesGuideTocItem[] = [
+	{ href: '#summary', label: 'Quick Summary' },
+	{ href: '#in-this-guide', label: 'In this guide' },
+	{ href: '#introduction', label: 'Introduction' },
+	{ href: '#why-canvas-matters-in-higher-education', label: 'Why Canvas matters' },
+	{ href: '#what-happened-in-the-canvas-cyberattack', label: 'What happened' },
+	{ href: '#why-online-and-hybrid-programs-need-stronger-security', label: 'Online & hybrid risk' },
+	{ href: '#why-cybersecurity-careers-matter-more-than-ever', label: 'Cybersecurity careers' },
+	{ href: '#how-colleges-and-universities-can-respond', label: 'How schools respond' },
+	{ href: '#frequently-asked-questions', label: 'FAQ' },
+	{ href: '#people-also-ask', label: 'People Also Ask' },
+	{ href: '#sources', label: 'Sources' },
+];
+---
+
+<ResourcesGuideLayout
+	title={title}
+	description={description}
+	canonical={slugPath}
+	image={ogImageForLayout}
+	layoutTitle={layoutTitle}
+	categoryLabel={categoryLabel}
+	breadcrumbTitle={breadcrumbTitle}
+	author={author}
+	authorTitle={authorTitle}
+	readingTime={readingTime}
+	updatedDate={updatedDate}
+	tags={tags}
+	tocItems={tocItems}
+	sidebarCta={{
+		intro: 'Explore flexible online course options',
+		href: '/courses',
+		buttonLabel: 'Browse courses →',
+	}}
+>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} />
+	{faqSchema && <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqSchema)} />}
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+	<Content />
+</ResourcesGuideLayout>
+

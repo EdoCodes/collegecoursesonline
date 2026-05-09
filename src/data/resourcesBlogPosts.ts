@@ -31,14 +31,14 @@ export function getResourcesBlogPostHref(post: ResourcesBlogPost): string {
 
 export const resourcesBlogPosts: ResourcesBlogPost[] = [
   {
-    slug: 'canvas-cyberattack-cybersecurity-online-hybrid-education',
+    slug: 'canvas-cyberattack-cybersecurity-online-education',
     title:
       'Canvas Cyberattack Highlights the Growing Need for Cybersecurity in Online and Hybrid Education',
     excerpt:
       'A cyberattack targeting Canvas shows why cybersecurity matters as online education and hybrid college programs grow—stronger vendor controls, MFA, and privacy-first data practices are now essential.',
     label: 'Cybersecurity',
     date: 'May 9, 2026',
-    readingTime: '8 min read',
+    readingTime: '10 min read',
     image: '/images/cards/blog/canvas-cyberattack-cybersecurity-education-card.png',
     tags: [
       'Canvas',
