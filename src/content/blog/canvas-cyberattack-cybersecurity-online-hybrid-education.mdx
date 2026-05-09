@@ -19,182 +19,266 @@ tags:
   - "2026"
 draft: false
 featured: true
-faq:
-  - question: "What is Canvas?"
-    answer: "Canvas is a learning management system (LMS) colleges and schools use to deliver coursework, collect assignments, communicate with students, and manage grades online."
-  - question: "Why does a Canvas cyberattack matter for students?"
-    answer: "Because an LMS can contain personally identifiable information (PII) and academic records. An incident can disrupt classes and may increase the risk of phishing, identity fraud, or privacy harm if data is accessed."
-  - question: "What student data might be stored in education systems?"
-    answer: "Depending on the institution and connected tools, data can include names, emails, student ID numbers, grades, transcripts, enrollment records, and sometimes government identifiers or other sensitive details stored in related systems."
-  - question: "Why are online and hybrid programs higher risk targets?"
-    answer: "Online and hybrid programs rely heavily on digital platforms and vendor tools, increasing the attack surface (accounts, integrations, APIs, and data exports) and creating more opportunities for credential theft and third‑party breaches."
-  - question: "How can schools improve cybersecurity for online learning platforms?"
-    answer: "Prioritize MFA, patching and vulnerability management, least-privilege access, backups and incident response drills, security logging/monitoring, and stronger vendor security requirements in contracts."
-  - question: "How can students protect themselves after a breach?"
-    answer: "Use unique passwords (or a password manager), enable MFA where available, watch for phishing, verify messages through official channels, and monitor accounts for suspicious activity."
 ---
 
-Online education and hybrid college programs have made learning more flexible—but they’ve also made **student data** a higher‑value target.
+<div id="summary" class="summary-box">
+  <div class="summary-label">Quick summary</div>
+  <p>
+    A cyberattack involving Canvas highlights a simple reality: as <strong>online education</strong> and <strong>hybrid college programs</strong> grow, schools and vendors manage more sensitive student data—and attackers get more leverage by targeting platforms used across thousands of campuses.
+  </p>
+</div>
 
-A recent cyberattack involving **Canvas**, one of the most widely used learning management systems in higher education, is a reminder that cybersecurity isn’t just an IT concern. It’s now a **student safety and privacy issue**.
+<div class="section-label">Guide</div>
 
-If you’re comparing online programs, it’s worth bookmarking our core hubs:
+## In this guide
 
-- **Browse online courses**: [Online college courses directory](/courses/)
-- **Browse certificate programs**: [Online certificate programs](/certificate-programs/)
-- **Transfer planning (certificates → credit)**: [Certificate programs that count for college credit](/resources/guides/certificate-programs-college-credit)
+1. [What happened (and why it matters)](#what-happened-and-why-it-matters)
+2. [Why Canvas is high-impact infrastructure](#why-canvas-is-high-impact-infrastructure)
+3. [Why online + hybrid growth increases risk](#why-online--hybrid-growth-increases-risk)
+4. [What student data is at stake](#what-student-data-is-at-stake)
+5. [How schools can respond (checklist)](#how-schools-can-respond-checklist)
+6. [What students can do](#what-students-can-do)
+7. [Frequently asked questions](#frequently-asked-questions)
+8. [People Also Ask](#people-also-ask)
+9. [Sources](#sources)
 
-## Why Canvas matters in modern higher education
+<div class="section-label">Overview</div>
 
-Canvas is often the “front door” to a student’s academic life:
+## What happened (and why it matters)
 
-- Assignments and submissions
-- Instructor announcements and messages
-- Quizzes and exams
-- Gradebooks and feedback
-- Class files and links to third‑party tools
+Canvas is one of the most widely used learning management systems (LMS) in higher education. When an LMS is disrupted, classes slow down. When an LMS ecosystem is attacked, it becomes a **privacy and trust problem**, not just a temporary outage.
 
-When an LMS is disrupted, students lose access to learning materials and deadlines become chaotic—especially during midterms or finals. And when an LMS (or connected vendor systems) is compromised, the impact can go beyond downtime into **privacy risk**.
+Online and hybrid programs depend on digital workflows for coursework, communication, and student records. That means the stakes are higher: more accounts, more integrations, more data movement, and more opportunity for attackers to exploit weak links.
 
-## Online and hybrid growth increases the attack surface
+If you’re comparing online programs, it helps to bookmark the core site hubs:
 
-Online education programs and hybrid college programs typically mean:
+- <a href="/courses/" class="link-course"><strong>Online courses directory</strong></a>
+- <a href="/certificate-programs/" class="link-course"><strong>Certificate programs directory</strong></a>
+- <a href="/resources/guides/certificate-programs-college-credit" class="link-course"><strong>Certificate programs that count for college credit</strong></a>
 
-- More logins and more accounts
-- More integrations (proctoring tools, video platforms, e‑textbooks, SSO)
-- More file uploads and messaging
-- More administrative workflows happening through vendor dashboards
+<div class="section-label">Canvas</div>
 
-That’s great for access and flexibility—but it increases opportunities for:
+## Why Canvas is high-impact infrastructure
 
-- **Phishing** (credential theft)
-- **Password reuse** (one breach → many accounts)
-- **Misconfigured permissions**
-- **Vendor supply‑chain incidents** (one vendor affects thousands of schools)
+Canvas often becomes the “front door” to a student’s academic life:
 
-If you want a related read on trust and verification in online learning, see: [Student integrity in online proctored exams](/resources/blog/student-integrity-online-proctored-exams).
+- assignments and submissions
+- instructor announcements and messages
+- quizzes and exams
+- gradebooks and feedback
+- files and links to third‑party tools
 
-## Why cybersecurity is essential for student protection
+Because so much academic activity depends on Canvas, any incident can have broad impact—especially during finals, when access to materials and deadlines matters most.
 
-Education systems often contain data students assume is private and secure. Depending on the institution, systems may store or connect to:
+<div class="section-label">Risk</div>
 
-- Names, emails, phone numbers
-- Student ID numbers
-- Enrollment records and course history
-- Grades and academic standing
-- Transcripts and credential verification flows
+## Why online + hybrid growth increases risk
 
-Even when a vendor incident does *not* include certain sensitive fields, attackers may still use leaked identifiers and messages for **targeted social engineering**—and education communities are especially vulnerable because students are trained to respond to “official‑looking” communications.
+Online education programs and hybrid college programs usually mean:
 
-For U.S. institutions, it also intersects with privacy obligations around education records (see the U.S. Department of Education’s FERPA overview: [FERPA guidance](https://studentprivacy.ed.gov/Ferpa)).
+- more logins and more accounts
+- more integrations (proctoring tools, SSO, video, e‑textbooks)
+- more file uploads and messaging
+- more admin workflows handled through vendor dashboards and reports
 
-## What schools can do (practical checklist)
+That’s great for flexibility—but it increases the number of pathways attackers can use: phishing, password reuse, misconfigured permissions, and vendor supply‑chain incidents.
 
-Security works best when it’s part of daily operations—not an afterthought. A strong baseline for online/hybrid programs usually includes:
+If you want a related guide that focuses on trust and verification, read:
+<a href="/resources/blog/student-integrity-online-proctored-exams" class="link-course"><strong>Student integrity in online proctored exams</strong></a>.
 
-### 1) Require MFA (and make it easy)
+<div class="section-label">Student privacy</div>
 
-Enforce **multi‑factor authentication** for administrators and staff first, then expand to students. NIST’s current digital identity guidance is a good baseline reference: [NIST SP 800‑63B](https://pages.nist.gov/800-63-4/sp800-63b.html).
+## What student data is at stake
 
-### 2) Limit access to sensitive records
+Education systems often contain data students assume is private. Depending on the institution and connected tools, systems may store or connect to:
 
-Use least‑privilege permissions for:
+- names, emails, phone numbers
+- student ID numbers
+- enrollment records and course history
+- grades and academic standing
+- transcripts and credential verification flows
 
-- LMS admin roles
-- SIS integrations
-- data exports and reporting tools
-- third‑party app access
+Even when a specific incident does <em>not</em> include certain sensitive fields, leaked identifiers and messages can still enable **targeted phishing and social engineering**.
 
-### 3) Patch fast, monitor continuously
+For U.S. institutions, privacy obligations often involve education records under FERPA:
+<a class="link-external" href="https://studentprivacy.ed.gov/Ferpa" target="_blank" rel="noopener noreferrer">U.S. Department of Education: FERPA overview</a>.
 
-Keep software updated, track known exploited vulnerabilities, and monitor logs for unusual access patterns—especially around:
+<div class="section-label">Actions</div>
 
-- export/report endpoints
-- token creation
-- new admin accounts
-- mass message access
+## How schools can respond (checklist)
 
-### 4) Treat vendors as part of your security perimeter
+Cybersecurity works best when it’s built into day‑to‑day operations. A practical baseline for online/hybrid programs includes:
 
-Online learning depends on vendors. Contracts should require:
+### Require MFA (and make it easy)
 
-- security logging and auditability
-- incident notification timelines
-- MFA support
-- data minimization and retention limits
-- third‑party security assessments
+Start with staff/admin accounts and expand coverage. NIST’s digital identity guidance is a useful baseline reference:
+<a class="link-external" href="https://pages.nist.gov/800-63-4/sp800-63b.html" target="_blank" rel="noopener noreferrer">NIST SP 800‑63B</a>.
 
-### 5) Train faculty/staff (and run drills)
+### Limit access to sensitive records
 
-Phishing and credential theft remain the fastest path into an institution. Regular training plus rehearsed incident response helps reduce damage.
+Use least‑privilege permissions for LMS admin roles, SIS integrations, exports/reporting tools, and third‑party app access.
 
-For a public-sector oriented starting point, CISA’s education resources outline high‑impact steps like MFA, patching, backups, incident response exercises, and training: [CISA guidance for educational institutions](https://www.cisa.gov/audiences/educational-institutions).
+### Patch quickly and monitor continuously
 
-## What students can do right now
+Keep software updated, track known exploited vulnerabilities, and monitor security logs—especially for unusual export/report patterns and token creation.
 
-Students don’t control vendor security, but they can reduce personal risk:
-
-- Use a password manager and **unique passwords**
-- Turn on MFA where available
-- Don’t click “Canvas / financial aid / account warning” links from random emails—navigate via your school portal
-- Watch for “urgent” messages asking for verification, payment, or document uploads
-- Report suspicious messages to your school IT help desk
-
-If you’re a student using our site to compare options, consider leaving a review to help others plan smarter: [Rate My Course](/rate-my-course).
-
-## FAQ
-
-### What is Canvas?
-
-Canvas is a learning management system that schools use to deliver coursework, communicate with students, and manage academic activity online.
-
-### Why is the Canvas cyberattack important?
-
-It matters because Canvas is widely used. When a major vendor is targeted, thousands of schools can be affected at once—creating disruption and potential privacy risk.
-
-### Why are online and hybrid programs more at risk?
-
-Online and hybrid programs depend on more digital tools and integrations, which increases the number of accounts and pathways attackers can exploit.
-
-### What kind of student data can be exposed?
-
-Depending on the system and integrations, data can include names, emails, student IDs, enrollment records, grades, transcripts, and messages. Some institutions may also store more sensitive identifiers in related systems.
-
-### How can schools improve security?
-
-Schools can reduce risk with MFA, least‑privilege access, faster patching, strong monitoring/logging, vendor security requirements, and routine security training and incident response drills.
-
-### How can students protect themselves?
-
-Use unique passwords, enable MFA, avoid suspicious links, and verify messages through official channels.
-
-## People also ask (PAA)
-
-### Why are cyberattacks becoming more common in education?
-
-Education is a large, distributed sector that holds valuable personal data and relies on many third‑party tools. Attackers can get high leverage by targeting vendors used across thousands of campuses.
-
-### Is Canvas secure?
-
-Canvas can be secure when schools and vendors implement strong controls (MFA, monitoring, least privilege, and rapid patching). But no platform is immune—security depends on configuration, integrations, and ongoing operational hygiene.
-
-### What happens if student data is leaked?
-
-Leaked data can lead to targeted phishing, account takeover attempts, identity fraud, and long‑term privacy concerns. Students should watch for scams that reference school details to appear legitimate.
-
-### Why should colleges invest in cybersecurity?
-
-Because cybersecurity protects student records, reduces downtime that disrupts learning, and preserves institutional trust—especially as online and hybrid programs scale.
-
-## Conclusion
-
-The Canvas cyberattack is a warning sign for the education sector. As online education programs and hybrid college programs continue to expand, schools should treat cybersecurity as a core requirement—because the systems students rely on every day also concentrate sensitive data and create high‑impact failure points.
-
-## Sources and further reading
-
-- Instructure: [Security Incident Update & FAQs](https://www.instructure.com/incident_update)
-- The Verge: [Canvas is down as ShinyHunters threatens to leak school’s data](https://www.theverge.com/tech/926458/canvas-shinyhunters-breach)
-- Inside Higher Ed: [“PAY OR LEAK”: Hackers Target Big Higher Ed Vendor](https://www.insidehighered.com/news/tech-innovation/administrative-tech/2026/05/05/pay-or-leak-hackers-target-big-higher-ed-vendor)
-- Los Angeles Times: [Massive Canvas data breach hits colleges across California and nation, crippling student work](https://www.latimes.com/california/story/2026-05-07/canvas-data-breach-california-colleges-uc-ucla-berkeley-csu-laccd)
-- Malwarebytes: [Millions of students' personal data stolen in major education cyberattack](https://www.malwarebytes.com/blog/news/2026/05/millions-of-students-personal-data-stolen-in-major-education-cyberattack)
-- The Daily Pennsylvanian: [Cybercrime group crashes Penn’s Canvas system, demands ransom to prevent data release](https://www.thedp.com/article/2026/05/penn-canvas-shinythunters-data-breach-hack-second)
+### Treat vendors as part of your security perimeter
+
+Contracts and vendor governance should require logging/auditability, incident notification timelines, MFA support, and data minimization/retention limits.
+
+### Train staff and exercise response plans
+
+Phishing and credential theft remain common entry points. Regular training plus incident response exercises can reduce impact.
+
+For a public‑sector oriented starting point, CISA’s education resources are helpful:
+<a class="link-external" href="https://www.cisa.gov/audiences/educational-institutions" target="_blank" rel="noopener noreferrer">CISA: cybersecurity guidance for educational institutions</a>.
+
+<div class="section-label">Students</div>
+
+## What students can do
+
+Students can reduce personal risk even when they don’t control vendor security:
+
+- use unique passwords (a password manager helps)
+- enable MFA where available
+- avoid clicking “urgent account” links from random emails—navigate via your official school portal
+- report suspicious messages to your school IT help desk
+
+If you’re using our directory to compare options, you can help others plan smarter by leaving a review:
+<a href="/rate-my-course" class="link-course"><strong>Rate My Course</strong></a>.
+
+<div itemscope itemtype="https://schema.org/FAQPage" class="faq-page-wrap">
+  <div class="section-label">FAQ</div>
+  <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+  <div id="faq" class="faq-list" role="region" aria-label="Frequently asked questions">
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">What is Canvas?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Canvas is a learning management system (LMS) colleges and schools use to deliver coursework, collect assignments, communicate with students, and manage grades online.{' '}
+        <a class="link-external" href="https://www.instructure.com/incident_update" target="_blank" rel="noopener noreferrer">Instructure incident update</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">Why does a Canvas cyberattack matter for students?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Because an LMS can contain personally identifying information and academic records, and it can be used to run targeted phishing campaigns. It can also disrupt classes during high‑stakes weeks like finals.{' '}
+        <a class="link-external" href="https://www.theverge.com/tech/926458/canvas-shinyhunters-breach" target="_blank" rel="noopener noreferrer">The Verge coverage</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">What kind of student data might be stored in education systems?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Depending on the institution and connected tools, systems may store names, emails, student IDs, enrollment records, grades, transcripts, and user messages. Many institutions also have separate systems for financial aid or identity verification—so data sensitivity can vary widely.{' '}
+        <a class="link-external" href="https://studentprivacy.ed.gov/Ferpa" target="_blank" rel="noopener noreferrer">FERPA overview</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">How can schools improve security for online learning platforms?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Prioritize MFA, least‑privilege access, fast patching, monitoring/logging, backups and incident response drills, and stronger vendor security requirements.{' '}
+        <a class="link-external" href="https://www.cisa.gov/audiences/educational-institutions" target="_blank" rel="noopener noreferrer">CISA education guidance</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">How can students protect themselves after a breach?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Use unique passwords, enable MFA where possible, be suspicious of urgent messages, and verify requests through official school portals. Monitor accounts for unusual activity and report suspicious emails.{' '}
+        <a class="link-external" href="https://pages.nist.gov/800-63-4/sp800-63b.html" target="_blank" rel="noopener noreferrer">NIST authentication guidance</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+  </div>
+
+  <div class="section-label faq-inline-label">People Also Ask</div>
+  <h2 id="people-also-ask">People Also Ask</h2>
+  <div id="paa" class="faq-list" role="region" aria-label="People Also Ask">
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">Why are cyberattacks becoming more common in education?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Schools store valuable personal data and rely on third‑party tools. Attackers can get high leverage by targeting a vendor used by thousands of institutions rather than a single campus.{' '}
+        <a class="link-external" href="https://www.insidehighered.com/news/tech-innovation/administrative-tech/2026/05/05/pay-or-leak-hackers-target-big-higher-ed-vendor" target="_blank" rel="noopener noreferrer">Inside Higher Ed reporting</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">Is Canvas secure?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Canvas can be secure when institutions implement strong controls (MFA, monitoring, least privilege, and rapid patching). But no platform is completely immune—security depends on configuration, integrations, and vendor operations.{' '}
+        <a class="link-external" href="https://www.instructure.com/incident_update" target="_blank" rel="noopener noreferrer">Instructure incident FAQ</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">What happens if student data is leaked?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Leaks can lead to targeted phishing, account takeover attempts, identity fraud, and longer‑term privacy harm. Students should be especially cautious of messages that use specific campus details to appear legitimate.{' '}
+        <a class="link-external" href="https://www.malwarebytes.com/blog/news/2026/05/millions-of-students-personal-data-stolen-in-major-education-cyberattack" target="_blank" rel="noopener noreferrer">Malwarebytes analysis</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+<details class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <summary itemprop="name">Why should colleges invest in cybersecurity?</summary>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div itemprop="text">
+      <p>
+        Cybersecurity protects student records, reduces downtime that disrupts learning, and preserves institutional trust—especially as online and hybrid programs scale.{' '}
+        <a class="link-external" href="https://www.cisa.gov/audiences/educational-institutions" target="_blank" rel="noopener noreferrer">CISA guidance</a>.
+      </p>
+    </div>
+  </div>
+</details>
+
+  </div>
+</div>
+
+<div class="section-label">Sources</div>
+
+## Sources
+
+- <a class="link-external" href="https://www.instructure.com/incident_update" target="_blank" rel="noopener noreferrer">Instructure: Security Incident Update &amp; FAQs</a>
+- <a class="link-external" href="https://www.theverge.com/tech/926458/canvas-shinyhunters-breach" target="_blank" rel="noopener noreferrer">The Verge: Canvas is down as ShinyHunters threatens to leak school’s data</a>
+- <a class="link-external" href="https://www.insidehighered.com/news/tech-innovation/administrative-tech/2026/05/05/pay-or-leak-hackers-target-big-higher-ed-vendor" target="_blank" rel="noopener noreferrer">Inside Higher Ed: “PAY OR LEAK”: Hackers Target Big Higher Ed Vendor</a>
+- <a class="link-external" href="https://www.latimes.com/california/story/2026-05-07/canvas-data-breach-california-colleges-uc-ucla-berkeley-csu-laccd" target="_blank" rel="noopener noreferrer">Los Angeles Times: Massive Canvas data breach hits colleges across California and nation</a>
+- <a class="link-external" href="https://www.malwarebytes.com/blog/news/2026/05/millions-of-students-personal-data-stolen-in-major-education-cyberattack" target="_blank" rel="noopener noreferrer">Malwarebytes: Millions of students' personal data stolen in major education cyberattack</a>
+- <a class="link-external" href="https://www.thedp.com/article/2026/05/penn-canvas-shinythunters-data-breach-hack-second" target="_blank" rel="noopener noreferrer">The Daily Pennsylvanian: Cybercrime group crashes Penn’s Canvas system, demands ransom</a>
+- <a class="link-external" href="https://www.cisa.gov/audiences/educational-institutions" target="_blank" rel="noopener noreferrer">CISA: Educational institutions resources</a>
+- <a class="link-external" href="https://pages.nist.gov/800-63-4/sp800-63b.html" target="_blank" rel="noopener noreferrer">NIST: SP 800‑63B authentication guidance</a>
+- <a class="link-external" href="https://studentprivacy.ed.gov/Ferpa" target="_blank" rel="noopener noreferrer">U.S. Department of Education: FERPA</a>
