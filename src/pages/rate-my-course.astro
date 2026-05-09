@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
+import { certificatePrograms } from '../data/certificatePrograms';
 
 // Get all courses for the search dropdown
 let courses: any[] = [];
@@ -22,6 +23,8 @@ if (isSupabaseConfigured && supabase) {
 
 const pageTitle = 'Rate My Course - Share Your Experience';
 const pageDescription = 'Share your honest review of online courses you\'ve taken. Help other students make informed decisions about their education.';
+
+const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -47,20 +50,29 @@ const pageDescription = 'Share your honest review of online courses you\'ve take
             </p>
 
             <form id="reviewForm" class="review-form">
-              <!-- Course Selection -->
+              <!-- Target Selection -->
               <div class="form-group">
                 <label for="courseSelect" class="form-label">
-                  Select Course <span class="required">*</span>
+                  Select Course or Program <span class="required">*</span>
                 </label>
-                <select id="courseSelect" name="course_id" required class="form-select">
-                  <option value="">-- Choose a course --</option>
-                  {courses?.map((course) => (
-                    <option value={course.id} data-course-slug={course.slug}>
-                      {course.title} - {course.colleges?.name}
-                    </option>
-                  ))}
+                <select id="courseSelect" name="target" required class="form-select">
+                  <option value="">-- Choose a course or program --</option>
+                  <optgroup label="Courses">
+                    {courses?.map((course) => (
+                      <option value={`course:${course.id}`} data-course-slug={course.slug}>
+                        {course.title} - {course.colleges?.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Certificate programs">
+                    {certificatePrograms.map((p) => (
+                      <option value={`program:${p.slug}`} data-program-slug={p.slug} data-program-title={p.title}>
+                        {p.title} - {p.providerName}
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
-                <p class="field-help">Search for the course you want to review</p>
+                <p class="field-help">Search for the course or certificate program you want to review</p>
               </div>
 
               <!-- Rating -->
@@ -686,17 +698,21 @@ const pageDescription = 'Share your honest review of online courses you\'ve take
   const starRating = document.getElementById('starRating');
   const selectedRating = document.getElementById('selectedRating') as HTMLParagraphElement;
 
-  // Prefill course from URL: /rate-my-course?course=<course-slug>
-  // Works even though <option> values are course IDs (we match by data attribute).
+  // Prefill from URL:
+  // - /rate-my-course?course=<course-slug>
+  // - /rate-my-course?program=<program-slug>
+  // Works even though <option> values are prefixed (course:/program:), because we match by data attributes.
   try {
     const url = new URL(window.location.href);
     const courseSlug = url.searchParams.get('course')?.trim();
-    if (courseSlug && courseSelect) {
+    const programSlug = url.searchParams.get('program')?.trim();
+    if (courseSelect && (courseSlug || programSlug)) {
       const options = Array.from(courseSelect.options) as HTMLOptionElement[];
-      const match = options.find((o) => (o.dataset.courseSlug || '').toLowerCase() === courseSlug.toLowerCase());
+      const match = courseSlug
+        ? options.find((o) => (o.dataset.courseSlug || '').toLowerCase() === courseSlug.toLowerCase())
+        : options.find((o) => (o.dataset.programSlug || '').toLowerCase() === (programSlug || '').toLowerCase());
       if (match) {
         courseSelect.value = match.value;
-        // Bring the form into view if user came from a course page CTA
         form?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
@@ -741,24 +757,60 @@ const pageDescription = 'Share your honest review of online courses you\'ve take
     try {
       const formData = new FormData(form);
       
-      const reviewData = {
-        course_id: formData.get('course_id'),
-        rating: parseInt(formData.get('rating') as string),
-        review_title: formData.get('review_title'),
-        review_text: formData.get('review_text'),
-        user_name: formData.get('user_name'),
-        user_email: formData.get('user_email'),
-        enrollment_date: formData.get('enrollment_date') || null,
-        verified_enrollment: formData.get('verified_enrollment') === 'on',
-        status: 'pending'
-      };
+      const target = String(formData.get('target') || '');
+      const rating = parseInt(formData.get('rating') as string);
+      const reviewTitle = formData.get('review_title');
+      const reviewText = formData.get('review_text');
+      const userName = formData.get('user_name');
+      const userEmail = formData.get('user_email');
+      const enrollmentDate = formData.get('enrollment_date') || null;
+      const verified = formData.get('verified_enrollment') === 'on';
 
-      const { data, error } = await supabase
-        .from('course_reviews')
-        .insert([reviewData])
-        .select();
+      if (target.startsWith('course:')) {
+        const courseId = target.replace(/^course:/, '');
+        const reviewData = {
+          course_id: courseId,
+          rating,
+          review_title: reviewTitle,
+          review_text: reviewText,
+          user_name: userName,
+          user_email: userEmail,
+          enrollment_date: enrollmentDate,
+          verified_enrollment: verified,
+          status: 'pending'
+        };
 
-      if (error) throw error;
+        const { error } = await supabase
+          .from('course_reviews')
+          .insert([reviewData])
+          .select();
+        if (error) throw error;
+      } else if (target.startsWith('program:')) {
+        const programSlug = target.replace(/^program:/, '');
+        const programOption = (document.querySelector(`#courseSelect option[value="program:${CSS.escape(programSlug)}"]`) as HTMLOptionElement | null);
+        const programTitle = programOption?.dataset.programTitle || programOption?.textContent?.split(' - ')[0]?.trim() || programSlug;
+
+        const reviewData = {
+          program_slug: programSlug,
+          program_title: programTitle,
+          rating,
+          review_title: reviewTitle,
+          review_text: reviewText,
+          user_name: userName,
+          user_email: userEmail,
+          enrollment_date: enrollmentDate,
+          verified_enrollment: verified,
+          status: 'pending'
+        };
+
+        const { error } = await supabase
+          .from('certificate_program_reviews')
+          .insert([reviewData])
+          .select();
+        if (error) throw error;
+      } else {
+        throw new Error('Please select a course or program to review.');
+      }
 
       // Show success message
       successMessage.style.display = 'flex';

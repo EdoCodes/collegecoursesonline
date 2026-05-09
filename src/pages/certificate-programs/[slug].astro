@@ -96,7 +96,7 @@ const breadcrumbSchema = {
 									<path d="M5 12h14M12 5l7 7-7 7"/>
 								</svg>
 							</a>
-							<a class="cta-button secondary" href={`/rate-certificate-program?program=${program.slug}`}>
+							<a class="cta-button secondary" href={`/rate-my-course?program=${encodeURIComponent(program.slug)}`}>
 								Rate this program
 							</a>
 						</div>
