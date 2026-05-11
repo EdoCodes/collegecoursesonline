@@ -1,4 +1,7 @@
 ---
+/** Server-render so new post IDs work after deploy (static getStaticPaths only knew posts at build time). */
+export const prerender = false;
+
 import Layout from '../../../layouts/Layout.astro';
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
@@ -12,18 +15,6 @@ async function sbFetch(path: string) {
   });
   if (!res.ok) return [];
   return res.json();
-}
-
-export async function getStaticPaths() {
-  const url = import.meta.env.PUBLIC_SUPABASE_URL;
-  const key = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return [];
-  const res = await fetch(`${url}/rest/v1/posts?is_approved=eq.true&select=id`, {
-    headers: { apikey: key, Authorization: `Bearer ${key}` }
-  });
-  if (!res.ok) return [];
-  const posts = await res.json();
-  return posts.map((p: { id: string }) => ({ params: { id: p.id } }));
 }
 
 const posts = await sbFetch(`posts?id=eq.${id}&is_approved=eq.true&select=*`);
