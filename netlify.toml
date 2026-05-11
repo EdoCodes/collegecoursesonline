@@ -221,11 +221,9 @@
   to = "/resources/blog/certificate-programs-college-credit/"
   status = 301
 
-# Custom 404 page
-[[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
+# Do not add a catch-all "/* -> /404.html" redirect here: it runs before Astro SSR
+# and breaks on-demand routes (e.g. /forum/post/:id). Missing URLs are handled by
+# the Netlify adapter (preferStatic + Astro SSR / 404.astro).
 
 # Development context (for deploy previews)
 [context.deploy-preview]
