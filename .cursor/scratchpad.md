@@ -535,6 +535,12 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Executor's Feedback or Assistance Requests
 
+### 2026-05-12 — StraighterLine Introduction to Ethics (PHIL102)
+
+- Added Supabase migration `20260529120000_straighterline_introduction_to_ethics_phil102.sql` (Humanities, subcategory Ethics, ACE OOSL-0123); card image `public/images/courses/straighterline-introduction-to-ethics.jpg` (Pexels James Frid 8482449 — downloaded; user-provided asset path was not on disk).
+- SEO/detail page mirrors other StraighterLine curated templates: `src/pages/courses/straighterline-introduction-to-ethics.astro` (JSON-LD Course + BreadcrumbList, ReviewsSection, compare strip).
+- `courseImageOverrides.ts`, `relatedCourses.ts`, and `scripts/tag-subcategories.mjs` updated. Run migration on Supabase; optionally `node scripts/tag-subcategories.mjs` after deploy. `npm run build` exit 0.
+
 ### 2026-05-05 — Certificate programs: College of the Canyons — Paralegal Studies Certificate
 
 - Added `college-of-the-canyons-paralegal-studies-certificate` to `src/data/certificatePrograms.ts` (`hubGroup: paralegal`); `sourceUrl`: `https://www.canyons.edu/academics/paralegal/`.

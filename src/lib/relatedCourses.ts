@@ -36,12 +36,20 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	'study-com-philosophy-101-intro-to-philosophy': [
 		'study-com-philosophy-103-ethics-theory-practice',
 		'straighterline-introduction-to-religious-studies',
+		'straighterline-introduction-to-ethics',
 	],
 	'straighterline-introduction-to-religious-studies': [
 		'study-com-philosophy-101-intro-to-philosophy',
+		'straighterline-introduction-to-ethics',
+	],
+	'straighterline-introduction-to-ethics': [
+		'study-com-philosophy-103-ethics-theory-practice',
+		'study-com-philosophy-101-intro-to-philosophy',
+		'straighterline-introduction-to-religious-studies',
 	],
 	'study-com-philosophy-103-ethics-theory-practice': [
 		'study-com-philosophy-101-intro-to-philosophy',
+		'straighterline-introduction-to-ethics',
 	],
 	'study-com-intro-to-business': ['study-com-financial-accounting'],
 	'study-com-financial-accounting': [
