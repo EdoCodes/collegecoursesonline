@@ -14,6 +14,7 @@ import { displayPriceForCourse } from '../../lib/coursePriceDisplay';
 import { RELATED_ALTERNATIVE_FIRST, inferredSubcategory } from '../../lib/relatedCourses';
 import { parseLearningOutcomes, DEFAULT_LEARNING_OUTCOMES } from '../../lib/courseLearningContent';
 import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
+import { getCuratedCompareFallbackBySlug } from '../../lib/curatedDirectoryCourses';
 
 export async function getStaticPaths() {
   // Return empty array if Supabase not configured (allows build to complete)
@@ -84,13 +85,20 @@ if (pinSlugs.length) {
 		.from('courses')
 		.select(`*, colleges (*), course_categories (*)`)
 		.in('slug', pinSlugs);
-	const pinned = filterDirectoryCourses((pinnedRows || []) as Course[]);
-	const rank = new Map(pinSlugs.map((s, i) => [s, i]));
-	pinned.sort((a, b) => (rank.get(a.slug) ?? 99) - (rank.get(b.slug) ?? 99));
-	for (const c of pinned) {
+	const bySlug = new Map(
+		filterDirectoryCourses((pinnedRows || []) as Course[]).map((row) => [row.slug, row]),
+	);
+
+	for (const s of pinSlugs) {
 		if (relatedCourses.length >= 3) break;
-		relatedCourses.push(c);
-		usedIds.add(c.id);
+		let row = bySlug.get(s);
+		if (!row) {
+			const fb = getCuratedCompareFallbackBySlug(s);
+			if (fb && isAllowedCourseProvider(fb)) row = fb;
+		}
+		if (!row || usedIds.has(row.id)) continue;
+		relatedCourses.push(row);
+		usedIds.add(row.id);
 	}
 }
 

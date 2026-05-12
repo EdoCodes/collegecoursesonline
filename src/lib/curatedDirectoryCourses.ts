@@ -257,6 +257,57 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 	},
 ];
 
+/**
+ * When a pinned compare slug has no Supabase row yet, synthesize a minimal {@link Course}
+ * so `[slug].astro` “Compare with” still shows curated StraighterLine / partner cards.
+ */
+export function getCuratedCompareFallbackBySlug(slug: string): Course | null {
+	const c = CURATED_DIRECTORY_COURSES.find((x) => x.slug === slug);
+	if (!c) return null;
+	const ts = c.created_at;
+	return {
+		id: c.id,
+		college_id: '',
+		category_id: null,
+		title: c.title,
+		slug: c.slug,
+		description: c.description,
+		short_description: c.short_description,
+		course_url: c.course_url,
+		image_url: c.image_url,
+		duration: c.duration,
+		level: c.level,
+		price: c.price,
+		certificate_available: c.certificate_available,
+		credits: c.credits,
+		featured: c.featured,
+		views_count: c.views_count,
+		created_at: c.created_at,
+		updated_at: c.updated_at,
+		colleges: {
+			id: '',
+			name: c.colleges.name,
+			slug: c.colleges.slug,
+			description: '',
+			logo_url: null,
+			website_url: null,
+			accreditation: c.colleges.accreditation_level,
+			country: 'USA',
+			featured: false,
+			created_at: ts,
+			updated_at: ts,
+		},
+		course_categories: {
+			id: '',
+			name: c.course_categories.name,
+			slug: c.course_categories.slug,
+			description: '',
+			icon: c.course_categories.icon,
+			created_at: ts,
+		},
+	};
+}
+
 /** Curated slugs win; avoids duplicate cards when the same course exists in Supabase. */
 export function mergeCuratedDirectoryCourses(dbCourses: Course[]): Array<CuratedDirectoryCourse | Course> {
 	const curated = [...CURATED_DIRECTORY_COURSES];
