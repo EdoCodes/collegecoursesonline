@@ -131,6 +131,7 @@ const allCourses: any[] = mergeCuratedDirectoryCourses(coursesData);
 						<label for="accreditationFilter">Accreditation</label>
 						<select id="accreditationFilter" class="filter-select">
 							<option value="">All Types</option>
+							<option value="ACE">ACE-recommended</option>
 							<option value="Regional">Regional</option>
 							<option value="National">National</option>
 							<option value="International">International</option>
@@ -651,11 +652,15 @@ const allCourses: any[] = mergeCuratedDirectoryCourses(coursesData);
 			if (price === 'Free' && m.price !== 'Free') return false;
 			if (price === 'Paid' && m.price === 'Free') return false;
 			if (cert && !m.certificate) return false;
-			if (accr && m.accreditation !== accr) return false;
+			if (accr) {
+				const matchesAcc =
+					m.accreditation === accr || (accr === 'National' && m.accreditation === 'ACE');
+				if (!matchesAcc) return false;
+			}
 			return true;
 		});
 
-		const accOrder: Record<string, number> = { Regional: 3, National: 2, International: 1 };
+		const accOrder: Record<string, number> = { Regional: 3, National: 2, ACE: 2, International: 1 };
 		visibleMeta.sort((a, b) => {
 			switch (sort) {
 				case 'popularity':
@@ -705,4 +710,6 @@ const allCourses: any[] = mergeCuratedDirectoryCourses(coursesData);
 	priceFilter?.addEventListener('change', applyFilters);
 	certificateFilter?.addEventListener('change', applyFilters);
 	accreditationFilter?.addEventListener('change', applyFilters);
+
+	applyFilters();
 </script>
