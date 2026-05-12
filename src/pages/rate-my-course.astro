@@ -3,22 +3,42 @@ import Layout from '../layouts/Layout.astro';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { filterDirectoryCourses } from '../lib/excludedCourseSlugs';
 import { certificatePrograms } from '../data/certificatePrograms';
+import { CURATED_DIRECTORY_COURSES } from '../lib/curatedDirectoryCourses';
 
-// Get all courses for the search dropdown
-let courses: any[] = [];
+// All allowed directory courses for the review dropdown (Supabase + curated-only slugs not yet in DB).
+let courses: { title: string; slug: string; colleges?: { name?: string; slug?: string } }[] = [];
 
 if (isSupabaseConfigured && supabase) {
-  const { data } = await supabase
-    .from('courses')
-    .select(`
+	const { data } = await supabase
+		.from('courses')
+		.select(
+			`
       id,
       title,
       slug,
       colleges (name, slug)
-    `)
-    .order('title');
-  
-  courses = filterDirectoryCourses(data || []);
+    `,
+		)
+		.order('title');
+
+	courses = filterDirectoryCourses(data || []);
+
+	const seenSlugs = new Set(courses.map((c) => c.slug));
+	for (const cur of CURATED_DIRECTORY_COURSES) {
+		if (seenSlugs.has(cur.slug)) continue;
+		if (
+			!filterDirectoryCourses([{ slug: cur.slug, colleges: { slug: cur.colleges.slug } } as any]).length
+		)
+			continue;
+		courses.push({
+			title: cur.title,
+			slug: cur.slug,
+			colleges: { name: cur.colleges.name, slug: cur.colleges.slug },
+		});
+		seenSlugs.add(cur.slug);
+	}
+
+	courses.sort((a, b) => String(a.title).localeCompare(String(b.title)));
 }
 
 const pageTitle = 'Rate My Course - Share Your Experience';
@@ -59,7 +79,7 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
                   <option value="">-- Choose a course or program --</option>
                   <optgroup label="Courses">
                     {courses?.map((course) => (
-                      <option value={`course:${course.id}`} data-course-slug={course.slug}>
+                      <option value={`course:${course.slug}`} data-course-slug={course.slug}>
                         {course.title} - {course.colleges?.name}
                       </option>
                     ))}
@@ -767,9 +787,24 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
       const verified = formData.get('verified_enrollment') === 'on';
 
       if (target.startsWith('course:')) {
-        const courseId = target.replace(/^course:/, '');
+        const courseSlug = target.replace(/^course:/, '').trim();
+        if (!courseSlug) throw new Error('Please select a course to review.');
+
+        const { data: courseRow, error: courseLookupError } = await supabase
+          .from('courses')
+          .select('id')
+          .eq('slug', courseSlug)
+          .maybeSingle();
+
+        if (courseLookupError) throw courseLookupError;
+        if (!courseRow?.id) {
+          throw new Error(
+            'This course is not in the directory database yet, so reviews cannot be saved. If you are the site owner, apply the latest Supabase migrations; otherwise choose another course or try again later.',
+          );
+        }
+
         const reviewData = {
-          course_id: courseId,
+          course_id: courseRow.id,
           rating,
           review_title: reviewTitle,
           review_text: reviewText,
