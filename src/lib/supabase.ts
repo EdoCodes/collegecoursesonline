@@ -1,7 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+/** Support both VITE_* (local .env) and PUBLIC_* (Netlify `netlify.toml` / dashboard). */
+const supabaseUrl =
+	(import.meta.env.VITE_SUPABASE_URL as string | undefined) ||
+	(import.meta.env.PUBLIC_SUPABASE_URL as string | undefined) ||
+	'';
+const supabaseAnonKey =
+	(import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ||
+	(import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string | undefined) ||
+	'';
 
 // For static builds, allow missing env vars (client-side will handle errors)
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
