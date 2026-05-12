@@ -707,6 +707,33 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
 <script>
   import { supabase } from '../lib/supabase';
 
+  /** PostgREST errors are plain objects, not `Error`, so the UI must read `.message`. */
+  function formatSubmitError(error: unknown): string {
+    if (error instanceof Error) return error.message;
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'message' in error &&
+      typeof (error as { message: unknown }).message === 'string'
+    ) {
+      const { message, hint, details } = error as { message: string; hint?: string; details?: string };
+      const parts = [message];
+      if (hint?.trim()) parts.push(hint.trim());
+      else if (details?.trim() && details.trim() !== message) parts.push(details.trim());
+      return parts.join(' ');
+    }
+    return 'Please try again later.';
+  }
+
+  /** `<input type="month">` yields `YYYY-MM`; Postgres `date` expects a full day (e.g. first of month). */
+  function normalizeEnrollmentDate(raw: FormDataEntryValue | null): string | null {
+    if (raw == null || typeof raw !== 'string') return null;
+    const s = raw.trim();
+    if (!s) return null;
+    if (/^\d{4}-\d{2}$/.test(s)) return `${s}-01`;
+    return s;
+  }
+
   const form = document.getElementById('reviewForm') as HTMLFormElement;
   const courseSelect = document.getElementById('courseSelect') as HTMLSelectElement | null;
   const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
@@ -778,12 +805,15 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
       const formData = new FormData(form);
       
       const target = String(formData.get('target') || '');
-      const rating = parseInt(formData.get('rating') as string);
+      const rating = parseInt(String(formData.get('rating') || ''), 10);
+      if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
+        throw new Error('Please select a star rating from 1 to 5.');
+      }
       const reviewTitle = formData.get('review_title');
       const reviewText = formData.get('review_text');
       const userName = formData.get('user_name');
       const userEmail = formData.get('user_email');
-      const enrollmentDate = formData.get('enrollment_date') || null;
+      const enrollmentDate = normalizeEnrollmentDate(formData.get('enrollment_date'));
       const verified = formData.get('verified_enrollment') === 'on';
 
       if (target.startsWith('course:')) {
@@ -859,7 +889,7 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
 
     } catch (error) {
       console.error('Error submitting review:', error);
-      errorText.textContent = error instanceof Error ? error.message : 'Please try again later.';
+      errorText.textContent = formatSubmitError(error);
       errorMessage.style.display = 'flex';
       
       // Scroll to error message
