@@ -154,3 +154,6 @@ GRANT SELECT ON course_ratings_summary TO anon, authenticated, service_role;
 
 COMMENT ON TABLE course_reviews IS 'User reviews and ratings for online courses';
 COMMENT ON TABLE review_helpful_votes IS 'Tracks helpful votes on reviews to prevent duplicates';
+
+-- Hint PostgREST to reload (hosted Supabase usually picks this up automatically)
+NOTIFY pgrst, 'reload schema';
