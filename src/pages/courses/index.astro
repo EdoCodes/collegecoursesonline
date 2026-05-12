@@ -8,13 +8,13 @@ import CoursePrice from '../../components/CoursePrice.astro';
 import { fetchDirectoryCourseList } from '../../lib/fetchDirectoryCourseList';
 import { FALLBACK_COURSE_CATEGORIES } from '../../lib/courseCategoryFallbacks';
 import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
-import { CURATED_DIRECTORY_COURSES } from '../../lib/curatedDirectoryCourses';
+import { CURATED_DIRECTORY_COURSES, mergeCuratedDirectoryCourses } from '../../lib/curatedDirectoryCourses';
 
 let coursesData: Course[] = [];
 let categories: { slug: string; name: string; icon?: string }[] = [];
 
 if (isSupabaseConfigured && supabase) {
-	coursesData = await fetchDirectoryCourseList(supabase, 50);
+	coursesData = await fetchDirectoryCourseList(supabase);
 
 	const { data: cats } = await supabase.from('course_categories').select('*').order('name');
 
@@ -27,7 +27,7 @@ if (categories.length === 0) {
 
 const CURATED_COURSES = [...CURATED_DIRECTORY_COURSES];
 
-const allCourses: any[] = [...CURATED_COURSES, ...coursesData];
+const allCourses: any[] = mergeCuratedDirectoryCourses(coursesData);
 ---
 
 <Layout

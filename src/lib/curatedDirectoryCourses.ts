@@ -1,3 +1,5 @@
+import type { Course } from './supabase';
+
 /**
  * Curated directory rows not (yet) synced from Supabase.
  * Pharmacology listed first so it surfaces in homepage “Featured” when capped.
@@ -127,6 +129,38 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 		},
 	},
 	{
+		id: 'curated-straighterline-introduction-to-ethics',
+		slug: 'straighterline-introduction-to-ethics',
+		title: 'Introduction to Ethics (PHIL102)',
+		short_description:
+			'StraighterLine Introduction to Ethics: major ethical theories, moral reasoning, and applied cases. 3 ACE-recommended credits.',
+		description:
+			'Explore major ethical theories, strengthen moral reasoning, and apply ideas to real situations—from justice and rights to business, healthcare, and public life. ACE-recommended PHIL102 with digital textbook included.',
+		course_url: 'https://www.straighterline.com/online-college-courses/introduction-to-ethics/',
+		image_url: '/images/courses/straighterline-introduction-to-ethics.jpg',
+		duration: 'Self-paced',
+		level: 'Introductory',
+		price: '$79 + membership',
+		certificate_available: true,
+		credits: '3 Credits',
+		featured: false,
+		views_count: 0,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		colleges: {
+			name: 'StraighterLine',
+			slug: 'straighterline',
+			accreditation_level: 'ACE',
+			popularity_score: 0,
+			ease_of_access_score: 0,
+		},
+		course_categories: {
+			slug: 'humanities',
+			name: 'Humanities',
+			icon: '📚',
+		},
+	},
+	{
 		id: 'curated-prereqcourses-bio-100',
 		slug: 'bio-100-general-biological-science-prereqcourses',
 		title: 'BIO 100 General Biological Science',
@@ -222,3 +256,10 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 		},
 	},
 ];
+
+/** Curated slugs win; avoids duplicate cards when the same course exists in Supabase. */
+export function mergeCuratedDirectoryCourses(dbCourses: Course[]): Array<CuratedDirectoryCourse | Course> {
+	const curated = [...CURATED_DIRECTORY_COURSES];
+	const seen = new Set(curated.map((c) => c.slug));
+	return [...curated, ...dbCourses.filter((c) => !seen.has(c.slug))];
+}

@@ -16,7 +16,7 @@ import {
 } from '../data/resourcesBlogPosts';
 import { linkAceNccrsHtml } from '../lib/linkAceNccrs';
 import type { CuratedDirectoryCourse } from '../lib/curatedDirectoryCourses';
-import { CURATED_DIRECTORY_COURSES } from '../lib/curatedDirectoryCourses';
+import { CURATED_DIRECTORY_COURSES, mergeCuratedDirectoryCourses } from '../lib/curatedDirectoryCourses';
 
 function mergeFeaturedForHome(
 	curatedList: typeof CURATED_DIRECTORY_COURSES,
@@ -44,7 +44,7 @@ let coursesData: Course[] = [];
 let categories: any[] = [];
 
 if (isSupabaseConfigured && supabase) {
-	coursesData = await fetchDirectoryCourseList(supabase, 50);
+	coursesData = await fetchDirectoryCourseList(supabase);
 
 	const { data: cats } = await supabase
 		.from('course_categories')
@@ -68,7 +68,7 @@ const featuredCourses = mergeFeaturedForHome(
 	4,
 );
 
-const allCourses: any[] = [...CURATED_COURSES, ...coursesData];
+const allCourses: any[] = mergeCuratedDirectoryCourses(coursesData);
 
 const _staticCoursesData = [
 	{

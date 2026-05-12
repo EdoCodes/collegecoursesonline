@@ -7,11 +7,11 @@ const ALLOWED_SLUGS = Array.from(ALLOWED_COURSE_COLLEGE_SLUGS);
 
 /**
  * Lists directory courses only (allowed providers), then applies excluded-slug filters.
- * Without this, `.limit(50)` on all courses can hide newer rows when many other DB rows sort first.
+ * Without a sufficient limit, newer rows can be omitted when many featured courses sort first.
  */
 export async function fetchDirectoryCourseList(
 	supabase: SupabaseClient,
-	limit = 50,
+	limit = 120,
 ): Promise<Course[]> {
 	const { data: colleges } = await supabase.from('colleges').select('id').in('slug', ALLOWED_SLUGS);
 
