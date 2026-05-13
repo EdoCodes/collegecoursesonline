@@ -1,0 +1,275 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review moderation | College Courses Online</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f1f5f9; color: #0f172a; }
+    .admin-header { background: #14532d; color: #fff; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    .admin-header h1 { font-size: 1.125rem; font-weight: 800; margin: 0; }
+    .admin-header a { color: #bbf7d0; font-size: 0.875rem; font-weight: 600; }
+    .admin-body { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .login-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 2rem; max-width: 400px; margin: 4rem auto; }
+    .login-card h2 { font-size: 1.25rem; font-weight: 800; margin: 0 0 1.25rem; }
+    .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+    label { font-size: 0.8125rem; font-weight: 600; color: #374151; }
+    input { padding: 0.6rem 0.875rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; width: 100%; font-family: inherit; }
+    input:focus { outline: none; border-color: #16a34a; }
+    .btn { background: #16a34a; color: #fff; font-weight: 700; padding: 0.65rem 1.25rem; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9375rem; }
+    .btn:hover { background: #15803d; }
+    .btn-danger { background: #dc2626; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-muted { background: #64748b; }
+    .btn-muted:hover { background: #475569; }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0; flex-wrap: wrap; }
+    .tab { padding: 0.65rem 1.25rem; font-weight: 700; font-size: 0.875rem; border: none; background: none; cursor: pointer; color: #64748b; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .tab.active { color: #16a34a; border-bottom-color: #16a34a; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .card-title { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin: 0; }
+    .card-meta { font-size: 0.8rem; color: #94a3b8; margin: 0.25rem 0 0; }
+    .card-body { font-size: 0.875rem; color: #374151; line-height: 1.6; margin-bottom: 0.75rem; white-space: pre-wrap; }
+    .card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .badge { font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+    .badge-pending { background: #fef3c7; color: #92400e; }
+    .topic-tag { font-size: 0.75rem; font-weight: 600; color: #15803d; background: #dcfce7; padding: 2px 8px; border-radius: 6px; }
+    .empty { text-align: center; padding: 3rem; color: #94a3b8; font-size: 0.9375rem; }
+    .admin-hint { font-size: 0.8125rem; color: #64748b; line-height: 1.5; margin: 0 0 1.25rem; padding: 0.75rem 1rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
+    #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #059669; color: #fff; padding: 0.75rem 1.25rem; border-radius: 10px; font-weight: 700; font-size: 0.875rem; display: none; z-index: 999; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body>
+  <div class="admin-header">
+    <h1>⭐ Review moderation</h1>
+    <a href="/admin/forum">Forum admin →</a>
+  </div>
+
+  <div id="loginScreen">
+    <div class="login-card">
+      <h2>Admin login</h2>
+      <p style="font-size:0.875rem;color:#64748b;margin:0 0 1rem">Use the same secret as <strong>Forum admin</strong> (<code>FORUM_ADMIN_SECRET</code> in Netlify).</p>
+      <div class="field">
+        <label for="secretInput">Admin secret</label>
+        <input type="password" id="secretInput" placeholder="Enter your admin secret" autocomplete="current-password" />
+      </div>
+      <button class="btn" onclick="login()">Sign in →</button>
+      <p id="loginError" style="color:#dc2626;font-size:0.875rem;margin-top:0.75rem;display:none;">Incorrect secret. Try again.</p>
+    </div>
+  </div>
+
+  <div id="dashboard" style="display:none">
+    <div class="admin-body">
+      <div class="tabs">
+        <button type="button" class="tab active" data-tab="pending-courses">Pending course reviews <span id="badgeCourses"></span></button>
+        <button type="button" class="tab" data-tab="pending-programs">Pending program reviews <span id="badgePrograms"></span></button>
+      </div>
+
+      <p class="admin-hint">
+        Submissions from <strong>Rate My Course</strong> start as <strong>pending</strong>. Approve to show them on course pages. Requires <strong>SUPABASE_SERVICE_ROLE_KEY</strong> on Netlify (same as forum moderation API).
+      </p>
+
+      <div id="pending-courses" class="tab-content active">
+        <div id="listCourses"></div>
+      </div>
+      <div id="pending-programs" class="tab-content">
+        <div id="listPrograms"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">✓ Done</div>
+
+  <script is:inline>
+    let adminSecret = '';
+
+    async function reviewsApi(payload) {
+      const res = await fetch('/api/course-reviews-moderate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret },
+        body: JSON.stringify(payload),
+      });
+      const text = await res.text();
+      if (!res.ok) {
+        console.error('Reviews API error:', res.status, text);
+        throw new Error(text || `Error (${res.status})`);
+      }
+      try {
+        return JSON.parse(text);
+      } catch {
+        return { raw: text };
+      }
+    }
+
+    function escHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = '✓ ' + msg;
+      el.style.display = 'block';
+      setTimeout(() => {
+        el.style.display = 'none';
+      }, 2500);
+    }
+
+    function showTab(id) {
+      document.querySelectorAll('.tab').forEach((t) => {
+        t.classList.toggle('active', t.getAttribute('data-tab') === id);
+      });
+      document.querySelectorAll('.tab-content').forEach((c) => {
+        c.classList.toggle('active', c.id === id);
+      });
+      if (id === 'pending-courses') loadCourses();
+      if (id === 'pending-programs') loadPrograms();
+    }
+
+    document.querySelectorAll('.tab').forEach((btn) => {
+      btn.addEventListener('click', () => showTab(btn.getAttribute('data-tab')));
+    });
+
+    async function loadCourses() {
+      const data = await reviewsApi({ action: 'list-pending-course-reviews' });
+      const rows = Array.isArray(data.rows) ? data.rows : [];
+      const el = document.getElementById('listCourses');
+      const badge = document.getElementById('badgeCourses');
+      badge.textContent = rows.length ? '(' + rows.length + ')' : '';
+      if (!rows.length) {
+        el.innerHTML = '<div class="empty">No pending course reviews.</div>';
+        return;
+      }
+      el.innerHTML = rows
+        .map((r) => {
+          const c = r.courses;
+          const course = Array.isArray(c) ? c[0] : c;
+          const slug = (course && course.slug) || 'unknown';
+          const title = (course && course.title) || 'Course';
+          return `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="topic-tag">${escHtml(slug)}</span>
+              <p class="card-title" style="margin-top:0.4rem">${escHtml(title)}</p>
+              <p class="card-meta">${r.rating}★ · ${escHtml(r.user_name)} (${escHtml(r.user_email)})${r.verified_enrollment ? ' · verified' : ''} · ${new Date(r.created_at).toLocaleString()}</p>
+            </div>
+            <span class="badge badge-pending">Pending</span>
+          </div>
+          ${r.review_title ? `<p class="card-title" style="font-size:0.875rem">${escHtml(r.review_title)}</p>` : ''}
+          <div class="card-body">${escHtml(r.review_text)}</div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-sm" data-act="approve-course-review" data-id="${r.id}">Approve</button>
+            <button type="button" class="btn btn-sm btn-muted" data-act="reject-course-review" data-id="${r.id}">Reject</button>
+            <button type="button" class="btn btn-sm btn-danger" data-act="delete-course-review" data-id="${r.id}">Delete</button>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none;padding:0.35rem 0.75rem;border-radius:8px;font-weight:700" href="/courses/${encodeURIComponent(slug)}/" target="_blank" rel="noopener">View course ↗</a>
+          </div>
+        </div>`;
+        })
+        .join('');
+    }
+
+    async function loadPrograms() {
+      const data = await reviewsApi({ action: 'list-pending-program-reviews' });
+      const rows = Array.isArray(data.rows) ? data.rows : [];
+      const el = document.getElementById('listPrograms');
+      const badge = document.getElementById('badgePrograms');
+      badge.textContent = rows.length ? '(' + rows.length + ')' : '';
+      if (!rows.length) {
+        el.innerHTML = '<div class="empty">No pending certificate program reviews.</div>';
+        return;
+      }
+      el.innerHTML = rows
+        .map(
+          (r) => `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="topic-tag">${escHtml(r.program_slug)}</span>
+              <p class="card-title" style="margin-top:0.4rem">${escHtml(r.program_title)}</p>
+              <p class="card-meta">${r.rating}★ · ${escHtml(r.user_name)} (${escHtml(r.user_email)})${r.verified_enrollment ? ' · verified' : ''} · ${new Date(r.created_at).toLocaleString()}</p>
+            </div>
+            <span class="badge badge-pending">Pending</span>
+          </div>
+          ${r.review_title ? `<p class="card-title" style="font-size:0.875rem">${escHtml(r.review_title)}</p>` : ''}
+          <div class="card-body">${escHtml(r.review_text)}</div>
+          <div class="card-actions">
+            <button type="button" class="btn btn-sm" data-act="approve-program-review" data-id="${r.id}">Approve</button>
+            <button type="button" class="btn btn-sm btn-muted" data-act="reject-program-review" data-id="${r.id}">Reject</button>
+            <button type="button" class="btn btn-sm btn-danger" data-act="delete-program-review" data-id="${r.id}">Delete</button>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none;padding:0.35rem 0.75rem;border-radius:8px;font-weight:700" href="/certificate-programs/${encodeURIComponent(r.program_slug)}/" target="_blank" rel="noopener">View program ↗</a>
+          </div>
+        </div>`,
+        )
+        .join('');
+    }
+
+    document.getElementById('listCourses').addEventListener('click', onActionClick);
+    document.getElementById('listPrograms').addEventListener('click', onActionClick);
+
+    async function onActionClick(e) {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const action = btn.getAttribute('data-act');
+      const id = btn.getAttribute('data-id');
+      if (!id || !action) return;
+      if (action.includes('delete') && !confirm('Delete this review permanently?')) return;
+      try {
+        await reviewsApi({ action, id });
+        toast(action.includes('approve') ? 'Approved' : action.includes('reject') ? 'Rejected' : 'Deleted');
+        const active = document.querySelector('.tab.active');
+        showTab(active ? active.getAttribute('data-tab') : 'pending-courses');
+      } catch (err) {
+        alert(err instanceof Error ? err.message : 'Request failed');
+      }
+    }
+
+    async function login() {
+      const s = document.getElementById('secretInput').value;
+      const errEl = document.getElementById('loginError');
+      errEl.style.display = 'none';
+      adminSecret = s;
+      try {
+        const res = await fetch('/api/course-reviews-moderate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-admin-secret': s },
+          body: JSON.stringify({ action: 'ping' }),
+        });
+        const text = await res.text();
+        if (res.status === 401) {
+          errEl.textContent = 'Incorrect secret. Try again.';
+          errEl.style.display = 'block';
+          return;
+        }
+        if (!res.ok) {
+          errEl.textContent = 'Login failed (' + res.status + '). ' + text;
+          errEl.style.display = 'block';
+          return;
+        }
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        await loadCourses();
+      } catch {
+        errEl.textContent = 'Network error. Could not reach API.';
+        errEl.style.display = 'block';
+      }
+    }
+
+    document.getElementById('secretInput')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
+    });
+
+    Object.assign(window, { login });
+  </script>
+</body>
+</html>
