@@ -15,8 +15,8 @@ const currentYear = new Date().getFullYear();
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
           </svg>
           <div class="logo-text">
-            <span class="logo-name">College Courses</span>
-            <span class="logo-slogan">O N L I N <span class="logo-slogan-e">E<span class="logo-tm" aria-hidden="true">™</span></span></span>
+            <span class="logo-name">College Course<span class="logo-name-s-wrap">s<span class="logo-tm" aria-hidden="true">™</span></span></span>
+            <span class="logo-slogan">O N L I N E</span>
           </div>
         </a>
         <p class="brand-description">
@@ -120,6 +120,24 @@ const currentYear = new Date().getFullYear();
     letter-spacing: -0.02em;
   }
 
+  .logo-name-s-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo-name .logo-tm {
+    position: absolute;
+    top: -0.42em;
+    right: -0.12em;
+    transform: translateX(58%);
+    font-size: 0.4em;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+    color: inherit;
+    pointer-events: none;
+  }
+
   .logo-slogan {
     font-size: 0.625rem;
     font-weight: 700;
@@ -128,24 +146,6 @@ const currentYear = new Date().getFullYear();
     line-height: 1;
     text-align: center;
     width: 100%;
-  }
-
-  .logo-slogan-e {
-    position: relative;
-    display: inline-block;
-  }
-
-  .logo-tm {
-    position: absolute;
-    top: -0.55em;
-    right: -0.15em;
-    transform: translateX(50%);
-    font-size: 0.5em;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: 0;
-    color: inherit;
-    pointer-events: none;
   }
 
   .brand-description {
