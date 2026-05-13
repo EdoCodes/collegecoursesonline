@@ -9,7 +9,7 @@ Disallow: /admin/
 Disallow: /api/
 
 # Sitemap (submit this URL in Google Search Console)
-# Must match `site` in astro.config.mjs — update both if you move to a custom domain.
+# Must match `site` in astro.config.ts — update both if you move to a custom domain.
 Sitemap: https://www.collegecourses.online/sitemap-index.xml
 
 # Crawl-delay (optional - uncomment if needed)
