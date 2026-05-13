@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import Layout from '../../layouts/Layout.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
@@ -16,28 +18,11 @@ import { parseLearningOutcomes, DEFAULT_LEARNING_OUTCOMES } from '../../lib/cour
 import { linkAceNccrsHtml } from '../../lib/linkAceNccrs';
 import { getCuratedCompareFallbackBySlug } from '../../lib/curatedDirectoryCourses';
 
-export async function getStaticPaths() {
-  // Return empty array if Supabase not configured (allows build to complete)
-  if (!isSupabaseConfigured || !supabase) {
-    return [];
-  }
-  
-  const { data: courses } = await supabase.from('courses').select('slug, colleges(slug)');
-
-  return (
-    courses
-      ?.filter(
-        (c) =>
-          !EXCLUDED_COURSE_SLUGS.has(c.slug) &&
-          isAllowedCourseProvider({ colleges: c.colleges as Course['colleges'] }),
-      )
-      .map((course) => ({
-        params: { slug: course.slug },
-      })) || []
-  );
-}
-
 const { slug } = Astro.params;
+
+if (!slug) {
+	return Astro.redirect('/404');
+}
 
 if (!isSupabaseConfigured || !supabase) {
   return Astro.redirect('/404');
