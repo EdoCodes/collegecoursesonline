@@ -86,7 +86,7 @@ if (menuCategories.length === 0) {
         </svg>
         <div class="logo-text">
           <span class="logo-name">College Courses</span>
-          <span class="logo-slogan">O N L I N E</span>
+          <span class="logo-slogan">O N L I N <span class="logo-slogan-e">E<span class="logo-tm" aria-hidden="true">™</span></span></span>
         </div>
       </a>
 
@@ -319,6 +319,24 @@ if (menuCategories.length === 0) {
     line-height: 1;
     text-align: center;
     width: 100%;
+  }
+
+  .logo-slogan-e {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo-tm {
+    position: absolute;
+    top: -0.55em;
+    right: -0.15em;
+    transform: translateX(50%);
+    font-size: 0.5em;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0;
+    color: inherit;
+    pointer-events: none;
   }
 
   /* ── Desktop Nav ── */
