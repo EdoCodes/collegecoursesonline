@@ -29,10 +29,11 @@ export const handler = async (event) => {
     if (action === 'ping') {
       return { statusCode: 200, body: JSON.stringify({ ok: true }) };
     } else if (action === 'list-pending-posts') {
+      // Include NULL is_approved (legacy / manual rows); only fully approved posts are excluded.
       const { data: rows, error } = await supabase
         .from('posts')
         .select('*')
-        .eq('is_approved', false)
+        .or('is_approved.eq.false,is_approved.is.null')
         .order('created_at', { ascending: true });
       if (error) throw error;
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rows }) };
@@ -40,8 +41,16 @@ export const handler = async (event) => {
       const { data: rows, error } = await supabase
         .from('replies')
         .select('*')
-        .eq('is_approved', false)
+        .or('is_approved.eq.false,is_approved.is.null')
         .order('created_at', { ascending: true });
+      if (error) throw error;
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rows }) };
+    } else if (action === 'list-every-post') {
+      const { data: rows, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(200);
       if (error) throw error;
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ rows }) };
     } else if (action === 'list-approved-posts') {

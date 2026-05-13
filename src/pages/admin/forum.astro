@@ -45,6 +45,7 @@
     .reply-compose { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #f1f5f9; display: none; }
     .reply-compose textarea { width: 100%; margin-bottom: 0.5rem; min-height: 80px; resize: vertical; }
     .empty { text-align: center; padding: 3rem; color: #94a3b8; font-size: 0.9375rem; }
+    .admin-hint { font-size: 0.8125rem; color: #64748b; line-height: 1.5; margin: 0 0 1.25rem; padding: 0.75rem 1rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
     #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #059669; color: #fff; padding: 0.75rem 1.25rem; border-radius: 10px; font-weight: 700; font-size: 0.875rem; display: none; z-index: 999; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
   </style>
 </head>
@@ -73,15 +74,24 @@
       <div class="tabs">
         <button class="tab active" onclick="showTab('pending-posts')">Pending Posts <span id="pendingPostsBadge"></span></button>
         <button class="tab" onclick="showTab('pending-replies')">Pending Replies <span id="pendingRepliesBadge"></span></button>
-        <button class="tab" onclick="showTab('all-posts')">All Posts</button>
+        <button class="tab" onclick="showTab('every-post')">Every post</button>
+        <button class="tab" onclick="showTab('all-posts')">Live only</button>
         <button class="tab" onclick="showTab('topics')">Topics</button>
       </div>
+
+      <p class="admin-hint" id="adminTabHint">
+        <strong>New forum questions</strong> land under <strong>Pending Posts</strong> until you approve them.
+        <strong>Live only</strong> is approved threads (what the public sees). Comments on the Community page use Giscus, not this queue.
+      </p>
 
       <div id="pending-posts" class="tab-content active">
         <div id="pendingPostsList"></div>
       </div>
       <div id="pending-replies" class="tab-content">
         <div id="pendingRepliesList"></div>
+      </div>
+      <div id="every-post" class="tab-content">
+        <div id="everyPostsList"></div>
       </div>
       <div id="all-posts" class="tab-content">
         <div id="allPostsList"></div>
@@ -115,8 +125,11 @@
       document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
       document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
       document.getElementById(id).classList.add('active');
+      const hint = document.getElementById('adminTabHint');
+      if (hint) hint.style.display = id === 'topics' ? 'none' : 'block';
       if (id === 'pending-posts') loadPendingPosts();
       if (id === 'pending-replies') loadPendingReplies();
+      if (id === 'every-post') loadEveryPosts();
       if (id === 'all-posts') loadAllPosts();
       if (id === 'topics') loadTopics();
     }
@@ -150,10 +163,14 @@
     }
 
     async function loadPendingPosts() {
-      const { rows: posts } = await adminApi({ action: 'list-pending-posts' });
+      const data = await adminApi({ action: 'list-pending-posts' });
+      const posts = Array.isArray(data.rows) ? data.rows : [];
       const el = document.getElementById('pendingPostsList');
       document.getElementById('pendingPostsBadge').textContent = posts.length ? `(${posts.length})` : '';
-      if (!posts.length) { el.innerHTML = '<div class="empty">No pending posts 🎉</div>'; return; }
+      if (!posts.length) {
+        el.innerHTML = '<div class="empty">No pending posts. If someone just asked on <strong>/forum/</strong>, refresh. Questions on <strong>Community</strong> (Giscus) do not appear here.</div>';
+        return;
+      }
       el.innerHTML = posts.map(p => `
         <div class="card" id="pp-${p.id}">
           <div class="card-header">
@@ -173,7 +190,8 @@
     }
 
     async function loadPendingReplies() {
-      const { rows: replies } = await adminApi({ action: 'list-pending-replies' });
+      const data = await adminApi({ action: 'list-pending-replies' });
+      const replies = Array.isArray(data.rows) ? data.rows : [];
       const el = document.getElementById('pendingRepliesList');
       document.getElementById('pendingRepliesBadge').textContent = replies.length ? `(${replies.length})` : '';
       if (!replies.length) { el.innerHTML = '<div class="empty">No pending replies 🎉</div>'; return; }
@@ -195,8 +213,36 @@
         </div>`).join('');
     }
 
+    async function loadEveryPosts() {
+      const data = await adminApi({ action: 'list-every-post' });
+      const posts = Array.isArray(data.rows) ? data.rows : [];
+      const el = document.getElementById('everyPostsList');
+      if (!posts.length) { el.innerHTML = '<div class="empty">No posts in the database yet.</div>'; return; }
+      el.innerHTML = posts.map((p) => {
+        const live = p.is_approved === true;
+        return `
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="topic-tag">${escHtml(p.topic_slug)}</span>
+              <p class="card-title" style="margin-top:0.4rem">${escHtml(p.title)}</p>
+              <p class="card-meta">By ${escHtml(p.author_name)} · ${new Date(p.created_at).toLocaleString()} · id ${p.id}</p>
+            </div>
+            <span class="badge ${live ? 'badge-approved' : 'badge-pending'}">${live ? 'Live' : 'Pending'}</span>
+          </div>
+          <div class="card-body">${escHtml(p.body)}</div>
+          <div class="card-actions">
+            ${live ? '' : `<button class="btn btn-success btn-sm" onclick="moderate('approve','post','${p.id}')">✓ Approve</button>`}
+            <button class="btn btn-danger btn-sm" onclick="moderate('delete','post','${p.id}')">✕ Delete</button>
+            <a class="btn btn-sm" style="background:#f1f5f9;color:#374151;text-decoration:none" href="/forum/post/${p.id}" target="_blank">View ↗</a>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
     async function loadAllPosts() {
-      const { rows: posts } = await adminApi({ action: 'list-approved-posts' });
+      const data = await adminApi({ action: 'list-approved-posts' });
+      const posts = Array.isArray(data.rows) ? data.rows : [];
       const el = document.getElementById('allPostsList');
       if (!posts.length) { el.innerHTML = '<div class="empty">No approved posts yet.</div>'; return; }
       el.innerHTML = posts.map(p => `
@@ -341,6 +387,7 @@
       showTab,
       login,
       moderate,
+      loadEveryPosts,
       toggleReplyBox,
       postStaffReply,
       addTopic,
