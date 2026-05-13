@@ -22,6 +22,7 @@ const tags = [
   { slug: 'straighterline-introduction-to-religious-studies', subcategory: 'Religious Studies', subcategory_slug: 'religious-studies' },
   { slug: 'straighterline-introduction-to-ethics', subcategory: 'Ethics', subcategory_slug: 'ethics' },
   { slug: 'straighterline-introduction-to-marketing', subcategory: 'Marketing', subcategory_slug: 'marketing' },
+  { slug: 'straighterline-business-communication', subcategory: 'Business Communication', subcategory_slug: 'business-communication' },
   { slug: 'straighterline-information-technology-fundamentals', subcategory: 'Information Technology', subcategory_slug: 'information-technology' },
   { slug: 'straighterline-spanish-i', subcategory: 'Spanish', subcategory_slug: 'spanish' },
   { slug: 'straighterline-microbiology',      subcategory: 'Biology',               subcategory_slug: 'biology' },

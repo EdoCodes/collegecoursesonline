@@ -193,6 +193,38 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 		},
 	},
 	{
+		id: 'curated-straighterline-business-communication',
+		slug: 'straighterline-business-communication',
+		title: 'Business Communication (BUS105)',
+		short_description:
+			'StraighterLine Business Communication: professional writing, workplace messaging, and multimodal presentations. 3 ACE-recommended credits.',
+		description:
+			'ACE-recommended BUS105 builds clear, ethical communication for email, memos, résumés, cover letters, and video pitches using LibreTexts Business Communication for Success. Four checkpoints and six capstones; digital textbook included; verify transfer with your school.',
+		course_url: 'https://www.straighterline.com/online-college-courses/business-communication/',
+		image_url: '/images/courses/straighterline-business-communication.png',
+		duration: 'Self-paced',
+		level: 'Introductory',
+		price: '$79',
+		certificate_available: true,
+		credits: '3 Credits',
+		featured: false,
+		views_count: 0,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		colleges: {
+			name: 'StraighterLine',
+			slug: 'straighterline',
+			accreditation_level: 'ACE',
+			popularity_score: 0,
+			ease_of_access_score: 0,
+		},
+		course_categories: {
+			slug: 'business',
+			name: 'Business',
+			icon: '💼',
+		},
+	},
+	{
 		id: 'curated-prereqcourses-bio-100',
 		slug: 'bio-100-general-biological-science-prereqcourses',
 		title: 'BIO 100 General Biological Science',

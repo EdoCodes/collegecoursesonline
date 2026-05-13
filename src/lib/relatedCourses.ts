@@ -65,6 +65,11 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 		'straighterline-managerial-accounting',
 		'study-com-financial-accounting',
 	],
+	'straighterline-business-communication': [
+		'study-com-public-speaking',
+		'straighterline-english-composition-i',
+		'straighterline-introduction-to-marketing',
+	],
 	'straighterline-medical-terminology': ['straighterline-anatomy-physiology-1'],
 	'straighterline-anatomy-physiology-1': ['straighterline-medical-terminology'],
 	'study-com-college-composition': ['straighterline-english-composition-i'],
@@ -78,8 +83,14 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 	],
 	'straighterline-microbiology': ['straighterline-microbiology-lab'],
 	'straighterline-microbiology-lab': ['straighterline-microbiology'],
-	'study-com-public-speaking': ['chabot-commc1000-intro-public-speaking'],
-	'chabot-commc1000-intro-public-speaking': ['study-com-public-speaking'],
+	'study-com-public-speaking': [
+		'straighterline-business-communication',
+		'chabot-commc1000-intro-public-speaking',
+	],
+	'chabot-commc1000-intro-public-speaking': [
+		'study-com-public-speaking',
+		'straighterline-business-communication',
+	],
 };
 
 /** When DB `subcategory` is missing, infer for related-course matching only. */
@@ -90,5 +101,6 @@ export function inferredSubcategory(
 	if (course.subcategory?.trim()) return course.subcategory.trim();
 	if (slug === 'straighterline-introduction-to-statistics') return 'Statistics';
 	if (slug === 'straighterline-introduction-to-marketing') return 'Marketing';
+	if (slug === 'straighterline-business-communication') return 'Business Communication';
 	return null;
 }
