@@ -845,10 +845,8 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
           status: 'pending'
         };
 
-        const { error } = await supabase
-          .from('course_reviews')
-          .insert([reviewData])
-          .select();
+        // Do not chain .select(): RLS only allows SELECT on approved rows, so RETURNING pending fails.
+        const { error } = await supabase.from('course_reviews').insert([reviewData]);
         if (error) throw error;
       } else if (target.startsWith('program:')) {
         const programSlug = target.replace(/^program:/, '');
@@ -868,10 +866,7 @@ const programIndex = new Map(certificatePrograms.map((p) => [p.slug, p]));
           status: 'pending'
         };
 
-        const { error } = await supabase
-          .from('certificate_program_reviews')
-          .insert([reviewData])
-          .select();
+        const { error } = await supabase.from('certificate_program_reviews').insert([reviewData]);
         if (error) throw error;
       } else {
         throw new Error('Please select a course or program to review.');

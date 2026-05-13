@@ -1,6 +1,7 @@
 -- Apply if production shows: Could not find the table 'public.course_reviews' in the schema cache
 -- Safe to re-run: uses IF NOT EXISTS / DROP IF EXISTS where needed.
 -- Requires: public.courses(id uuid) already exists.
+-- Client inserts: do not use .insert().select() for pending rows — SELECT RLS only allows status = 'approved'.
 
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
