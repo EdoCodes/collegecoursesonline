@@ -212,8 +212,9 @@ export const resourcesBlogPosts: ResourcesBlogPost[] = [
     label: 'Colleges',
     date: 'Apr 17, 2026',
     readingTime: '14 min read',
-    image:
-      'https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/cards/blog/university-of-florida-online-2026-guide-card.png',
+    imageAlt:
+      'University campus at dusk: illuminated historic building with tower, arches, and palm trees.',
     tags: ['UF Online', 'Florida', 'Online Bachelor’s', 'Transfer Students', '2026'],
   },
   {
