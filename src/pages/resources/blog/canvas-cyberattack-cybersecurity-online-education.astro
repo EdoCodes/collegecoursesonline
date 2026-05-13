@@ -21,7 +21,7 @@ const readTimeFromFrontmatter = entry.data.readTime;
 const seoTitle = entry.data.seoTitle as string | undefined;
 const layoutTitle = seoTitle ? `${seoTitle} | Online College Courses` : undefined;
 
-const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecoursesonline.netlify.app';
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://www.collegecourses.online';
 const slugPath = '/resources/blog/canvas-cyberattack-cybersecurity-online-education';
 const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
 

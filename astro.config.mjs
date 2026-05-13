@@ -7,7 +7,7 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   adapter: netlify(),
-  site: 'https://collegecoursesonline.netlify.app',
+  site: 'https://www.collegecourses.online',
   integrations: [
     mdx(),
     sitemap({

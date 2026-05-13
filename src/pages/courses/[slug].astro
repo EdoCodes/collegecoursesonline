@@ -54,7 +54,7 @@ const college = typedCourse.colleges;
 const category = typedCourse.course_categories;
 
 const courseImageUrl = resolveCourseImageUrl(typedCourse.slug, typedCourse.image_url);
-const siteBaseHref = Astro.site?.href ?? 'https://collegecoursesonline.netlify.app/';
+const siteBaseHref = Astro.site?.href ?? 'https://www.collegecourses.online/';
 const schemaImageHref = courseImageUrl.startsWith('http')
 	? courseImageUrl
 	: new URL(courseImageUrl.replace(/^\//, ''), siteBaseHref).href;
