@@ -51,12 +51,20 @@ export const RELATED_ALTERNATIVE_FIRST: Record<string, string[]> = {
 		'study-com-philosophy-101-intro-to-philosophy',
 		'straighterline-introduction-to-ethics',
 	],
-	'study-com-intro-to-business': ['study-com-financial-accounting'],
+	'study-com-intro-to-business': [
+		'straighterline-introduction-to-marketing',
+		'study-com-financial-accounting',
+	],
 	'study-com-financial-accounting': [
 		'straighterline-managerial-accounting',
 		'study-com-intro-to-business',
 	],
 	'straighterline-managerial-accounting': ['study-com-financial-accounting'],
+	'straighterline-introduction-to-marketing': [
+		'study-com-intro-to-business',
+		'straighterline-managerial-accounting',
+		'study-com-financial-accounting',
+	],
 	'straighterline-medical-terminology': ['straighterline-anatomy-physiology-1'],
 	'straighterline-anatomy-physiology-1': ['straighterline-medical-terminology'],
 	'study-com-college-composition': ['straighterline-english-composition-i'],
@@ -81,5 +89,6 @@ export function inferredSubcategory(
 ): string | null {
 	if (course.subcategory?.trim()) return course.subcategory.trim();
 	if (slug === 'straighterline-introduction-to-statistics') return 'Statistics';
+	if (slug === 'straighterline-introduction-to-marketing') return 'Marketing';
 	return null;
 }

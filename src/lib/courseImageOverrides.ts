@@ -31,6 +31,8 @@ export const COURSE_IMAGE_OVERRIDES: Record<string, string> = {
 		'/images/courses/straighterline-introduction-to-religious-studies.jpg',
 	'straighterline-introduction-to-ethics':
 		'/images/courses/straighterline-introduction-to-ethics.jpg',
+	'straighterline-introduction-to-marketing':
+		'/images/courses/straighterline-introduction-to-marketing.png',
 	'straighterline-information-technology-fundamentals':
 		'/images/courses/straighterline-information-technology-fundamentals.jpg',
 	'straighterline-spanish-i': '/images/courses/straighterline-spanish-i.jpg',

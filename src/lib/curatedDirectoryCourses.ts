@@ -161,6 +161,38 @@ export const CURATED_DIRECTORY_COURSES: CuratedDirectoryCourse[] = [
 		},
 	},
 	{
+		id: 'curated-straighterline-introduction-to-marketing',
+		slug: 'straighterline-introduction-to-marketing',
+		title: 'Introduction to Marketing (BUS102)',
+		short_description:
+			'StraighterLine Introduction to Marketing: strategy, segmentation, digital marketing, branding, and CRM. 3 ACE-recommended credits.',
+		description:
+			'ACE-recommended BUS102 covers core marketing principles, consumer behavior, STP, promotion and pricing, retailing, digital and social media, branding, CRM, and sustainable marketing—with checkpoints, benchmarks, and capstones. Digital textbook included; verify transfer with your school.',
+		course_url: 'https://www.straighterline.com/online-college-courses/introduction-to-marketing/',
+		image_url: '/images/courses/straighterline-introduction-to-marketing.png',
+		duration: 'Self-paced',
+		level: 'Introductory',
+		price: '$79',
+		certificate_available: true,
+		credits: '3 Credits',
+		featured: false,
+		views_count: 0,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		colleges: {
+			name: 'StraighterLine',
+			slug: 'straighterline',
+			accreditation_level: 'ACE',
+			popularity_score: 0,
+			ease_of_access_score: 0,
+		},
+		course_categories: {
+			slug: 'business',
+			name: 'Business',
+			icon: '💼',
+		},
+	},
+	{
 		id: 'curated-prereqcourses-bio-100',
 		slug: 'bio-100-general-biological-science-prereqcourses',
 		title: 'BIO 100 General Biological Science',
