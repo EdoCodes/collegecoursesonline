@@ -8,8 +8,9 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-# Sitemap location
-Sitemap: https://yoursite.com/sitemap.xml
+# Sitemap (submit this URL in Google Search Console)
+# Must match `site` in astro.config.mjs — update both if you move to a custom domain.
+Sitemap: https://collegecoursesonline.netlify.app/sitemap-index.xml
 
 # Crawl-delay (optional - uncomment if needed)
 # Crawl-delay: 1

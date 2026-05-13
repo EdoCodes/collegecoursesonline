@@ -16,6 +16,17 @@
     PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRseHlqb2F4eWVrdGdxcmFheWZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzODk0OTAsImV4cCI6MjA4OTk2NTQ5MH0.RViY-bBv5GVya-Z1JVpjEDIqttJWXZ4MP48vkXotLvk"
 
 # Redirects and rewrites
+# Conventional sitemap URL → Astro @astrojs/sitemap index (Google accepts either)
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/sitemap.xml/"
+  to = "/sitemap-index.xml"
+  status = 301
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
