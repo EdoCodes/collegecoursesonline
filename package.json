@@ -32,5 +32,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/EdoCodes/collegecoursesonline.git"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^6.0.3"
   }
 }
