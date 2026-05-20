@@ -25,6 +25,10 @@ Use this for new guides under `/resources/blog/` so they match **University of F
 
 Put scripts in **`<script type="application/ld+json" slot="head" … />`** so structured data lives in `<head>`.
 
+## FAQ and People Also Ask order
+
+On every long-form guide, place the **FAQ** rubric **first**, then **People Also Ask (PAA)** directly below it (in body copy, MDX “In this guide” lists, and `tocItems` / sidebar TOC). Use `faq-page-wrap` + `paa-block` (or equivalent `section id="faq"` / `id="paa"`) in that order.
+
 ## Body styling
 
 Rely on **`ArticleProse`** + shared prose utilities (`summary-box`, `link-external`, FAQ blocks). Heading hover and link behavior are aligned with **`ResourcesGuideLayout`** global `.article-content` rules.
