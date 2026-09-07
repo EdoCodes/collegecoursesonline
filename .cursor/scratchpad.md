@@ -525,8 +525,8 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 | Task ID | Task Name | Status | Priority | Notes |
 |---------|-----------|--------|----------|-------|
-| T-SEO-1 | Fix www↔apex redirect mismatch (align to apex) | 🔄 in progress (ready for confirmation) | CRITICAL | Codebase standardized to apex https://collegecourses.online. Matches Netlify primary. Build verified. |
-| T-SEO-2 | Verify live deploy + re-submit sitemap in GSC | ⏳ pending | CRITICAL | After deploy: apex 200, www 301, sitemap submitted to GSC |
+| T-SEO-1 | Fix www↔apex redirect mismatch (align to apex) | ✅ completed | CRITICAL | Codebase standardized to apex https://collegecourses.online. Matches Netlify primary. User verified GSC apex property. |
+| T-SEO-2 | Verify live deploy + re-submit sitemap in GSC | 🔄 in progress | CRITICAL | User inspected study-com-vs-sophia-vs-straighterline: status is "Discovered - currently not indexed", last crawl N/A. Next: Test Live URL + Request Indexing, submit sitemap-index.xml. |
 | T-SEO-3 | GSC Coverage/Pages audit from user screenshots | ⏳ pending | HIGH | Optional screenshots: Performance chart, Pages, Indexing |
 | T-SEO-4 | Fix any soft-404 / thin / noindex issues found | ⏳ pending | HIGH | Executor after T-SEO-3 |
 | T-SEO-5 | Request indexing for top money pages | ⏳ pending | MEDIUM | After host fixed |
@@ -594,6 +594,14 @@ Live deployment verified:
 - Live sitemap `https://collegecourses.online/sitemap-index.xml` → 200 OK
 - Live robots.txt references `https://collegecourses.online/sitemap-index.xml`
 The canonical/redirect loop is 100% resolved. Ready for user confirmation to mark T-SEO-1 complete and begin T-SEO-2 (GSC resubmission & inspection).
+
+### 2026-09-07 — GSC URL Inspection Confirmation (`study-com-vs-sophia-vs-straighterline`)
+
+- User inspected `https://collegecourses.online/resources/blog/study-com-vs-sophia-vs-straighterline/` in the new apex GSC property.
+- Status: **"Discovered - currently not indexed"**
+- Crawl: **N/A** (never crawled yet by Google on apex)
+- Sitemaps: **No referring sitemaps detected** (sitemap not yet processed on apex property)
+- Action: User to click "TEST LIVE URL" / "REQUEST INDEXING", then submit `sitemap-index.xml` in Sitemaps tab.
 
 ### 2026-05-19 — Course review moderation UI (`/admin/reviews`)
 
