@@ -586,16 +586,14 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 - Saved: `assets/.../performancesnip-98856595-f4ce-47e7-ad08-f2151bd858a5.png`
 
 **Update (2026-09-07):**
-User checked Netlify and confirmed a primary domain is set. Live HTTP checks confirm that Netlify is currently serving `https://collegecourses.online/` (apex) as 200 OK, while `https://www.collegecourses.online/` 301-redirects to apex. Seeking user decision on whether to adopt apex `collegecourses.online` across the codebase or specifically set `www` as primary in Netlify.
-
-**Next evidence needed:** Indexing → Pages (how many indexed / why not indexed) + Sitemaps status.
-
-**User action needed (cannot fix from repo alone without risking redirect loop):**
-1. Netlify → Domain management → set `www.collegecourses.online` as **primary domain**
-2. Confirm: apex 301s to www; www returns 200
-3. Reply here so Executor can verify and proceed to T-SEO-2
-
-**Fallback:** If Netlify must keep apex primary, flip codebase `site`/sitemap/robots/canonicals to apex and add/use GSC property for apex — larger churn; prefer www fix.
+User chose apex `https://collegecourses.online`. Codebase was standardized across `astro.config.ts`, `public/robots.txt`, `netlify.toml`, and all Astro templates/pages. 
+Live deployment verified:
+- `curl -sI https://collegecourses.online/` → 200 OK
+- `curl -sI https://www.collegecourses.online/` → 301 Moved Permanently to https://collegecourses.online/
+- Live homepage `<link rel="canonical" href="https://collegecourses.online/">`
+- Live sitemap `https://collegecourses.online/sitemap-index.xml` → 200 OK
+- Live robots.txt references `https://collegecourses.online/sitemap-index.xml`
+The canonical/redirect loop is 100% resolved. Ready for user confirmation to mark T-SEO-1 complete and begin T-SEO-2 (GSC resubmission & inspection).
 
 ### 2026-05-19 — Course review moderation UI (`/admin/reviews`)
 
