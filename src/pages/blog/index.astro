@@ -27,7 +27,7 @@ function readingMinutesFromPost(post: { body: string; data: { readTime?: string 
 	return readingMinutes(post.body);
 }
 
-const siteBase = Astro.site ?? new URL('https://www.collegecourses.online');
+const siteBase = Astro.site ?? new URL('https://collegecourses.online');
 const blogIndexUrl = new URL('/blog/', siteBase).href;
 const breadcrumbJsonLd = {
 	'@context': 'https://schema.org',

@@ -59,7 +59,7 @@ function initials(name: string) {
   return name ? String(name).trim().charAt(0).toUpperCase() : '?';
 }
 
-const siteUrl = Astro.site || new URL('https://www.collegecourses.online');
+const siteUrl = Astro.site || new URL('https://collegecourses.online');
 const threadUrl = new URL(canonicalPath, siteUrl).toString();
 const qapageSchema = post
   ? {

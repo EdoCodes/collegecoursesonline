@@ -12,6 +12,9 @@
 
 ## Background and Motivation
 
+### 2026-07-19 — Organic traffic recovery (GSC)
+User reports Search Console traffic is dead for `https://www.collegecourses.online/`. Goal: diagnose indexing/host issues, fix the highest-impact technical blockers first, then use GSC data (screenshots optional) for page-level recovery.
+
 ### Project Vision
 Transform the basic Astro course directory into a comprehensive, SEO-optimized affiliate platform that helps users discover and compare online college courses from various institutions. The platform will generate revenue through affiliate commissions while providing genuine value through user reviews, detailed course information, and educational blog content.
 
@@ -39,6 +42,13 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 ---
 
 ## Key Challenges and Analysis
+
+### 0. **Traffic collapse — host / canonical mismatch (2026-07-19)**
+- **Challenge:** Live site serves on **apex** (`collegecourses.online`) while sitemap, canonicals, robots, Astro `site`, and GSC property all declare **www**. Netlify currently 301s www → apex (opposite of `netlify.toml` intent).
+- **Why it kills traffic:** Google crawls www URLs from the sitemap → gets 301 to apex → HTML still claims www as canonical → redirect/canonical loop signal → rankings and clicks collapse.
+- **Fix (preferred):** Netlify Domain management → set `www.collegecourses.online` as primary so apex → www (matches codebase + GSC).
+- **Alt fix:** Flip all canonical/sitemap/site config to apex (only if www cannot be primary).
+- **Screenshots:** Not required for this fix; useful after for query/page CTR and Indexing → Pages coverage.
 
 ### 1. **SEO Optimization Requirements**
 - **Challenge:** Need to rank for competitive education keywords
@@ -89,6 +99,28 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 ---
 
 ## High-level Task Breakdown
+
+### **Phase 0: Traffic Recovery** (Priority: CRITICAL — 2026-07-19)
+
+#### Task T-SEO-1: Align canonical domain with Netlify primary (apex https://collegecourses.online)
+- **Status:** ready for confirmation
+- **Success:** Netlify serves apex `https://collegecourses.online/` (200 OK); `https://www.collegecourses.online/` 301-redirects to apex; codebase site, canonicals, robots.txt, and sitemaps all output `https://collegecourses.online/`.
+- **Owner:** Executor complete, pending user confirmation
+
+#### Task T-SEO-2: Re-submit sitemap + URL Inspection spot-check
+- **Status:** pending
+- **Success:** GSC sitemap `sitemap-index.xml` shows success; homepage + 3 top guides “URL is on Google”
+
+#### Task T-SEO-3: GSC performance / indexing audit
+- **Status:** pending
+- **Success:** List of pages with impression drop / not indexed; prioritized fix list
+- **Input:** Optional screenshots (Performance 28d, Pages, Indexing)
+
+#### Task T-SEO-4: Implement page-level SEO fixes from audit
+- **Status:** pending
+
+#### Task T-SEO-5: Request indexing for priority URLs
+- **Status:** pending
 
 ### **Phase 1: Core Pages & Structure** (Priority: CRITICAL)
 
@@ -486,13 +518,18 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 
 ## Project Status Board
 
-**Current Phase:** Phase 1 - Core Pages & Structure  
-**Current Task:** Task 1.1 - Create Individual Course Detail Pages  
-**Mode:** Executor  
-**Working Directory:** `C:\Users\domai\Desktop\collegecoursesonline\`
+**Current Phase:** Traffic Recovery (GSC / SEO) — CRITICAL  
+**Current Task:** T-SEO-1 — Standardize canonical domain to apex (ready for user confirmation)  
+**Mode:** Planner + Executor  
+**Working Directory:** `C:\Users\domai\tintshoproject\collegecoursesonline\`
 
 | Task ID | Task Name | Status | Priority | Notes |
 |---------|-----------|--------|----------|-------|
+| T-SEO-1 | Fix www↔apex redirect mismatch (align to apex) | 🔄 in progress (ready for confirmation) | CRITICAL | Codebase standardized to apex https://collegecourses.online. Matches Netlify primary. Build verified. |
+| T-SEO-2 | Verify live deploy + re-submit sitemap in GSC | ⏳ pending | CRITICAL | After deploy: apex 200, www 301, sitemap submitted to GSC |
+| T-SEO-3 | GSC Coverage/Pages audit from user screenshots | ⏳ pending | HIGH | Optional screenshots: Performance chart, Pages, Indexing |
+| T-SEO-4 | Fix any soft-404 / thin / noindex issues found | ⏳ pending | HIGH | Executor after T-SEO-3 |
+| T-SEO-5 | Request indexing for top money pages | ⏳ pending | MEDIUM | After host fixed |
 | 1.1 | Create Course Detail Pages | ✅ completed | CRITICAL | Comprehensive page with Schema.org, CTA, reviews placeholder |
 | 1.2 | Create College Profile Pages | ✅ completed | CRITICAL | Full profile with courses, stats, Schema.org |
 | 1.3 | Create Category Landing Pages | ✅ completed | CRITICAL | Full category pages with filtering, stats |
@@ -520,7 +557,7 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 | 6.4 | Newsletter Subscription | ⏳ pending | MEDIUM | Marketing |
 | 7.1 | Admin Authentication | ⏳ pending | MEDIUM | Admin tools |
 | 7.2 | Course Management Dashboard | ⏳ pending | MEDIUM | After 7.1 |
-| 7.3 | Review Moderation Dashboard | ⏳ pending | MEDIUM | After 7.1 |
+| 7.3 | Review Moderation Dashboard | ✅ completed | MEDIUM | `/admin/reviews` + `course-reviews-moderate` API (FORUM_ADMIN_SECRET) |
 | 7.4 | Analytics Dashboard | ⏳ pending | LOW | Future enhancement |
 | 8.1 | Netlify Configuration | ✅ completed | CRITICAL | netlify.toml created with optimization |
 | 8.2 | Environment Variables Setup | ✅ completed | CRITICAL | .env.example template created |
@@ -534,6 +571,37 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 ---
 
 ## Executor's Feedback or Assistance Requests
+
+### 2026-07-19 — Traffic dead: www/apex host conflict (BLOCKER)
+
+**Finding (verified live):**
+- GSC property + `astro.config.ts` + sitemap + canonicals + robots Sitemap all use `https://www.collegecourses.online`
+- Live Netlify: `https://www.collegecourses.online/*` **301 →** `https://collegecourses.online/*` (apex is primary)
+- Homepage still emits `<link rel="canonical" href="https://www.collegecourses.online/">` while serving on apex → classic redirect/canonical conflict that tanks organic traffic
+- `netlify.toml` already documents the intended fix: set **www** as primary domain in Netlify UI
+
+**GSC Performance (user screenshot, last 28 days, Web):**
+- Clicks: **0** · Impressions: **2** · CTR: **0%** · Avg position: **33**
+- Only ~1 impression on Jun 20 and ~1 on Jun 26 — site is effectively **not showing** in Google, not merely ranking poorly
+- Saved: `assets/.../performancesnip-98856595-f4ce-47e7-ad08-f2151bd858a5.png`
+
+**Update (2026-09-07):**
+User checked Netlify and confirmed a primary domain is set. Live HTTP checks confirm that Netlify is currently serving `https://collegecourses.online/` (apex) as 200 OK, while `https://www.collegecourses.online/` 301-redirects to apex. Seeking user decision on whether to adopt apex `collegecourses.online` across the codebase or specifically set `www` as primary in Netlify.
+
+**Next evidence needed:** Indexing → Pages (how many indexed / why not indexed) + Sitemaps status.
+
+**User action needed (cannot fix from repo alone without risking redirect loop):**
+1. Netlify → Domain management → set `www.collegecourses.online` as **primary domain**
+2. Confirm: apex 301s to www; www returns 200
+3. Reply here so Executor can verify and proceed to T-SEO-2
+
+**Fallback:** If Netlify must keep apex primary, flip codebase `site`/sitemap/robots/canonicals to apex and add/use GSC property for apex — larger churn; prefer www fix.
+
+### 2026-05-19 — Course review moderation UI (`/admin/reviews`)
+
+- **URL:** `https://collegecoursesonline.netlify.app/admin/reviews` (same login as forum: `FORUM_ADMIN_SECRET`; needs `SUPABASE_SERVICE_ROLE_KEY` on Netlify).
+- **API:** `POST /api/course-reviews-moderate` — list pending course/program reviews; approve / reject / delete.
+- Forum admin header links to this page. Pending reviews do not appear on public course pages until approved.
 
 ### 2026-05-12 — StraighterLine Introduction to Ethics (PHIL102)
 
@@ -705,6 +773,8 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 ## Lessons
 
 *This section will capture lessons learned during development.*
+
+- **Host mismatch kills SEO:** If Netlify primary domain disagrees with Astro `site` / sitemap / canonical / GSC property, organic traffic can collapse even when the site “works” in a browser. Always verify www↔apex with `curl -sI` after domain changes.
 
 - For MDX blog posts, pair structured HTML (e.g. `div.table-wrap` > `table`, `div.school-grid` > linked cards) with `:global(...)` rules on the blog template so styling stays consistent without per-post CSS.
 

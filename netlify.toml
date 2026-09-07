@@ -1,9 +1,9 @@
 # Netlify configuration for Online College Courses Directory
 # https://docs.netlify.com/configure-builds/file-based-configuration/
 #
-# Canonical host (SEO): use www as PRIMARY in the Netlify UI so apex 301s to www.
-# Site settings → Domain management → select www.collegecourses.online → “Set as primary domain”.
-# (astro.config.ts `site`, sitemap, and public/robots.txt already use https://www.collegecourses.online)
+# Canonical host (SEO): apex domain https://collegecourses.online is PRIMARY in Netlify UI.
+# www.collegecourses.online 301-redirects to https://collegecourses.online.
+# (astro.config.ts `site`, sitemap, and public/robots.txt use https://collegecourses.online)
 
 [build]
   # Build command

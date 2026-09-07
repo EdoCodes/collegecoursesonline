@@ -17,7 +17,7 @@ const authorTitle = entry.data.authorTitle ?? 'Editorial';
 const breadcrumbTitle = entry.data.breadcrumbTitle ?? title;
 const readTimeFromFrontmatter = entry.data.readTime;
 
-const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://www.collegecourses.online';
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecourses.online';
 const slugPath = '/resources/blog/prerequisite-courses-for-nursing-school';
 const pageUrl = new URL(slugPath.replace(/^\//, ''), `${site}/`).href;
 

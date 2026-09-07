@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import { getCourseUrlsForSitemap } from './src/lib/getCourseUrlsForSitemap';
 
-const site = 'https://www.collegecourses.online';
+const site = 'https://collegecourses.online';
 
 const courseUrls = await getCourseUrlsForSitemap(site);
 if (courseUrls.length) {

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 
-const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://www.collegecourses.online';
+const site = Astro.site?.href?.replace(/\/$/, '') ?? 'https://collegecourses.online';
 const canonicalPath = '/resources/blog/study-com-vs-sophia-vs-straighterline/';
 const pageUrl = new URL(canonicalPath.replace(/^\//, ''), `${site}/`).href;
 

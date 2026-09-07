@@ -21,7 +21,7 @@ const course = {
 
 const canonical = '/courses/bio-100-general-biological-science-prereqcourses';
 
-const siteUrl = Astro.site || new URL('https://www.collegecourses.online');
+const siteUrl = Astro.site || new URL('https://collegecourses.online');
 const fullCourseUrl = new URL(canonical, siteUrl).toString();
 const schemaImageUrl = new URL(course.image.replace(/^\//, ''), siteUrl).toString();
 
