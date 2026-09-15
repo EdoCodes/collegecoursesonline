@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-	title = 'Online College Courses - Find Accredited Online Degrees & Classes',
-	description = 'Discover thousands of online college courses from accredited institutions worldwide. Search for online degrees, certificates, and classes from top universities and colleges.',
+	title = 'College Courses Online | Accredited Courses That Transfer',
+	description = 'Accredited college courses that transfer — in one place. Compare transferable online courses from accredited colleges and providers.',
 	image = '/og-image.jpg',
 	canonical = Astro.url.pathname,
 	type = 'website',
@@ -28,8 +28,8 @@ const imageUrl = new URL(image, siteUrl).href;
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Online College Courses",
-  "description": "Directory of accredited online college courses and degrees",
+  "name": "College Courses Online",
+  "description": "Accredited college courses that transfer — in one place.",
   "url": siteUrl,
   "potentialAction": {
     "@type": "SearchAction",
