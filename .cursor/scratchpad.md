@@ -526,7 +526,7 @@ Transform the basic Astro course directory into a comprehensive, SEO-optimized a
 | Task ID | Task Name | Status | Priority | Notes |
 |---------|-----------|--------|----------|-------|
 | T-SEO-1 | Fix www↔apex redirect mismatch (align to apex) | ✅ completed | CRITICAL | Codebase standardized to apex https://collegecourses.online. Matches Netlify primary. User verified GSC apex property. |
-| T-SEO-2 | Verify live deploy + re-submit sitemap in GSC | 🔄 in progress | CRITICAL | Submitted sitemap-index.xml and sitemap-0.xml on apex property. Next: verify sitemap processing and perform priority URL indexing. |
+| T-SEO-2 | Verify live deploy + re-submit sitemap in GSC | ✅ completed | CRITICAL | Apex GSC property live; study-com-vs-sophia page now "URL is on Google" (indexed). Impressions returning (~38 queries). Further SEO improvements deferred to later phase. |
 | T-SEO-3 | GSC Coverage/Pages audit from user screenshots | ⏳ pending | HIGH | Optional screenshots: Performance chart, Pages, Indexing |
 | T-SEO-4 | Fix any soft-404 / thin / noindex issues found | ⏳ pending | HIGH | Executor after T-SEO-3 |
 | T-SEO-5 | Request indexing for top money pages | ⏳ pending | MEDIUM | After host fixed |
